@@ -15,7 +15,7 @@ Disable client device logging.
 The following arguments are supported:
 
 
-* `TTL` - Time to Live
+* `ttl` - Time to Live
 * `device` - Device to be disabled logging
 * `fosid` - ID of device logging disable entry.
 
