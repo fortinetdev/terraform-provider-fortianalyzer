@@ -131,10 +131,11 @@ func resourceSystemSql() *schema.Resource {
 				Computed: true,
 			},
 			"password": &schema.Schema{
-				Type:     schema.TypeSet,
-				Elem:     &schema.Schema{Type: schema.TypeString},
-				Optional: true,
-				Computed: true,
+				Type:      schema.TypeSet,
+				Elem:      &schema.Schema{Type: schema.TypeString},
+				Optional:  true,
+				Sensitive: true,
+				Computed:  true,
 			},
 			"prompt_sql_upgrade": &schema.Schema{
 				Type:     schema.TypeString,
@@ -678,16 +679,6 @@ func refreshObjectSystemSql(d *schema.ResourceData, o map[string]interface{}) er
 			}
 		} else {
 			return fmt.Errorf("Error reading logtype: %v", err)
-		}
-	}
-
-	if err = d.Set("password", flattenSystemSqlPasswordSqa(o["password"], d, "password")); err != nil {
-		if vv, ok := fortiAPIPatch(o["password"], "SystemSql-Password"); ok {
-			if err = d.Set("password", vv); err != nil {
-				return fmt.Errorf("Error reading password: %v", err)
-			}
-		} else {
-			return fmt.Errorf("Error reading password: %v", err)
 		}
 	}
 

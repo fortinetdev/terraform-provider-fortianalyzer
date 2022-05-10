@@ -791,8 +791,8 @@ func flattenSystemLogSettingsRollingAnalyzerSlsa(v interface{}, d *schema.Resour
 	pre_append = pre + ".0." + "password2"
 	if _, ok := i["password2"]; ok {
 		result["password2"] = flattenSystemLogSettingsRollingAnalyzerPassword2Slsa(i["password2"], d, pre_append)
-		c := d.Get(pre_append).(string)
-		if c != "" {
+		c := d.Get(pre_append).(*schema.Set)
+		if c.Len() > 0 {
 			result["password2"] = c
 		}
 	}
@@ -800,8 +800,8 @@ func flattenSystemLogSettingsRollingAnalyzerSlsa(v interface{}, d *schema.Resour
 	pre_append = pre + ".0." + "password3"
 	if _, ok := i["password3"]; ok {
 		result["password3"] = flattenSystemLogSettingsRollingAnalyzerPassword3Slsa(i["password3"], d, pre_append)
-		c := d.Get(pre_append).(string)
-		if c != "" {
+		c := d.Get(pre_append).(*schema.Set)
+		if c.Len() > 0 {
 			result["password3"] = c
 		}
 	}
@@ -1050,8 +1050,8 @@ func flattenSystemLogSettingsRollingLocalSlsa(v interface{}, d *schema.ResourceD
 	pre_append = pre + ".0." + "password"
 	if _, ok := i["password"]; ok {
 		result["password"] = flattenSystemLogSettingsRollingLocalPasswordSlsa(i["password"], d, pre_append)
-		c := d.Get(pre_append).(string)
-		if c != "" {
+		c := d.Get(pre_append).(*schema.Set)
+		if c.Len() > 0 {
 			result["password"] = c
 		}
 	}
@@ -1059,8 +1059,8 @@ func flattenSystemLogSettingsRollingLocalSlsa(v interface{}, d *schema.ResourceD
 	pre_append = pre + ".0." + "password2"
 	if _, ok := i["password2"]; ok {
 		result["password2"] = flattenSystemLogSettingsRollingLocalPassword2Slsa(i["password2"], d, pre_append)
-		c := d.Get(pre_append).(string)
-		if c != "" {
+		c := d.Get(pre_append).(*schema.Set)
+		if c.Len() > 0 {
 			result["password2"] = c
 		}
 	}
@@ -1068,8 +1068,8 @@ func flattenSystemLogSettingsRollingLocalSlsa(v interface{}, d *schema.ResourceD
 	pre_append = pre + ".0." + "password3"
 	if _, ok := i["password3"]; ok {
 		result["password3"] = flattenSystemLogSettingsRollingLocalPassword3Slsa(i["password3"], d, pre_append)
-		c := d.Get(pre_append).(string)
-		if c != "" {
+		c := d.Get(pre_append).(*schema.Set)
+		if c.Len() > 0 {
 			result["password3"] = c
 		}
 	}
@@ -1318,8 +1318,8 @@ func flattenSystemLogSettingsRollingRegularSlsa(v interface{}, d *schema.Resourc
 	pre_append = pre + ".0." + "password"
 	if _, ok := i["password"]; ok {
 		result["password"] = flattenSystemLogSettingsRollingRegularPasswordSlsa(i["password"], d, pre_append)
-		c := d.Get(pre_append).(string)
-		if c != "" {
+		c := d.Get(pre_append).(*schema.Set)
+		if c.Len() > 0 {
 			result["password"] = c
 		}
 	}
@@ -1327,8 +1327,8 @@ func flattenSystemLogSettingsRollingRegularSlsa(v interface{}, d *schema.Resourc
 	pre_append = pre + ".0." + "password2"
 	if _, ok := i["password2"]; ok {
 		result["password2"] = flattenSystemLogSettingsRollingRegularPassword2Slsa(i["password2"], d, pre_append)
-		c := d.Get(pre_append).(string)
-		if c != "" {
+		c := d.Get(pre_append).(*schema.Set)
+		if c.Len() > 0 {
 			result["password2"] = c
 		}
 	}
@@ -1336,8 +1336,8 @@ func flattenSystemLogSettingsRollingRegularSlsa(v interface{}, d *schema.Resourc
 	pre_append = pre + ".0." + "password3"
 	if _, ok := i["password3"]; ok {
 		result["password3"] = flattenSystemLogSettingsRollingRegularPassword3Slsa(i["password3"], d, pre_append)
-		c := d.Get(pre_append).(string)
-		if c != "" {
+		c := d.Get(pre_append).(*schema.Set)
+		if c.Len() > 0 {
 			result["password3"] = c
 		}
 	}
