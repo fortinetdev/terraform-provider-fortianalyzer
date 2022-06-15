@@ -1081,7 +1081,7 @@ func expandSystemLocallogSyslogd2FilterWebport(d *schema.ResourceData, v interfa
 func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("aid"); ok {
+	if v, ok := d.GetOk("aid"); ok || d.HasChange("aid") {
 		t, err := expandSystemLocallogSyslogd2FilterAid(d, v, "aid")
 		if err != nil {
 			return &obj, err
@@ -1090,7 +1090,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("devcfg"); ok {
+	if v, ok := d.GetOk("devcfg"); ok || d.HasChange("devcfg") {
 		t, err := expandSystemLocallogSyslogd2FilterDevcfg(d, v, "devcfg")
 		if err != nil {
 			return &obj, err
@@ -1099,7 +1099,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("devops"); ok {
+	if v, ok := d.GetOk("devops"); ok || d.HasChange("devops") {
 		t, err := expandSystemLocallogSyslogd2FilterDevops(d, v, "devops")
 		if err != nil {
 			return &obj, err
@@ -1108,7 +1108,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("diskquota"); ok {
+	if v, ok := d.GetOk("diskquota"); ok || d.HasChange("diskquota") {
 		t, err := expandSystemLocallogSyslogd2FilterDiskquota(d, v, "diskquota")
 		if err != nil {
 			return &obj, err
@@ -1117,7 +1117,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("dm"); ok {
+	if v, ok := d.GetOk("dm"); ok || d.HasChange("dm") {
 		t, err := expandSystemLocallogSyslogd2FilterDm(d, v, "dm")
 		if err != nil {
 			return &obj, err
@@ -1126,7 +1126,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("docker"); ok {
+	if v, ok := d.GetOk("docker"); ok || d.HasChange("docker") {
 		t, err := expandSystemLocallogSyslogd2FilterDocker(d, v, "docker")
 		if err != nil {
 			return &obj, err
@@ -1135,7 +1135,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("dvm"); ok {
+	if v, ok := d.GetOk("dvm"); ok || d.HasChange("dvm") {
 		t, err := expandSystemLocallogSyslogd2FilterDvm(d, v, "dvm")
 		if err != nil {
 			return &obj, err
@@ -1144,7 +1144,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("ediscovery"); ok {
+	if v, ok := d.GetOk("ediscovery"); ok || d.HasChange("ediscovery") {
 		t, err := expandSystemLocallogSyslogd2FilterEdiscovery(d, v, "ediscovery")
 		if err != nil {
 			return &obj, err
@@ -1153,7 +1153,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("epmgr"); ok {
+	if v, ok := d.GetOk("epmgr"); ok || d.HasChange("epmgr") {
 		t, err := expandSystemLocallogSyslogd2FilterEpmgr(d, v, "epmgr")
 		if err != nil {
 			return &obj, err
@@ -1162,7 +1162,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("event"); ok {
+	if v, ok := d.GetOk("event"); ok || d.HasChange("event") {
 		t, err := expandSystemLocallogSyslogd2FilterEvent(d, v, "event")
 		if err != nil {
 			return &obj, err
@@ -1171,7 +1171,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("eventmgmt"); ok {
+	if v, ok := d.GetOk("eventmgmt"); ok || d.HasChange("eventmgmt") {
 		t, err := expandSystemLocallogSyslogd2FilterEventmgmt(d, v, "eventmgmt")
 		if err != nil {
 			return &obj, err
@@ -1180,7 +1180,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("faz"); ok {
+	if v, ok := d.GetOk("faz"); ok || d.HasChange("faz") {
 		t, err := expandSystemLocallogSyslogd2FilterFaz(d, v, "faz")
 		if err != nil {
 			return &obj, err
@@ -1189,7 +1189,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("fazha"); ok {
+	if v, ok := d.GetOk("fazha"); ok || d.HasChange("fazha") {
 		t, err := expandSystemLocallogSyslogd2FilterFazha(d, v, "fazha")
 		if err != nil {
 			return &obj, err
@@ -1198,7 +1198,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("fazsys"); ok {
+	if v, ok := d.GetOk("fazsys"); ok || d.HasChange("fazsys") {
 		t, err := expandSystemLocallogSyslogd2FilterFazsys(d, v, "fazsys")
 		if err != nil {
 			return &obj, err
@@ -1207,7 +1207,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("fgd"); ok {
+	if v, ok := d.GetOk("fgd"); ok || d.HasChange("fgd") {
 		t, err := expandSystemLocallogSyslogd2FilterFgd(d, v, "fgd")
 		if err != nil {
 			return &obj, err
@@ -1216,7 +1216,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("fgfm"); ok {
+	if v, ok := d.GetOk("fgfm"); ok || d.HasChange("fgfm") {
 		t, err := expandSystemLocallogSyslogd2FilterFgfm(d, v, "fgfm")
 		if err != nil {
 			return &obj, err
@@ -1225,7 +1225,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("fips"); ok {
+	if v, ok := d.GetOk("fips"); ok || d.HasChange("fips") {
 		t, err := expandSystemLocallogSyslogd2FilterFips(d, v, "fips")
 		if err != nil {
 			return &obj, err
@@ -1234,7 +1234,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("fmgws"); ok {
+	if v, ok := d.GetOk("fmgws"); ok || d.HasChange("fmgws") {
 		t, err := expandSystemLocallogSyslogd2FilterFmgws(d, v, "fmgws")
 		if err != nil {
 			return &obj, err
@@ -1243,7 +1243,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("fmlmgr"); ok {
+	if v, ok := d.GetOk("fmlmgr"); ok || d.HasChange("fmlmgr") {
 		t, err := expandSystemLocallogSyslogd2FilterFmlmgr(d, v, "fmlmgr")
 		if err != nil {
 			return &obj, err
@@ -1252,7 +1252,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("fmwmgr"); ok {
+	if v, ok := d.GetOk("fmwmgr"); ok || d.HasChange("fmwmgr") {
 		t, err := expandSystemLocallogSyslogd2FilterFmwmgr(d, v, "fmwmgr")
 		if err != nil {
 			return &obj, err
@@ -1261,7 +1261,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("fortiview"); ok {
+	if v, ok := d.GetOk("fortiview"); ok || d.HasChange("fortiview") {
 		t, err := expandSystemLocallogSyslogd2FilterFortiview(d, v, "fortiview")
 		if err != nil {
 			return &obj, err
@@ -1270,7 +1270,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("glbcfg"); ok {
+	if v, ok := d.GetOk("glbcfg"); ok || d.HasChange("glbcfg") {
 		t, err := expandSystemLocallogSyslogd2FilterGlbcfg(d, v, "glbcfg")
 		if err != nil {
 			return &obj, err
@@ -1279,7 +1279,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("ha"); ok {
+	if v, ok := d.GetOk("ha"); ok || d.HasChange("ha") {
 		t, err := expandSystemLocallogSyslogd2FilterHa(d, v, "ha")
 		if err != nil {
 			return &obj, err
@@ -1288,7 +1288,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("hcache"); ok {
+	if v, ok := d.GetOk("hcache"); ok || d.HasChange("hcache") {
 		t, err := expandSystemLocallogSyslogd2FilterHcache(d, v, "hcache")
 		if err != nil {
 			return &obj, err
@@ -1297,7 +1297,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("incident"); ok {
+	if v, ok := d.GetOk("incident"); ok || d.HasChange("incident") {
 		t, err := expandSystemLocallogSyslogd2FilterIncident(d, v, "incident")
 		if err != nil {
 			return &obj, err
@@ -1306,7 +1306,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("iolog"); ok {
+	if v, ok := d.GetOk("iolog"); ok || d.HasChange("iolog") {
 		t, err := expandSystemLocallogSyslogd2FilterIolog(d, v, "iolog")
 		if err != nil {
 			return &obj, err
@@ -1315,7 +1315,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("logd"); ok {
+	if v, ok := d.GetOk("logd"); ok || d.HasChange("logd") {
 		t, err := expandSystemLocallogSyslogd2FilterLogd(d, v, "logd")
 		if err != nil {
 			return &obj, err
@@ -1324,7 +1324,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("logdb"); ok {
+	if v, ok := d.GetOk("logdb"); ok || d.HasChange("logdb") {
 		t, err := expandSystemLocallogSyslogd2FilterLogdb(d, v, "logdb")
 		if err != nil {
 			return &obj, err
@@ -1333,7 +1333,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("logdev"); ok {
+	if v, ok := d.GetOk("logdev"); ok || d.HasChange("logdev") {
 		t, err := expandSystemLocallogSyslogd2FilterLogdev(d, v, "logdev")
 		if err != nil {
 			return &obj, err
@@ -1342,7 +1342,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("logfile"); ok {
+	if v, ok := d.GetOk("logfile"); ok || d.HasChange("logfile") {
 		t, err := expandSystemLocallogSyslogd2FilterLogfile(d, v, "logfile")
 		if err != nil {
 			return &obj, err
@@ -1351,7 +1351,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("logging"); ok {
+	if v, ok := d.GetOk("logging"); ok || d.HasChange("logging") {
 		t, err := expandSystemLocallogSyslogd2FilterLogging(d, v, "logging")
 		if err != nil {
 			return &obj, err
@@ -1360,7 +1360,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("lrmgr"); ok {
+	if v, ok := d.GetOk("lrmgr"); ok || d.HasChange("lrmgr") {
 		t, err := expandSystemLocallogSyslogd2FilterLrmgr(d, v, "lrmgr")
 		if err != nil {
 			return &obj, err
@@ -1369,7 +1369,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("objcfg"); ok {
+	if v, ok := d.GetOk("objcfg"); ok || d.HasChange("objcfg") {
 		t, err := expandSystemLocallogSyslogd2FilterObjcfg(d, v, "objcfg")
 		if err != nil {
 			return &obj, err
@@ -1378,7 +1378,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("report"); ok {
+	if v, ok := d.GetOk("report"); ok || d.HasChange("report") {
 		t, err := expandSystemLocallogSyslogd2FilterReport(d, v, "report")
 		if err != nil {
 			return &obj, err
@@ -1387,7 +1387,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("rev"); ok {
+	if v, ok := d.GetOk("rev"); ok || d.HasChange("rev") {
 		t, err := expandSystemLocallogSyslogd2FilterRev(d, v, "rev")
 		if err != nil {
 			return &obj, err
@@ -1396,7 +1396,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("rtmon"); ok {
+	if v, ok := d.GetOk("rtmon"); ok || d.HasChange("rtmon") {
 		t, err := expandSystemLocallogSyslogd2FilterRtmon(d, v, "rtmon")
 		if err != nil {
 			return &obj, err
@@ -1405,7 +1405,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("scfw"); ok {
+	if v, ok := d.GetOk("scfw"); ok || d.HasChange("scfw") {
 		t, err := expandSystemLocallogSyslogd2FilterScfw(d, v, "scfw")
 		if err != nil {
 			return &obj, err
@@ -1414,7 +1414,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("scply"); ok {
+	if v, ok := d.GetOk("scply"); ok || d.HasChange("scply") {
 		t, err := expandSystemLocallogSyslogd2FilterScply(d, v, "scply")
 		if err != nil {
 			return &obj, err
@@ -1423,7 +1423,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("scrmgr"); ok {
+	if v, ok := d.GetOk("scrmgr"); ok || d.HasChange("scrmgr") {
 		t, err := expandSystemLocallogSyslogd2FilterScrmgr(d, v, "scrmgr")
 		if err != nil {
 			return &obj, err
@@ -1432,7 +1432,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("scvpn"); ok {
+	if v, ok := d.GetOk("scvpn"); ok || d.HasChange("scvpn") {
 		t, err := expandSystemLocallogSyslogd2FilterScvpn(d, v, "scvpn")
 		if err != nil {
 			return &obj, err
@@ -1441,7 +1441,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("system"); ok {
+	if v, ok := d.GetOk("system"); ok || d.HasChange("system") {
 		t, err := expandSystemLocallogSyslogd2FilterSystem(d, v, "system")
 		if err != nil {
 			return &obj, err
@@ -1450,7 +1450,7 @@ func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("webport"); ok {
+	if v, ok := d.GetOk("webport"); ok || d.HasChange("webport") {
 		t, err := expandSystemLocallogSyslogd2FilterWebport(d, v, "webport")
 		if err != nil {
 			return &obj, err

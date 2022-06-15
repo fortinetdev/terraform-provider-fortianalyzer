@@ -31,18 +31,15 @@ func resourceSystemSniffer() *schema.Resource {
 			"host": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"fosid": &schema.Schema{
 				Type:     schema.TypeInt,
 				ForceNew: true,
 				Optional: true,
-				Computed: true,
 			},
 			"interface": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"ipv6": &schema.Schema{
 				Type:     schema.TypeString,
@@ -62,17 +59,14 @@ func resourceSystemSniffer() *schema.Resource {
 			"port": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"protocol": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"vlan": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 		},
 	}
@@ -345,7 +339,7 @@ func expandSystemSnifferVlan(d *schema.ResourceData, v interface{}, pre string) 
 func getObjectSystemSniffer(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("host"); ok {
+	if v, ok := d.GetOk("host"); ok || d.HasChange("host") {
 		t, err := expandSystemSnifferHost(d, v, "host")
 		if err != nil {
 			return &obj, err
@@ -354,7 +348,7 @@ func getObjectSystemSniffer(d *schema.ResourceData) (*map[string]interface{}, er
 		}
 	}
 
-	if v, ok := d.GetOk("fosid"); ok {
+	if v, ok := d.GetOk("fosid"); ok || d.HasChange("id") {
 		t, err := expandSystemSnifferId(d, v, "fosid")
 		if err != nil {
 			return &obj, err
@@ -363,7 +357,7 @@ func getObjectSystemSniffer(d *schema.ResourceData) (*map[string]interface{}, er
 		}
 	}
 
-	if v, ok := d.GetOk("interface"); ok {
+	if v, ok := d.GetOk("interface"); ok || d.HasChange("interface") {
 		t, err := expandSystemSnifferInterface(d, v, "interface")
 		if err != nil {
 			return &obj, err
@@ -372,7 +366,7 @@ func getObjectSystemSniffer(d *schema.ResourceData) (*map[string]interface{}, er
 		}
 	}
 
-	if v, ok := d.GetOk("ipv6"); ok {
+	if v, ok := d.GetOk("ipv6"); ok || d.HasChange("ipv6") {
 		t, err := expandSystemSnifferIpv6(d, v, "ipv6")
 		if err != nil {
 			return &obj, err
@@ -381,7 +375,7 @@ func getObjectSystemSniffer(d *schema.ResourceData) (*map[string]interface{}, er
 		}
 	}
 
-	if v, ok := d.GetOk("max_packet_count"); ok {
+	if v, ok := d.GetOk("max_packet_count"); ok || d.HasChange("max_packet_count") {
 		t, err := expandSystemSnifferMaxPacketCount(d, v, "max_packet_count")
 		if err != nil {
 			return &obj, err
@@ -390,7 +384,7 @@ func getObjectSystemSniffer(d *schema.ResourceData) (*map[string]interface{}, er
 		}
 	}
 
-	if v, ok := d.GetOk("non_ip"); ok {
+	if v, ok := d.GetOk("non_ip"); ok || d.HasChange("non_ip") {
 		t, err := expandSystemSnifferNonIp(d, v, "non_ip")
 		if err != nil {
 			return &obj, err
@@ -399,7 +393,7 @@ func getObjectSystemSniffer(d *schema.ResourceData) (*map[string]interface{}, er
 		}
 	}
 
-	if v, ok := d.GetOk("port"); ok {
+	if v, ok := d.GetOk("port"); ok || d.HasChange("port") {
 		t, err := expandSystemSnifferPort(d, v, "port")
 		if err != nil {
 			return &obj, err
@@ -408,7 +402,7 @@ func getObjectSystemSniffer(d *schema.ResourceData) (*map[string]interface{}, er
 		}
 	}
 
-	if v, ok := d.GetOk("protocol"); ok {
+	if v, ok := d.GetOk("protocol"); ok || d.HasChange("protocol") {
 		t, err := expandSystemSnifferProtocol(d, v, "protocol")
 		if err != nil {
 			return &obj, err
@@ -417,7 +411,7 @@ func getObjectSystemSniffer(d *schema.ResourceData) (*map[string]interface{}, er
 		}
 	}
 
-	if v, ok := d.GetOk("vlan"); ok {
+	if v, ok := d.GetOk("vlan"); ok || d.HasChange("vlan") {
 		t, err := expandSystemSnifferVlan(d, v, "vlan")
 		if err != nil {
 			return &obj, err

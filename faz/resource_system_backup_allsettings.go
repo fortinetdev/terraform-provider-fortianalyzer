@@ -31,26 +31,22 @@ func resourceSystemBackupAllSettings() *schema.Resource {
 			"cert": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"crptpasswd": &schema.Schema{
 				Type:      schema.TypeSet,
 				Elem:      &schema.Schema{Type: schema.TypeString},
 				Optional:  true,
 				Sensitive: true,
-				Computed:  true,
 			},
 			"directory": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"passwd": &schema.Schema{
 				Type:      schema.TypeSet,
 				Elem:      &schema.Schema{Type: schema.TypeString},
 				Optional:  true,
 				Sensitive: true,
-				Computed:  true,
 			},
 			"protocol": &schema.Schema{
 				Type:     schema.TypeString,
@@ -60,7 +56,6 @@ func resourceSystemBackupAllSettings() *schema.Resource {
 			"server": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"status": &schema.Schema{
 				Type:     schema.TypeString,
@@ -70,18 +65,15 @@ func resourceSystemBackupAllSettings() *schema.Resource {
 			"time": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"user": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"week_days": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
-				Computed: true,
 			},
 		},
 	}
@@ -330,7 +322,7 @@ func expandSystemBackupAllSettingsWeekDays(d *schema.ResourceData, v interface{}
 func getObjectSystemBackupAllSettings(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("cert"); ok {
+	if v, ok := d.GetOk("cert"); ok || d.HasChange("cert") {
 		t, err := expandSystemBackupAllSettingsCert(d, v, "cert")
 		if err != nil {
 			return &obj, err
@@ -339,7 +331,7 @@ func getObjectSystemBackupAllSettings(d *schema.ResourceData) (*map[string]inter
 		}
 	}
 
-	if v, ok := d.GetOk("crptpasswd"); ok {
+	if v, ok := d.GetOk("crptpasswd"); ok || d.HasChange("crptpasswd") {
 		t, err := expandSystemBackupAllSettingsCrptpasswd(d, v, "crptpasswd")
 		if err != nil {
 			return &obj, err
@@ -348,7 +340,7 @@ func getObjectSystemBackupAllSettings(d *schema.ResourceData) (*map[string]inter
 		}
 	}
 
-	if v, ok := d.GetOk("directory"); ok {
+	if v, ok := d.GetOk("directory"); ok || d.HasChange("directory") {
 		t, err := expandSystemBackupAllSettingsDirectory(d, v, "directory")
 		if err != nil {
 			return &obj, err
@@ -357,7 +349,7 @@ func getObjectSystemBackupAllSettings(d *schema.ResourceData) (*map[string]inter
 		}
 	}
 
-	if v, ok := d.GetOk("passwd"); ok {
+	if v, ok := d.GetOk("passwd"); ok || d.HasChange("passwd") {
 		t, err := expandSystemBackupAllSettingsPasswd(d, v, "passwd")
 		if err != nil {
 			return &obj, err
@@ -366,7 +358,7 @@ func getObjectSystemBackupAllSettings(d *schema.ResourceData) (*map[string]inter
 		}
 	}
 
-	if v, ok := d.GetOk("protocol"); ok {
+	if v, ok := d.GetOk("protocol"); ok || d.HasChange("protocol") {
 		t, err := expandSystemBackupAllSettingsProtocol(d, v, "protocol")
 		if err != nil {
 			return &obj, err
@@ -375,7 +367,7 @@ func getObjectSystemBackupAllSettings(d *schema.ResourceData) (*map[string]inter
 		}
 	}
 
-	if v, ok := d.GetOk("server"); ok {
+	if v, ok := d.GetOk("server"); ok || d.HasChange("server") {
 		t, err := expandSystemBackupAllSettingsServer(d, v, "server")
 		if err != nil {
 			return &obj, err
@@ -384,7 +376,7 @@ func getObjectSystemBackupAllSettings(d *schema.ResourceData) (*map[string]inter
 		}
 	}
 
-	if v, ok := d.GetOk("status"); ok {
+	if v, ok := d.GetOk("status"); ok || d.HasChange("status") {
 		t, err := expandSystemBackupAllSettingsStatus(d, v, "status")
 		if err != nil {
 			return &obj, err
@@ -393,7 +385,7 @@ func getObjectSystemBackupAllSettings(d *schema.ResourceData) (*map[string]inter
 		}
 	}
 
-	if v, ok := d.GetOk("time"); ok {
+	if v, ok := d.GetOk("time"); ok || d.HasChange("time") {
 		t, err := expandSystemBackupAllSettingsTime(d, v, "time")
 		if err != nil {
 			return &obj, err
@@ -402,7 +394,7 @@ func getObjectSystemBackupAllSettings(d *schema.ResourceData) (*map[string]inter
 		}
 	}
 
-	if v, ok := d.GetOk("user"); ok {
+	if v, ok := d.GetOk("user"); ok || d.HasChange("user") {
 		t, err := expandSystemBackupAllSettingsUser(d, v, "user")
 		if err != nil {
 			return &obj, err
@@ -411,7 +403,7 @@ func getObjectSystemBackupAllSettings(d *schema.ResourceData) (*map[string]inter
 		}
 	}
 
-	if v, ok := d.GetOk("week_days"); ok {
+	if v, ok := d.GetOk("week_days"); ok || d.HasChange("week_days") {
 		t, err := expandSystemBackupAllSettingsWeekDays(d, v, "week_days")
 		if err != nil {
 			return &obj, err

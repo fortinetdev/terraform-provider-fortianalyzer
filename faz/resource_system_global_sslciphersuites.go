@@ -31,12 +31,10 @@ func resourceSystemGlobalSslCipherSuites() *schema.Resource {
 			"cipher": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"priority": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Computed: true,
 			},
 			"version": &schema.Schema{
 				Type:     schema.TypeString,
@@ -206,7 +204,7 @@ func expandSystemGlobalSslCipherSuitesVersion(d *schema.ResourceData, v interfac
 func getObjectSystemGlobalSslCipherSuites(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("cipher"); ok {
+	if v, ok := d.GetOk("cipher"); ok || d.HasChange("cipher") {
 		t, err := expandSystemGlobalSslCipherSuitesCipher(d, v, "cipher")
 		if err != nil {
 			return &obj, err
@@ -215,7 +213,7 @@ func getObjectSystemGlobalSslCipherSuites(d *schema.ResourceData) (*map[string]i
 		}
 	}
 
-	if v, ok := d.GetOk("priority"); ok {
+	if v, ok := d.GetOk("priority"); ok || d.HasChange("priority") {
 		t, err := expandSystemGlobalSslCipherSuitesPriority(d, v, "priority")
 		if err != nil {
 			return &obj, err
@@ -224,7 +222,7 @@ func getObjectSystemGlobalSslCipherSuites(d *schema.ResourceData) (*map[string]i
 		}
 	}
 
-	if v, ok := d.GetOk("version"); ok {
+	if v, ok := d.GetOk("version"); ok || d.HasChange("version") {
 		t, err := expandSystemGlobalSslCipherSuitesVersion(d, v, "version")
 		if err != nil {
 			return &obj, err

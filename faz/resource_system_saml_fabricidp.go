@@ -32,27 +32,22 @@ func resourceSystemSamlFabricIdp() *schema.Resource {
 				Type:     schema.TypeString,
 				ForceNew: true,
 				Optional: true,
-				Computed: true,
 			},
 			"idp_cert": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"idp_entity_id": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"idp_single_logout_url": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"idp_single_sign_on_url": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"idp_status": &schema.Schema{
 				Type:     schema.TypeString,
@@ -276,7 +271,7 @@ func expandSystemSamlFabricIdpIdpStatus(d *schema.ResourceData, v interface{}, p
 func getObjectSystemSamlFabricIdp(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("dev_id"); ok {
+	if v, ok := d.GetOk("dev_id"); ok || d.HasChange("dev_id") {
 		t, err := expandSystemSamlFabricIdpDevId(d, v, "dev_id")
 		if err != nil {
 			return &obj, err
@@ -285,7 +280,7 @@ func getObjectSystemSamlFabricIdp(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("idp_cert"); ok {
+	if v, ok := d.GetOk("idp_cert"); ok || d.HasChange("idp_cert") {
 		t, err := expandSystemSamlFabricIdpIdpCert(d, v, "idp_cert")
 		if err != nil {
 			return &obj, err
@@ -294,7 +289,7 @@ func getObjectSystemSamlFabricIdp(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("idp_entity_id"); ok {
+	if v, ok := d.GetOk("idp_entity_id"); ok || d.HasChange("idp_entity_id") {
 		t, err := expandSystemSamlFabricIdpIdpEntityId(d, v, "idp_entity_id")
 		if err != nil {
 			return &obj, err
@@ -303,7 +298,7 @@ func getObjectSystemSamlFabricIdp(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("idp_single_logout_url"); ok {
+	if v, ok := d.GetOk("idp_single_logout_url"); ok || d.HasChange("idp_single_logout_url") {
 		t, err := expandSystemSamlFabricIdpIdpSingleLogoutUrl(d, v, "idp_single_logout_url")
 		if err != nil {
 			return &obj, err
@@ -312,7 +307,7 @@ func getObjectSystemSamlFabricIdp(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("idp_single_sign_on_url"); ok {
+	if v, ok := d.GetOk("idp_single_sign_on_url"); ok || d.HasChange("idp_single_sign_on_url") {
 		t, err := expandSystemSamlFabricIdpIdpSingleSignOnUrl(d, v, "idp_single_sign_on_url")
 		if err != nil {
 			return &obj, err
@@ -321,7 +316,7 @@ func getObjectSystemSamlFabricIdp(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("idp_status"); ok {
+	if v, ok := d.GetOk("idp_status"); ok || d.HasChange("idp_status") {
 		t, err := expandSystemSamlFabricIdpIdpStatus(d, v, "idp_status")
 		if err != nil {
 			return &obj, err

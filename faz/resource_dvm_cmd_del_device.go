@@ -37,18 +37,15 @@ func resourceDvmCmdDelDevice() *schema.Resource {
 			"fazadom": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"device": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"flags": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
-				Computed: true,
 			},
 		},
 	}
@@ -157,7 +154,7 @@ func expandDvmCmdDelDeviceFlags(d *schema.ResourceData, v interface{}, pre strin
 func getObjectDvmCmdDelDevice(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("fazadom"); ok {
+	if v, ok := d.GetOk("fazadom"); ok || d.HasChange("adom") {
 		t, err := expandDvmCmdDelDeviceAdom(d, v, "fazadom")
 		if err != nil {
 			return &obj, err
@@ -166,7 +163,7 @@ func getObjectDvmCmdDelDevice(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("device"); ok {
+	if v, ok := d.GetOk("device"); ok || d.HasChange("device") {
 		t, err := expandDvmCmdDelDeviceDevice(d, v, "device")
 		if err != nil {
 			return &obj, err
@@ -175,7 +172,7 @@ func getObjectDvmCmdDelDevice(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("flags"); ok {
+	if v, ok := d.GetOk("flags"); ok || d.HasChange("flags") {
 		t, err := expandDvmCmdDelDeviceFlags(d, v, "flags")
 		if err != nil {
 			return &obj, err

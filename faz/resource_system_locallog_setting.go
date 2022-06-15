@@ -184,7 +184,7 @@ func expandSystemLocallogSettingLogIntervalGbdayExceeded(d *schema.ResourceData,
 func getObjectSystemLocallogSetting(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("log_interval_dev_no_logging"); ok {
+	if v, ok := d.GetOk("log_interval_dev_no_logging"); ok || d.HasChange("log_interval_dev_no_logging") {
 		t, err := expandSystemLocallogSettingLogIntervalDevNoLogging(d, v, "log_interval_dev_no_logging")
 		if err != nil {
 			return &obj, err
@@ -193,7 +193,7 @@ func getObjectSystemLocallogSetting(d *schema.ResourceData) (*map[string]interfa
 		}
 	}
 
-	if v, ok := d.GetOk("log_interval_disk_full"); ok {
+	if v, ok := d.GetOk("log_interval_disk_full"); ok || d.HasChange("log_interval_disk_full") {
 		t, err := expandSystemLocallogSettingLogIntervalDiskFull(d, v, "log_interval_disk_full")
 		if err != nil {
 			return &obj, err
@@ -202,7 +202,7 @@ func getObjectSystemLocallogSetting(d *schema.ResourceData) (*map[string]interfa
 		}
 	}
 
-	if v, ok := d.GetOk("log_interval_gbday_exceeded"); ok {
+	if v, ok := d.GetOk("log_interval_gbday_exceeded"); ok || d.HasChange("log_interval_gbday_exceeded") {
 		t, err := expandSystemLocallogSettingLogIntervalGbdayExceeded(d, v, "log_interval_gbday_exceeded")
 		if err != nil {
 			return &obj, err

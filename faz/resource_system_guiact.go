@@ -31,47 +31,38 @@ func resourceSystemGuiact() *schema.Resource {
 			"backup_all": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"backup_conf": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"eventlog_msg": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"eventlog_path": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"reboot": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Computed: true,
 			},
 			"reset2default": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Computed: true,
 			},
 			"restore_all": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"restore_conf": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"time": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 		},
 	}
@@ -322,7 +313,7 @@ func expandSystemGuiactTime(d *schema.ResourceData, v interface{}, pre string) (
 func getObjectSystemGuiact(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("backup_all"); ok {
+	if v, ok := d.GetOk("backup_all"); ok || d.HasChange("backup_all") {
 		t, err := expandSystemGuiactBackupAll(d, v, "backup_all")
 		if err != nil {
 			return &obj, err
@@ -331,7 +322,7 @@ func getObjectSystemGuiact(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("backup_conf"); ok {
+	if v, ok := d.GetOk("backup_conf"); ok || d.HasChange("backup_conf") {
 		t, err := expandSystemGuiactBackupConf(d, v, "backup_conf")
 		if err != nil {
 			return &obj, err
@@ -340,7 +331,7 @@ func getObjectSystemGuiact(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("eventlog_msg"); ok {
+	if v, ok := d.GetOk("eventlog_msg"); ok || d.HasChange("eventlog_msg") {
 		t, err := expandSystemGuiactEventlogMsg(d, v, "eventlog_msg")
 		if err != nil {
 			return &obj, err
@@ -349,7 +340,7 @@ func getObjectSystemGuiact(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("eventlog_path"); ok {
+	if v, ok := d.GetOk("eventlog_path"); ok || d.HasChange("eventlog_path") {
 		t, err := expandSystemGuiactEventlogPath(d, v, "eventlog_path")
 		if err != nil {
 			return &obj, err
@@ -358,7 +349,7 @@ func getObjectSystemGuiact(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("reboot"); ok {
+	if v, ok := d.GetOk("reboot"); ok || d.HasChange("reboot") {
 		t, err := expandSystemGuiactReboot(d, v, "reboot")
 		if err != nil {
 			return &obj, err
@@ -367,7 +358,7 @@ func getObjectSystemGuiact(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("reset2default"); ok {
+	if v, ok := d.GetOk("reset2default"); ok || d.HasChange("reset2default") {
 		t, err := expandSystemGuiactReset2Default(d, v, "reset2default")
 		if err != nil {
 			return &obj, err
@@ -376,7 +367,7 @@ func getObjectSystemGuiact(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("restore_all"); ok {
+	if v, ok := d.GetOk("restore_all"); ok || d.HasChange("restore_all") {
 		t, err := expandSystemGuiactRestoreAll(d, v, "restore_all")
 		if err != nil {
 			return &obj, err
@@ -385,7 +376,7 @@ func getObjectSystemGuiact(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("restore_conf"); ok {
+	if v, ok := d.GetOk("restore_conf"); ok || d.HasChange("restore_conf") {
 		t, err := expandSystemGuiactRestoreConf(d, v, "restore_conf")
 		if err != nil {
 			return &obj, err
@@ -394,7 +385,7 @@ func getObjectSystemGuiact(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("time"); ok {
+	if v, ok := d.GetOk("time"); ok || d.HasChange("time") {
 		t, err := expandSystemGuiactTime(d, v, "time")
 		if err != nil {
 			return &obj, err

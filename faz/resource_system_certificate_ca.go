@@ -32,18 +32,15 @@ func resourceSystemCertificateCa() *schema.Resource {
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
-				Computed: true,
 			},
 			"comment": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"name": &schema.Schema{
 				Type:     schema.TypeString,
 				ForceNew: true,
 				Optional: true,
-				Computed: true,
 			},
 		},
 	}
@@ -208,7 +205,7 @@ func expandSystemCertificateCaName(d *schema.ResourceData, v interface{}, pre st
 func getObjectSystemCertificateCa(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("ca"); ok {
+	if v, ok := d.GetOk("ca"); ok || d.HasChange("ca") {
 		t, err := expandSystemCertificateCaCa(d, v, "ca")
 		if err != nil {
 			return &obj, err
@@ -217,7 +214,7 @@ func getObjectSystemCertificateCa(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("comment"); ok {
+	if v, ok := d.GetOk("comment"); ok || d.HasChange("comment") {
 		t, err := expandSystemCertificateCaComment(d, v, "comment")
 		if err != nil {
 			return &obj, err
@@ -226,7 +223,7 @@ func getObjectSystemCertificateCa(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("name"); ok {
+	if v, ok := d.GetOk("name"); ok || d.HasChange("name") {
 		t, err := expandSystemCertificateCaName(d, v, "name")
 		if err != nil {
 			return &obj, err

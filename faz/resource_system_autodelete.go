@@ -42,7 +42,6 @@ func resourceSystemAutoDelete() *schema.Resource {
 						"runat": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"status": &schema.Schema{
 							Type:     schema.TypeString,
@@ -52,7 +51,6 @@ func resourceSystemAutoDelete() *schema.Resource {
 						"value": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 					},
 				},
@@ -71,7 +69,6 @@ func resourceSystemAutoDelete() *schema.Resource {
 						"runat": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"status": &schema.Schema{
 							Type:     schema.TypeString,
@@ -81,7 +78,6 @@ func resourceSystemAutoDelete() *schema.Resource {
 						"value": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 					},
 				},
@@ -100,7 +96,6 @@ func resourceSystemAutoDelete() *schema.Resource {
 						"runat": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"status": &schema.Schema{
 							Type:     schema.TypeString,
@@ -110,7 +105,6 @@ func resourceSystemAutoDelete() *schema.Resource {
 						"value": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 					},
 				},
@@ -129,7 +123,6 @@ func resourceSystemAutoDelete() *schema.Resource {
 						"runat": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"status": &schema.Schema{
 							Type:     schema.TypeString,
@@ -139,7 +132,6 @@ func resourceSystemAutoDelete() *schema.Resource {
 						"value": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 					},
 				},
@@ -147,7 +139,6 @@ func resourceSystemAutoDelete() *schema.Resource {
 			"status_fake": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Computed: true,
 			},
 		},
 	}
@@ -550,19 +541,19 @@ func expandSystemAutoDeleteDlpFilesAutoDeletionSaa(d *schema.ResourceData, v int
 
 	pre_append := "" // complex
 	pre_append = pre + ".0." + "retention"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["retention"], _ = expandSystemAutoDeleteDlpFilesAutoDeletionRetentionSaa(d, i["retention"], pre_append)
 	}
 	pre_append = pre + ".0." + "runat"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOkExists(pre_append); ok {
 		result["runat"], _ = expandSystemAutoDeleteDlpFilesAutoDeletionRunatSaa(d, i["runat"], pre_append)
 	}
 	pre_append = pre + ".0." + "status"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["status"], _ = expandSystemAutoDeleteDlpFilesAutoDeletionStatusSaa(d, i["status"], pre_append)
 	}
 	pre_append = pre + ".0." + "value"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["value"], _ = expandSystemAutoDeleteDlpFilesAutoDeletionValueSaa(d, i["value"], pre_append)
 	}
 
@@ -596,19 +587,19 @@ func expandSystemAutoDeleteLogAutoDeletionSaa(d *schema.ResourceData, v interfac
 
 	pre_append := "" // complex
 	pre_append = pre + ".0." + "retention"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["retention"], _ = expandSystemAutoDeleteLogAutoDeletionRetentionSaa(d, i["retention"], pre_append)
 	}
 	pre_append = pre + ".0." + "runat"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["runat"], _ = expandSystemAutoDeleteLogAutoDeletionRunatSaa(d, i["runat"], pre_append)
 	}
 	pre_append = pre + ".0." + "status"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["status"], _ = expandSystemAutoDeleteLogAutoDeletionStatusSaa(d, i["status"], pre_append)
 	}
 	pre_append = pre + ".0." + "value"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["value"], _ = expandSystemAutoDeleteLogAutoDeletionValueSaa(d, i["value"], pre_append)
 	}
 
@@ -642,19 +633,19 @@ func expandSystemAutoDeleteQuarantineFilesAutoDeletionSaa(d *schema.ResourceData
 
 	pre_append := "" // complex
 	pre_append = pre + ".0." + "retention"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["retention"], _ = expandSystemAutoDeleteQuarantineFilesAutoDeletionRetentionSaa(d, i["retention"], pre_append)
 	}
 	pre_append = pre + ".0." + "runat"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["runat"], _ = expandSystemAutoDeleteQuarantineFilesAutoDeletionRunatSaa(d, i["runat"], pre_append)
 	}
 	pre_append = pre + ".0." + "status"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["status"], _ = expandSystemAutoDeleteQuarantineFilesAutoDeletionStatusSaa(d, i["status"], pre_append)
 	}
 	pre_append = pre + ".0." + "value"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["value"], _ = expandSystemAutoDeleteQuarantineFilesAutoDeletionValueSaa(d, i["value"], pre_append)
 	}
 
@@ -688,19 +679,19 @@ func expandSystemAutoDeleteReportAutoDeletionSaa(d *schema.ResourceData, v inter
 
 	pre_append := "" // complex
 	pre_append = pre + ".0." + "retention"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["retention"], _ = expandSystemAutoDeleteReportAutoDeletionRetentionSaa(d, i["retention"], pre_append)
 	}
 	pre_append = pre + ".0." + "runat"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["runat"], _ = expandSystemAutoDeleteReportAutoDeletionRunatSaa(d, i["runat"], pre_append)
 	}
 	pre_append = pre + ".0." + "status"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["status"], _ = expandSystemAutoDeleteReportAutoDeletionStatusSaa(d, i["status"], pre_append)
 	}
 	pre_append = pre + ".0." + "value"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["value"], _ = expandSystemAutoDeleteReportAutoDeletionValueSaa(d, i["value"], pre_append)
 	}
 
@@ -730,7 +721,7 @@ func expandSystemAutoDeleteStatusFakeSaa(d *schema.ResourceData, v interface{}, 
 func getObjectSystemAutoDelete(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("dlp_files_auto_deletion"); ok {
+	if v, ok := d.GetOk("dlp_files_auto_deletion"); ok || d.HasChange("dlp_files_auto_deletion") {
 		t, err := expandSystemAutoDeleteDlpFilesAutoDeletionSaa(d, v, "dlp_files_auto_deletion")
 		if err != nil {
 			return &obj, err
@@ -739,7 +730,7 @@ func getObjectSystemAutoDelete(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("log_auto_deletion"); ok {
+	if v, ok := d.GetOk("log_auto_deletion"); ok || d.HasChange("log_auto_deletion") {
 		t, err := expandSystemAutoDeleteLogAutoDeletionSaa(d, v, "log_auto_deletion")
 		if err != nil {
 			return &obj, err
@@ -748,7 +739,7 @@ func getObjectSystemAutoDelete(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("quarantine_files_auto_deletion"); ok {
+	if v, ok := d.GetOk("quarantine_files_auto_deletion"); ok || d.HasChange("quarantine_files_auto_deletion") {
 		t, err := expandSystemAutoDeleteQuarantineFilesAutoDeletionSaa(d, v, "quarantine_files_auto_deletion")
 		if err != nil {
 			return &obj, err
@@ -757,7 +748,7 @@ func getObjectSystemAutoDelete(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("report_auto_deletion"); ok {
+	if v, ok := d.GetOk("report_auto_deletion"); ok || d.HasChange("report_auto_deletion") {
 		t, err := expandSystemAutoDeleteReportAutoDeletionSaa(d, v, "report_auto_deletion")
 		if err != nil {
 			return &obj, err
@@ -766,7 +757,7 @@ func getObjectSystemAutoDelete(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("status_fake"); ok {
+	if v, ok := d.GetOk("status_fake"); ok || d.HasChange("status_fake") {
 		t, err := expandSystemAutoDeleteStatusFakeSaa(d, v, "status_fake")
 		if err != nil {
 			return &obj, err

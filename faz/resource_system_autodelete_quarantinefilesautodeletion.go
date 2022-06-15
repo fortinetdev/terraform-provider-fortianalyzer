@@ -36,7 +36,6 @@ func resourceSystemAutoDeleteQuarantineFilesAutoDeletion() *schema.Resource {
 			"runat": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Computed: true,
 			},
 			"status": &schema.Schema{
 				Type:     schema.TypeString,
@@ -46,7 +45,6 @@ func resourceSystemAutoDeleteQuarantineFilesAutoDeletion() *schema.Resource {
 			"value": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Computed: true,
 			},
 		},
 	}
@@ -207,7 +205,7 @@ func expandSystemAutoDeleteQuarantineFilesAutoDeletionValue(d *schema.ResourceDa
 func getObjectSystemAutoDeleteQuarantineFilesAutoDeletion(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("retention"); ok {
+	if v, ok := d.GetOk("retention"); ok || d.HasChange("retention") {
 		t, err := expandSystemAutoDeleteQuarantineFilesAutoDeletionRetention(d, v, "retention")
 		if err != nil {
 			return &obj, err
@@ -216,7 +214,7 @@ func getObjectSystemAutoDeleteQuarantineFilesAutoDeletion(d *schema.ResourceData
 		}
 	}
 
-	if v, ok := d.GetOk("runat"); ok {
+	if v, ok := d.GetOk("runat"); ok || d.HasChange("runat") {
 		t, err := expandSystemAutoDeleteQuarantineFilesAutoDeletionRunat(d, v, "runat")
 		if err != nil {
 			return &obj, err
@@ -225,7 +223,7 @@ func getObjectSystemAutoDeleteQuarantineFilesAutoDeletion(d *schema.ResourceData
 		}
 	}
 
-	if v, ok := d.GetOk("status"); ok {
+	if v, ok := d.GetOk("status"); ok || d.HasChange("status") {
 		t, err := expandSystemAutoDeleteQuarantineFilesAutoDeletionStatus(d, v, "status")
 		if err != nil {
 			return &obj, err
@@ -234,7 +232,7 @@ func getObjectSystemAutoDeleteQuarantineFilesAutoDeletion(d *schema.ResourceData
 		}
 	}
 
-	if v, ok := d.GetOk("value"); ok {
+	if v, ok := d.GetOk("value"); ok || d.HasChange("value") {
 		t, err := expandSystemAutoDeleteQuarantineFilesAutoDeletionValue(d, v, "value")
 		if err != nil {
 			return &obj, err

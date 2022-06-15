@@ -31,7 +31,6 @@ func resourceSystemRoute6() *schema.Resource {
 			"device": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"dst": &schema.Schema{
 				Type:     schema.TypeList,
@@ -48,7 +47,6 @@ func resourceSystemRoute6() *schema.Resource {
 				Type:     schema.TypeInt,
 				ForceNew: true,
 				Optional: true,
-				Computed: true,
 			},
 		},
 	}
@@ -231,7 +229,7 @@ func expandSystemRoute6Prio(d *schema.ResourceData, v interface{}, pre string) (
 func getObjectSystemRoute6(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("device"); ok {
+	if v, ok := d.GetOk("device"); ok || d.HasChange("device") {
 		t, err := expandSystemRoute6Device(d, v, "device")
 		if err != nil {
 			return &obj, err
@@ -240,7 +238,7 @@ func getObjectSystemRoute6(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("dst"); ok {
+	if v, ok := d.GetOk("dst"); ok || d.HasChange("dst") {
 		t, err := expandSystemRoute6Dst(d, v, "dst")
 		if err != nil {
 			return &obj, err
@@ -249,7 +247,7 @@ func getObjectSystemRoute6(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("gateway"); ok {
+	if v, ok := d.GetOk("gateway"); ok || d.HasChange("gateway") {
 		t, err := expandSystemRoute6Gateway(d, v, "gateway")
 		if err != nil {
 			return &obj, err
@@ -258,7 +256,7 @@ func getObjectSystemRoute6(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("prio"); ok {
+	if v, ok := d.GetOk("prio"); ok || d.HasChange("prio") {
 		t, err := expandSystemRoute6Prio(d, v, "prio")
 		if err != nil {
 			return &obj, err

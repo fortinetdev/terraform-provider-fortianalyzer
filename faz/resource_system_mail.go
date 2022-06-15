@@ -42,19 +42,16 @@ func resourceSystemMail() *schema.Resource {
 				Type:     schema.TypeString,
 				ForceNew: true,
 				Optional: true,
-				Computed: true,
 			},
 			"local_cert": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"passwd": &schema.Schema{
 				Type:      schema.TypeSet,
 				Elem:      &schema.Schema{Type: schema.TypeString},
 				Optional:  true,
 				Sensitive: true,
-				Computed:  true,
 			},
 			"port": &schema.Schema{
 				Type:     schema.TypeInt,
@@ -69,12 +66,10 @@ func resourceSystemMail() *schema.Resource {
 			"server": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"user": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 		},
 	}
@@ -337,7 +332,7 @@ func expandSystemMailUser(d *schema.ResourceData, v interface{}, pre string) (in
 func getObjectSystemMail(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("auth"); ok {
+	if v, ok := d.GetOk("auth"); ok || d.HasChange("auth") {
 		t, err := expandSystemMailAuth(d, v, "auth")
 		if err != nil {
 			return &obj, err
@@ -346,7 +341,7 @@ func getObjectSystemMail(d *schema.ResourceData) (*map[string]interface{}, error
 		}
 	}
 
-	if v, ok := d.GetOk("auth_type"); ok {
+	if v, ok := d.GetOk("auth_type"); ok || d.HasChange("auth_type") {
 		t, err := expandSystemMailAuthType(d, v, "auth_type")
 		if err != nil {
 			return &obj, err
@@ -355,7 +350,7 @@ func getObjectSystemMail(d *schema.ResourceData) (*map[string]interface{}, error
 		}
 	}
 
-	if v, ok := d.GetOk("fosid"); ok {
+	if v, ok := d.GetOk("fosid"); ok || d.HasChange("id") {
 		t, err := expandSystemMailId(d, v, "fosid")
 		if err != nil {
 			return &obj, err
@@ -364,7 +359,7 @@ func getObjectSystemMail(d *schema.ResourceData) (*map[string]interface{}, error
 		}
 	}
 
-	if v, ok := d.GetOk("local_cert"); ok {
+	if v, ok := d.GetOk("local_cert"); ok || d.HasChange("local_cert") {
 		t, err := expandSystemMailLocalCert(d, v, "local_cert")
 		if err != nil {
 			return &obj, err
@@ -373,7 +368,7 @@ func getObjectSystemMail(d *schema.ResourceData) (*map[string]interface{}, error
 		}
 	}
 
-	if v, ok := d.GetOk("passwd"); ok {
+	if v, ok := d.GetOk("passwd"); ok || d.HasChange("passwd") {
 		t, err := expandSystemMailPasswd(d, v, "passwd")
 		if err != nil {
 			return &obj, err
@@ -382,7 +377,7 @@ func getObjectSystemMail(d *schema.ResourceData) (*map[string]interface{}, error
 		}
 	}
 
-	if v, ok := d.GetOk("port"); ok {
+	if v, ok := d.GetOk("port"); ok || d.HasChange("port") {
 		t, err := expandSystemMailPort(d, v, "port")
 		if err != nil {
 			return &obj, err
@@ -391,7 +386,7 @@ func getObjectSystemMail(d *schema.ResourceData) (*map[string]interface{}, error
 		}
 	}
 
-	if v, ok := d.GetOk("secure_option"); ok {
+	if v, ok := d.GetOk("secure_option"); ok || d.HasChange("secure_option") {
 		t, err := expandSystemMailSecureOption(d, v, "secure_option")
 		if err != nil {
 			return &obj, err
@@ -400,7 +395,7 @@ func getObjectSystemMail(d *schema.ResourceData) (*map[string]interface{}, error
 		}
 	}
 
-	if v, ok := d.GetOk("server"); ok {
+	if v, ok := d.GetOk("server"); ok || d.HasChange("server") {
 		t, err := expandSystemMailServer(d, v, "server")
 		if err != nil {
 			return &obj, err
@@ -409,7 +404,7 @@ func getObjectSystemMail(d *schema.ResourceData) (*map[string]interface{}, error
 		}
 	}
 
-	if v, ok := d.GetOk("user"); ok {
+	if v, ok := d.GetOk("user"); ok || d.HasChange("user") {
 		t, err := expandSystemMailUser(d, v, "user")
 		if err != nil {
 			return &obj, err

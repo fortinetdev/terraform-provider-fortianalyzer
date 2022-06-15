@@ -31,7 +31,6 @@ func resourceSystemSocFabric() *schema.Resource {
 			"name": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"port": &schema.Schema{
 				Type:     schema.TypeInt,
@@ -43,7 +42,6 @@ func resourceSystemSocFabric() *schema.Resource {
 				Elem:      &schema.Schema{Type: schema.TypeString},
 				Optional:  true,
 				Sensitive: true,
-				Computed:  true,
 			},
 			"role": &schema.Schema{
 				Type:     schema.TypeString,
@@ -63,7 +61,6 @@ func resourceSystemSocFabric() *schema.Resource {
 			"supervisor": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 		},
 	}
@@ -268,7 +265,7 @@ func expandSystemSocFabricSupervisor(d *schema.ResourceData, v interface{}, pre 
 func getObjectSystemSocFabric(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("name"); ok {
+	if v, ok := d.GetOk("name"); ok || d.HasChange("name") {
 		t, err := expandSystemSocFabricName(d, v, "name")
 		if err != nil {
 			return &obj, err
@@ -277,7 +274,7 @@ func getObjectSystemSocFabric(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("port"); ok {
+	if v, ok := d.GetOk("port"); ok || d.HasChange("port") {
 		t, err := expandSystemSocFabricPort(d, v, "port")
 		if err != nil {
 			return &obj, err
@@ -286,7 +283,7 @@ func getObjectSystemSocFabric(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("psk"); ok {
+	if v, ok := d.GetOk("psk"); ok || d.HasChange("psk") {
 		t, err := expandSystemSocFabricPsk(d, v, "psk")
 		if err != nil {
 			return &obj, err
@@ -295,7 +292,7 @@ func getObjectSystemSocFabric(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("role"); ok {
+	if v, ok := d.GetOk("role"); ok || d.HasChange("role") {
 		t, err := expandSystemSocFabricRole(d, v, "role")
 		if err != nil {
 			return &obj, err
@@ -304,7 +301,7 @@ func getObjectSystemSocFabric(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("secure_connection"); ok {
+	if v, ok := d.GetOk("secure_connection"); ok || d.HasChange("secure_connection") {
 		t, err := expandSystemSocFabricSecureConnection(d, v, "secure_connection")
 		if err != nil {
 			return &obj, err
@@ -313,7 +310,7 @@ func getObjectSystemSocFabric(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("status"); ok {
+	if v, ok := d.GetOk("status"); ok || d.HasChange("status") {
 		t, err := expandSystemSocFabricStatus(d, v, "status")
 		if err != nil {
 			return &obj, err
@@ -322,7 +319,7 @@ func getObjectSystemSocFabric(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("supervisor"); ok {
+	if v, ok := d.GetOk("supervisor"); ok || d.HasChange("supervisor") {
 		t, err := expandSystemSocFabricSupervisor(d, v, "supervisor")
 		if err != nil {
 			return &obj, err

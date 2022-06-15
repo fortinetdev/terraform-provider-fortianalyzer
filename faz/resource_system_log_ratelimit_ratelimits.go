@@ -31,7 +31,6 @@ func resourceSystemLogRatelimitRatelimits() *schema.Resource {
 			"filter": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"filter_type": &schema.Schema{
 				Type:     schema.TypeString,
@@ -41,12 +40,10 @@ func resourceSystemLogRatelimitRatelimits() *schema.Resource {
 			"fosid": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Computed: true,
 			},
 			"ratelimit": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Computed: true,
 			},
 		},
 	}
@@ -229,7 +226,7 @@ func expandSystemLogRatelimitRatelimitsRatelimit(d *schema.ResourceData, v inter
 func getObjectSystemLogRatelimitRatelimits(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("filter"); ok {
+	if v, ok := d.GetOk("filter"); ok || d.HasChange("filter") {
 		t, err := expandSystemLogRatelimitRatelimitsFilter(d, v, "filter")
 		if err != nil {
 			return &obj, err
@@ -238,7 +235,7 @@ func getObjectSystemLogRatelimitRatelimits(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("filter_type"); ok {
+	if v, ok := d.GetOk("filter_type"); ok || d.HasChange("filter_type") {
 		t, err := expandSystemLogRatelimitRatelimitsFilterType(d, v, "filter_type")
 		if err != nil {
 			return &obj, err
@@ -247,7 +244,7 @@ func getObjectSystemLogRatelimitRatelimits(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("fosid"); ok {
+	if v, ok := d.GetOk("fosid"); ok || d.HasChange("id") {
 		t, err := expandSystemLogRatelimitRatelimitsId(d, v, "fosid")
 		if err != nil {
 			return &obj, err
@@ -256,7 +253,7 @@ func getObjectSystemLogRatelimitRatelimits(d *schema.ResourceData) (*map[string]
 		}
 	}
 
-	if v, ok := d.GetOk("ratelimit"); ok {
+	if v, ok := d.GetOk("ratelimit"); ok || d.HasChange("ratelimit") {
 		t, err := expandSystemLogRatelimitRatelimitsRatelimit(d, v, "ratelimit")
 		if err != nil {
 			return &obj, err

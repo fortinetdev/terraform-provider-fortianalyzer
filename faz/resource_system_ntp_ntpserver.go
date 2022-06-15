@@ -37,7 +37,6 @@ func resourceSystemNtpNtpserver() *schema.Resource {
 				Type:     schema.TypeInt,
 				ForceNew: true,
 				Optional: true,
-				Computed: true,
 			},
 			"key": &schema.Schema{
 				Type:      schema.TypeSet,
@@ -49,7 +48,6 @@ func resourceSystemNtpNtpserver() *schema.Resource {
 			"key_id": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Computed: true,
 			},
 			"maxpoll": &schema.Schema{
 				Type:     schema.TypeInt,
@@ -69,7 +67,6 @@ func resourceSystemNtpNtpserver() *schema.Resource {
 			"server": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 		},
 	}
@@ -314,7 +311,7 @@ func expandSystemNtpNtpserverServer(d *schema.ResourceData, v interface{}, pre s
 func getObjectSystemNtpNtpserver(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("authentication"); ok {
+	if v, ok := d.GetOk("authentication"); ok || d.HasChange("authentication") {
 		t, err := expandSystemNtpNtpserverAuthentication(d, v, "authentication")
 		if err != nil {
 			return &obj, err
@@ -323,7 +320,7 @@ func getObjectSystemNtpNtpserver(d *schema.ResourceData) (*map[string]interface{
 		}
 	}
 
-	if v, ok := d.GetOk("fosid"); ok {
+	if v, ok := d.GetOk("fosid"); ok || d.HasChange("id") {
 		t, err := expandSystemNtpNtpserverId(d, v, "fosid")
 		if err != nil {
 			return &obj, err
@@ -332,7 +329,7 @@ func getObjectSystemNtpNtpserver(d *schema.ResourceData) (*map[string]interface{
 		}
 	}
 
-	if v, ok := d.GetOk("key"); ok {
+	if v, ok := d.GetOk("key"); ok || d.HasChange("key") {
 		t, err := expandSystemNtpNtpserverKey(d, v, "key")
 		if err != nil {
 			return &obj, err
@@ -341,7 +338,7 @@ func getObjectSystemNtpNtpserver(d *schema.ResourceData) (*map[string]interface{
 		}
 	}
 
-	if v, ok := d.GetOk("key_id"); ok {
+	if v, ok := d.GetOk("key_id"); ok || d.HasChange("key_id") {
 		t, err := expandSystemNtpNtpserverKeyId(d, v, "key_id")
 		if err != nil {
 			return &obj, err
@@ -350,7 +347,7 @@ func getObjectSystemNtpNtpserver(d *schema.ResourceData) (*map[string]interface{
 		}
 	}
 
-	if v, ok := d.GetOk("maxpoll"); ok {
+	if v, ok := d.GetOk("maxpoll"); ok || d.HasChange("maxpoll") {
 		t, err := expandSystemNtpNtpserverMaxpoll(d, v, "maxpoll")
 		if err != nil {
 			return &obj, err
@@ -359,7 +356,7 @@ func getObjectSystemNtpNtpserver(d *schema.ResourceData) (*map[string]interface{
 		}
 	}
 
-	if v, ok := d.GetOk("minpoll"); ok {
+	if v, ok := d.GetOk("minpoll"); ok || d.HasChange("minpoll") {
 		t, err := expandSystemNtpNtpserverMinpoll(d, v, "minpoll")
 		if err != nil {
 			return &obj, err
@@ -368,7 +365,7 @@ func getObjectSystemNtpNtpserver(d *schema.ResourceData) (*map[string]interface{
 		}
 	}
 
-	if v, ok := d.GetOk("ntpv3"); ok {
+	if v, ok := d.GetOk("ntpv3"); ok || d.HasChange("ntpv3") {
 		t, err := expandSystemNtpNtpserverNtpv3(d, v, "ntpv3")
 		if err != nil {
 			return &obj, err
@@ -377,7 +374,7 @@ func getObjectSystemNtpNtpserver(d *schema.ResourceData) (*map[string]interface{
 		}
 	}
 
-	if v, ok := d.GetOk("server"); ok {
+	if v, ok := d.GetOk("server"); ok || d.HasChange("server") {
 		t, err := expandSystemNtpNtpserverServer(d, v, "server")
 		if err != nil {
 			return &obj, err

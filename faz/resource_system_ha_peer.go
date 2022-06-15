@@ -32,22 +32,18 @@ func resourceSystemHaPeer() *schema.Resource {
 				Type:     schema.TypeInt,
 				ForceNew: true,
 				Optional: true,
-				Computed: true,
 			},
 			"ip": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"ip_hb": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"serial_number": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"status": &schema.Schema{
 				Type:     schema.TypeString,
@@ -253,7 +249,7 @@ func expandSystemHaPeerStatus(d *schema.ResourceData, v interface{}, pre string)
 func getObjectSystemHaPeer(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("fosid"); ok {
+	if v, ok := d.GetOk("fosid"); ok || d.HasChange("id") {
 		t, err := expandSystemHaPeerId(d, v, "fosid")
 		if err != nil {
 			return &obj, err
@@ -262,7 +258,7 @@ func getObjectSystemHaPeer(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("ip"); ok {
+	if v, ok := d.GetOk("ip"); ok || d.HasChange("ip") {
 		t, err := expandSystemHaPeerIp(d, v, "ip")
 		if err != nil {
 			return &obj, err
@@ -271,7 +267,7 @@ func getObjectSystemHaPeer(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("ip_hb"); ok {
+	if v, ok := d.GetOk("ip_hb"); ok || d.HasChange("ip_hb") {
 		t, err := expandSystemHaPeerIpHb(d, v, "ip_hb")
 		if err != nil {
 			return &obj, err
@@ -280,7 +276,7 @@ func getObjectSystemHaPeer(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("serial_number"); ok {
+	if v, ok := d.GetOk("serial_number"); ok || d.HasChange("serial_number") {
 		t, err := expandSystemHaPeerSerialNumber(d, v, "serial_number")
 		if err != nil {
 			return &obj, err
@@ -289,7 +285,7 @@ func getObjectSystemHaPeer(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("status"); ok {
+	if v, ok := d.GetOk("status"); ok || d.HasChange("status") {
 		t, err := expandSystemHaPeerStatus(d, v, "status")
 		if err != nil {
 			return &obj, err

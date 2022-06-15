@@ -36,7 +36,6 @@ func resourceSystemAdminLdap() *schema.Resource {
 						"adom_name": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 					},
 				},
@@ -49,7 +48,6 @@ func resourceSystemAdminLdap() *schema.Resource {
 			"adom_attr": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"attributes": &schema.Schema{
 				Type:     schema.TypeString,
@@ -59,7 +57,6 @@ func resourceSystemAdminLdap() *schema.Resource {
 			"ca_cert": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"cnid": &schema.Schema{
 				Type:     schema.TypeString,
@@ -74,7 +71,6 @@ func resourceSystemAdminLdap() *schema.Resource {
 			"dn": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"filter": &schema.Schema{
 				Type:     schema.TypeString,
@@ -84,25 +80,21 @@ func resourceSystemAdminLdap() *schema.Resource {
 			"group": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"memberof_attr": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"name": &schema.Schema{
 				Type:     schema.TypeString,
 				ForceNew: true,
 				Optional: true,
-				Computed: true,
 			},
 			"password": &schema.Schema{
 				Type:      schema.TypeSet,
 				Elem:      &schema.Schema{Type: schema.TypeString},
 				Optional:  true,
 				Sensitive: true,
-				Computed:  true,
 			},
 			"port": &schema.Schema{
 				Type:     schema.TypeInt,
@@ -112,12 +104,10 @@ func resourceSystemAdminLdap() *schema.Resource {
 			"profile_attr": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"secondary_server": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"secure": &schema.Schema{
 				Type:     schema.TypeString,
@@ -127,12 +117,10 @@ func resourceSystemAdminLdap() *schema.Resource {
 			"server": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"tertiary_server": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"type": &schema.Schema{
 				Type:     schema.TypeString,
@@ -142,7 +130,6 @@ func resourceSystemAdminLdap() *schema.Resource {
 			"username": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"dynamic_sort_subtable": &schema.Schema{
 				Type:     schema.TypeString,
@@ -601,7 +588,7 @@ func expandSystemAdminLdapAdom(d *schema.ResourceData, v interface{}, pre string
 		pre_append := "" // table
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "adom_name"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["adom-name"], _ = expandSystemAdminLdapAdomAdomName(d, i["adom_name"], pre_append)
 		}
 
@@ -700,7 +687,7 @@ func expandSystemAdminLdapUsername(d *schema.ResourceData, v interface{}, pre st
 func getObjectSystemAdminLdap(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("fazadom"); ok {
+	if v, ok := d.GetOk("fazadom"); ok || d.HasChange("adom") {
 		t, err := expandSystemAdminLdapAdom(d, v, "fazadom")
 		if err != nil {
 			return &obj, err
@@ -709,7 +696,7 @@ func getObjectSystemAdminLdap(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("adom_access"); ok {
+	if v, ok := d.GetOk("adom_access"); ok || d.HasChange("adom_access") {
 		t, err := expandSystemAdminLdapAdomAccess(d, v, "adom_access")
 		if err != nil {
 			return &obj, err
@@ -718,7 +705,7 @@ func getObjectSystemAdminLdap(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("adom_attr"); ok {
+	if v, ok := d.GetOk("adom_attr"); ok || d.HasChange("adom_attr") {
 		t, err := expandSystemAdminLdapAdomAttr(d, v, "adom_attr")
 		if err != nil {
 			return &obj, err
@@ -727,7 +714,7 @@ func getObjectSystemAdminLdap(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("attributes"); ok {
+	if v, ok := d.GetOk("attributes"); ok || d.HasChange("attributes") {
 		t, err := expandSystemAdminLdapAttributes(d, v, "attributes")
 		if err != nil {
 			return &obj, err
@@ -736,7 +723,7 @@ func getObjectSystemAdminLdap(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("ca_cert"); ok {
+	if v, ok := d.GetOk("ca_cert"); ok || d.HasChange("ca_cert") {
 		t, err := expandSystemAdminLdapCaCert(d, v, "ca_cert")
 		if err != nil {
 			return &obj, err
@@ -745,7 +732,7 @@ func getObjectSystemAdminLdap(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("cnid"); ok {
+	if v, ok := d.GetOk("cnid"); ok || d.HasChange("cnid") {
 		t, err := expandSystemAdminLdapCnid(d, v, "cnid")
 		if err != nil {
 			return &obj, err
@@ -754,7 +741,7 @@ func getObjectSystemAdminLdap(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("connect_timeout"); ok {
+	if v, ok := d.GetOk("connect_timeout"); ok || d.HasChange("connect_timeout") {
 		t, err := expandSystemAdminLdapConnectTimeout(d, v, "connect_timeout")
 		if err != nil {
 			return &obj, err
@@ -763,7 +750,7 @@ func getObjectSystemAdminLdap(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("dn"); ok {
+	if v, ok := d.GetOk("dn"); ok || d.HasChange("dn") {
 		t, err := expandSystemAdminLdapDn(d, v, "dn")
 		if err != nil {
 			return &obj, err
@@ -772,7 +759,7 @@ func getObjectSystemAdminLdap(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("filter"); ok {
+	if v, ok := d.GetOk("filter"); ok || d.HasChange("filter") {
 		t, err := expandSystemAdminLdapFilter(d, v, "filter")
 		if err != nil {
 			return &obj, err
@@ -781,7 +768,7 @@ func getObjectSystemAdminLdap(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("group"); ok {
+	if v, ok := d.GetOk("group"); ok || d.HasChange("group") {
 		t, err := expandSystemAdminLdapGroup(d, v, "group")
 		if err != nil {
 			return &obj, err
@@ -790,7 +777,7 @@ func getObjectSystemAdminLdap(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("memberof_attr"); ok {
+	if v, ok := d.GetOk("memberof_attr"); ok || d.HasChange("memberof_attr") {
 		t, err := expandSystemAdminLdapMemberofAttr(d, v, "memberof_attr")
 		if err != nil {
 			return &obj, err
@@ -799,7 +786,7 @@ func getObjectSystemAdminLdap(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("name"); ok {
+	if v, ok := d.GetOk("name"); ok || d.HasChange("name") {
 		t, err := expandSystemAdminLdapName(d, v, "name")
 		if err != nil {
 			return &obj, err
@@ -808,7 +795,7 @@ func getObjectSystemAdminLdap(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("password"); ok {
+	if v, ok := d.GetOk("password"); ok || d.HasChange("password") {
 		t, err := expandSystemAdminLdapPassword(d, v, "password")
 		if err != nil {
 			return &obj, err
@@ -817,7 +804,7 @@ func getObjectSystemAdminLdap(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("port"); ok {
+	if v, ok := d.GetOk("port"); ok || d.HasChange("port") {
 		t, err := expandSystemAdminLdapPort(d, v, "port")
 		if err != nil {
 			return &obj, err
@@ -826,7 +813,7 @@ func getObjectSystemAdminLdap(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("profile_attr"); ok {
+	if v, ok := d.GetOk("profile_attr"); ok || d.HasChange("profile_attr") {
 		t, err := expandSystemAdminLdapProfileAttr(d, v, "profile_attr")
 		if err != nil {
 			return &obj, err
@@ -835,7 +822,7 @@ func getObjectSystemAdminLdap(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("secondary_server"); ok {
+	if v, ok := d.GetOk("secondary_server"); ok || d.HasChange("secondary_server") {
 		t, err := expandSystemAdminLdapSecondaryServer(d, v, "secondary_server")
 		if err != nil {
 			return &obj, err
@@ -844,7 +831,7 @@ func getObjectSystemAdminLdap(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("secure"); ok {
+	if v, ok := d.GetOk("secure"); ok || d.HasChange("secure") {
 		t, err := expandSystemAdminLdapSecure(d, v, "secure")
 		if err != nil {
 			return &obj, err
@@ -853,7 +840,7 @@ func getObjectSystemAdminLdap(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("server"); ok {
+	if v, ok := d.GetOk("server"); ok || d.HasChange("server") {
 		t, err := expandSystemAdminLdapServer(d, v, "server")
 		if err != nil {
 			return &obj, err
@@ -862,7 +849,7 @@ func getObjectSystemAdminLdap(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("tertiary_server"); ok {
+	if v, ok := d.GetOk("tertiary_server"); ok || d.HasChange("tertiary_server") {
 		t, err := expandSystemAdminLdapTertiaryServer(d, v, "tertiary_server")
 		if err != nil {
 			return &obj, err
@@ -871,7 +858,7 @@ func getObjectSystemAdminLdap(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("type"); ok {
+	if v, ok := d.GetOk("type"); ok || d.HasChange("type") {
 		t, err := expandSystemAdminLdapType(d, v, "type")
 		if err != nil {
 			return &obj, err
@@ -880,7 +867,7 @@ func getObjectSystemAdminLdap(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("username"); ok {
+	if v, ok := d.GetOk("username"); ok || d.HasChange("username") {
 		t, err := expandSystemAdminLdapUsername(d, v, "username")
 		if err != nil {
 			return &obj, err

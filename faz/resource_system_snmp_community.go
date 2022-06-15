@@ -42,15 +42,14 @@ func resourceSystemSnmpCommunity() *schema.Resource {
 						"id": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"interface": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"ip": &schema.Schema{
-							Type:     schema.TypeString,
+							Type:     schema.TypeList,
+							Elem:     &schema.Schema{Type: schema.TypeString},
 							Optional: true,
 							Computed: true,
 						},
@@ -65,12 +64,10 @@ func resourceSystemSnmpCommunity() *schema.Resource {
 						"id": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"interface": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"ip": &schema.Schema{
 							Type:     schema.TypeString,
@@ -84,12 +81,10 @@ func resourceSystemSnmpCommunity() *schema.Resource {
 				Type:     schema.TypeInt,
 				ForceNew: true,
 				Optional: true,
-				Computed: true,
 			},
 			"name": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"query_v1_port": &schema.Schema{
 				Type:     schema.TypeInt,
@@ -293,7 +288,7 @@ func flattenSystemSnmpCommunityHostsInterface(v interface{}, d *schema.ResourceD
 }
 
 func flattenSystemSnmpCommunityHostsIp(v interface{}, d *schema.ResourceData, pre string) interface{} {
-	return v
+	return flattenStringList(v)
 }
 
 func flattenSystemSnmpCommunityHosts6(v interface{}, d *schema.ResourceData, pre string) []map[string]interface{} {
@@ -596,17 +591,17 @@ func expandSystemSnmpCommunityHosts(d *schema.ResourceData, v interface{}, pre s
 		pre_append := "" // table
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "id"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["id"], _ = expandSystemSnmpCommunityHostsId(d, i["id"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "interface"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["interface"], _ = expandSystemSnmpCommunityHostsInterface(d, i["interface"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "ip"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["ip"], _ = expandSystemSnmpCommunityHostsIp(d, i["ip"], pre_append)
 		}
 
@@ -627,7 +622,7 @@ func expandSystemSnmpCommunityHostsInterface(d *schema.ResourceData, v interface
 }
 
 func expandSystemSnmpCommunityHostsIp(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
-	return v, nil
+	return expandStringList(v.([]interface{})), nil
 }
 
 func expandSystemSnmpCommunityHosts6(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
@@ -645,17 +640,17 @@ func expandSystemSnmpCommunityHosts6(d *schema.ResourceData, v interface{}, pre 
 		pre_append := "" // table
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "id"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["id"], _ = expandSystemSnmpCommunityHosts6Id(d, i["id"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "interface"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["interface"], _ = expandSystemSnmpCommunityHosts6Interface(d, i["interface"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "ip"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["ip"], _ = expandSystemSnmpCommunityHosts6Ip(d, i["ip"], pre_append)
 		}
 
@@ -726,7 +721,7 @@ func expandSystemSnmpCommunityTrapV2CStatus(d *schema.ResourceData, v interface{
 func getObjectSystemSnmpCommunity(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("events"); ok {
+	if v, ok := d.GetOk("events"); ok || d.HasChange("events") {
 		t, err := expandSystemSnmpCommunityEvents(d, v, "events")
 		if err != nil {
 			return &obj, err
@@ -735,7 +730,7 @@ func getObjectSystemSnmpCommunity(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("hosts"); ok {
+	if v, ok := d.GetOk("hosts"); ok || d.HasChange("hosts") {
 		t, err := expandSystemSnmpCommunityHosts(d, v, "hosts")
 		if err != nil {
 			return &obj, err
@@ -744,7 +739,7 @@ func getObjectSystemSnmpCommunity(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("hosts6"); ok {
+	if v, ok := d.GetOk("hosts6"); ok || d.HasChange("hosts6") {
 		t, err := expandSystemSnmpCommunityHosts6(d, v, "hosts6")
 		if err != nil {
 			return &obj, err
@@ -753,7 +748,7 @@ func getObjectSystemSnmpCommunity(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("fosid"); ok {
+	if v, ok := d.GetOk("fosid"); ok || d.HasChange("id") {
 		t, err := expandSystemSnmpCommunityId(d, v, "fosid")
 		if err != nil {
 			return &obj, err
@@ -762,7 +757,7 @@ func getObjectSystemSnmpCommunity(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("name"); ok {
+	if v, ok := d.GetOk("name"); ok || d.HasChange("name") {
 		t, err := expandSystemSnmpCommunityName(d, v, "name")
 		if err != nil {
 			return &obj, err
@@ -771,7 +766,7 @@ func getObjectSystemSnmpCommunity(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("query_v1_port"); ok {
+	if v, ok := d.GetOk("query_v1_port"); ok || d.HasChange("query_v1_port") {
 		t, err := expandSystemSnmpCommunityQueryV1Port(d, v, "query_v1_port")
 		if err != nil {
 			return &obj, err
@@ -780,7 +775,7 @@ func getObjectSystemSnmpCommunity(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("query_v1_status"); ok {
+	if v, ok := d.GetOk("query_v1_status"); ok || d.HasChange("query_v1_status") {
 		t, err := expandSystemSnmpCommunityQueryV1Status(d, v, "query_v1_status")
 		if err != nil {
 			return &obj, err
@@ -789,7 +784,7 @@ func getObjectSystemSnmpCommunity(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("query_v2c_port"); ok {
+	if v, ok := d.GetOk("query_v2c_port"); ok || d.HasChange("query_v2c_port") {
 		t, err := expandSystemSnmpCommunityQueryV2CPort(d, v, "query_v2c_port")
 		if err != nil {
 			return &obj, err
@@ -798,7 +793,7 @@ func getObjectSystemSnmpCommunity(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("query_v2c_status"); ok {
+	if v, ok := d.GetOk("query_v2c_status"); ok || d.HasChange("query_v2c_status") {
 		t, err := expandSystemSnmpCommunityQueryV2CStatus(d, v, "query_v2c_status")
 		if err != nil {
 			return &obj, err
@@ -807,7 +802,7 @@ func getObjectSystemSnmpCommunity(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("status"); ok {
+	if v, ok := d.GetOk("status"); ok || d.HasChange("status") {
 		t, err := expandSystemSnmpCommunityStatus(d, v, "status")
 		if err != nil {
 			return &obj, err
@@ -816,7 +811,7 @@ func getObjectSystemSnmpCommunity(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("trap_v1_rport"); ok {
+	if v, ok := d.GetOk("trap_v1_rport"); ok || d.HasChange("trap_v1_rport") {
 		t, err := expandSystemSnmpCommunityTrapV1Rport(d, v, "trap_v1_rport")
 		if err != nil {
 			return &obj, err
@@ -825,7 +820,7 @@ func getObjectSystemSnmpCommunity(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("trap_v1_status"); ok {
+	if v, ok := d.GetOk("trap_v1_status"); ok || d.HasChange("trap_v1_status") {
 		t, err := expandSystemSnmpCommunityTrapV1Status(d, v, "trap_v1_status")
 		if err != nil {
 			return &obj, err
@@ -834,7 +829,7 @@ func getObjectSystemSnmpCommunity(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("trap_v2c_rport"); ok {
+	if v, ok := d.GetOk("trap_v2c_rport"); ok || d.HasChange("trap_v2c_rport") {
 		t, err := expandSystemSnmpCommunityTrapV2CRport(d, v, "trap_v2c_rport")
 		if err != nil {
 			return &obj, err
@@ -843,7 +838,7 @@ func getObjectSystemSnmpCommunity(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("trap_v2c_status"); ok {
+	if v, ok := d.GetOk("trap_v2c_status"); ok || d.HasChange("trap_v2c_status") {
 		t, err := expandSystemSnmpCommunityTrapV2CStatus(d, v, "trap_v2c_status")
 		if err != nil {
 			return &obj, err

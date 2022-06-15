@@ -31,7 +31,6 @@ func resourceFmupdateWebSpamWebProxy() *schema.Resource {
 			"address": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"mode": &schema.Schema{
 				Type:     schema.TypeString,
@@ -43,7 +42,6 @@ func resourceFmupdateWebSpamWebProxy() *schema.Resource {
 				Elem:      &schema.Schema{Type: schema.TypeString},
 				Optional:  true,
 				Sensitive: true,
-				Computed:  true,
 			},
 			"port": &schema.Schema{
 				Type:     schema.TypeInt,
@@ -58,7 +56,6 @@ func resourceFmupdateWebSpamWebProxy() *schema.Resource {
 			"username": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 		},
 	}
@@ -245,7 +242,7 @@ func expandFmupdateWebSpamWebProxyUsername(d *schema.ResourceData, v interface{}
 func getObjectFmupdateWebSpamWebProxy(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("address"); ok {
+	if v, ok := d.GetOk("address"); ok || d.HasChange("address") {
 		t, err := expandFmupdateWebSpamWebProxyAddress(d, v, "address")
 		if err != nil {
 			return &obj, err
@@ -254,7 +251,7 @@ func getObjectFmupdateWebSpamWebProxy(d *schema.ResourceData) (*map[string]inter
 		}
 	}
 
-	if v, ok := d.GetOk("mode"); ok {
+	if v, ok := d.GetOk("mode"); ok || d.HasChange("mode") {
 		t, err := expandFmupdateWebSpamWebProxyMode(d, v, "mode")
 		if err != nil {
 			return &obj, err
@@ -263,7 +260,7 @@ func getObjectFmupdateWebSpamWebProxy(d *schema.ResourceData) (*map[string]inter
 		}
 	}
 
-	if v, ok := d.GetOk("password"); ok {
+	if v, ok := d.GetOk("password"); ok || d.HasChange("password") {
 		t, err := expandFmupdateWebSpamWebProxyPassword(d, v, "password")
 		if err != nil {
 			return &obj, err
@@ -272,7 +269,7 @@ func getObjectFmupdateWebSpamWebProxy(d *schema.ResourceData) (*map[string]inter
 		}
 	}
 
-	if v, ok := d.GetOk("port"); ok {
+	if v, ok := d.GetOk("port"); ok || d.HasChange("port") {
 		t, err := expandFmupdateWebSpamWebProxyPort(d, v, "port")
 		if err != nil {
 			return &obj, err
@@ -281,7 +278,7 @@ func getObjectFmupdateWebSpamWebProxy(d *schema.ResourceData) (*map[string]inter
 		}
 	}
 
-	if v, ok := d.GetOk("status"); ok {
+	if v, ok := d.GetOk("status"); ok || d.HasChange("status") {
 		t, err := expandFmupdateWebSpamWebProxyStatus(d, v, "status")
 		if err != nil {
 			return &obj, err
@@ -290,7 +287,7 @@ func getObjectFmupdateWebSpamWebProxy(d *schema.ResourceData) (*map[string]inter
 		}
 	}
 
-	if v, ok := d.GetOk("username"); ok {
+	if v, ok := d.GetOk("username"); ok || d.HasChange("username") {
 		t, err := expandFmupdateWebSpamWebProxyUsername(d, v, "username")
 		if err != nil {
 			return &obj, err

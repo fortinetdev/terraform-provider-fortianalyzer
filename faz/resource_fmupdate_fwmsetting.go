@@ -276,7 +276,7 @@ func expandFmupdateFwmSettingMultipleStepsInterval(d *schema.ResourceData, v int
 func getObjectFmupdateFwmSetting(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("auto_scan_fgt_disk"); ok {
+	if v, ok := d.GetOk("auto_scan_fgt_disk"); ok || d.HasChange("auto_scan_fgt_disk") {
 		t, err := expandFmupdateFwmSettingAutoScanFgtDisk(d, v, "auto_scan_fgt_disk")
 		if err != nil {
 			return &obj, err
@@ -285,7 +285,7 @@ func getObjectFmupdateFwmSetting(d *schema.ResourceData) (*map[string]interface{
 		}
 	}
 
-	if v, ok := d.GetOk("check_fgt_disk"); ok {
+	if v, ok := d.GetOk("check_fgt_disk"); ok || d.HasChange("check_fgt_disk") {
 		t, err := expandFmupdateFwmSettingCheckFgtDisk(d, v, "check_fgt_disk")
 		if err != nil {
 			return &obj, err
@@ -294,7 +294,7 @@ func getObjectFmupdateFwmSetting(d *schema.ResourceData) (*map[string]interface{
 		}
 	}
 
-	if v, ok := d.GetOk("fds_failover_fmg"); ok {
+	if v, ok := d.GetOk("fds_failover_fmg"); ok || d.HasChange("fds_failover_fmg") {
 		t, err := expandFmupdateFwmSettingFdsFailoverFmg(d, v, "fds_failover_fmg")
 		if err != nil {
 			return &obj, err
@@ -303,7 +303,7 @@ func getObjectFmupdateFwmSetting(d *schema.ResourceData) (*map[string]interface{
 		}
 	}
 
-	if v, ok := d.GetOk("fds_image_timeout"); ok {
+	if v, ok := d.GetOk("fds_image_timeout"); ok || d.HasChange("fds_image_timeout") {
 		t, err := expandFmupdateFwmSettingFdsImageTimeout(d, v, "fds_image_timeout")
 		if err != nil {
 			return &obj, err
@@ -312,7 +312,7 @@ func getObjectFmupdateFwmSetting(d *schema.ResourceData) (*map[string]interface{
 		}
 	}
 
-	if v, ok := d.GetOk("immx_source"); ok {
+	if v, ok := d.GetOk("immx_source"); ok || d.HasChange("immx_source") {
 		t, err := expandFmupdateFwmSettingImmxSource(d, v, "immx_source")
 		if err != nil {
 			return &obj, err
@@ -321,7 +321,7 @@ func getObjectFmupdateFwmSetting(d *schema.ResourceData) (*map[string]interface{
 		}
 	}
 
-	if v, ok := d.GetOk("log"); ok {
+	if v, ok := d.GetOk("log"); ok || d.HasChange("log") {
 		t, err := expandFmupdateFwmSettingLog(d, v, "log")
 		if err != nil {
 			return &obj, err
@@ -330,7 +330,7 @@ func getObjectFmupdateFwmSetting(d *schema.ResourceData) (*map[string]interface{
 		}
 	}
 
-	if v, ok := d.GetOk("multiple_steps_interval"); ok {
+	if v, ok := d.GetOk("multiple_steps_interval"); ok || d.HasChange("multiple_steps_interval") {
 		t, err := expandFmupdateFwmSettingMultipleStepsInterval(d, v, "multiple_steps_interval")
 		if err != nil {
 			return &obj, err

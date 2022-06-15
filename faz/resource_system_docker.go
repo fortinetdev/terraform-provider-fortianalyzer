@@ -461,7 +461,7 @@ func expandSystemDockerUniversalconnector(d *schema.ResourceData, v interface{},
 func getObjectSystemDocker(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("cpu"); ok {
+	if v, ok := d.GetOk("cpu"); ok || d.HasChange("cpu") {
 		t, err := expandSystemDockerCpu(d, v, "cpu")
 		if err != nil {
 			return &obj, err
@@ -470,7 +470,7 @@ func getObjectSystemDocker(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("default_address_pool_base"); ok {
+	if v, ok := d.GetOk("default_address_pool_base"); ok || d.HasChange("default_address_pool_base") {
 		t, err := expandSystemDockerDefaultAddressPoolBase(d, v, "default_address_pool_base")
 		if err != nil {
 			return &obj, err
@@ -479,7 +479,7 @@ func getObjectSystemDocker(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("default_address_pool_size"); ok {
+	if v, ok := d.GetOk("default_address_pool_size"); ok || d.HasChange("default_address_pool_size") {
 		t, err := expandSystemDockerDefaultAddressPoolSize(d, v, "default_address_pool_size")
 		if err != nil {
 			return &obj, err
@@ -488,7 +488,7 @@ func getObjectSystemDocker(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("docker_user_login_max"); ok {
+	if v, ok := d.GetOk("docker_user_login_max"); ok || d.HasChange("docker_user_login_max") {
 		t, err := expandSystemDockerDockerUserLoginMax(d, v, "docker_user_login_max")
 		if err != nil {
 			return &obj, err
@@ -497,7 +497,7 @@ func getObjectSystemDocker(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("fortiaiops"); ok {
+	if v, ok := d.GetOk("fortiaiops"); ok || d.HasChange("fortiaiops") {
 		t, err := expandSystemDockerFortiaiops(d, v, "fortiaiops")
 		if err != nil {
 			return &obj, err
@@ -506,7 +506,7 @@ func getObjectSystemDocker(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("fortiauthenticator"); ok {
+	if v, ok := d.GetOk("fortiauthenticator"); ok || d.HasChange("fortiauthenticator") {
 		t, err := expandSystemDockerFortiauthenticator(d, v, "fortiauthenticator")
 		if err != nil {
 			return &obj, err
@@ -515,7 +515,7 @@ func getObjectSystemDocker(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("fortiportal"); ok {
+	if v, ok := d.GetOk("fortiportal"); ok || d.HasChange("fortiportal") {
 		t, err := expandSystemDockerFortiportal(d, v, "fortiportal")
 		if err != nil {
 			return &obj, err
@@ -524,7 +524,7 @@ func getObjectSystemDocker(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("fortisigconverter"); ok {
+	if v, ok := d.GetOk("fortisigconverter"); ok || d.HasChange("fortisigconverter") {
 		t, err := expandSystemDockerFortisigconverter(d, v, "fortisigconverter")
 		if err != nil {
 			return &obj, err
@@ -533,7 +533,7 @@ func getObjectSystemDocker(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("fortisoar"); ok {
+	if v, ok := d.GetOk("fortisoar"); ok || d.HasChange("fortisoar") {
 		t, err := expandSystemDockerFortisoar(d, v, "fortisoar")
 		if err != nil {
 			return &obj, err
@@ -542,7 +542,7 @@ func getObjectSystemDocker(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("fortiwlm"); ok {
+	if v, ok := d.GetOk("fortiwlm"); ok || d.HasChange("fortiwlm") {
 		t, err := expandSystemDockerFortiwlm(d, v, "fortiwlm")
 		if err != nil {
 			return &obj, err
@@ -551,7 +551,7 @@ func getObjectSystemDocker(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("fsmcollector"); ok {
+	if v, ok := d.GetOk("fsmcollector"); ok || d.HasChange("fsmcollector") {
 		t, err := expandSystemDockerFsmcollector(d, v, "fsmcollector")
 		if err != nil {
 			return &obj, err
@@ -560,7 +560,7 @@ func getObjectSystemDocker(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("mem"); ok {
+	if v, ok := d.GetOk("mem"); ok || d.HasChange("mem") {
 		t, err := expandSystemDockerMem(d, v, "mem")
 		if err != nil {
 			return &obj, err
@@ -569,7 +569,7 @@ func getObjectSystemDocker(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("sdwancontroller"); ok {
+	if v, ok := d.GetOk("sdwancontroller"); ok || d.HasChange("sdwancontroller") {
 		t, err := expandSystemDockerSdwancontroller(d, v, "sdwancontroller")
 		if err != nil {
 			return &obj, err
@@ -578,7 +578,7 @@ func getObjectSystemDocker(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("status"); ok {
+	if v, ok := d.GetOk("status"); ok || d.HasChange("status") {
 		t, err := expandSystemDockerStatus(d, v, "status")
 		if err != nil {
 			return &obj, err
@@ -587,7 +587,7 @@ func getObjectSystemDocker(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("universalconnector"); ok {
+	if v, ok := d.GetOk("universalconnector"); ok || d.HasChange("universalconnector") {
 		t, err := expandSystemDockerUniversalconnector(d, v, "universalconnector")
 		if err != nil {
 			return &obj, err

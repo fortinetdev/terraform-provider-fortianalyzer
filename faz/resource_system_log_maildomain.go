@@ -36,18 +36,15 @@ func resourceSystemLogMailDomain() *schema.Resource {
 			"domain": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"fosid": &schema.Schema{
 				Type:     schema.TypeInt,
 				ForceNew: true,
 				Optional: true,
-				Computed: true,
 			},
 			"vdom": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 		},
 	}
@@ -230,7 +227,7 @@ func expandSystemLogMailDomainVdom(d *schema.ResourceData, v interface{}, pre st
 func getObjectSystemLogMailDomain(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("devices"); ok {
+	if v, ok := d.GetOk("devices"); ok || d.HasChange("devices") {
 		t, err := expandSystemLogMailDomainDevices(d, v, "devices")
 		if err != nil {
 			return &obj, err
@@ -239,7 +236,7 @@ func getObjectSystemLogMailDomain(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("domain"); ok {
+	if v, ok := d.GetOk("domain"); ok || d.HasChange("domain") {
 		t, err := expandSystemLogMailDomainDomain(d, v, "domain")
 		if err != nil {
 			return &obj, err
@@ -248,7 +245,7 @@ func getObjectSystemLogMailDomain(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("fosid"); ok {
+	if v, ok := d.GetOk("fosid"); ok || d.HasChange("id") {
 		t, err := expandSystemLogMailDomainId(d, v, "fosid")
 		if err != nil {
 			return &obj, err
@@ -257,7 +254,7 @@ func getObjectSystemLogMailDomain(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("vdom"); ok {
+	if v, ok := d.GetOk("vdom"); ok || d.HasChange("vdom") {
 		t, err := expandSystemLogMailDomainVdom(d, v, "vdom")
 		if err != nil {
 			return &obj, err

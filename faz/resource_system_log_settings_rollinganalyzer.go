@@ -32,7 +32,6 @@ func resourceSystemLogSettingsRollingAnalyzer() *schema.Resource {
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
-				Computed: true,
 			},
 			"del_files": &schema.Schema{
 				Type:     schema.TypeString,
@@ -42,7 +41,6 @@ func resourceSystemLogSettingsRollingAnalyzer() *schema.Resource {
 			"directory": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"file_size": &schema.Schema{
 				Type:     schema.TypeInt,
@@ -57,7 +55,6 @@ func resourceSystemLogSettingsRollingAnalyzer() *schema.Resource {
 			"hour": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Computed: true,
 			},
 			"ip": &schema.Schema{
 				Type:     schema.TypeString,
@@ -82,13 +79,11 @@ func resourceSystemLogSettingsRollingAnalyzer() *schema.Resource {
 			"min": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Computed: true,
 			},
 			"password": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
-				Computed: true,
 			},
 			"password2": &schema.Schema{
 				Type:      schema.TypeSet,
@@ -107,22 +102,18 @@ func resourceSystemLogSettingsRollingAnalyzer() *schema.Resource {
 			"port": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Computed: true,
 			},
 			"port2": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Computed: true,
 			},
 			"port3": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Computed: true,
 			},
 			"rolling_upgrade_status": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Computed: true,
 			},
 			"server_type": &schema.Schema{
 				Type:     schema.TypeString,
@@ -137,7 +128,6 @@ func resourceSystemLogSettingsRollingAnalyzer() *schema.Resource {
 			"upload_hour": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Computed: true,
 			},
 			"upload_mode": &schema.Schema{
 				Type:     schema.TypeString,
@@ -152,17 +142,14 @@ func resourceSystemLogSettingsRollingAnalyzer() *schema.Resource {
 			"username": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"username2": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"username3": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"when": &schema.Schema{
 				Type:     schema.TypeString,
@@ -722,7 +709,7 @@ func expandSystemLogSettingsRollingAnalyzerWhen(d *schema.ResourceData, v interf
 func getObjectSystemLogSettingsRollingAnalyzer(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("days"); ok {
+	if v, ok := d.GetOk("days"); ok || d.HasChange("days") {
 		t, err := expandSystemLogSettingsRollingAnalyzerDays(d, v, "days")
 		if err != nil {
 			return &obj, err
@@ -731,7 +718,7 @@ func getObjectSystemLogSettingsRollingAnalyzer(d *schema.ResourceData) (*map[str
 		}
 	}
 
-	if v, ok := d.GetOk("del_files"); ok {
+	if v, ok := d.GetOk("del_files"); ok || d.HasChange("del_files") {
 		t, err := expandSystemLogSettingsRollingAnalyzerDelFiles(d, v, "del_files")
 		if err != nil {
 			return &obj, err
@@ -740,7 +727,7 @@ func getObjectSystemLogSettingsRollingAnalyzer(d *schema.ResourceData) (*map[str
 		}
 	}
 
-	if v, ok := d.GetOk("directory"); ok {
+	if v, ok := d.GetOk("directory"); ok || d.HasChange("directory") {
 		t, err := expandSystemLogSettingsRollingAnalyzerDirectory(d, v, "directory")
 		if err != nil {
 			return &obj, err
@@ -749,7 +736,7 @@ func getObjectSystemLogSettingsRollingAnalyzer(d *schema.ResourceData) (*map[str
 		}
 	}
 
-	if v, ok := d.GetOk("file_size"); ok {
+	if v, ok := d.GetOk("file_size"); ok || d.HasChange("file_size") {
 		t, err := expandSystemLogSettingsRollingAnalyzerFileSize(d, v, "file_size")
 		if err != nil {
 			return &obj, err
@@ -758,7 +745,7 @@ func getObjectSystemLogSettingsRollingAnalyzer(d *schema.ResourceData) (*map[str
 		}
 	}
 
-	if v, ok := d.GetOk("gzip_format"); ok {
+	if v, ok := d.GetOk("gzip_format"); ok || d.HasChange("gzip_format") {
 		t, err := expandSystemLogSettingsRollingAnalyzerGzipFormat(d, v, "gzip_format")
 		if err != nil {
 			return &obj, err
@@ -767,7 +754,7 @@ func getObjectSystemLogSettingsRollingAnalyzer(d *schema.ResourceData) (*map[str
 		}
 	}
 
-	if v, ok := d.GetOk("hour"); ok {
+	if v, ok := d.GetOk("hour"); ok || d.HasChange("hour") {
 		t, err := expandSystemLogSettingsRollingAnalyzerHour(d, v, "hour")
 		if err != nil {
 			return &obj, err
@@ -776,7 +763,7 @@ func getObjectSystemLogSettingsRollingAnalyzer(d *schema.ResourceData) (*map[str
 		}
 	}
 
-	if v, ok := d.GetOk("ip"); ok {
+	if v, ok := d.GetOk("ip"); ok || d.HasChange("ip") {
 		t, err := expandSystemLogSettingsRollingAnalyzerIp(d, v, "ip")
 		if err != nil {
 			return &obj, err
@@ -785,7 +772,7 @@ func getObjectSystemLogSettingsRollingAnalyzer(d *schema.ResourceData) (*map[str
 		}
 	}
 
-	if v, ok := d.GetOk("ip2"); ok {
+	if v, ok := d.GetOk("ip2"); ok || d.HasChange("ip2") {
 		t, err := expandSystemLogSettingsRollingAnalyzerIp2(d, v, "ip2")
 		if err != nil {
 			return &obj, err
@@ -794,7 +781,7 @@ func getObjectSystemLogSettingsRollingAnalyzer(d *schema.ResourceData) (*map[str
 		}
 	}
 
-	if v, ok := d.GetOk("ip3"); ok {
+	if v, ok := d.GetOk("ip3"); ok || d.HasChange("ip3") {
 		t, err := expandSystemLogSettingsRollingAnalyzerIp3(d, v, "ip3")
 		if err != nil {
 			return &obj, err
@@ -803,7 +790,7 @@ func getObjectSystemLogSettingsRollingAnalyzer(d *schema.ResourceData) (*map[str
 		}
 	}
 
-	if v, ok := d.GetOk("log_format"); ok {
+	if v, ok := d.GetOk("log_format"); ok || d.HasChange("log_format") {
 		t, err := expandSystemLogSettingsRollingAnalyzerLogFormat(d, v, "log_format")
 		if err != nil {
 			return &obj, err
@@ -812,7 +799,7 @@ func getObjectSystemLogSettingsRollingAnalyzer(d *schema.ResourceData) (*map[str
 		}
 	}
 
-	if v, ok := d.GetOk("min"); ok {
+	if v, ok := d.GetOk("min"); ok || d.HasChange("min") {
 		t, err := expandSystemLogSettingsRollingAnalyzerMin(d, v, "min")
 		if err != nil {
 			return &obj, err
@@ -821,7 +808,7 @@ func getObjectSystemLogSettingsRollingAnalyzer(d *schema.ResourceData) (*map[str
 		}
 	}
 
-	if v, ok := d.GetOk("password"); ok {
+	if v, ok := d.GetOk("password"); ok || d.HasChange("password") {
 		t, err := expandSystemLogSettingsRollingAnalyzerPassword(d, v, "password")
 		if err != nil {
 			return &obj, err
@@ -830,7 +817,7 @@ func getObjectSystemLogSettingsRollingAnalyzer(d *schema.ResourceData) (*map[str
 		}
 	}
 
-	if v, ok := d.GetOk("password2"); ok {
+	if v, ok := d.GetOk("password2"); ok || d.HasChange("password2") {
 		t, err := expandSystemLogSettingsRollingAnalyzerPassword2(d, v, "password2")
 		if err != nil {
 			return &obj, err
@@ -839,7 +826,7 @@ func getObjectSystemLogSettingsRollingAnalyzer(d *schema.ResourceData) (*map[str
 		}
 	}
 
-	if v, ok := d.GetOk("password3"); ok {
+	if v, ok := d.GetOk("password3"); ok || d.HasChange("password3") {
 		t, err := expandSystemLogSettingsRollingAnalyzerPassword3(d, v, "password3")
 		if err != nil {
 			return &obj, err
@@ -848,7 +835,7 @@ func getObjectSystemLogSettingsRollingAnalyzer(d *schema.ResourceData) (*map[str
 		}
 	}
 
-	if v, ok := d.GetOk("port"); ok {
+	if v, ok := d.GetOk("port"); ok || d.HasChange("port") {
 		t, err := expandSystemLogSettingsRollingAnalyzerPort(d, v, "port")
 		if err != nil {
 			return &obj, err
@@ -857,7 +844,7 @@ func getObjectSystemLogSettingsRollingAnalyzer(d *schema.ResourceData) (*map[str
 		}
 	}
 
-	if v, ok := d.GetOk("port2"); ok {
+	if v, ok := d.GetOk("port2"); ok || d.HasChange("port2") {
 		t, err := expandSystemLogSettingsRollingAnalyzerPort2(d, v, "port2")
 		if err != nil {
 			return &obj, err
@@ -866,7 +853,7 @@ func getObjectSystemLogSettingsRollingAnalyzer(d *schema.ResourceData) (*map[str
 		}
 	}
 
-	if v, ok := d.GetOk("port3"); ok {
+	if v, ok := d.GetOk("port3"); ok || d.HasChange("port3") {
 		t, err := expandSystemLogSettingsRollingAnalyzerPort3(d, v, "port3")
 		if err != nil {
 			return &obj, err
@@ -875,7 +862,7 @@ func getObjectSystemLogSettingsRollingAnalyzer(d *schema.ResourceData) (*map[str
 		}
 	}
 
-	if v, ok := d.GetOk("rolling_upgrade_status"); ok {
+	if v, ok := d.GetOk("rolling_upgrade_status"); ok || d.HasChange("rolling_upgrade_status") {
 		t, err := expandSystemLogSettingsRollingAnalyzerRollingUpgradeStatus(d, v, "rolling_upgrade_status")
 		if err != nil {
 			return &obj, err
@@ -884,7 +871,7 @@ func getObjectSystemLogSettingsRollingAnalyzer(d *schema.ResourceData) (*map[str
 		}
 	}
 
-	if v, ok := d.GetOk("server_type"); ok {
+	if v, ok := d.GetOk("server_type"); ok || d.HasChange("server_type") {
 		t, err := expandSystemLogSettingsRollingAnalyzerServerType(d, v, "server_type")
 		if err != nil {
 			return &obj, err
@@ -893,7 +880,7 @@ func getObjectSystemLogSettingsRollingAnalyzer(d *schema.ResourceData) (*map[str
 		}
 	}
 
-	if v, ok := d.GetOk("upload"); ok {
+	if v, ok := d.GetOk("upload"); ok || d.HasChange("upload") {
 		t, err := expandSystemLogSettingsRollingAnalyzerUpload(d, v, "upload")
 		if err != nil {
 			return &obj, err
@@ -902,7 +889,7 @@ func getObjectSystemLogSettingsRollingAnalyzer(d *schema.ResourceData) (*map[str
 		}
 	}
 
-	if v, ok := d.GetOk("upload_hour"); ok {
+	if v, ok := d.GetOk("upload_hour"); ok || d.HasChange("upload_hour") {
 		t, err := expandSystemLogSettingsRollingAnalyzerUploadHour(d, v, "upload_hour")
 		if err != nil {
 			return &obj, err
@@ -911,7 +898,7 @@ func getObjectSystemLogSettingsRollingAnalyzer(d *schema.ResourceData) (*map[str
 		}
 	}
 
-	if v, ok := d.GetOk("upload_mode"); ok {
+	if v, ok := d.GetOk("upload_mode"); ok || d.HasChange("upload_mode") {
 		t, err := expandSystemLogSettingsRollingAnalyzerUploadMode(d, v, "upload_mode")
 		if err != nil {
 			return &obj, err
@@ -920,7 +907,7 @@ func getObjectSystemLogSettingsRollingAnalyzer(d *schema.ResourceData) (*map[str
 		}
 	}
 
-	if v, ok := d.GetOk("upload_trigger"); ok {
+	if v, ok := d.GetOk("upload_trigger"); ok || d.HasChange("upload_trigger") {
 		t, err := expandSystemLogSettingsRollingAnalyzerUploadTrigger(d, v, "upload_trigger")
 		if err != nil {
 			return &obj, err
@@ -929,7 +916,7 @@ func getObjectSystemLogSettingsRollingAnalyzer(d *schema.ResourceData) (*map[str
 		}
 	}
 
-	if v, ok := d.GetOk("username"); ok {
+	if v, ok := d.GetOk("username"); ok || d.HasChange("username") {
 		t, err := expandSystemLogSettingsRollingAnalyzerUsername(d, v, "username")
 		if err != nil {
 			return &obj, err
@@ -938,7 +925,7 @@ func getObjectSystemLogSettingsRollingAnalyzer(d *schema.ResourceData) (*map[str
 		}
 	}
 
-	if v, ok := d.GetOk("username2"); ok {
+	if v, ok := d.GetOk("username2"); ok || d.HasChange("username2") {
 		t, err := expandSystemLogSettingsRollingAnalyzerUsername2(d, v, "username2")
 		if err != nil {
 			return &obj, err
@@ -947,7 +934,7 @@ func getObjectSystemLogSettingsRollingAnalyzer(d *schema.ResourceData) (*map[str
 		}
 	}
 
-	if v, ok := d.GetOk("username3"); ok {
+	if v, ok := d.GetOk("username3"); ok || d.HasChange("username3") {
 		t, err := expandSystemLogSettingsRollingAnalyzerUsername3(d, v, "username3")
 		if err != nil {
 			return &obj, err
@@ -956,7 +943,7 @@ func getObjectSystemLogSettingsRollingAnalyzer(d *schema.ResourceData) (*map[str
 		}
 	}
 
-	if v, ok := d.GetOk("when"); ok {
+	if v, ok := d.GetOk("when"); ok || d.HasChange("when") {
 		t, err := expandSystemLogSettingsRollingAnalyzerWhen(d, v, "when")
 		if err != nil {
 			return &obj, err

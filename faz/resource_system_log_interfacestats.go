@@ -207,7 +207,7 @@ func expandSystemLogInterfaceStatsStatus(d *schema.ResourceData, v interface{}, 
 func getObjectSystemLogInterfaceStats(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("billing_report"); ok {
+	if v, ok := d.GetOk("billing_report"); ok || d.HasChange("billing_report") {
 		t, err := expandSystemLogInterfaceStatsBillingReport(d, v, "billing_report")
 		if err != nil {
 			return &obj, err
@@ -216,7 +216,7 @@ func getObjectSystemLogInterfaceStats(d *schema.ResourceData) (*map[string]inter
 		}
 	}
 
-	if v, ok := d.GetOk("retention_days"); ok {
+	if v, ok := d.GetOk("retention_days"); ok || d.HasChange("retention_days") {
 		t, err := expandSystemLogInterfaceStatsRetentionDays(d, v, "retention_days")
 		if err != nil {
 			return &obj, err
@@ -225,7 +225,7 @@ func getObjectSystemLogInterfaceStats(d *schema.ResourceData) (*map[string]inter
 		}
 	}
 
-	if v, ok := d.GetOk("sampling_interval"); ok {
+	if v, ok := d.GetOk("sampling_interval"); ok || d.HasChange("sampling_interval") {
 		t, err := expandSystemLogInterfaceStatsSamplingInterval(d, v, "sampling_interval")
 		if err != nil {
 			return &obj, err
@@ -234,7 +234,7 @@ func getObjectSystemLogInterfaceStats(d *schema.ResourceData) (*map[string]inter
 		}
 	}
 
-	if v, ok := d.GetOk("status"); ok {
+	if v, ok := d.GetOk("status"); ok || d.HasChange("status") {
 		t, err := expandSystemLogInterfaceStatsStatus(d, v, "status")
 		if err != nil {
 			return &obj, err

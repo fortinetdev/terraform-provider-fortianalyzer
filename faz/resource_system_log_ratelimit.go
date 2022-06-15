@@ -36,7 +36,6 @@ func resourceSystemLogRatelimit() *schema.Resource {
 						"device": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"filter_type": &schema.Schema{
 							Type:     schema.TypeString,
@@ -46,12 +45,10 @@ func resourceSystemLogRatelimit() *schema.Resource {
 						"id": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"ratelimit": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 					},
 				},
@@ -59,7 +56,6 @@ func resourceSystemLogRatelimit() *schema.Resource {
 			"device_ratelimit_default": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Computed: true,
 			},
 			"mode": &schema.Schema{
 				Type:     schema.TypeString,
@@ -74,7 +70,6 @@ func resourceSystemLogRatelimit() *schema.Resource {
 						"filter": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"filter_type": &schema.Schema{
 							Type:     schema.TypeString,
@@ -84,12 +79,10 @@ func resourceSystemLogRatelimit() *schema.Resource {
 						"id": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"ratelimit": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 					},
 				},
@@ -97,7 +90,6 @@ func resourceSystemLogRatelimit() *schema.Resource {
 			"system_ratelimit": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Computed: true,
 			},
 			"dynamic_sort_subtable": &schema.Schema{
 				Type:     schema.TypeString,
@@ -427,22 +419,22 @@ func expandSystemLogRatelimitDeviceSLR(d *schema.ResourceData, v interface{}, pr
 		pre_append := "" // table
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "device"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["device"], _ = expandSystemLogRatelimitDeviceDeviceSLR(d, i["device"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "filter_type"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["filter-type"], _ = expandSystemLogRatelimitDeviceFilterTypeSLR(d, i["filter_type"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "id"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["id"], _ = expandSystemLogRatelimitDeviceIdSLR(d, i["id"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "ratelimit"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["ratelimit"], _ = expandSystemLogRatelimitDeviceRatelimitSLR(d, i["ratelimit"], pre_append)
 		}
 
@@ -493,22 +485,22 @@ func expandSystemLogRatelimitRatelimitsSLR(d *schema.ResourceData, v interface{}
 		pre_append := "" // table
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "filter"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["filter"], _ = expandSystemLogRatelimitRatelimitsFilterSLR(d, i["filter"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "filter_type"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["filter-type"], _ = expandSystemLogRatelimitRatelimitsFilterTypeSLR(d, i["filter_type"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "id"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["id"], _ = expandSystemLogRatelimitRatelimitsIdSLR(d, i["id"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "ratelimit"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["ratelimit"], _ = expandSystemLogRatelimitRatelimitsRatelimitSLR(d, i["ratelimit"], pre_append)
 		}
 
@@ -543,7 +535,7 @@ func expandSystemLogRatelimitSystemRatelimitSLR(d *schema.ResourceData, v interf
 func getObjectSystemLogRatelimit(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("device"); ok {
+	if v, ok := d.GetOk("device"); ok || d.HasChange("device") {
 		t, err := expandSystemLogRatelimitDeviceSLR(d, v, "device")
 		if err != nil {
 			return &obj, err
@@ -552,7 +544,7 @@ func getObjectSystemLogRatelimit(d *schema.ResourceData) (*map[string]interface{
 		}
 	}
 
-	if v, ok := d.GetOk("device_ratelimit_default"); ok {
+	if v, ok := d.GetOk("device_ratelimit_default"); ok || d.HasChange("device_ratelimit_default") {
 		t, err := expandSystemLogRatelimitDeviceRatelimitDefaultSLR(d, v, "device_ratelimit_default")
 		if err != nil {
 			return &obj, err
@@ -561,7 +553,7 @@ func getObjectSystemLogRatelimit(d *schema.ResourceData) (*map[string]interface{
 		}
 	}
 
-	if v, ok := d.GetOk("mode"); ok {
+	if v, ok := d.GetOk("mode"); ok || d.HasChange("mode") {
 		t, err := expandSystemLogRatelimitModeSLR(d, v, "mode")
 		if err != nil {
 			return &obj, err
@@ -570,7 +562,7 @@ func getObjectSystemLogRatelimit(d *schema.ResourceData) (*map[string]interface{
 		}
 	}
 
-	if v, ok := d.GetOk("ratelimits"); ok {
+	if v, ok := d.GetOk("ratelimits"); ok || d.HasChange("ratelimits") {
 		t, err := expandSystemLogRatelimitRatelimitsSLR(d, v, "ratelimits")
 		if err != nil {
 			return &obj, err
@@ -579,7 +571,7 @@ func getObjectSystemLogRatelimit(d *schema.ResourceData) (*map[string]interface{
 		}
 	}
 
-	if v, ok := d.GetOk("system_ratelimit"); ok {
+	if v, ok := d.GetOk("system_ratelimit"); ok || d.HasChange("system_ratelimit") {
 		t, err := expandSystemLogRatelimitSystemRatelimitSLR(d, v, "system_ratelimit")
 		if err != nil {
 			return &obj, err

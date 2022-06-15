@@ -132,12 +132,10 @@ func resourceSystemGlobal() *schema.Resource {
 			"fgfm_ca_cert": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"fgfm_local_cert": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"fgfm_ssl_protocol": &schema.Schema{
 				Type:     schema.TypeString,
@@ -162,7 +160,6 @@ func resourceSystemGlobal() *schema.Resource {
 			"latitude": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"ldap_cache_timeout": &schema.Schema{
 				Type:     schema.TypeInt,
@@ -197,12 +194,10 @@ func resourceSystemGlobal() *schema.Resource {
 			"longitude": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"max_aggregation_tasks": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Computed: true,
 			},
 			"max_log_forward": &schema.Schema{
 				Type:     schema.TypeInt,
@@ -267,7 +262,6 @@ func resourceSystemGlobal() *schema.Resource {
 			"pre_login_banner_message": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"private_data_encryption": &schema.Schema{
 				Type:     schema.TypeString,
@@ -292,12 +286,10 @@ func resourceSystemGlobal() *schema.Resource {
 						"cipher": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"priority": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"version": &schema.Schema{
 							Type:     schema.TypeString,
@@ -1602,17 +1594,17 @@ func expandSystemGlobalSslCipherSuitesSga(d *schema.ResourceData, v interface{},
 		pre_append := "" // table
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "cipher"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["cipher"], _ = expandSystemGlobalSslCipherSuitesCipherSga(d, i["cipher"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "priority"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["priority"], _ = expandSystemGlobalSslCipherSuitesPrioritySga(d, i["priority"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "version"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["version"], _ = expandSystemGlobalSslCipherSuitesVersionSga(d, i["version"], pre_append)
 		}
 
@@ -1679,7 +1671,7 @@ func expandSystemGlobalWorkflowMaxSessionsSga(d *schema.ResourceData, v interfac
 func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("admin_lockout_duration"); ok {
+	if v, ok := d.GetOk("admin_lockout_duration"); ok || d.HasChange("admin_lockout_duration") {
 		t, err := expandSystemGlobalAdminLockoutDurationSga(d, v, "admin_lockout_duration")
 		if err != nil {
 			return &obj, err
@@ -1688,7 +1680,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("admin_lockout_threshold"); ok {
+	if v, ok := d.GetOk("admin_lockout_threshold"); ok || d.HasChange("admin_lockout_threshold") {
 		t, err := expandSystemGlobalAdminLockoutThresholdSga(d, v, "admin_lockout_threshold")
 		if err != nil {
 			return &obj, err
@@ -1697,7 +1689,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("adom_mode"); ok {
+	if v, ok := d.GetOk("adom_mode"); ok || d.HasChange("adom_mode") {
 		t, err := expandSystemGlobalAdomModeSga(d, v, "adom_mode")
 		if err != nil {
 			return &obj, err
@@ -1706,7 +1698,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("adom_select"); ok {
+	if v, ok := d.GetOk("adom_select"); ok || d.HasChange("adom_select") {
 		t, err := expandSystemGlobalAdomSelectSga(d, v, "adom_select")
 		if err != nil {
 			return &obj, err
@@ -1715,7 +1707,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("adom_status"); ok {
+	if v, ok := d.GetOk("adom_status"); ok || d.HasChange("adom_status") {
 		t, err := expandSystemGlobalAdomStatusSga(d, v, "adom_status")
 		if err != nil {
 			return &obj, err
@@ -1724,7 +1716,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("backup_compression"); ok {
+	if v, ok := d.GetOk("backup_compression"); ok || d.HasChange("backup_compression") {
 		t, err := expandSystemGlobalBackupCompressionSga(d, v, "backup_compression")
 		if err != nil {
 			return &obj, err
@@ -1733,7 +1725,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("backup_to_subfolders"); ok {
+	if v, ok := d.GetOk("backup_to_subfolders"); ok || d.HasChange("backup_to_subfolders") {
 		t, err := expandSystemGlobalBackupToSubfoldersSga(d, v, "backup_to_subfolders")
 		if err != nil {
 			return &obj, err
@@ -1742,7 +1734,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("clone_name_option"); ok {
+	if v, ok := d.GetOk("clone_name_option"); ok || d.HasChange("clone_name_option") {
 		t, err := expandSystemGlobalCloneNameOptionSga(d, v, "clone_name_option")
 		if err != nil {
 			return &obj, err
@@ -1751,7 +1743,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("clt_cert_req"); ok {
+	if v, ok := d.GetOk("clt_cert_req"); ok || d.HasChange("clt_cert_req") {
 		t, err := expandSystemGlobalCltCertReqSga(d, v, "clt_cert_req")
 		if err != nil {
 			return &obj, err
@@ -1760,7 +1752,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("console_output"); ok {
+	if v, ok := d.GetOk("console_output"); ok || d.HasChange("console_output") {
 		t, err := expandSystemGlobalConsoleOutputSga(d, v, "console_output")
 		if err != nil {
 			return &obj, err
@@ -1769,7 +1761,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("country_flag"); ok {
+	if v, ok := d.GetOk("country_flag"); ok || d.HasChange("country_flag") {
 		t, err := expandSystemGlobalCountryFlagSga(d, v, "country_flag")
 		if err != nil {
 			return &obj, err
@@ -1778,7 +1770,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("create_revision"); ok {
+	if v, ok := d.GetOk("create_revision"); ok || d.HasChange("create_revision") {
 		t, err := expandSystemGlobalCreateRevisionSga(d, v, "create_revision")
 		if err != nil {
 			return &obj, err
@@ -1787,7 +1779,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("daylightsavetime"); ok {
+	if v, ok := d.GetOk("daylightsavetime"); ok || d.HasChange("daylightsavetime") {
 		t, err := expandSystemGlobalDaylightsavetimeSga(d, v, "daylightsavetime")
 		if err != nil {
 			return &obj, err
@@ -1796,7 +1788,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("default_logview_auto_completion"); ok {
+	if v, ok := d.GetOk("default_logview_auto_completion"); ok || d.HasChange("default_logview_auto_completion") {
 		t, err := expandSystemGlobalDefaultLogviewAutoCompletionSga(d, v, "default_logview_auto_completion")
 		if err != nil {
 			return &obj, err
@@ -1805,7 +1797,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("default_search_mode"); ok {
+	if v, ok := d.GetOk("default_search_mode"); ok || d.HasChange("default_search_mode") {
 		t, err := expandSystemGlobalDefaultSearchModeSga(d, v, "default_search_mode")
 		if err != nil {
 			return &obj, err
@@ -1814,7 +1806,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("detect_unregistered_log_device"); ok {
+	if v, ok := d.GetOk("detect_unregistered_log_device"); ok || d.HasChange("detect_unregistered_log_device") {
 		t, err := expandSystemGlobalDetectUnregisteredLogDeviceSga(d, v, "detect_unregistered_log_device")
 		if err != nil {
 			return &obj, err
@@ -1823,7 +1815,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("device_view_mode"); ok {
+	if v, ok := d.GetOk("device_view_mode"); ok || d.HasChange("device_view_mode") {
 		t, err := expandSystemGlobalDeviceViewModeSga(d, v, "device_view_mode")
 		if err != nil {
 			return &obj, err
@@ -1832,7 +1824,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("dh_params"); ok {
+	if v, ok := d.GetOk("dh_params"); ok || d.HasChange("dh_params") {
 		t, err := expandSystemGlobalDhParamsSga(d, v, "dh_params")
 		if err != nil {
 			return &obj, err
@@ -1841,7 +1833,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("disable_module"); ok {
+	if v, ok := d.GetOk("disable_module"); ok || d.HasChange("disable_module") {
 		t, err := expandSystemGlobalDisableModuleSga(d, v, "disable_module")
 		if err != nil {
 			return &obj, err
@@ -1850,7 +1842,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("enc_algorithm"); ok {
+	if v, ok := d.GetOk("enc_algorithm"); ok || d.HasChange("enc_algorithm") {
 		t, err := expandSystemGlobalEncAlgorithmSga(d, v, "enc_algorithm")
 		if err != nil {
 			return &obj, err
@@ -1859,7 +1851,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("fgfm_ca_cert"); ok {
+	if v, ok := d.GetOk("fgfm_ca_cert"); ok || d.HasChange("fgfm_ca_cert") {
 		t, err := expandSystemGlobalFgfmCaCertSga(d, v, "fgfm_ca_cert")
 		if err != nil {
 			return &obj, err
@@ -1868,7 +1860,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("fgfm_local_cert"); ok {
+	if v, ok := d.GetOk("fgfm_local_cert"); ok || d.HasChange("fgfm_local_cert") {
 		t, err := expandSystemGlobalFgfmLocalCertSga(d, v, "fgfm_local_cert")
 		if err != nil {
 			return &obj, err
@@ -1877,7 +1869,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("fgfm_ssl_protocol"); ok {
+	if v, ok := d.GetOk("fgfm_ssl_protocol"); ok || d.HasChange("fgfm_ssl_protocol") {
 		t, err := expandSystemGlobalFgfmSslProtocolSga(d, v, "fgfm_ssl_protocol")
 		if err != nil {
 			return &obj, err
@@ -1886,7 +1878,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("ha_member_auto_grouping"); ok {
+	if v, ok := d.GetOk("ha_member_auto_grouping"); ok || d.HasChange("ha_member_auto_grouping") {
 		t, err := expandSystemGlobalHaMemberAutoGroupingSga(d, v, "ha_member_auto_grouping")
 		if err != nil {
 			return &obj, err
@@ -1895,7 +1887,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("hostname"); ok {
+	if v, ok := d.GetOk("hostname"); ok || d.HasChange("hostname") {
 		t, err := expandSystemGlobalHostnameSga(d, v, "hostname")
 		if err != nil {
 			return &obj, err
@@ -1904,7 +1896,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("language"); ok {
+	if v, ok := d.GetOk("language"); ok || d.HasChange("language") {
 		t, err := expandSystemGlobalLanguageSga(d, v, "language")
 		if err != nil {
 			return &obj, err
@@ -1913,7 +1905,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("latitude"); ok {
+	if v, ok := d.GetOk("latitude"); ok || d.HasChange("latitude") {
 		t, err := expandSystemGlobalLatitudeSga(d, v, "latitude")
 		if err != nil {
 			return &obj, err
@@ -1922,7 +1914,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("ldap_cache_timeout"); ok {
+	if v, ok := d.GetOk("ldap_cache_timeout"); ok || d.HasChange("ldap_cache_timeout") {
 		t, err := expandSystemGlobalLdapCacheTimeoutSga(d, v, "ldap_cache_timeout")
 		if err != nil {
 			return &obj, err
@@ -1931,7 +1923,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("ldapconntimeout"); ok {
+	if v, ok := d.GetOk("ldapconntimeout"); ok || d.HasChange("ldapconntimeout") {
 		t, err := expandSystemGlobalLdapconntimeoutSga(d, v, "ldapconntimeout")
 		if err != nil {
 			return &obj, err
@@ -1940,7 +1932,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("lock_preempt"); ok {
+	if v, ok := d.GetOk("lock_preempt"); ok || d.HasChange("lock_preempt") {
 		t, err := expandSystemGlobalLockPreemptSga(d, v, "lock_preempt")
 		if err != nil {
 			return &obj, err
@@ -1949,7 +1941,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("log_checksum"); ok {
+	if v, ok := d.GetOk("log_checksum"); ok || d.HasChange("log_checksum") {
 		t, err := expandSystemGlobalLogChecksumSga(d, v, "log_checksum")
 		if err != nil {
 			return &obj, err
@@ -1958,7 +1950,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("log_forward_cache_size"); ok {
+	if v, ok := d.GetOk("log_forward_cache_size"); ok || d.HasChange("log_forward_cache_size") {
 		t, err := expandSystemGlobalLogForwardCacheSizeSga(d, v, "log_forward_cache_size")
 		if err != nil {
 			return &obj, err
@@ -1967,7 +1959,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("log_mode"); ok {
+	if v, ok := d.GetOk("log_mode"); ok || d.HasChange("log_mode") {
 		t, err := expandSystemGlobalLogModeSga(d, v, "log_mode")
 		if err != nil {
 			return &obj, err
@@ -1976,7 +1968,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("longitude"); ok {
+	if v, ok := d.GetOk("longitude"); ok || d.HasChange("longitude") {
 		t, err := expandSystemGlobalLongitudeSga(d, v, "longitude")
 		if err != nil {
 			return &obj, err
@@ -1985,7 +1977,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("max_aggregation_tasks"); ok {
+	if v, ok := d.GetOk("max_aggregation_tasks"); ok || d.HasChange("max_aggregation_tasks") {
 		t, err := expandSystemGlobalMaxAggregationTasksSga(d, v, "max_aggregation_tasks")
 		if err != nil {
 			return &obj, err
@@ -1994,7 +1986,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("max_log_forward"); ok {
+	if v, ok := d.GetOk("max_log_forward"); ok || d.HasChange("max_log_forward") {
 		t, err := expandSystemGlobalMaxLogForwardSga(d, v, "max_log_forward")
 		if err != nil {
 			return &obj, err
@@ -2003,7 +1995,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("max_running_reports"); ok {
+	if v, ok := d.GetOk("max_running_reports"); ok || d.HasChange("max_running_reports") {
 		t, err := expandSystemGlobalMaxRunningReportsSga(d, v, "max_running_reports")
 		if err != nil {
 			return &obj, err
@@ -2012,7 +2004,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("multiple_steps_upgrade_in_autolink"); ok {
+	if v, ok := d.GetOk("multiple_steps_upgrade_in_autolink"); ok || d.HasChange("multiple_steps_upgrade_in_autolink") {
 		t, err := expandSystemGlobalMultipleStepsUpgradeInAutolinkSga(d, v, "multiple_steps_upgrade_in_autolink")
 		if err != nil {
 			return &obj, err
@@ -2021,7 +2013,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("normalized_intf_zone_only"); ok {
+	if v, ok := d.GetOk("normalized_intf_zone_only"); ok || d.HasChange("normalized_intf_zone_only") {
 		t, err := expandSystemGlobalNormalizedIntfZoneOnlySga(d, v, "normalized_intf_zone_only")
 		if err != nil {
 			return &obj, err
@@ -2030,7 +2022,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("object_revision_db_max"); ok {
+	if v, ok := d.GetOk("object_revision_db_max"); ok || d.HasChange("object_revision_db_max") {
 		t, err := expandSystemGlobalObjectRevisionDbMaxSga(d, v, "object_revision_db_max")
 		if err != nil {
 			return &obj, err
@@ -2039,7 +2031,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("object_revision_mandatory_note"); ok {
+	if v, ok := d.GetOk("object_revision_mandatory_note"); ok || d.HasChange("object_revision_mandatory_note") {
 		t, err := expandSystemGlobalObjectRevisionMandatoryNoteSga(d, v, "object_revision_mandatory_note")
 		if err != nil {
 			return &obj, err
@@ -2048,7 +2040,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("object_revision_object_max"); ok {
+	if v, ok := d.GetOk("object_revision_object_max"); ok || d.HasChange("object_revision_object_max") {
 		t, err := expandSystemGlobalObjectRevisionObjectMaxSga(d, v, "object_revision_object_max")
 		if err != nil {
 			return &obj, err
@@ -2057,7 +2049,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("object_revision_status"); ok {
+	if v, ok := d.GetOk("object_revision_status"); ok || d.HasChange("object_revision_status") {
 		t, err := expandSystemGlobalObjectRevisionStatusSga(d, v, "object_revision_status")
 		if err != nil {
 			return &obj, err
@@ -2066,7 +2058,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("oftp_ssl_protocol"); ok {
+	if v, ok := d.GetOk("oftp_ssl_protocol"); ok || d.HasChange("oftp_ssl_protocol") {
 		t, err := expandSystemGlobalOftpSslProtocolSga(d, v, "oftp_ssl_protocol")
 		if err != nil {
 			return &obj, err
@@ -2075,7 +2067,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("policy_object_icon"); ok {
+	if v, ok := d.GetOk("policy_object_icon"); ok || d.HasChange("policy_object_icon") {
 		t, err := expandSystemGlobalPolicyObjectIconSga(d, v, "policy_object_icon")
 		if err != nil {
 			return &obj, err
@@ -2084,7 +2076,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("policy_object_in_dual_pane"); ok {
+	if v, ok := d.GetOk("policy_object_in_dual_pane"); ok || d.HasChange("policy_object_in_dual_pane") {
 		t, err := expandSystemGlobalPolicyObjectInDualPaneSga(d, v, "policy_object_in_dual_pane")
 		if err != nil {
 			return &obj, err
@@ -2093,7 +2085,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("pre_login_banner"); ok {
+	if v, ok := d.GetOk("pre_login_banner"); ok || d.HasChange("pre_login_banner") {
 		t, err := expandSystemGlobalPreLoginBannerSga(d, v, "pre_login_banner")
 		if err != nil {
 			return &obj, err
@@ -2102,7 +2094,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("pre_login_banner_message"); ok {
+	if v, ok := d.GetOk("pre_login_banner_message"); ok || d.HasChange("pre_login_banner_message") {
 		t, err := expandSystemGlobalPreLoginBannerMessageSga(d, v, "pre_login_banner_message")
 		if err != nil {
 			return &obj, err
@@ -2111,7 +2103,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("private_data_encryption"); ok {
+	if v, ok := d.GetOk("private_data_encryption"); ok || d.HasChange("private_data_encryption") {
 		t, err := expandSystemGlobalPrivateDataEncryptionSga(d, v, "private_data_encryption")
 		if err != nil {
 			return &obj, err
@@ -2120,7 +2112,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("remoteauthtimeout"); ok {
+	if v, ok := d.GetOk("remoteauthtimeout"); ok || d.HasChange("remoteauthtimeout") {
 		t, err := expandSystemGlobalRemoteauthtimeoutSga(d, v, "remoteauthtimeout")
 		if err != nil {
 			return &obj, err
@@ -2129,7 +2121,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("search_all_adoms"); ok {
+	if v, ok := d.GetOk("search_all_adoms"); ok || d.HasChange("search_all_adoms") {
 		t, err := expandSystemGlobalSearchAllAdomsSga(d, v, "search_all_adoms")
 		if err != nil {
 			return &obj, err
@@ -2138,7 +2130,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("ssl_cipher_suites"); ok {
+	if v, ok := d.GetOk("ssl_cipher_suites"); ok || d.HasChange("ssl_cipher_suites") {
 		t, err := expandSystemGlobalSslCipherSuitesSga(d, v, "ssl_cipher_suites")
 		if err != nil {
 			return &obj, err
@@ -2147,7 +2139,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("ssl_low_encryption"); ok {
+	if v, ok := d.GetOk("ssl_low_encryption"); ok || d.HasChange("ssl_low_encryption") {
 		t, err := expandSystemGlobalSslLowEncryptionSga(d, v, "ssl_low_encryption")
 		if err != nil {
 			return &obj, err
@@ -2156,7 +2148,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("ssl_protocol"); ok {
+	if v, ok := d.GetOk("ssl_protocol"); ok || d.HasChange("ssl_protocol") {
 		t, err := expandSystemGlobalSslProtocolSga(d, v, "ssl_protocol")
 		if err != nil {
 			return &obj, err
@@ -2165,7 +2157,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("ssl_static_key_ciphers"); ok {
+	if v, ok := d.GetOk("ssl_static_key_ciphers"); ok || d.HasChange("ssl_static_key_ciphers") {
 		t, err := expandSystemGlobalSslStaticKeyCiphersSga(d, v, "ssl_static_key_ciphers")
 		if err != nil {
 			return &obj, err
@@ -2174,7 +2166,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("task_list_size"); ok {
+	if v, ok := d.GetOk("task_list_size"); ok || d.HasChange("task_list_size") {
 		t, err := expandSystemGlobalTaskListSizeSga(d, v, "task_list_size")
 		if err != nil {
 			return &obj, err
@@ -2183,7 +2175,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("tftp"); ok {
+	if v, ok := d.GetOk("tftp"); ok || d.HasChange("tftp") {
 		t, err := expandSystemGlobalTftpSga(d, v, "tftp")
 		if err != nil {
 			return &obj, err
@@ -2192,7 +2184,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("timezone"); ok {
+	if v, ok := d.GetOk("timezone"); ok || d.HasChange("timezone") {
 		t, err := expandSystemGlobalTimezoneSga(d, v, "timezone")
 		if err != nil {
 			return &obj, err
@@ -2201,7 +2193,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("tunnel_mtu"); ok {
+	if v, ok := d.GetOk("tunnel_mtu"); ok || d.HasChange("tunnel_mtu") {
 		t, err := expandSystemGlobalTunnelMtuSga(d, v, "tunnel_mtu")
 		if err != nil {
 			return &obj, err
@@ -2210,7 +2202,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("usg"); ok {
+	if v, ok := d.GetOk("usg"); ok || d.HasChange("usg") {
 		t, err := expandSystemGlobalUsgSga(d, v, "usg")
 		if err != nil {
 			return &obj, err
@@ -2219,7 +2211,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("webservice_proto"); ok {
+	if v, ok := d.GetOk("webservice_proto"); ok || d.HasChange("webservice_proto") {
 		t, err := expandSystemGlobalWebserviceProtoSga(d, v, "webservice_proto")
 		if err != nil {
 			return &obj, err
@@ -2228,7 +2220,7 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
-	if v, ok := d.GetOk("workflow_max_sessions"); ok {
+	if v, ok := d.GetOk("workflow_max_sessions"); ok || d.HasChange("workflow_max_sessions") {
 		t, err := expandSystemGlobalWorkflowMaxSessionsSga(d, v, "workflow_max_sessions")
 		if err != nil {
 			return &obj, err

@@ -37,7 +37,6 @@ func resourceDvmCmdAddDevice() *schema.Resource {
 			"fazadom": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"device": &schema.Schema{
 				Type:     schema.TypeList,
@@ -48,77 +47,62 @@ func resourceDvmCmdAddDevice() *schema.Resource {
 						"adm_pass": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"adm_usr": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"desc": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"deviceaction": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"fazquota": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"ip": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"metafields": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"mgmt_mode": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"mr": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"name": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"os_type": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"os_ver": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"patch": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"platform_str": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"sn": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 					},
 				},
@@ -127,7 +111,6 @@ func resourceDvmCmdAddDevice() *schema.Resource {
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
-				Computed: true,
 			},
 			"groups": &schema.Schema{
 				Type:     schema.TypeList,
@@ -137,12 +120,10 @@ func resourceDvmCmdAddDevice() *schema.Resource {
 						"name": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"vdom": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 					},
 				},
@@ -488,65 +469,65 @@ func expandDvmCmdAddDeviceDevice(d *schema.ResourceData, v interface{}, pre stri
 
 	pre_append := "" // complex
 	pre_append = pre + ".0." + "adm_pass"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["adm_pass"], _ = expandDvmCmdAddDeviceDeviceAdmPass(d, i["adm_pass"], pre_append)
 	} else {
 		result["adm_pass"] = make([]string, 0)
 	}
 	pre_append = pre + ".0." + "adm_usr"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["adm_usr"], _ = expandDvmCmdAddDeviceDeviceAdmUsr(d, i["adm_usr"], pre_append)
 	}
 	pre_append = pre + ".0." + "desc"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["desc"], _ = expandDvmCmdAddDeviceDeviceDesc(d, i["desc"], pre_append)
 	}
 	pre_append = pre + ".0." + "deviceaction"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["device action"], _ = expandDvmCmdAddDeviceDeviceDeviceAction(d, i["deviceaction"], pre_append)
 	}
 	pre_append = pre + ".0." + "fazquota"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["faz.quota"], _ = expandDvmCmdAddDeviceDeviceFazQuota(d, i["fazquota"], pre_append)
 	}
 	pre_append = pre + ".0." + "ip"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["ip"], _ = expandDvmCmdAddDeviceDeviceIp(d, i["ip"], pre_append)
 	}
 	pre_append = pre + ".0." + "metafields"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["meta fields"], _ = expandDvmCmdAddDeviceDeviceMetaFields(d, i["metafields"], pre_append)
 	}
 	pre_append = pre + ".0." + "mgmt_mode"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["mgmt_mode"], _ = expandDvmCmdAddDeviceDeviceMgmtMode(d, i["mgmt_mode"], pre_append)
 	}
 	pre_append = pre + ".0." + "mr"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["mr"], _ = expandDvmCmdAddDeviceDeviceMr(d, i["mr"], pre_append)
 	}
 	pre_append = pre + ".0." + "name"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["name"], _ = expandDvmCmdAddDeviceDeviceName(d, i["name"], pre_append)
 	}
 	pre_append = pre + ".0." + "os_type"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["os_type"], _ = expandDvmCmdAddDeviceDeviceOsType(d, i["os_type"], pre_append)
 	}
 	pre_append = pre + ".0." + "os_ver"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["os_ver"], _ = expandDvmCmdAddDeviceDeviceOsVer(d, i["os_ver"], pre_append)
 	}
 	pre_append = pre + ".0." + "patch"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["patch"], _ = expandDvmCmdAddDeviceDevicePatch(d, i["patch"], pre_append)
 	}
 	pre_append = pre + ".0." + "platform_str"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["platform_str"], _ = expandDvmCmdAddDeviceDevicePlatformStr(d, i["platform_str"], pre_append)
 	}
 	pre_append = pre + ".0." + "sn"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["sn"], _ = expandDvmCmdAddDeviceDeviceSn(d, i["sn"], pre_append)
 	}
 
@@ -632,12 +613,12 @@ func expandDvmCmdAddDeviceGroups(d *schema.ResourceData, v interface{}, pre stri
 		pre_append := "" // table
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "name"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["name"], _ = expandDvmCmdAddDeviceGroupsName(d, i["name"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "vdom"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["vdom"], _ = expandDvmCmdAddDeviceGroupsVdom(d, i["vdom"], pre_append)
 		}
 
@@ -660,7 +641,7 @@ func expandDvmCmdAddDeviceGroupsVdom(d *schema.ResourceData, v interface{}, pre 
 func getObjectDvmCmdAddDevice(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("fazadom"); ok {
+	if v, ok := d.GetOk("fazadom"); ok || d.HasChange("adom") {
 		t, err := expandDvmCmdAddDeviceAdom(d, v, "fazadom")
 		if err != nil {
 			return &obj, err
@@ -669,7 +650,7 @@ func getObjectDvmCmdAddDevice(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("device"); ok {
+	if v, ok := d.GetOk("device"); ok || d.HasChange("device") {
 		t, err := expandDvmCmdAddDeviceDevice(d, v, "device")
 		if err != nil {
 			return &obj, err
@@ -678,7 +659,7 @@ func getObjectDvmCmdAddDevice(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("flags"); ok {
+	if v, ok := d.GetOk("flags"); ok || d.HasChange("flags") {
 		t, err := expandDvmCmdAddDeviceFlags(d, v, "flags")
 		if err != nil {
 			return &obj, err
@@ -687,7 +668,7 @@ func getObjectDvmCmdAddDevice(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
-	if v, ok := d.GetOk("groups"); ok {
+	if v, ok := d.GetOk("groups"); ok || d.HasChange("groups") {
 		t, err := expandDvmCmdAddDeviceGroups(d, v, "groups")
 		if err != nil {
 			return &obj, err

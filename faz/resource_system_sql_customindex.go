@@ -42,12 +42,10 @@ func resourceSystemSqlCustomIndex() *schema.Resource {
 				Type:     schema.TypeInt,
 				ForceNew: true,
 				Optional: true,
-				Computed: true,
 			},
 			"index_field": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"log_type": &schema.Schema{
 				Type:     schema.TypeString,
@@ -253,7 +251,7 @@ func expandSystemSqlCustomIndexLogType(d *schema.ResourceData, v interface{}, pr
 func getObjectSystemSqlCustomIndex(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("case_sensitive"); ok {
+	if v, ok := d.GetOk("case_sensitive"); ok || d.HasChange("case_sensitive") {
 		t, err := expandSystemSqlCustomIndexCaseSensitive(d, v, "case_sensitive")
 		if err != nil {
 			return &obj, err
@@ -262,7 +260,7 @@ func getObjectSystemSqlCustomIndex(d *schema.ResourceData) (*map[string]interfac
 		}
 	}
 
-	if v, ok := d.GetOk("device_type"); ok {
+	if v, ok := d.GetOk("device_type"); ok || d.HasChange("device_type") {
 		t, err := expandSystemSqlCustomIndexDeviceType(d, v, "device_type")
 		if err != nil {
 			return &obj, err
@@ -271,7 +269,7 @@ func getObjectSystemSqlCustomIndex(d *schema.ResourceData) (*map[string]interfac
 		}
 	}
 
-	if v, ok := d.GetOk("fosid"); ok {
+	if v, ok := d.GetOk("fosid"); ok || d.HasChange("id") {
 		t, err := expandSystemSqlCustomIndexId(d, v, "fosid")
 		if err != nil {
 			return &obj, err
@@ -280,7 +278,7 @@ func getObjectSystemSqlCustomIndex(d *schema.ResourceData) (*map[string]interfac
 		}
 	}
 
-	if v, ok := d.GetOk("index_field"); ok {
+	if v, ok := d.GetOk("index_field"); ok || d.HasChange("index_field") {
 		t, err := expandSystemSqlCustomIndexIndexField(d, v, "index_field")
 		if err != nil {
 			return &obj, err
@@ -289,7 +287,7 @@ func getObjectSystemSqlCustomIndex(d *schema.ResourceData) (*map[string]interfac
 		}
 	}
 
-	if v, ok := d.GetOk("log_type"); ok {
+	if v, ok := d.GetOk("log_type"); ok || d.HasChange("log_type") {
 		t, err := expandSystemSqlCustomIndexLogType(d, v, "log_type")
 		if err != nil {
 			return &obj, err

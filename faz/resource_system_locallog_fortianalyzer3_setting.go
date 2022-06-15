@@ -31,7 +31,6 @@ func resourceSystemLocallogFortianalyzer3Setting() *schema.Resource {
 			"peer_cert_cn": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"reliable": &schema.Schema{
 				Type:     schema.TypeString,
@@ -46,7 +45,6 @@ func resourceSystemLocallogFortianalyzer3Setting() *schema.Resource {
 			"server": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"severity": &schema.Schema{
 				Type:     schema.TypeString,
@@ -277,7 +275,7 @@ func expandSystemLocallogFortianalyzer3SettingUploadTime(d *schema.ResourceData,
 func getObjectSystemLocallogFortianalyzer3Setting(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("peer_cert_cn"); ok {
+	if v, ok := d.GetOk("peer_cert_cn"); ok || d.HasChange("peer_cert_cn") {
 		t, err := expandSystemLocallogFortianalyzer3SettingPeerCertCn(d, v, "peer_cert_cn")
 		if err != nil {
 			return &obj, err
@@ -286,7 +284,7 @@ func getObjectSystemLocallogFortianalyzer3Setting(d *schema.ResourceData) (*map[
 		}
 	}
 
-	if v, ok := d.GetOk("reliable"); ok {
+	if v, ok := d.GetOk("reliable"); ok || d.HasChange("reliable") {
 		t, err := expandSystemLocallogFortianalyzer3SettingReliable(d, v, "reliable")
 		if err != nil {
 			return &obj, err
@@ -295,7 +293,7 @@ func getObjectSystemLocallogFortianalyzer3Setting(d *schema.ResourceData) (*map[
 		}
 	}
 
-	if v, ok := d.GetOk("secure_connection"); ok {
+	if v, ok := d.GetOk("secure_connection"); ok || d.HasChange("secure_connection") {
 		t, err := expandSystemLocallogFortianalyzer3SettingSecureConnection(d, v, "secure_connection")
 		if err != nil {
 			return &obj, err
@@ -304,7 +302,7 @@ func getObjectSystemLocallogFortianalyzer3Setting(d *schema.ResourceData) (*map[
 		}
 	}
 
-	if v, ok := d.GetOk("server"); ok {
+	if v, ok := d.GetOk("server"); ok || d.HasChange("server") {
 		t, err := expandSystemLocallogFortianalyzer3SettingServer(d, v, "server")
 		if err != nil {
 			return &obj, err
@@ -313,7 +311,7 @@ func getObjectSystemLocallogFortianalyzer3Setting(d *schema.ResourceData) (*map[
 		}
 	}
 
-	if v, ok := d.GetOk("severity"); ok {
+	if v, ok := d.GetOk("severity"); ok || d.HasChange("severity") {
 		t, err := expandSystemLocallogFortianalyzer3SettingSeverity(d, v, "severity")
 		if err != nil {
 			return &obj, err
@@ -322,7 +320,7 @@ func getObjectSystemLocallogFortianalyzer3Setting(d *schema.ResourceData) (*map[
 		}
 	}
 
-	if v, ok := d.GetOk("status"); ok {
+	if v, ok := d.GetOk("status"); ok || d.HasChange("status") {
 		t, err := expandSystemLocallogFortianalyzer3SettingStatus(d, v, "status")
 		if err != nil {
 			return &obj, err
@@ -331,7 +329,7 @@ func getObjectSystemLocallogFortianalyzer3Setting(d *schema.ResourceData) (*map[
 		}
 	}
 
-	if v, ok := d.GetOk("upload_time"); ok {
+	if v, ok := d.GetOk("upload_time"); ok || d.HasChange("upload_time") {
 		t, err := expandSystemLocallogFortianalyzer3SettingUploadTime(d, v, "upload_time")
 		if err != nil {
 			return &obj, err

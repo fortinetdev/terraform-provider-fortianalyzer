@@ -47,18 +47,15 @@ func resourceDvmdbGroup() *schema.Resource {
 			"desc": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"metafields": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"name": &schema.Schema{
 				Type:     schema.TypeString,
 				ForceNew: true,
 				Optional: true,
-				Computed: true,
 			},
 			"os_type": &schema.Schema{
 				Type:     schema.TypeString,
@@ -285,7 +282,7 @@ func expandDvmdbGroupType(d *schema.ResourceData, v interface{}, pre string) (in
 func getObjectDvmdbGroup(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("desc"); ok {
+	if v, ok := d.GetOk("desc"); ok || d.HasChange("desc") {
 		t, err := expandDvmdbGroupDesc(d, v, "desc")
 		if err != nil {
 			return &obj, err
@@ -294,7 +291,7 @@ func getObjectDvmdbGroup(d *schema.ResourceData) (*map[string]interface{}, error
 		}
 	}
 
-	if v, ok := d.GetOk("metafields"); ok {
+	if v, ok := d.GetOk("metafields"); ok || d.HasChange("metafields") {
 		t, err := expandDvmdbGroupMetaFields(d, v, "metafields")
 		if err != nil {
 			return &obj, err
@@ -303,7 +300,7 @@ func getObjectDvmdbGroup(d *schema.ResourceData) (*map[string]interface{}, error
 		}
 	}
 
-	if v, ok := d.GetOk("name"); ok {
+	if v, ok := d.GetOk("name"); ok || d.HasChange("name") {
 		t, err := expandDvmdbGroupName(d, v, "name")
 		if err != nil {
 			return &obj, err
@@ -312,7 +309,7 @@ func getObjectDvmdbGroup(d *schema.ResourceData) (*map[string]interface{}, error
 		}
 	}
 
-	if v, ok := d.GetOk("os_type"); ok {
+	if v, ok := d.GetOk("os_type"); ok || d.HasChange("os_type") {
 		t, err := expandDvmdbGroupOsType(d, v, "os_type")
 		if err != nil {
 			return &obj, err
@@ -321,7 +318,7 @@ func getObjectDvmdbGroup(d *schema.ResourceData) (*map[string]interface{}, error
 		}
 	}
 
-	if v, ok := d.GetOk("type"); ok {
+	if v, ok := d.GetOk("type"); ok || d.HasChange("type") {
 		t, err := expandDvmdbGroupType(d, v, "type")
 		if err != nil {
 			return &obj, err

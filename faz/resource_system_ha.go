@@ -36,17 +36,14 @@ func resourceSystemHa() *schema.Resource {
 			"group_id": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Computed: true,
 			},
 			"group_name": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"hb_interface": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"hb_interval": &schema.Schema{
 				Type:     schema.TypeInt,
@@ -57,7 +54,6 @@ func resourceSystemHa() *schema.Resource {
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
-				Computed: true,
 			},
 			"initial_sync": &schema.Schema{
 				Type:     schema.TypeString,
@@ -89,7 +85,6 @@ func resourceSystemHa() *schema.Resource {
 				Elem:      &schema.Schema{Type: schema.TypeString},
 				Optional:  true,
 				Sensitive: true,
-				Computed:  true,
 			},
 			"peer": &schema.Schema{
 				Type:     schema.TypeList,
@@ -99,22 +94,18 @@ func resourceSystemHa() *schema.Resource {
 						"id": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"ip": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"ip_hb": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"serial_number": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"status": &schema.Schema{
 							Type:     schema.TypeString,
@@ -164,7 +155,6 @@ func resourceSystemHa() *schema.Resource {
 				Elem:      &schema.Schema{Type: schema.TypeString},
 				Optional:  true,
 				Sensitive: true,
-				Computed:  true,
 			},
 			"private_peer": &schema.Schema{
 				Type:     schema.TypeList,
@@ -174,12 +164,10 @@ func resourceSystemHa() *schema.Resource {
 						"id": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"ip": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"ip6": &schema.Schema{
 							Type:     schema.TypeString,
@@ -189,7 +177,6 @@ func resourceSystemHa() *schema.Resource {
 						"serial_number": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"status": &schema.Schema{
 							Type:     schema.TypeString,
@@ -207,12 +194,10 @@ func resourceSystemHa() *schema.Resource {
 			"vip": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"vip_interface": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"dynamic_sort_subtable": &schema.Schema{
 				Type:     schema.TypeString,
@@ -870,27 +855,27 @@ func expandSystemHaPeerSha(d *schema.ResourceData, v interface{}, pre string) (i
 		pre_append := "" // table
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "id"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["id"], _ = expandSystemHaPeerIdSha(d, i["id"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "ip"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["ip"], _ = expandSystemHaPeerIpSha(d, i["ip"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "ip_hb"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["ip-hb"], _ = expandSystemHaPeerIpHbSha(d, i["ip_hb"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "serial_number"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["serial-number"], _ = expandSystemHaPeerSerialNumberSha(d, i["serial_number"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "status"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["status"], _ = expandSystemHaPeerStatusSha(d, i["status"], pre_append)
 		}
 
@@ -969,27 +954,27 @@ func expandSystemHaPrivatePeerSha(d *schema.ResourceData, v interface{}, pre str
 		pre_append := "" // table
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "id"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["id"], _ = expandSystemHaPrivatePeerIdSha(d, i["id"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "ip"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["ip"], _ = expandSystemHaPrivatePeerIpSha(d, i["ip"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "ip6"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["ip6"], _ = expandSystemHaPrivatePeerIp6Sha(d, i["ip6"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "serial_number"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["serial-number"], _ = expandSystemHaPrivatePeerSerialNumberSha(d, i["serial_number"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "status"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["status"], _ = expandSystemHaPrivatePeerStatusSha(d, i["status"], pre_append)
 		}
 
@@ -1036,7 +1021,7 @@ func expandSystemHaVipInterfaceSha(d *schema.ResourceData, v interface{}, pre st
 func getObjectSystemHa(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("cfg_sync_hb_interval"); ok {
+	if v, ok := d.GetOk("cfg_sync_hb_interval"); ok || d.HasChange("cfg_sync_hb_interval") {
 		t, err := expandSystemHaCfgSyncHbIntervalSha(d, v, "cfg_sync_hb_interval")
 		if err != nil {
 			return &obj, err
@@ -1045,7 +1030,7 @@ func getObjectSystemHa(d *schema.ResourceData) (*map[string]interface{}, error) 
 		}
 	}
 
-	if v, ok := d.GetOk("group_id"); ok {
+	if v, ok := d.GetOk("group_id"); ok || d.HasChange("group_id") {
 		t, err := expandSystemHaGroupIdSha(d, v, "group_id")
 		if err != nil {
 			return &obj, err
@@ -1054,7 +1039,7 @@ func getObjectSystemHa(d *schema.ResourceData) (*map[string]interface{}, error) 
 		}
 	}
 
-	if v, ok := d.GetOk("group_name"); ok {
+	if v, ok := d.GetOk("group_name"); ok || d.HasChange("group_name") {
 		t, err := expandSystemHaGroupNameSha(d, v, "group_name")
 		if err != nil {
 			return &obj, err
@@ -1063,7 +1048,7 @@ func getObjectSystemHa(d *schema.ResourceData) (*map[string]interface{}, error) 
 		}
 	}
 
-	if v, ok := d.GetOk("hb_interface"); ok {
+	if v, ok := d.GetOk("hb_interface"); ok || d.HasChange("hb_interface") {
 		t, err := expandSystemHaHbInterfaceSha(d, v, "hb_interface")
 		if err != nil {
 			return &obj, err
@@ -1072,7 +1057,7 @@ func getObjectSystemHa(d *schema.ResourceData) (*map[string]interface{}, error) 
 		}
 	}
 
-	if v, ok := d.GetOk("hb_interval"); ok {
+	if v, ok := d.GetOk("hb_interval"); ok || d.HasChange("hb_interval") {
 		t, err := expandSystemHaHbIntervalSha(d, v, "hb_interval")
 		if err != nil {
 			return &obj, err
@@ -1081,7 +1066,7 @@ func getObjectSystemHa(d *schema.ResourceData) (*map[string]interface{}, error) 
 		}
 	}
 
-	if v, ok := d.GetOk("healthcheck"); ok {
+	if v, ok := d.GetOk("healthcheck"); ok || d.HasChange("healthcheck") {
 		t, err := expandSystemHaHealthcheckSha(d, v, "healthcheck")
 		if err != nil {
 			return &obj, err
@@ -1090,7 +1075,7 @@ func getObjectSystemHa(d *schema.ResourceData) (*map[string]interface{}, error) 
 		}
 	}
 
-	if v, ok := d.GetOk("initial_sync"); ok {
+	if v, ok := d.GetOk("initial_sync"); ok || d.HasChange("initial_sync") {
 		t, err := expandSystemHaInitialSyncSha(d, v, "initial_sync")
 		if err != nil {
 			return &obj, err
@@ -1099,7 +1084,7 @@ func getObjectSystemHa(d *schema.ResourceData) (*map[string]interface{}, error) 
 		}
 	}
 
-	if v, ok := d.GetOk("initial_sync_threads"); ok {
+	if v, ok := d.GetOk("initial_sync_threads"); ok || d.HasChange("initial_sync_threads") {
 		t, err := expandSystemHaInitialSyncThreadsSha(d, v, "initial_sync_threads")
 		if err != nil {
 			return &obj, err
@@ -1108,7 +1093,7 @@ func getObjectSystemHa(d *schema.ResourceData) (*map[string]interface{}, error) 
 		}
 	}
 
-	if v, ok := d.GetOk("load_balance"); ok {
+	if v, ok := d.GetOk("load_balance"); ok || d.HasChange("load_balance") {
 		t, err := expandSystemHaLoadBalanceSha(d, v, "load_balance")
 		if err != nil {
 			return &obj, err
@@ -1117,7 +1102,7 @@ func getObjectSystemHa(d *schema.ResourceData) (*map[string]interface{}, error) 
 		}
 	}
 
-	if v, ok := d.GetOk("log_sync"); ok {
+	if v, ok := d.GetOk("log_sync"); ok || d.HasChange("log_sync") {
 		t, err := expandSystemHaLogSyncSha(d, v, "log_sync")
 		if err != nil {
 			return &obj, err
@@ -1126,7 +1111,7 @@ func getObjectSystemHa(d *schema.ResourceData) (*map[string]interface{}, error) 
 		}
 	}
 
-	if v, ok := d.GetOk("mode"); ok {
+	if v, ok := d.GetOk("mode"); ok || d.HasChange("mode") {
 		t, err := expandSystemHaModeSha(d, v, "mode")
 		if err != nil {
 			return &obj, err
@@ -1135,7 +1120,7 @@ func getObjectSystemHa(d *schema.ResourceData) (*map[string]interface{}, error) 
 		}
 	}
 
-	if v, ok := d.GetOk("password"); ok {
+	if v, ok := d.GetOk("password"); ok || d.HasChange("password") {
 		t, err := expandSystemHaPasswordSha(d, v, "password")
 		if err != nil {
 			return &obj, err
@@ -1144,7 +1129,7 @@ func getObjectSystemHa(d *schema.ResourceData) (*map[string]interface{}, error) 
 		}
 	}
 
-	if v, ok := d.GetOk("peer"); ok {
+	if v, ok := d.GetOk("peer"); ok || d.HasChange("peer") {
 		t, err := expandSystemHaPeerSha(d, v, "peer")
 		if err != nil {
 			return &obj, err
@@ -1153,7 +1138,7 @@ func getObjectSystemHa(d *schema.ResourceData) (*map[string]interface{}, error) 
 		}
 	}
 
-	if v, ok := d.GetOk("preferred_role"); ok {
+	if v, ok := d.GetOk("preferred_role"); ok || d.HasChange("preferred_role") {
 		t, err := expandSystemHaPreferredRoleSha(d, v, "preferred_role")
 		if err != nil {
 			return &obj, err
@@ -1162,7 +1147,7 @@ func getObjectSystemHa(d *schema.ResourceData) (*map[string]interface{}, error) 
 		}
 	}
 
-	if v, ok := d.GetOk("priority"); ok {
+	if v, ok := d.GetOk("priority"); ok || d.HasChange("priority") {
 		t, err := expandSystemHaPrioritySha(d, v, "priority")
 		if err != nil {
 			return &obj, err
@@ -1171,7 +1156,7 @@ func getObjectSystemHa(d *schema.ResourceData) (*map[string]interface{}, error) 
 		}
 	}
 
-	if v, ok := d.GetOk("private_clusterid"); ok {
+	if v, ok := d.GetOk("private_clusterid"); ok || d.HasChange("private_clusterid") {
 		t, err := expandSystemHaPrivateClusteridSha(d, v, "private_clusterid")
 		if err != nil {
 			return &obj, err
@@ -1180,7 +1165,7 @@ func getObjectSystemHa(d *schema.ResourceData) (*map[string]interface{}, error) 
 		}
 	}
 
-	if v, ok := d.GetOk("private_file_quota"); ok {
+	if v, ok := d.GetOk("private_file_quota"); ok || d.HasChange("private_file_quota") {
 		t, err := expandSystemHaPrivateFileQuotaSha(d, v, "private_file_quota")
 		if err != nil {
 			return &obj, err
@@ -1189,7 +1174,7 @@ func getObjectSystemHa(d *schema.ResourceData) (*map[string]interface{}, error) 
 		}
 	}
 
-	if v, ok := d.GetOk("private_hb_interval"); ok {
+	if v, ok := d.GetOk("private_hb_interval"); ok || d.HasChange("private_hb_interval") {
 		t, err := expandSystemHaPrivateHbIntervalSha(d, v, "private_hb_interval")
 		if err != nil {
 			return &obj, err
@@ -1198,7 +1183,7 @@ func getObjectSystemHa(d *schema.ResourceData) (*map[string]interface{}, error) 
 		}
 	}
 
-	if v, ok := d.GetOk("private_hb_lost_threshold"); ok {
+	if v, ok := d.GetOk("private_hb_lost_threshold"); ok || d.HasChange("private_hb_lost_threshold") {
 		t, err := expandSystemHaPrivateHbLostThresholdSha(d, v, "private_hb_lost_threshold")
 		if err != nil {
 			return &obj, err
@@ -1207,7 +1192,7 @@ func getObjectSystemHa(d *schema.ResourceData) (*map[string]interface{}, error) 
 		}
 	}
 
-	if v, ok := d.GetOk("private_mode"); ok {
+	if v, ok := d.GetOk("private_mode"); ok || d.HasChange("private_mode") {
 		t, err := expandSystemHaPrivateModeSha(d, v, "private_mode")
 		if err != nil {
 			return &obj, err
@@ -1216,7 +1201,7 @@ func getObjectSystemHa(d *schema.ResourceData) (*map[string]interface{}, error) 
 		}
 	}
 
-	if v, ok := d.GetOk("private_password"); ok {
+	if v, ok := d.GetOk("private_password"); ok || d.HasChange("private_password") {
 		t, err := expandSystemHaPrivatePasswordSha(d, v, "private_password")
 		if err != nil {
 			return &obj, err
@@ -1225,7 +1210,7 @@ func getObjectSystemHa(d *schema.ResourceData) (*map[string]interface{}, error) 
 		}
 	}
 
-	if v, ok := d.GetOk("private_peer"); ok {
+	if v, ok := d.GetOk("private_peer"); ok || d.HasChange("private_peer") {
 		t, err := expandSystemHaPrivatePeerSha(d, v, "private_peer")
 		if err != nil {
 			return &obj, err
@@ -1234,7 +1219,7 @@ func getObjectSystemHa(d *schema.ResourceData) (*map[string]interface{}, error) 
 		}
 	}
 
-	if v, ok := d.GetOk("unicast"); ok {
+	if v, ok := d.GetOk("unicast"); ok || d.HasChange("unicast") {
 		t, err := expandSystemHaUnicastSha(d, v, "unicast")
 		if err != nil {
 			return &obj, err
@@ -1243,7 +1228,7 @@ func getObjectSystemHa(d *schema.ResourceData) (*map[string]interface{}, error) 
 		}
 	}
 
-	if v, ok := d.GetOk("vip"); ok {
+	if v, ok := d.GetOk("vip"); ok || d.HasChange("vip") {
 		t, err := expandSystemHaVipSha(d, v, "vip")
 		if err != nil {
 			return &obj, err
@@ -1252,7 +1237,7 @@ func getObjectSystemHa(d *schema.ResourceData) (*map[string]interface{}, error) 
 		}
 	}
 
-	if v, ok := d.GetOk("vip_interface"); ok {
+	if v, ok := d.GetOk("vip_interface"); ok || d.HasChange("vip_interface") {
 		t, err := expandSystemHaVipInterfaceSha(d, v, "vip_interface")
 		if err != nil {
 			return &obj, err

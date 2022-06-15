@@ -31,57 +31,46 @@ func resourceSystemLogSettings() *schema.Resource {
 			"fac_custom_field1": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"faz_custom_field1": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"fch_custom_field1": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"fct_custom_field1": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"fdd_custom_field1": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"fgt_custom_field1": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"fmg_custom_field1": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"fml_custom_field1": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"fpx_custom_field1": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"fsa_custom_field1": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"fwb_custom_field1": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"browse_max_logfiles": &schema.Schema{
 				Type:     schema.TypeInt,
@@ -128,7 +117,6 @@ func resourceSystemLogSettings() *schema.Resource {
 							Type:     schema.TypeSet,
 							Elem:     &schema.Schema{Type: schema.TypeString},
 							Optional: true,
-							Computed: true,
 						},
 						"del_files": &schema.Schema{
 							Type:     schema.TypeString,
@@ -138,7 +126,6 @@ func resourceSystemLogSettings() *schema.Resource {
 						"directory": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"file_size": &schema.Schema{
 							Type:     schema.TypeInt,
@@ -153,7 +140,6 @@ func resourceSystemLogSettings() *schema.Resource {
 						"hour": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"ip": &schema.Schema{
 							Type:     schema.TypeString,
@@ -178,13 +164,11 @@ func resourceSystemLogSettings() *schema.Resource {
 						"min": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"password": &schema.Schema{
 							Type:     schema.TypeSet,
 							Elem:     &schema.Schema{Type: schema.TypeString},
 							Optional: true,
-							Computed: true,
 						},
 						"password2": &schema.Schema{
 							Type:      schema.TypeSet,
@@ -203,22 +187,18 @@ func resourceSystemLogSettings() *schema.Resource {
 						"port": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"port2": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"port3": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"rolling_upgrade_status": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"server_type": &schema.Schema{
 							Type:     schema.TypeString,
@@ -233,7 +213,6 @@ func resourceSystemLogSettings() *schema.Resource {
 						"upload_hour": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"upload_mode": &schema.Schema{
 							Type:     schema.TypeString,
@@ -248,17 +227,14 @@ func resourceSystemLogSettings() *schema.Resource {
 						"username": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"username2": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"username3": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"when": &schema.Schema{
 							Type:     schema.TypeString,
@@ -278,7 +254,6 @@ func resourceSystemLogSettings() *schema.Resource {
 							Type:     schema.TypeSet,
 							Elem:     &schema.Schema{Type: schema.TypeString},
 							Optional: true,
-							Computed: true,
 						},
 						"del_files": &schema.Schema{
 							Type:     schema.TypeString,
@@ -288,7 +263,6 @@ func resourceSystemLogSettings() *schema.Resource {
 						"directory": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"file_size": &schema.Schema{
 							Type:     schema.TypeInt,
@@ -303,7 +277,6 @@ func resourceSystemLogSettings() *schema.Resource {
 						"hour": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"ip": &schema.Schema{
 							Type:     schema.TypeString,
@@ -328,7 +301,6 @@ func resourceSystemLogSettings() *schema.Resource {
 						"min": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"password": &schema.Schema{
 							Type:      schema.TypeSet,
@@ -354,22 +326,18 @@ func resourceSystemLogSettings() *schema.Resource {
 						"port": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"port2": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"port3": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"rolling_upgrade_status": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"server_type": &schema.Schema{
 							Type:     schema.TypeString,
@@ -384,7 +352,6 @@ func resourceSystemLogSettings() *schema.Resource {
 						"upload_hour": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"upload_mode": &schema.Schema{
 							Type:     schema.TypeString,
@@ -399,17 +366,14 @@ func resourceSystemLogSettings() *schema.Resource {
 						"username": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"username2": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"username3": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"when": &schema.Schema{
 							Type:     schema.TypeString,
@@ -429,7 +393,6 @@ func resourceSystemLogSettings() *schema.Resource {
 							Type:     schema.TypeSet,
 							Elem:     &schema.Schema{Type: schema.TypeString},
 							Optional: true,
-							Computed: true,
 						},
 						"del_files": &schema.Schema{
 							Type:     schema.TypeString,
@@ -439,7 +402,6 @@ func resourceSystemLogSettings() *schema.Resource {
 						"directory": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"file_size": &schema.Schema{
 							Type:     schema.TypeInt,
@@ -454,7 +416,6 @@ func resourceSystemLogSettings() *schema.Resource {
 						"hour": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"ip": &schema.Schema{
 							Type:     schema.TypeString,
@@ -479,7 +440,6 @@ func resourceSystemLogSettings() *schema.Resource {
 						"min": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"password": &schema.Schema{
 							Type:      schema.TypeSet,
@@ -505,22 +465,18 @@ func resourceSystemLogSettings() *schema.Resource {
 						"port": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"port2": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"port3": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"rolling_upgrade_status": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"server_type": &schema.Schema{
 							Type:     schema.TypeString,
@@ -535,7 +491,6 @@ func resourceSystemLogSettings() *schema.Resource {
 						"upload_hour": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"upload_mode": &schema.Schema{
 							Type:     schema.TypeString,
@@ -550,17 +505,14 @@ func resourceSystemLogSettings() *schema.Resource {
 						"username": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"username2": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"username3": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"when": &schema.Schema{
 							Type:     schema.TypeString,
@@ -1880,119 +1832,119 @@ func expandSystemLogSettingsRollingAnalyzerSlsa(d *schema.ResourceData, v interf
 
 	pre_append := "" // complex
 	pre_append = pre + ".0." + "days"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["days"], _ = expandSystemLogSettingsRollingAnalyzerDaysSlsa(d, i["days"], pre_append)
 	} else {
 		result["days"] = make([]string, 0)
 	}
 	pre_append = pre + ".0." + "del_files"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["del-files"], _ = expandSystemLogSettingsRollingAnalyzerDelFilesSlsa(d, i["del_files"], pre_append)
 	}
 	pre_append = pre + ".0." + "directory"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["directory"], _ = expandSystemLogSettingsRollingAnalyzerDirectorySlsa(d, i["directory"], pre_append)
 	}
 	pre_append = pre + ".0." + "file_size"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["file-size"], _ = expandSystemLogSettingsRollingAnalyzerFileSizeSlsa(d, i["file_size"], pre_append)
 	}
 	pre_append = pre + ".0." + "gzip_format"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["gzip-format"], _ = expandSystemLogSettingsRollingAnalyzerGzipFormatSlsa(d, i["gzip_format"], pre_append)
 	}
 	pre_append = pre + ".0." + "hour"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["hour"], _ = expandSystemLogSettingsRollingAnalyzerHourSlsa(d, i["hour"], pre_append)
 	}
 	pre_append = pre + ".0." + "ip"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["ip"], _ = expandSystemLogSettingsRollingAnalyzerIpSlsa(d, i["ip"], pre_append)
 	}
 	pre_append = pre + ".0." + "ip2"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["ip2"], _ = expandSystemLogSettingsRollingAnalyzerIp2Slsa(d, i["ip2"], pre_append)
 	}
 	pre_append = pre + ".0." + "ip3"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["ip3"], _ = expandSystemLogSettingsRollingAnalyzerIp3Slsa(d, i["ip3"], pre_append)
 	}
 	pre_append = pre + ".0." + "log_format"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["log-format"], _ = expandSystemLogSettingsRollingAnalyzerLogFormatSlsa(d, i["log_format"], pre_append)
 	}
 	pre_append = pre + ".0." + "min"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["min"], _ = expandSystemLogSettingsRollingAnalyzerMinSlsa(d, i["min"], pre_append)
 	}
 	pre_append = pre + ".0." + "password"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["password"], _ = expandSystemLogSettingsRollingAnalyzerPasswordSlsa(d, i["password"], pre_append)
 	} else {
 		result["password"] = make([]string, 0)
 	}
 	pre_append = pre + ".0." + "password2"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["password2"], _ = expandSystemLogSettingsRollingAnalyzerPassword2Slsa(d, i["password2"], pre_append)
 	} else {
 		result["password2"] = make([]string, 0)
 	}
 	pre_append = pre + ".0." + "password3"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["password3"], _ = expandSystemLogSettingsRollingAnalyzerPassword3Slsa(d, i["password3"], pre_append)
 	} else {
 		result["password3"] = make([]string, 0)
 	}
 	pre_append = pre + ".0." + "port"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["port"], _ = expandSystemLogSettingsRollingAnalyzerPortSlsa(d, i["port"], pre_append)
 	}
 	pre_append = pre + ".0." + "port2"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["port2"], _ = expandSystemLogSettingsRollingAnalyzerPort2Slsa(d, i["port2"], pre_append)
 	}
 	pre_append = pre + ".0." + "port3"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["port3"], _ = expandSystemLogSettingsRollingAnalyzerPort3Slsa(d, i["port3"], pre_append)
 	}
 	pre_append = pre + ".0." + "rolling_upgrade_status"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["rolling-upgrade-status"], _ = expandSystemLogSettingsRollingAnalyzerRollingUpgradeStatusSlsa(d, i["rolling_upgrade_status"], pre_append)
 	}
 	pre_append = pre + ".0." + "server_type"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["server-type"], _ = expandSystemLogSettingsRollingAnalyzerServerTypeSlsa(d, i["server_type"], pre_append)
 	}
 	pre_append = pre + ".0." + "upload"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["upload"], _ = expandSystemLogSettingsRollingAnalyzerUploadSlsa(d, i["upload"], pre_append)
 	}
 	pre_append = pre + ".0." + "upload_hour"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["upload-hour"], _ = expandSystemLogSettingsRollingAnalyzerUploadHourSlsa(d, i["upload_hour"], pre_append)
 	}
 	pre_append = pre + ".0." + "upload_mode"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["upload-mode"], _ = expandSystemLogSettingsRollingAnalyzerUploadModeSlsa(d, i["upload_mode"], pre_append)
 	}
 	pre_append = pre + ".0." + "upload_trigger"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["upload-trigger"], _ = expandSystemLogSettingsRollingAnalyzerUploadTriggerSlsa(d, i["upload_trigger"], pre_append)
 	}
 	pre_append = pre + ".0." + "username"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["username"], _ = expandSystemLogSettingsRollingAnalyzerUsernameSlsa(d, i["username"], pre_append)
 	}
 	pre_append = pre + ".0." + "username2"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["username2"], _ = expandSystemLogSettingsRollingAnalyzerUsername2Slsa(d, i["username2"], pre_append)
 	}
 	pre_append = pre + ".0." + "username3"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["username3"], _ = expandSystemLogSettingsRollingAnalyzerUsername3Slsa(d, i["username3"], pre_append)
 	}
 	pre_append = pre + ".0." + "when"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["when"], _ = expandSystemLogSettingsRollingAnalyzerWhenSlsa(d, i["when"], pre_append)
 	}
 
@@ -2118,119 +2070,119 @@ func expandSystemLogSettingsRollingLocalSlsa(d *schema.ResourceData, v interface
 
 	pre_append := "" // complex
 	pre_append = pre + ".0." + "days"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["days"], _ = expandSystemLogSettingsRollingLocalDaysSlsa(d, i["days"], pre_append)
 	} else {
 		result["days"] = make([]string, 0)
 	}
 	pre_append = pre + ".0." + "del_files"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["del-files"], _ = expandSystemLogSettingsRollingLocalDelFilesSlsa(d, i["del_files"], pre_append)
 	}
 	pre_append = pre + ".0." + "directory"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["directory"], _ = expandSystemLogSettingsRollingLocalDirectorySlsa(d, i["directory"], pre_append)
 	}
 	pre_append = pre + ".0." + "file_size"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["file-size"], _ = expandSystemLogSettingsRollingLocalFileSizeSlsa(d, i["file_size"], pre_append)
 	}
 	pre_append = pre + ".0." + "gzip_format"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["gzip-format"], _ = expandSystemLogSettingsRollingLocalGzipFormatSlsa(d, i["gzip_format"], pre_append)
 	}
 	pre_append = pre + ".0." + "hour"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["hour"], _ = expandSystemLogSettingsRollingLocalHourSlsa(d, i["hour"], pre_append)
 	}
 	pre_append = pre + ".0." + "ip"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["ip"], _ = expandSystemLogSettingsRollingLocalIpSlsa(d, i["ip"], pre_append)
 	}
 	pre_append = pre + ".0." + "ip2"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["ip2"], _ = expandSystemLogSettingsRollingLocalIp2Slsa(d, i["ip2"], pre_append)
 	}
 	pre_append = pre + ".0." + "ip3"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["ip3"], _ = expandSystemLogSettingsRollingLocalIp3Slsa(d, i["ip3"], pre_append)
 	}
 	pre_append = pre + ".0." + "log_format"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["log-format"], _ = expandSystemLogSettingsRollingLocalLogFormatSlsa(d, i["log_format"], pre_append)
 	}
 	pre_append = pre + ".0." + "min"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["min"], _ = expandSystemLogSettingsRollingLocalMinSlsa(d, i["min"], pre_append)
 	}
 	pre_append = pre + ".0." + "password"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["password"], _ = expandSystemLogSettingsRollingLocalPasswordSlsa(d, i["password"], pre_append)
 	} else {
 		result["password"] = make([]string, 0)
 	}
 	pre_append = pre + ".0." + "password2"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["password2"], _ = expandSystemLogSettingsRollingLocalPassword2Slsa(d, i["password2"], pre_append)
 	} else {
 		result["password2"] = make([]string, 0)
 	}
 	pre_append = pre + ".0." + "password3"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["password3"], _ = expandSystemLogSettingsRollingLocalPassword3Slsa(d, i["password3"], pre_append)
 	} else {
 		result["password3"] = make([]string, 0)
 	}
 	pre_append = pre + ".0." + "port"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["port"], _ = expandSystemLogSettingsRollingLocalPortSlsa(d, i["port"], pre_append)
 	}
 	pre_append = pre + ".0." + "port2"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["port2"], _ = expandSystemLogSettingsRollingLocalPort2Slsa(d, i["port2"], pre_append)
 	}
 	pre_append = pre + ".0." + "port3"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["port3"], _ = expandSystemLogSettingsRollingLocalPort3Slsa(d, i["port3"], pre_append)
 	}
 	pre_append = pre + ".0." + "rolling_upgrade_status"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["rolling-upgrade-status"], _ = expandSystemLogSettingsRollingLocalRollingUpgradeStatusSlsa(d, i["rolling_upgrade_status"], pre_append)
 	}
 	pre_append = pre + ".0." + "server_type"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["server-type"], _ = expandSystemLogSettingsRollingLocalServerTypeSlsa(d, i["server_type"], pre_append)
 	}
 	pre_append = pre + ".0." + "upload"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["upload"], _ = expandSystemLogSettingsRollingLocalUploadSlsa(d, i["upload"], pre_append)
 	}
 	pre_append = pre + ".0." + "upload_hour"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["upload-hour"], _ = expandSystemLogSettingsRollingLocalUploadHourSlsa(d, i["upload_hour"], pre_append)
 	}
 	pre_append = pre + ".0." + "upload_mode"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["upload-mode"], _ = expandSystemLogSettingsRollingLocalUploadModeSlsa(d, i["upload_mode"], pre_append)
 	}
 	pre_append = pre + ".0." + "upload_trigger"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["upload-trigger"], _ = expandSystemLogSettingsRollingLocalUploadTriggerSlsa(d, i["upload_trigger"], pre_append)
 	}
 	pre_append = pre + ".0." + "username"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["username"], _ = expandSystemLogSettingsRollingLocalUsernameSlsa(d, i["username"], pre_append)
 	}
 	pre_append = pre + ".0." + "username2"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["username2"], _ = expandSystemLogSettingsRollingLocalUsername2Slsa(d, i["username2"], pre_append)
 	}
 	pre_append = pre + ".0." + "username3"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["username3"], _ = expandSystemLogSettingsRollingLocalUsername3Slsa(d, i["username3"], pre_append)
 	}
 	pre_append = pre + ".0." + "when"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["when"], _ = expandSystemLogSettingsRollingLocalWhenSlsa(d, i["when"], pre_append)
 	}
 
@@ -2356,119 +2308,119 @@ func expandSystemLogSettingsRollingRegularSlsa(d *schema.ResourceData, v interfa
 
 	pre_append := "" // complex
 	pre_append = pre + ".0." + "days"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["days"], _ = expandSystemLogSettingsRollingRegularDaysSlsa(d, i["days"], pre_append)
 	} else {
 		result["days"] = make([]string, 0)
 	}
 	pre_append = pre + ".0." + "del_files"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["del-files"], _ = expandSystemLogSettingsRollingRegularDelFilesSlsa(d, i["del_files"], pre_append)
 	}
 	pre_append = pre + ".0." + "directory"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["directory"], _ = expandSystemLogSettingsRollingRegularDirectorySlsa(d, i["directory"], pre_append)
 	}
 	pre_append = pre + ".0." + "file_size"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["file-size"], _ = expandSystemLogSettingsRollingRegularFileSizeSlsa(d, i["file_size"], pre_append)
 	}
 	pre_append = pre + ".0." + "gzip_format"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["gzip-format"], _ = expandSystemLogSettingsRollingRegularGzipFormatSlsa(d, i["gzip_format"], pre_append)
 	}
 	pre_append = pre + ".0." + "hour"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["hour"], _ = expandSystemLogSettingsRollingRegularHourSlsa(d, i["hour"], pre_append)
 	}
 	pre_append = pre + ".0." + "ip"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["ip"], _ = expandSystemLogSettingsRollingRegularIpSlsa(d, i["ip"], pre_append)
 	}
 	pre_append = pre + ".0." + "ip2"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["ip2"], _ = expandSystemLogSettingsRollingRegularIp2Slsa(d, i["ip2"], pre_append)
 	}
 	pre_append = pre + ".0." + "ip3"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["ip3"], _ = expandSystemLogSettingsRollingRegularIp3Slsa(d, i["ip3"], pre_append)
 	}
 	pre_append = pre + ".0." + "log_format"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["log-format"], _ = expandSystemLogSettingsRollingRegularLogFormatSlsa(d, i["log_format"], pre_append)
 	}
 	pre_append = pre + ".0." + "min"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["min"], _ = expandSystemLogSettingsRollingRegularMinSlsa(d, i["min"], pre_append)
 	}
 	pre_append = pre + ".0." + "password"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["password"], _ = expandSystemLogSettingsRollingRegularPasswordSlsa(d, i["password"], pre_append)
 	} else {
 		result["password"] = make([]string, 0)
 	}
 	pre_append = pre + ".0." + "password2"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["password2"], _ = expandSystemLogSettingsRollingRegularPassword2Slsa(d, i["password2"], pre_append)
 	} else {
 		result["password2"] = make([]string, 0)
 	}
 	pre_append = pre + ".0." + "password3"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["password3"], _ = expandSystemLogSettingsRollingRegularPassword3Slsa(d, i["password3"], pre_append)
 	} else {
 		result["password3"] = make([]string, 0)
 	}
 	pre_append = pre + ".0." + "port"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["port"], _ = expandSystemLogSettingsRollingRegularPortSlsa(d, i["port"], pre_append)
 	}
 	pre_append = pre + ".0." + "port2"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["port2"], _ = expandSystemLogSettingsRollingRegularPort2Slsa(d, i["port2"], pre_append)
 	}
 	pre_append = pre + ".0." + "port3"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["port3"], _ = expandSystemLogSettingsRollingRegularPort3Slsa(d, i["port3"], pre_append)
 	}
 	pre_append = pre + ".0." + "rolling_upgrade_status"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["rolling-upgrade-status"], _ = expandSystemLogSettingsRollingRegularRollingUpgradeStatusSlsa(d, i["rolling_upgrade_status"], pre_append)
 	}
 	pre_append = pre + ".0." + "server_type"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["server-type"], _ = expandSystemLogSettingsRollingRegularServerTypeSlsa(d, i["server_type"], pre_append)
 	}
 	pre_append = pre + ".0." + "upload"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["upload"], _ = expandSystemLogSettingsRollingRegularUploadSlsa(d, i["upload"], pre_append)
 	}
 	pre_append = pre + ".0." + "upload_hour"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["upload-hour"], _ = expandSystemLogSettingsRollingRegularUploadHourSlsa(d, i["upload_hour"], pre_append)
 	}
 	pre_append = pre + ".0." + "upload_mode"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["upload-mode"], _ = expandSystemLogSettingsRollingRegularUploadModeSlsa(d, i["upload_mode"], pre_append)
 	}
 	pre_append = pre + ".0." + "upload_trigger"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["upload-trigger"], _ = expandSystemLogSettingsRollingRegularUploadTriggerSlsa(d, i["upload_trigger"], pre_append)
 	}
 	pre_append = pre + ".0." + "username"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["username"], _ = expandSystemLogSettingsRollingRegularUsernameSlsa(d, i["username"], pre_append)
 	}
 	pre_append = pre + ".0." + "username2"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["username2"], _ = expandSystemLogSettingsRollingRegularUsername2Slsa(d, i["username2"], pre_append)
 	}
 	pre_append = pre + ".0." + "username3"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["username3"], _ = expandSystemLogSettingsRollingRegularUsername3Slsa(d, i["username3"], pre_append)
 	}
 	pre_append = pre + ".0." + "when"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["when"], _ = expandSystemLogSettingsRollingRegularWhenSlsa(d, i["when"], pre_append)
 	}
 
@@ -2590,7 +2542,7 @@ func expandSystemLogSettingsSyncSearchTimeoutSlsa(d *schema.ResourceData, v inte
 func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("fac_custom_field1"); ok {
+	if v, ok := d.GetOk("fac_custom_field1"); ok || d.HasChange("fac_custom_field1") {
 		t, err := expandSystemLogSettingsFacCustomField1Slsa(d, v, "fac_custom_field1")
 		if err != nil {
 			return &obj, err
@@ -2599,7 +2551,7 @@ func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("faz_custom_field1"); ok {
+	if v, ok := d.GetOk("faz_custom_field1"); ok || d.HasChange("faz_custom_field1") {
 		t, err := expandSystemLogSettingsFazCustomField1Slsa(d, v, "faz_custom_field1")
 		if err != nil {
 			return &obj, err
@@ -2608,7 +2560,7 @@ func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("fch_custom_field1"); ok {
+	if v, ok := d.GetOk("fch_custom_field1"); ok || d.HasChange("fch_custom_field1") {
 		t, err := expandSystemLogSettingsFchCustomField1Slsa(d, v, "fch_custom_field1")
 		if err != nil {
 			return &obj, err
@@ -2617,7 +2569,7 @@ func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("fct_custom_field1"); ok {
+	if v, ok := d.GetOk("fct_custom_field1"); ok || d.HasChange("fct_custom_field1") {
 		t, err := expandSystemLogSettingsFctCustomField1Slsa(d, v, "fct_custom_field1")
 		if err != nil {
 			return &obj, err
@@ -2626,7 +2578,7 @@ func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("fdd_custom_field1"); ok {
+	if v, ok := d.GetOk("fdd_custom_field1"); ok || d.HasChange("fdd_custom_field1") {
 		t, err := expandSystemLogSettingsFddCustomField1Slsa(d, v, "fdd_custom_field1")
 		if err != nil {
 			return &obj, err
@@ -2635,7 +2587,7 @@ func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("fgt_custom_field1"); ok {
+	if v, ok := d.GetOk("fgt_custom_field1"); ok || d.HasChange("fgt_custom_field1") {
 		t, err := expandSystemLogSettingsFgtCustomField1Slsa(d, v, "fgt_custom_field1")
 		if err != nil {
 			return &obj, err
@@ -2644,7 +2596,7 @@ func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("fmg_custom_field1"); ok {
+	if v, ok := d.GetOk("fmg_custom_field1"); ok || d.HasChange("fmg_custom_field1") {
 		t, err := expandSystemLogSettingsFmgCustomField1Slsa(d, v, "fmg_custom_field1")
 		if err != nil {
 			return &obj, err
@@ -2653,7 +2605,7 @@ func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("fml_custom_field1"); ok {
+	if v, ok := d.GetOk("fml_custom_field1"); ok || d.HasChange("fml_custom_field1") {
 		t, err := expandSystemLogSettingsFmlCustomField1Slsa(d, v, "fml_custom_field1")
 		if err != nil {
 			return &obj, err
@@ -2662,7 +2614,7 @@ func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("fpx_custom_field1"); ok {
+	if v, ok := d.GetOk("fpx_custom_field1"); ok || d.HasChange("fpx_custom_field1") {
 		t, err := expandSystemLogSettingsFpxCustomField1Slsa(d, v, "fpx_custom_field1")
 		if err != nil {
 			return &obj, err
@@ -2671,7 +2623,7 @@ func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("fsa_custom_field1"); ok {
+	if v, ok := d.GetOk("fsa_custom_field1"); ok || d.HasChange("fsa_custom_field1") {
 		t, err := expandSystemLogSettingsFsaCustomField1Slsa(d, v, "fsa_custom_field1")
 		if err != nil {
 			return &obj, err
@@ -2680,7 +2632,7 @@ func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("fwb_custom_field1"); ok {
+	if v, ok := d.GetOk("fwb_custom_field1"); ok || d.HasChange("fwb_custom_field1") {
 		t, err := expandSystemLogSettingsFwbCustomField1Slsa(d, v, "fwb_custom_field1")
 		if err != nil {
 			return &obj, err
@@ -2689,7 +2641,7 @@ func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("browse_max_logfiles"); ok {
+	if v, ok := d.GetOk("browse_max_logfiles"); ok || d.HasChange("browse_max_logfiles") {
 		t, err := expandSystemLogSettingsBrowseMaxLogfilesSlsa(d, v, "browse_max_logfiles")
 		if err != nil {
 			return &obj, err
@@ -2698,7 +2650,7 @@ func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("dns_resolve_dstip"); ok {
+	if v, ok := d.GetOk("dns_resolve_dstip"); ok || d.HasChange("dns_resolve_dstip") {
 		t, err := expandSystemLogSettingsDnsResolveDstipSlsa(d, v, "dns_resolve_dstip")
 		if err != nil {
 			return &obj, err
@@ -2707,7 +2659,7 @@ func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("download_max_logs"); ok {
+	if v, ok := d.GetOk("download_max_logs"); ok || d.HasChange("download_max_logs") {
 		t, err := expandSystemLogSettingsDownloadMaxLogsSlsa(d, v, "download_max_logs")
 		if err != nil {
 			return &obj, err
@@ -2716,7 +2668,7 @@ func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("ha_auto_migrate"); ok {
+	if v, ok := d.GetOk("ha_auto_migrate"); ok || d.HasChange("ha_auto_migrate") {
 		t, err := expandSystemLogSettingsHaAutoMigrateSlsa(d, v, "ha_auto_migrate")
 		if err != nil {
 			return &obj, err
@@ -2725,7 +2677,7 @@ func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("import_max_logfiles"); ok {
+	if v, ok := d.GetOk("import_max_logfiles"); ok || d.HasChange("import_max_logfiles") {
 		t, err := expandSystemLogSettingsImportMaxLogfilesSlsa(d, v, "import_max_logfiles")
 		if err != nil {
 			return &obj, err
@@ -2734,7 +2686,7 @@ func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("keep_dev_logs"); ok {
+	if v, ok := d.GetOk("keep_dev_logs"); ok || d.HasChange("keep_dev_logs") {
 		t, err := expandSystemLogSettingsKeepDevLogsSlsa(d, v, "keep_dev_logs")
 		if err != nil {
 			return &obj, err
@@ -2743,7 +2695,7 @@ func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("log_file_archive_name"); ok {
+	if v, ok := d.GetOk("log_file_archive_name"); ok || d.HasChange("log_file_archive_name") {
 		t, err := expandSystemLogSettingsLogFileArchiveNameSlsa(d, v, "log_file_archive_name")
 		if err != nil {
 			return &obj, err
@@ -2752,7 +2704,7 @@ func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("rolling_analyzer"); ok {
+	if v, ok := d.GetOk("rolling_analyzer"); ok || d.HasChange("rolling_analyzer") {
 		t, err := expandSystemLogSettingsRollingAnalyzerSlsa(d, v, "rolling_analyzer")
 		if err != nil {
 			return &obj, err
@@ -2761,7 +2713,7 @@ func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("rolling_local"); ok {
+	if v, ok := d.GetOk("rolling_local"); ok || d.HasChange("rolling_local") {
 		t, err := expandSystemLogSettingsRollingLocalSlsa(d, v, "rolling_local")
 		if err != nil {
 			return &obj, err
@@ -2770,7 +2722,7 @@ func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("rolling_regular"); ok {
+	if v, ok := d.GetOk("rolling_regular"); ok || d.HasChange("rolling_regular") {
 		t, err := expandSystemLogSettingsRollingRegularSlsa(d, v, "rolling_regular")
 		if err != nil {
 			return &obj, err
@@ -2779,7 +2731,7 @@ func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("sync_search_timeout"); ok {
+	if v, ok := d.GetOk("sync_search_timeout"); ok || d.HasChange("sync_search_timeout") {
 		t, err := expandSystemLogSettingsSyncSearchTimeoutSlsa(d, v, "sync_search_timeout")
 		if err != nil {
 			return &obj, err

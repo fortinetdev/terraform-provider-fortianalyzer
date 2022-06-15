@@ -56,12 +56,10 @@ func resourceSystemSql() *schema.Resource {
 						"id": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"index_field": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"log_type": &schema.Schema{
 							Type:     schema.TypeString,
@@ -84,12 +82,10 @@ func resourceSystemSql() *schema.Resource {
 						"id": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"index_field": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"log_type": &schema.Schema{
 							Type:     schema.TypeString,
@@ -102,7 +98,6 @@ func resourceSystemSql() *schema.Resource {
 			"database_name": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"database_type": &schema.Schema{
 				Type:     schema.TypeString,
@@ -117,7 +112,6 @@ func resourceSystemSql() *schema.Resource {
 			"event_table_partition_time": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Computed: true,
 			},
 			"fct_table_partition_time": &schema.Schema{
 				Type:     schema.TypeInt,
@@ -135,7 +129,6 @@ func resourceSystemSql() *schema.Resource {
 				Elem:      &schema.Schema{Type: schema.TypeString},
 				Optional:  true,
 				Sensitive: true,
-				Computed:  true,
 			},
 			"prompt_sql_upgrade": &schema.Schema{
 				Type:     schema.TypeString,
@@ -156,13 +149,11 @@ func resourceSystemSql() *schema.Resource {
 			"server": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"start_time": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
-				Computed: true,
 			},
 			"status": &schema.Schema{
 				Type:     schema.TypeString,
@@ -177,7 +168,6 @@ func resourceSystemSql() *schema.Resource {
 			"traffic_table_partition_time": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Computed: true,
 			},
 			"ts_index_field": &schema.Schema{
 				Type:     schema.TypeList,
@@ -187,12 +177,10 @@ func resourceSystemSql() *schema.Resource {
 						"category": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"value": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 					},
 				},
@@ -200,12 +188,10 @@ func resourceSystemSql() *schema.Resource {
 			"username": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"utm_table_partition_time": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Computed: true,
 			},
 			"dynamic_sort_subtable": &schema.Schema{
 				Type:     schema.TypeString,
@@ -838,27 +824,27 @@ func expandSystemSqlCustomIndexSqa(d *schema.ResourceData, v interface{}, pre st
 		pre_append := "" // table
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "case_sensitive"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["case-sensitive"], _ = expandSystemSqlCustomIndexCaseSensitiveSqa(d, i["case_sensitive"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "device_type"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["device-type"], _ = expandSystemSqlCustomIndexDeviceTypeSqa(d, i["device_type"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "id"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["id"], _ = expandSystemSqlCustomIndexIdSqa(d, i["id"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "index_field"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["index-field"], _ = expandSystemSqlCustomIndexIndexFieldSqa(d, i["index_field"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "log_type"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["log-type"], _ = expandSystemSqlCustomIndexLogTypeSqa(d, i["log_type"], pre_append)
 		}
 
@@ -905,22 +891,22 @@ func expandSystemSqlCustomSkipidxSqa(d *schema.ResourceData, v interface{}, pre 
 		pre_append := "" // table
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "device_type"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["device-type"], _ = expandSystemSqlCustomSkipidxDeviceTypeSqa(d, i["device_type"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "id"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["id"], _ = expandSystemSqlCustomSkipidxIdSqa(d, i["id"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "index_field"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["index-field"], _ = expandSystemSqlCustomSkipidxIndexFieldSqa(d, i["index_field"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "log_type"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["log-type"], _ = expandSystemSqlCustomSkipidxLogTypeSqa(d, i["log_type"], pre_append)
 		}
 
@@ -1023,12 +1009,12 @@ func expandSystemSqlTsIndexFieldSqa(d *schema.ResourceData, v interface{}, pre s
 		pre_append := "" // table
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "category"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["category"], _ = expandSystemSqlTsIndexFieldCategorySqa(d, i["category"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "value"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["value"], _ = expandSystemSqlTsIndexFieldValueSqa(d, i["value"], pre_append)
 		}
 
@@ -1059,7 +1045,7 @@ func expandSystemSqlUtmTablePartitionTimeSqa(d *schema.ResourceData, v interface
 func getObjectSystemSql(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("background_rebuild"); ok {
+	if v, ok := d.GetOk("background_rebuild"); ok || d.HasChange("background_rebuild") {
 		t, err := expandSystemSqlBackgroundRebuildSqa(d, v, "background_rebuild")
 		if err != nil {
 			return &obj, err
@@ -1068,7 +1054,7 @@ func getObjectSystemSql(d *schema.ResourceData) (*map[string]interface{}, error)
 		}
 	}
 
-	if v, ok := d.GetOk("compress_table_min_age"); ok {
+	if v, ok := d.GetOk("compress_table_min_age"); ok || d.HasChange("compress_table_min_age") {
 		t, err := expandSystemSqlCompressTableMinAgeSqa(d, v, "compress_table_min_age")
 		if err != nil {
 			return &obj, err
@@ -1077,7 +1063,7 @@ func getObjectSystemSql(d *schema.ResourceData) (*map[string]interface{}, error)
 		}
 	}
 
-	if v, ok := d.GetOk("custom_index"); ok {
+	if v, ok := d.GetOk("custom_index"); ok || d.HasChange("custom_index") {
 		t, err := expandSystemSqlCustomIndexSqa(d, v, "custom_index")
 		if err != nil {
 			return &obj, err
@@ -1086,7 +1072,7 @@ func getObjectSystemSql(d *schema.ResourceData) (*map[string]interface{}, error)
 		}
 	}
 
-	if v, ok := d.GetOk("custom_skipidx"); ok {
+	if v, ok := d.GetOk("custom_skipidx"); ok || d.HasChange("custom_skipidx") {
 		t, err := expandSystemSqlCustomSkipidxSqa(d, v, "custom_skipidx")
 		if err != nil {
 			return &obj, err
@@ -1095,7 +1081,7 @@ func getObjectSystemSql(d *schema.ResourceData) (*map[string]interface{}, error)
 		}
 	}
 
-	if v, ok := d.GetOk("database_name"); ok {
+	if v, ok := d.GetOk("database_name"); ok || d.HasChange("database_name") {
 		t, err := expandSystemSqlDatabaseNameSqa(d, v, "database_name")
 		if err != nil {
 			return &obj, err
@@ -1104,7 +1090,7 @@ func getObjectSystemSql(d *schema.ResourceData) (*map[string]interface{}, error)
 		}
 	}
 
-	if v, ok := d.GetOk("database_type"); ok {
+	if v, ok := d.GetOk("database_type"); ok || d.HasChange("database_type") {
 		t, err := expandSystemSqlDatabaseTypeSqa(d, v, "database_type")
 		if err != nil {
 			return &obj, err
@@ -1113,7 +1099,7 @@ func getObjectSystemSql(d *schema.ResourceData) (*map[string]interface{}, error)
 		}
 	}
 
-	if v, ok := d.GetOk("device_count_high"); ok {
+	if v, ok := d.GetOk("device_count_high"); ok || d.HasChange("device_count_high") {
 		t, err := expandSystemSqlDeviceCountHighSqa(d, v, "device_count_high")
 		if err != nil {
 			return &obj, err
@@ -1122,7 +1108,7 @@ func getObjectSystemSql(d *schema.ResourceData) (*map[string]interface{}, error)
 		}
 	}
 
-	if v, ok := d.GetOk("event_table_partition_time"); ok {
+	if v, ok := d.GetOk("event_table_partition_time"); ok || d.HasChange("event_table_partition_time") {
 		t, err := expandSystemSqlEventTablePartitionTimeSqa(d, v, "event_table_partition_time")
 		if err != nil {
 			return &obj, err
@@ -1131,7 +1117,7 @@ func getObjectSystemSql(d *schema.ResourceData) (*map[string]interface{}, error)
 		}
 	}
 
-	if v, ok := d.GetOk("fct_table_partition_time"); ok {
+	if v, ok := d.GetOk("fct_table_partition_time"); ok || d.HasChange("fct_table_partition_time") {
 		t, err := expandSystemSqlFctTablePartitionTimeSqa(d, v, "fct_table_partition_time")
 		if err != nil {
 			return &obj, err
@@ -1140,7 +1126,7 @@ func getObjectSystemSql(d *schema.ResourceData) (*map[string]interface{}, error)
 		}
 	}
 
-	if v, ok := d.GetOk("logtype"); ok {
+	if v, ok := d.GetOk("logtype"); ok || d.HasChange("logtype") {
 		t, err := expandSystemSqlLogtypeSqa(d, v, "logtype")
 		if err != nil {
 			return &obj, err
@@ -1149,7 +1135,7 @@ func getObjectSystemSql(d *schema.ResourceData) (*map[string]interface{}, error)
 		}
 	}
 
-	if v, ok := d.GetOk("password"); ok {
+	if v, ok := d.GetOk("password"); ok || d.HasChange("password") {
 		t, err := expandSystemSqlPasswordSqa(d, v, "password")
 		if err != nil {
 			return &obj, err
@@ -1158,7 +1144,7 @@ func getObjectSystemSql(d *schema.ResourceData) (*map[string]interface{}, error)
 		}
 	}
 
-	if v, ok := d.GetOk("prompt_sql_upgrade"); ok {
+	if v, ok := d.GetOk("prompt_sql_upgrade"); ok || d.HasChange("prompt_sql_upgrade") {
 		t, err := expandSystemSqlPromptSqlUpgradeSqa(d, v, "prompt_sql_upgrade")
 		if err != nil {
 			return &obj, err
@@ -1167,7 +1153,7 @@ func getObjectSystemSql(d *schema.ResourceData) (*map[string]interface{}, error)
 		}
 	}
 
-	if v, ok := d.GetOk("rebuild_event"); ok {
+	if v, ok := d.GetOk("rebuild_event"); ok || d.HasChange("rebuild_event") {
 		t, err := expandSystemSqlRebuildEventSqa(d, v, "rebuild_event")
 		if err != nil {
 			return &obj, err
@@ -1176,7 +1162,7 @@ func getObjectSystemSql(d *schema.ResourceData) (*map[string]interface{}, error)
 		}
 	}
 
-	if v, ok := d.GetOk("rebuild_event_start_time"); ok {
+	if v, ok := d.GetOk("rebuild_event_start_time"); ok || d.HasChange("rebuild_event_start_time") {
 		t, err := expandSystemSqlRebuildEventStartTimeSqa(d, v, "rebuild_event_start_time")
 		if err != nil {
 			return &obj, err
@@ -1185,7 +1171,7 @@ func getObjectSystemSql(d *schema.ResourceData) (*map[string]interface{}, error)
 		}
 	}
 
-	if v, ok := d.GetOk("server"); ok {
+	if v, ok := d.GetOk("server"); ok || d.HasChange("server") {
 		t, err := expandSystemSqlServerSqa(d, v, "server")
 		if err != nil {
 			return &obj, err
@@ -1194,7 +1180,7 @@ func getObjectSystemSql(d *schema.ResourceData) (*map[string]interface{}, error)
 		}
 	}
 
-	if v, ok := d.GetOk("start_time"); ok {
+	if v, ok := d.GetOk("start_time"); ok || d.HasChange("start_time") {
 		t, err := expandSystemSqlStartTimeSqa(d, v, "start_time")
 		if err != nil {
 			return &obj, err
@@ -1203,7 +1189,7 @@ func getObjectSystemSql(d *schema.ResourceData) (*map[string]interface{}, error)
 		}
 	}
 
-	if v, ok := d.GetOk("status"); ok {
+	if v, ok := d.GetOk("status"); ok || d.HasChange("status") {
 		t, err := expandSystemSqlStatusSqa(d, v, "status")
 		if err != nil {
 			return &obj, err
@@ -1212,7 +1198,7 @@ func getObjectSystemSql(d *schema.ResourceData) (*map[string]interface{}, error)
 		}
 	}
 
-	if v, ok := d.GetOk("text_search_index"); ok {
+	if v, ok := d.GetOk("text_search_index"); ok || d.HasChange("text_search_index") {
 		t, err := expandSystemSqlTextSearchIndexSqa(d, v, "text_search_index")
 		if err != nil {
 			return &obj, err
@@ -1221,7 +1207,7 @@ func getObjectSystemSql(d *schema.ResourceData) (*map[string]interface{}, error)
 		}
 	}
 
-	if v, ok := d.GetOk("traffic_table_partition_time"); ok {
+	if v, ok := d.GetOk("traffic_table_partition_time"); ok || d.HasChange("traffic_table_partition_time") {
 		t, err := expandSystemSqlTrafficTablePartitionTimeSqa(d, v, "traffic_table_partition_time")
 		if err != nil {
 			return &obj, err
@@ -1230,7 +1216,7 @@ func getObjectSystemSql(d *schema.ResourceData) (*map[string]interface{}, error)
 		}
 	}
 
-	if v, ok := d.GetOk("ts_index_field"); ok {
+	if v, ok := d.GetOk("ts_index_field"); ok || d.HasChange("ts_index_field") {
 		t, err := expandSystemSqlTsIndexFieldSqa(d, v, "ts_index_field")
 		if err != nil {
 			return &obj, err
@@ -1239,7 +1225,7 @@ func getObjectSystemSql(d *schema.ResourceData) (*map[string]interface{}, error)
 		}
 	}
 
-	if v, ok := d.GetOk("username"); ok {
+	if v, ok := d.GetOk("username"); ok || d.HasChange("username") {
 		t, err := expandSystemSqlUsernameSqa(d, v, "username")
 		if err != nil {
 			return &obj, err
@@ -1248,7 +1234,7 @@ func getObjectSystemSql(d *schema.ResourceData) (*map[string]interface{}, error)
 		}
 	}
 
-	if v, ok := d.GetOk("utm_table_partition_time"); ok {
+	if v, ok := d.GetOk("utm_table_partition_time"); ok || d.HasChange("utm_table_partition_time") {
 		t, err := expandSystemSqlUtmTablePartitionTimeSqa(d, v, "utm_table_partition_time")
 		if err != nil {
 			return &obj, err

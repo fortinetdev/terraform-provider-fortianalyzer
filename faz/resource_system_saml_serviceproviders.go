@@ -31,48 +31,39 @@ func resourceSystemSamlServiceProviders() *schema.Resource {
 			"idp_entity_id": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"idp_single_logout_url": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"idp_single_sign_on_url": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"name": &schema.Schema{
 				Type:     schema.TypeString,
 				ForceNew: true,
 				Optional: true,
-				Computed: true,
 			},
 			"prefix": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"sp_cert": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"sp_entity_id": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"sp_single_logout_url": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"sp_single_sign_on_url": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 		},
 	}
@@ -345,7 +336,7 @@ func expandSystemSamlServiceProvidersSpSingleSignOnUrl(d *schema.ResourceData, v
 func getObjectSystemSamlServiceProviders(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("idp_entity_id"); ok {
+	if v, ok := d.GetOk("idp_entity_id"); ok || d.HasChange("idp_entity_id") {
 		t, err := expandSystemSamlServiceProvidersIdpEntityId(d, v, "idp_entity_id")
 		if err != nil {
 			return &obj, err
@@ -354,7 +345,7 @@ func getObjectSystemSamlServiceProviders(d *schema.ResourceData) (*map[string]in
 		}
 	}
 
-	if v, ok := d.GetOk("idp_single_logout_url"); ok {
+	if v, ok := d.GetOk("idp_single_logout_url"); ok || d.HasChange("idp_single_logout_url") {
 		t, err := expandSystemSamlServiceProvidersIdpSingleLogoutUrl(d, v, "idp_single_logout_url")
 		if err != nil {
 			return &obj, err
@@ -363,7 +354,7 @@ func getObjectSystemSamlServiceProviders(d *schema.ResourceData) (*map[string]in
 		}
 	}
 
-	if v, ok := d.GetOk("idp_single_sign_on_url"); ok {
+	if v, ok := d.GetOk("idp_single_sign_on_url"); ok || d.HasChange("idp_single_sign_on_url") {
 		t, err := expandSystemSamlServiceProvidersIdpSingleSignOnUrl(d, v, "idp_single_sign_on_url")
 		if err != nil {
 			return &obj, err
@@ -372,7 +363,7 @@ func getObjectSystemSamlServiceProviders(d *schema.ResourceData) (*map[string]in
 		}
 	}
 
-	if v, ok := d.GetOk("name"); ok {
+	if v, ok := d.GetOk("name"); ok || d.HasChange("name") {
 		t, err := expandSystemSamlServiceProvidersName(d, v, "name")
 		if err != nil {
 			return &obj, err
@@ -381,7 +372,7 @@ func getObjectSystemSamlServiceProviders(d *schema.ResourceData) (*map[string]in
 		}
 	}
 
-	if v, ok := d.GetOk("prefix"); ok {
+	if v, ok := d.GetOk("prefix"); ok || d.HasChange("prefix") {
 		t, err := expandSystemSamlServiceProvidersPrefix(d, v, "prefix")
 		if err != nil {
 			return &obj, err
@@ -390,7 +381,7 @@ func getObjectSystemSamlServiceProviders(d *schema.ResourceData) (*map[string]in
 		}
 	}
 
-	if v, ok := d.GetOk("sp_cert"); ok {
+	if v, ok := d.GetOk("sp_cert"); ok || d.HasChange("sp_cert") {
 		t, err := expandSystemSamlServiceProvidersSpCert(d, v, "sp_cert")
 		if err != nil {
 			return &obj, err
@@ -399,7 +390,7 @@ func getObjectSystemSamlServiceProviders(d *schema.ResourceData) (*map[string]in
 		}
 	}
 
-	if v, ok := d.GetOk("sp_entity_id"); ok {
+	if v, ok := d.GetOk("sp_entity_id"); ok || d.HasChange("sp_entity_id") {
 		t, err := expandSystemSamlServiceProvidersSpEntityId(d, v, "sp_entity_id")
 		if err != nil {
 			return &obj, err
@@ -408,7 +399,7 @@ func getObjectSystemSamlServiceProviders(d *schema.ResourceData) (*map[string]in
 		}
 	}
 
-	if v, ok := d.GetOk("sp_single_logout_url"); ok {
+	if v, ok := d.GetOk("sp_single_logout_url"); ok || d.HasChange("sp_single_logout_url") {
 		t, err := expandSystemSamlServiceProvidersSpSingleLogoutUrl(d, v, "sp_single_logout_url")
 		if err != nil {
 			return &obj, err
@@ -417,7 +408,7 @@ func getObjectSystemSamlServiceProviders(d *schema.ResourceData) (*map[string]in
 		}
 	}
 
-	if v, ok := d.GetOk("sp_single_sign_on_url"); ok {
+	if v, ok := d.GetOk("sp_single_sign_on_url"); ok || d.HasChange("sp_single_sign_on_url") {
 		t, err := expandSystemSamlServiceProvidersSpSingleSignOnUrl(d, v, "sp_single_sign_on_url")
 		if err != nil {
 			return &obj, err

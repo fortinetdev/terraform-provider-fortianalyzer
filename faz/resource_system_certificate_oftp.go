@@ -32,17 +32,14 @@ func resourceSystemCertificateOftp() *schema.Resource {
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
-				Computed: true,
 			},
 			"comment": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"local": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"mode": &schema.Schema{
 				Type:     schema.TypeString,
@@ -54,14 +51,12 @@ func resourceSystemCertificateOftp() *schema.Resource {
 				Elem:      &schema.Schema{Type: schema.TypeString},
 				Optional:  true,
 				Sensitive: true,
-				Computed:  true,
 			},
 			"private_key": &schema.Schema{
 				Type:      schema.TypeSet,
 				Elem:      &schema.Schema{Type: schema.TypeString},
 				Optional:  true,
 				Sensitive: true,
-				Computed:  true,
 			},
 		},
 	}
@@ -238,7 +233,7 @@ func expandSystemCertificateOftpPrivateKey(d *schema.ResourceData, v interface{}
 func getObjectSystemCertificateOftp(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("certificate"); ok {
+	if v, ok := d.GetOk("certificate"); ok || d.HasChange("certificate") {
 		t, err := expandSystemCertificateOftpCertificate(d, v, "certificate")
 		if err != nil {
 			return &obj, err
@@ -247,7 +242,7 @@ func getObjectSystemCertificateOftp(d *schema.ResourceData) (*map[string]interfa
 		}
 	}
 
-	if v, ok := d.GetOk("comment"); ok {
+	if v, ok := d.GetOk("comment"); ok || d.HasChange("comment") {
 		t, err := expandSystemCertificateOftpComment(d, v, "comment")
 		if err != nil {
 			return &obj, err
@@ -256,7 +251,7 @@ func getObjectSystemCertificateOftp(d *schema.ResourceData) (*map[string]interfa
 		}
 	}
 
-	if v, ok := d.GetOk("local"); ok {
+	if v, ok := d.GetOk("local"); ok || d.HasChange("local") {
 		t, err := expandSystemCertificateOftpLocal(d, v, "local")
 		if err != nil {
 			return &obj, err
@@ -265,7 +260,7 @@ func getObjectSystemCertificateOftp(d *schema.ResourceData) (*map[string]interfa
 		}
 	}
 
-	if v, ok := d.GetOk("mode"); ok {
+	if v, ok := d.GetOk("mode"); ok || d.HasChange("mode") {
 		t, err := expandSystemCertificateOftpMode(d, v, "mode")
 		if err != nil {
 			return &obj, err
@@ -274,7 +269,7 @@ func getObjectSystemCertificateOftp(d *schema.ResourceData) (*map[string]interfa
 		}
 	}
 
-	if v, ok := d.GetOk("password"); ok {
+	if v, ok := d.GetOk("password"); ok || d.HasChange("password") {
 		t, err := expandSystemCertificateOftpPassword(d, v, "password")
 		if err != nil {
 			return &obj, err
@@ -283,7 +278,7 @@ func getObjectSystemCertificateOftp(d *schema.ResourceData) (*map[string]interfa
 		}
 	}
 
-	if v, ok := d.GetOk("private_key"); ok {
+	if v, ok := d.GetOk("private_key"); ok || d.HasChange("private_key") {
 		t, err := expandSystemCertificateOftpPrivateKey(d, v, "private_key")
 		if err != nil {
 			return &obj, err

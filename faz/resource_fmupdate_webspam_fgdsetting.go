@@ -121,7 +121,6 @@ func resourceFmupdateWebSpamFgdSetting() *schema.Resource {
 			"max_client_worker": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Computed: true,
 			},
 			"max_log_quota": &schema.Schema{
 				Type:     schema.TypeInt,
@@ -136,42 +135,34 @@ func resourceFmupdateWebSpamFgdSetting() *schema.Resource {
 			"restrict_as1_dbver": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"restrict_as2_dbver": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"restrict_as4_dbver": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"restrict_av_dbver": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"restrict_av2_dbver": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"restrict_fq_dbver": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"restrict_iots_dbver": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"restrict_wf_dbver": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"server_override": &schema.Schema{
 				Type:     schema.TypeList,
@@ -187,7 +178,6 @@ func resourceFmupdateWebSpamFgdSetting() *schema.Resource {
 									"id": &schema.Schema{
 										Type:     schema.TypeInt,
 										Optional: true,
-										Computed: true,
 									},
 									"ip": &schema.Schema{
 										Type:     schema.TypeString,
@@ -207,7 +197,6 @@ func resourceFmupdateWebSpamFgdSetting() *schema.Resource {
 									"service_type": &schema.Schema{
 										Type:     schema.TypeString,
 										Optional: true,
-										Computed: true,
 									},
 								},
 							},
@@ -1136,13 +1125,13 @@ func expandFmupdateWebSpamFgdSettingServerOverrideFwfa(d *schema.ResourceData, v
 
 	pre_append := "" // complex
 	pre_append = pre + ".0." + "servlist"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["servlist"], _ = expandFmupdateWebSpamFgdSettingServerOverrideServlistFwfa(d, i["servlist"], pre_append)
 	} else {
 		result["servlist"] = make([]string, 0)
 	}
 	pre_append = pre + ".0." + "status"
-	if _, ok := d.GetOk(pre_append); ok {
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["status"], _ = expandFmupdateWebSpamFgdSettingServerOverrideStatusFwfa(d, i["status"], pre_append)
 	}
 
@@ -1164,27 +1153,27 @@ func expandFmupdateWebSpamFgdSettingServerOverrideServlistFwfa(d *schema.Resourc
 		pre_append := "" // table
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "id"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["id"], _ = expandFmupdateWebSpamFgdSettingServerOverrideServlistIdFwfa(d, i["id"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "ip"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["ip"], _ = expandFmupdateWebSpamFgdSettingServerOverrideServlistIpFwfa(d, i["ip"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "ip6"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["ip6"], _ = expandFmupdateWebSpamFgdSettingServerOverrideServlistIp6Fwfa(d, i["ip6"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "port"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["port"], _ = expandFmupdateWebSpamFgdSettingServerOverrideServlistPortFwfa(d, i["port"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "service_type"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["service-type"], _ = expandFmupdateWebSpamFgdSettingServerOverrideServlistServiceTypeFwfa(d, i["service_type"], pre_append)
 		}
 
@@ -1259,7 +1248,7 @@ func expandFmupdateWebSpamFgdSettingWfPreloadFwfa(d *schema.ResourceData, v inte
 func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("as_cache"); ok {
+	if v, ok := d.GetOk("as_cache"); ok || d.HasChange("as_cache") {
 		t, err := expandFmupdateWebSpamFgdSettingAsCacheFwfa(d, v, "as_cache")
 		if err != nil {
 			return &obj, err
@@ -1268,7 +1257,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("as_log"); ok {
+	if v, ok := d.GetOk("as_log"); ok || d.HasChange("as_log") {
 		t, err := expandFmupdateWebSpamFgdSettingAsLogFwfa(d, v, "as_log")
 		if err != nil {
 			return &obj, err
@@ -1277,7 +1266,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("as_preload"); ok {
+	if v, ok := d.GetOk("as_preload"); ok || d.HasChange("as_preload") {
 		t, err := expandFmupdateWebSpamFgdSettingAsPreloadFwfa(d, v, "as_preload")
 		if err != nil {
 			return &obj, err
@@ -1286,7 +1275,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("av_cache"); ok {
+	if v, ok := d.GetOk("av_cache"); ok || d.HasChange("av_cache") {
 		t, err := expandFmupdateWebSpamFgdSettingAvCacheFwfa(d, v, "av_cache")
 		if err != nil {
 			return &obj, err
@@ -1295,7 +1284,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("av_log"); ok {
+	if v, ok := d.GetOk("av_log"); ok || d.HasChange("av_log") {
 		t, err := expandFmupdateWebSpamFgdSettingAvLogFwfa(d, v, "av_log")
 		if err != nil {
 			return &obj, err
@@ -1304,7 +1293,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("av_preload"); ok {
+	if v, ok := d.GetOk("av_preload"); ok || d.HasChange("av_preload") {
 		t, err := expandFmupdateWebSpamFgdSettingAvPreloadFwfa(d, v, "av_preload")
 		if err != nil {
 			return &obj, err
@@ -1313,7 +1302,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("av2_cache"); ok {
+	if v, ok := d.GetOk("av2_cache"); ok || d.HasChange("av2_cache") {
 		t, err := expandFmupdateWebSpamFgdSettingAv2CacheFwfa(d, v, "av2_cache")
 		if err != nil {
 			return &obj, err
@@ -1322,7 +1311,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("av2_log"); ok {
+	if v, ok := d.GetOk("av2_log"); ok || d.HasChange("av2_log") {
 		t, err := expandFmupdateWebSpamFgdSettingAv2LogFwfa(d, v, "av2_log")
 		if err != nil {
 			return &obj, err
@@ -1331,7 +1320,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("av2_preload"); ok {
+	if v, ok := d.GetOk("av2_preload"); ok || d.HasChange("av2_preload") {
 		t, err := expandFmupdateWebSpamFgdSettingAv2PreloadFwfa(d, v, "av2_preload")
 		if err != nil {
 			return &obj, err
@@ -1340,7 +1329,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("eventlog_query"); ok {
+	if v, ok := d.GetOk("eventlog_query"); ok || d.HasChange("eventlog_query") {
 		t, err := expandFmupdateWebSpamFgdSettingEventlogQueryFwfa(d, v, "eventlog_query")
 		if err != nil {
 			return &obj, err
@@ -1349,7 +1338,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("fgd_pull_interval"); ok {
+	if v, ok := d.GetOk("fgd_pull_interval"); ok || d.HasChange("fgd_pull_interval") {
 		t, err := expandFmupdateWebSpamFgdSettingFgdPullIntervalFwfa(d, v, "fgd_pull_interval")
 		if err != nil {
 			return &obj, err
@@ -1358,7 +1347,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("fq_cache"); ok {
+	if v, ok := d.GetOk("fq_cache"); ok || d.HasChange("fq_cache") {
 		t, err := expandFmupdateWebSpamFgdSettingFqCacheFwfa(d, v, "fq_cache")
 		if err != nil {
 			return &obj, err
@@ -1367,7 +1356,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("fq_log"); ok {
+	if v, ok := d.GetOk("fq_log"); ok || d.HasChange("fq_log") {
 		t, err := expandFmupdateWebSpamFgdSettingFqLogFwfa(d, v, "fq_log")
 		if err != nil {
 			return &obj, err
@@ -1376,7 +1365,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("fq_preload"); ok {
+	if v, ok := d.GetOk("fq_preload"); ok || d.HasChange("fq_preload") {
 		t, err := expandFmupdateWebSpamFgdSettingFqPreloadFwfa(d, v, "fq_preload")
 		if err != nil {
 			return &obj, err
@@ -1385,7 +1374,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("iot_cache"); ok {
+	if v, ok := d.GetOk("iot_cache"); ok || d.HasChange("iot_cache") {
 		t, err := expandFmupdateWebSpamFgdSettingIotCacheFwfa(d, v, "iot_cache")
 		if err != nil {
 			return &obj, err
@@ -1394,7 +1383,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("iot_log"); ok {
+	if v, ok := d.GetOk("iot_log"); ok || d.HasChange("iot_log") {
 		t, err := expandFmupdateWebSpamFgdSettingIotLogFwfa(d, v, "iot_log")
 		if err != nil {
 			return &obj, err
@@ -1403,7 +1392,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("iot_preload"); ok {
+	if v, ok := d.GetOk("iot_preload"); ok || d.HasChange("iot_preload") {
 		t, err := expandFmupdateWebSpamFgdSettingIotPreloadFwfa(d, v, "iot_preload")
 		if err != nil {
 			return &obj, err
@@ -1412,7 +1401,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("linkd_log"); ok {
+	if v, ok := d.GetOk("linkd_log"); ok || d.HasChange("linkd_log") {
 		t, err := expandFmupdateWebSpamFgdSettingLinkdLogFwfa(d, v, "linkd_log")
 		if err != nil {
 			return &obj, err
@@ -1421,7 +1410,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("max_client_worker"); ok {
+	if v, ok := d.GetOk("max_client_worker"); ok || d.HasChange("max_client_worker") {
 		t, err := expandFmupdateWebSpamFgdSettingMaxClientWorkerFwfa(d, v, "max_client_worker")
 		if err != nil {
 			return &obj, err
@@ -1430,7 +1419,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("max_log_quota"); ok {
+	if v, ok := d.GetOk("max_log_quota"); ok || d.HasChange("max_log_quota") {
 		t, err := expandFmupdateWebSpamFgdSettingMaxLogQuotaFwfa(d, v, "max_log_quota")
 		if err != nil {
 			return &obj, err
@@ -1439,7 +1428,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("max_unrated_site"); ok {
+	if v, ok := d.GetOk("max_unrated_site"); ok || d.HasChange("max_unrated_site") {
 		t, err := expandFmupdateWebSpamFgdSettingMaxUnratedSiteFwfa(d, v, "max_unrated_site")
 		if err != nil {
 			return &obj, err
@@ -1448,7 +1437,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("restrict_as1_dbver"); ok {
+	if v, ok := d.GetOk("restrict_as1_dbver"); ok || d.HasChange("restrict_as1_dbver") {
 		t, err := expandFmupdateWebSpamFgdSettingRestrictAs1DbverFwfa(d, v, "restrict_as1_dbver")
 		if err != nil {
 			return &obj, err
@@ -1457,7 +1446,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("restrict_as2_dbver"); ok {
+	if v, ok := d.GetOk("restrict_as2_dbver"); ok || d.HasChange("restrict_as2_dbver") {
 		t, err := expandFmupdateWebSpamFgdSettingRestrictAs2DbverFwfa(d, v, "restrict_as2_dbver")
 		if err != nil {
 			return &obj, err
@@ -1466,7 +1455,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("restrict_as4_dbver"); ok {
+	if v, ok := d.GetOk("restrict_as4_dbver"); ok || d.HasChange("restrict_as4_dbver") {
 		t, err := expandFmupdateWebSpamFgdSettingRestrictAs4DbverFwfa(d, v, "restrict_as4_dbver")
 		if err != nil {
 			return &obj, err
@@ -1475,7 +1464,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("restrict_av_dbver"); ok {
+	if v, ok := d.GetOk("restrict_av_dbver"); ok || d.HasChange("restrict_av_dbver") {
 		t, err := expandFmupdateWebSpamFgdSettingRestrictAvDbverFwfa(d, v, "restrict_av_dbver")
 		if err != nil {
 			return &obj, err
@@ -1484,7 +1473,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("restrict_av2_dbver"); ok {
+	if v, ok := d.GetOk("restrict_av2_dbver"); ok || d.HasChange("restrict_av2_dbver") {
 		t, err := expandFmupdateWebSpamFgdSettingRestrictAv2DbverFwfa(d, v, "restrict_av2_dbver")
 		if err != nil {
 			return &obj, err
@@ -1493,7 +1482,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("restrict_fq_dbver"); ok {
+	if v, ok := d.GetOk("restrict_fq_dbver"); ok || d.HasChange("restrict_fq_dbver") {
 		t, err := expandFmupdateWebSpamFgdSettingRestrictFqDbverFwfa(d, v, "restrict_fq_dbver")
 		if err != nil {
 			return &obj, err
@@ -1502,7 +1491,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("restrict_iots_dbver"); ok {
+	if v, ok := d.GetOk("restrict_iots_dbver"); ok || d.HasChange("restrict_iots_dbver") {
 		t, err := expandFmupdateWebSpamFgdSettingRestrictIotsDbverFwfa(d, v, "restrict_iots_dbver")
 		if err != nil {
 			return &obj, err
@@ -1511,7 +1500,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("restrict_wf_dbver"); ok {
+	if v, ok := d.GetOk("restrict_wf_dbver"); ok || d.HasChange("restrict_wf_dbver") {
 		t, err := expandFmupdateWebSpamFgdSettingRestrictWfDbverFwfa(d, v, "restrict_wf_dbver")
 		if err != nil {
 			return &obj, err
@@ -1520,7 +1509,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("server_override"); ok {
+	if v, ok := d.GetOk("server_override"); ok || d.HasChange("server_override") {
 		t, err := expandFmupdateWebSpamFgdSettingServerOverrideFwfa(d, v, "server_override")
 		if err != nil {
 			return &obj, err
@@ -1529,7 +1518,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("stat_log_interval"); ok {
+	if v, ok := d.GetOk("stat_log_interval"); ok || d.HasChange("stat_log_interval") {
 		t, err := expandFmupdateWebSpamFgdSettingStatLogIntervalFwfa(d, v, "stat_log_interval")
 		if err != nil {
 			return &obj, err
@@ -1538,7 +1527,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("stat_sync_interval"); ok {
+	if v, ok := d.GetOk("stat_sync_interval"); ok || d.HasChange("stat_sync_interval") {
 		t, err := expandFmupdateWebSpamFgdSettingStatSyncIntervalFwfa(d, v, "stat_sync_interval")
 		if err != nil {
 			return &obj, err
@@ -1547,7 +1536,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("update_interval"); ok {
+	if v, ok := d.GetOk("update_interval"); ok || d.HasChange("update_interval") {
 		t, err := expandFmupdateWebSpamFgdSettingUpdateIntervalFwfa(d, v, "update_interval")
 		if err != nil {
 			return &obj, err
@@ -1556,7 +1545,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("update_log"); ok {
+	if v, ok := d.GetOk("update_log"); ok || d.HasChange("update_log") {
 		t, err := expandFmupdateWebSpamFgdSettingUpdateLogFwfa(d, v, "update_log")
 		if err != nil {
 			return &obj, err
@@ -1565,7 +1554,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("wf_cache"); ok {
+	if v, ok := d.GetOk("wf_cache"); ok || d.HasChange("wf_cache") {
 		t, err := expandFmupdateWebSpamFgdSettingWfCacheFwfa(d, v, "wf_cache")
 		if err != nil {
 			return &obj, err
@@ -1574,7 +1563,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("wf_dn_cache_expire_time"); ok {
+	if v, ok := d.GetOk("wf_dn_cache_expire_time"); ok || d.HasChange("wf_dn_cache_expire_time") {
 		t, err := expandFmupdateWebSpamFgdSettingWfDnCacheExpireTimeFwfa(d, v, "wf_dn_cache_expire_time")
 		if err != nil {
 			return &obj, err
@@ -1583,7 +1572,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("wf_dn_cache_max_number"); ok {
+	if v, ok := d.GetOk("wf_dn_cache_max_number"); ok || d.HasChange("wf_dn_cache_max_number") {
 		t, err := expandFmupdateWebSpamFgdSettingWfDnCacheMaxNumberFwfa(d, v, "wf_dn_cache_max_number")
 		if err != nil {
 			return &obj, err
@@ -1592,7 +1581,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("wf_log"); ok {
+	if v, ok := d.GetOk("wf_log"); ok || d.HasChange("wf_log") {
 		t, err := expandFmupdateWebSpamFgdSettingWfLogFwfa(d, v, "wf_log")
 		if err != nil {
 			return &obj, err
@@ -1601,7 +1590,7 @@ func getObjectFmupdateWebSpamFgdSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("wf_preload"); ok {
+	if v, ok := d.GetOk("wf_preload"); ok || d.HasChange("wf_preload") {
 		t, err := expandFmupdateWebSpamFgdSettingWfPreloadFwfa(d, v, "wf_preload")
 		if err != nil {
 			return &obj, err

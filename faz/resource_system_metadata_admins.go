@@ -37,7 +37,6 @@ func resourceSystemMetadataAdmins() *schema.Resource {
 				Type:     schema.TypeString,
 				ForceNew: true,
 				Optional: true,
-				Computed: true,
 			},
 			"importance": &schema.Schema{
 				Type:     schema.TypeString,
@@ -230,7 +229,7 @@ func expandSystemMetadataAdminsStatus(d *schema.ResourceData, v interface{}, pre
 func getObjectSystemMetadataAdmins(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("fieldlength"); ok {
+	if v, ok := d.GetOk("fieldlength"); ok || d.HasChange("fieldlength") {
 		t, err := expandSystemMetadataAdminsFieldlength(d, v, "fieldlength")
 		if err != nil {
 			return &obj, err
@@ -239,7 +238,7 @@ func getObjectSystemMetadataAdmins(d *schema.ResourceData) (*map[string]interfac
 		}
 	}
 
-	if v, ok := d.GetOk("fieldname"); ok {
+	if v, ok := d.GetOk("fieldname"); ok || d.HasChange("fieldname") {
 		t, err := expandSystemMetadataAdminsFieldname(d, v, "fieldname")
 		if err != nil {
 			return &obj, err
@@ -248,7 +247,7 @@ func getObjectSystemMetadataAdmins(d *schema.ResourceData) (*map[string]interfac
 		}
 	}
 
-	if v, ok := d.GetOk("importance"); ok {
+	if v, ok := d.GetOk("importance"); ok || d.HasChange("importance") {
 		t, err := expandSystemMetadataAdminsImportance(d, v, "importance")
 		if err != nil {
 			return &obj, err
@@ -257,7 +256,7 @@ func getObjectSystemMetadataAdmins(d *schema.ResourceData) (*map[string]interfac
 		}
 	}
 
-	if v, ok := d.GetOk("status"); ok {
+	if v, ok := d.GetOk("status"); ok || d.HasChange("status") {
 		t, err := expandSystemMetadataAdminsStatus(d, v, "status")
 		if err != nil {
 			return &obj, err

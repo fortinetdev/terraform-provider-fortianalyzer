@@ -43,13 +43,11 @@ func resourceSystemAdminTacacs() *schema.Resource {
 				Elem:      &schema.Schema{Type: schema.TypeString},
 				Optional:  true,
 				Sensitive: true,
-				Computed:  true,
 			},
 			"name": &schema.Schema{
 				Type:     schema.TypeString,
 				ForceNew: true,
 				Optional: true,
-				Computed: true,
 			},
 			"port": &schema.Schema{
 				Type:     schema.TypeInt,
@@ -61,29 +59,24 @@ func resourceSystemAdminTacacs() *schema.Resource {
 				Elem:      &schema.Schema{Type: schema.TypeString},
 				Optional:  true,
 				Sensitive: true,
-				Computed:  true,
 			},
 			"secondary_server": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"server": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"tertiary_key": &schema.Schema{
 				Type:      schema.TypeSet,
 				Elem:      &schema.Schema{Type: schema.TypeString},
 				Optional:  true,
 				Sensitive: true,
-				Computed:  true,
 			},
 			"tertiary_server": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 		},
 	}
@@ -344,7 +337,7 @@ func expandSystemAdminTacacsTertiaryServer(d *schema.ResourceData, v interface{}
 func getObjectSystemAdminTacacs(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("authen_type"); ok {
+	if v, ok := d.GetOk("authen_type"); ok || d.HasChange("authen_type") {
 		t, err := expandSystemAdminTacacsAuthenType(d, v, "authen_type")
 		if err != nil {
 			return &obj, err
@@ -353,7 +346,7 @@ func getObjectSystemAdminTacacs(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("authorization"); ok {
+	if v, ok := d.GetOk("authorization"); ok || d.HasChange("authorization") {
 		t, err := expandSystemAdminTacacsAuthorization(d, v, "authorization")
 		if err != nil {
 			return &obj, err
@@ -362,7 +355,7 @@ func getObjectSystemAdminTacacs(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("key"); ok {
+	if v, ok := d.GetOk("key"); ok || d.HasChange("key") {
 		t, err := expandSystemAdminTacacsKey(d, v, "key")
 		if err != nil {
 			return &obj, err
@@ -371,7 +364,7 @@ func getObjectSystemAdminTacacs(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("name"); ok {
+	if v, ok := d.GetOk("name"); ok || d.HasChange("name") {
 		t, err := expandSystemAdminTacacsName(d, v, "name")
 		if err != nil {
 			return &obj, err
@@ -380,7 +373,7 @@ func getObjectSystemAdminTacacs(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("port"); ok {
+	if v, ok := d.GetOk("port"); ok || d.HasChange("port") {
 		t, err := expandSystemAdminTacacsPort(d, v, "port")
 		if err != nil {
 			return &obj, err
@@ -389,7 +382,7 @@ func getObjectSystemAdminTacacs(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("secondary_key"); ok {
+	if v, ok := d.GetOk("secondary_key"); ok || d.HasChange("secondary_key") {
 		t, err := expandSystemAdminTacacsSecondaryKey(d, v, "secondary_key")
 		if err != nil {
 			return &obj, err
@@ -398,7 +391,7 @@ func getObjectSystemAdminTacacs(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("secondary_server"); ok {
+	if v, ok := d.GetOk("secondary_server"); ok || d.HasChange("secondary_server") {
 		t, err := expandSystemAdminTacacsSecondaryServer(d, v, "secondary_server")
 		if err != nil {
 			return &obj, err
@@ -407,7 +400,7 @@ func getObjectSystemAdminTacacs(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("server"); ok {
+	if v, ok := d.GetOk("server"); ok || d.HasChange("server") {
 		t, err := expandSystemAdminTacacsServer(d, v, "server")
 		if err != nil {
 			return &obj, err
@@ -416,7 +409,7 @@ func getObjectSystemAdminTacacs(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("tertiary_key"); ok {
+	if v, ok := d.GetOk("tertiary_key"); ok || d.HasChange("tertiary_key") {
 		t, err := expandSystemAdminTacacsTertiaryKey(d, v, "tertiary_key")
 		if err != nil {
 			return &obj, err
@@ -425,7 +418,7 @@ func getObjectSystemAdminTacacs(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("tertiary_server"); ok {
+	if v, ok := d.GetOk("tertiary_server"); ok || d.HasChange("tertiary_server") {
 		t, err := expandSystemAdminTacacsTertiaryServer(d, v, "tertiary_server")
 		if err != nil {
 			return &obj, err

@@ -32,12 +32,10 @@ func resourceSystemHaPrivatePeer() *schema.Resource {
 				Type:     schema.TypeInt,
 				ForceNew: true,
 				Optional: true,
-				Computed: true,
 			},
 			"ip": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"ip6": &schema.Schema{
 				Type:     schema.TypeString,
@@ -47,7 +45,6 @@ func resourceSystemHaPrivatePeer() *schema.Resource {
 			"serial_number": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"status": &schema.Schema{
 				Type:     schema.TypeString,
@@ -253,7 +250,7 @@ func expandSystemHaPrivatePeerStatus(d *schema.ResourceData, v interface{}, pre 
 func getObjectSystemHaPrivatePeer(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("fosid"); ok {
+	if v, ok := d.GetOk("fosid"); ok || d.HasChange("id") {
 		t, err := expandSystemHaPrivatePeerId(d, v, "fosid")
 		if err != nil {
 			return &obj, err
@@ -262,7 +259,7 @@ func getObjectSystemHaPrivatePeer(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("ip"); ok {
+	if v, ok := d.GetOk("ip"); ok || d.HasChange("ip") {
 		t, err := expandSystemHaPrivatePeerIp(d, v, "ip")
 		if err != nil {
 			return &obj, err
@@ -271,7 +268,7 @@ func getObjectSystemHaPrivatePeer(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("ip6"); ok {
+	if v, ok := d.GetOk("ip6"); ok || d.HasChange("ip6") {
 		t, err := expandSystemHaPrivatePeerIp6(d, v, "ip6")
 		if err != nil {
 			return &obj, err
@@ -280,7 +277,7 @@ func getObjectSystemHaPrivatePeer(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("serial_number"); ok {
+	if v, ok := d.GetOk("serial_number"); ok || d.HasChange("serial_number") {
 		t, err := expandSystemHaPrivatePeerSerialNumber(d, v, "serial_number")
 		if err != nil {
 			return &obj, err
@@ -289,7 +286,7 @@ func getObjectSystemHaPrivatePeer(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("status"); ok {
+	if v, ok := d.GetOk("status"); ok || d.HasChange("status") {
 		t, err := expandSystemHaPrivatePeerStatus(d, v, "status")
 		if err != nil {
 			return &obj, err

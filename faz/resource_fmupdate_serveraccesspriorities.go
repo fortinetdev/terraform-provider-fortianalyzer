@@ -46,7 +46,6 @@ func resourceFmupdateServerAccessPriorities() *schema.Resource {
 						"id": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"ip": &schema.Schema{
 							Type:     schema.TypeString,
@@ -316,22 +315,22 @@ func expandFmupdateServerAccessPrioritiesPrivateServerFsa(d *schema.ResourceData
 		pre_append := "" // table
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "id"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["id"], _ = expandFmupdateServerAccessPrioritiesPrivateServerIdFsa(d, i["id"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "ip"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["ip"], _ = expandFmupdateServerAccessPrioritiesPrivateServerIpFsa(d, i["ip"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "ip6"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["ip6"], _ = expandFmupdateServerAccessPrioritiesPrivateServerIp6Fsa(d, i["ip6"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "time_zone"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["time_zone"], _ = expandFmupdateServerAccessPrioritiesPrivateServerTimeZoneFsa(d, i["time_zone"], pre_append)
 		}
 
@@ -366,7 +365,7 @@ func expandFmupdateServerAccessPrioritiesWebSpamFsa(d *schema.ResourceData, v in
 func getObjectFmupdateServerAccessPriorities(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("access_public"); ok {
+	if v, ok := d.GetOk("access_public"); ok || d.HasChange("access_public") {
 		t, err := expandFmupdateServerAccessPrioritiesAccessPublicFsa(d, v, "access_public")
 		if err != nil {
 			return &obj, err
@@ -375,7 +374,7 @@ func getObjectFmupdateServerAccessPriorities(d *schema.ResourceData) (*map[strin
 		}
 	}
 
-	if v, ok := d.GetOk("av_ips"); ok {
+	if v, ok := d.GetOk("av_ips"); ok || d.HasChange("av_ips") {
 		t, err := expandFmupdateServerAccessPrioritiesAvIpsFsa(d, v, "av_ips")
 		if err != nil {
 			return &obj, err
@@ -384,7 +383,7 @@ func getObjectFmupdateServerAccessPriorities(d *schema.ResourceData) (*map[strin
 		}
 	}
 
-	if v, ok := d.GetOk("private_server"); ok {
+	if v, ok := d.GetOk("private_server"); ok || d.HasChange("private_server") {
 		t, err := expandFmupdateServerAccessPrioritiesPrivateServerFsa(d, v, "private_server")
 		if err != nil {
 			return &obj, err
@@ -393,7 +392,7 @@ func getObjectFmupdateServerAccessPriorities(d *schema.ResourceData) (*map[strin
 		}
 	}
 
-	if v, ok := d.GetOk("web_spam"); ok {
+	if v, ok := d.GetOk("web_spam"); ok || d.HasChange("web_spam") {
 		t, err := expandFmupdateServerAccessPrioritiesWebSpamFsa(d, v, "web_spam")
 		if err != nil {
 			return &obj, err

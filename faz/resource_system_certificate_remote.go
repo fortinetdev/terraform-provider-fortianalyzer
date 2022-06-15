@@ -32,18 +32,15 @@ func resourceSystemCertificateRemote() *schema.Resource {
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
-				Computed: true,
 			},
 			"comment": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"name": &schema.Schema{
 				Type:     schema.TypeString,
 				ForceNew: true,
 				Optional: true,
-				Computed: true,
 			},
 		},
 	}
@@ -208,7 +205,7 @@ func expandSystemCertificateRemoteName(d *schema.ResourceData, v interface{}, pr
 func getObjectSystemCertificateRemote(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("cert"); ok {
+	if v, ok := d.GetOk("cert"); ok || d.HasChange("cert") {
 		t, err := expandSystemCertificateRemoteCert(d, v, "cert")
 		if err != nil {
 			return &obj, err
@@ -217,7 +214,7 @@ func getObjectSystemCertificateRemote(d *schema.ResourceData) (*map[string]inter
 		}
 	}
 
-	if v, ok := d.GetOk("comment"); ok {
+	if v, ok := d.GetOk("comment"); ok || d.HasChange("comment") {
 		t, err := expandSystemCertificateRemoteComment(d, v, "comment")
 		if err != nil {
 			return &obj, err
@@ -226,7 +223,7 @@ func getObjectSystemCertificateRemote(d *schema.ResourceData) (*map[string]inter
 		}
 	}
 
-	if v, ok := d.GetOk("name"); ok {
+	if v, ok := d.GetOk("name"); ok || d.HasChange("name") {
 		t, err := expandSystemCertificateRemoteName(d, v, "name")
 		if err != nil {
 			return &obj, err

@@ -36,19 +36,16 @@ func resourceSystemAlertemail() *schema.Resource {
 			"fromaddress": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"fromname": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"smtppassword": &schema.Schema{
 				Type:      schema.TypeSet,
 				Elem:      &schema.Schema{Type: schema.TypeString},
 				Optional:  true,
 				Sensitive: true,
-				Computed:  true,
 			},
 			"smtpport": &schema.Schema{
 				Type:     schema.TypeInt,
@@ -58,12 +55,10 @@ func resourceSystemAlertemail() *schema.Resource {
 			"smtpserver": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"smtpuser": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 		},
 	}
@@ -268,7 +263,7 @@ func expandSystemAlertemailSmtpuser(d *schema.ResourceData, v interface{}, pre s
 func getObjectSystemAlertemail(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("authentication"); ok {
+	if v, ok := d.GetOk("authentication"); ok || d.HasChange("authentication") {
 		t, err := expandSystemAlertemailAuthentication(d, v, "authentication")
 		if err != nil {
 			return &obj, err
@@ -277,7 +272,7 @@ func getObjectSystemAlertemail(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("fromaddress"); ok {
+	if v, ok := d.GetOk("fromaddress"); ok || d.HasChange("fromaddress") {
 		t, err := expandSystemAlertemailFromaddress(d, v, "fromaddress")
 		if err != nil {
 			return &obj, err
@@ -286,7 +281,7 @@ func getObjectSystemAlertemail(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("fromname"); ok {
+	if v, ok := d.GetOk("fromname"); ok || d.HasChange("fromname") {
 		t, err := expandSystemAlertemailFromname(d, v, "fromname")
 		if err != nil {
 			return &obj, err
@@ -295,7 +290,7 @@ func getObjectSystemAlertemail(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("smtppassword"); ok {
+	if v, ok := d.GetOk("smtppassword"); ok || d.HasChange("smtppassword") {
 		t, err := expandSystemAlertemailSmtppassword(d, v, "smtppassword")
 		if err != nil {
 			return &obj, err
@@ -304,7 +299,7 @@ func getObjectSystemAlertemail(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("smtpport"); ok {
+	if v, ok := d.GetOk("smtpport"); ok || d.HasChange("smtpport") {
 		t, err := expandSystemAlertemailSmtpport(d, v, "smtpport")
 		if err != nil {
 			return &obj, err
@@ -313,7 +308,7 @@ func getObjectSystemAlertemail(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("smtpserver"); ok {
+	if v, ok := d.GetOk("smtpserver"); ok || d.HasChange("smtpserver") {
 		t, err := expandSystemAlertemailSmtpserver(d, v, "smtpserver")
 		if err != nil {
 			return &obj, err
@@ -322,7 +317,7 @@ func getObjectSystemAlertemail(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("smtpuser"); ok {
+	if v, ok := d.GetOk("smtpuser"); ok || d.HasChange("smtpuser") {
 		t, err := expandSystemAlertemailSmtpuser(d, v, "smtpuser")
 		if err != nil {
 			return &obj, err

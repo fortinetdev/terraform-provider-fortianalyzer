@@ -138,7 +138,7 @@ func expandFmupdateServiceAvips(d *schema.ResourceData, v interface{}, pre strin
 func getObjectFmupdateService(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("avips"); ok {
+	if v, ok := d.GetOk("avips"); ok || d.HasChange("avips") {
 		t, err := expandFmupdateServiceAvips(d, v, "avips")
 		if err != nil {
 			return &obj, err

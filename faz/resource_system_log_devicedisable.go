@@ -31,18 +31,15 @@ func resourceSystemLogDeviceDisable() *schema.Resource {
 			"ttl": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"device": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"fosid": &schema.Schema{
 				Type:     schema.TypeInt,
 				ForceNew: true,
 				Optional: true,
-				Computed: true,
 			},
 		},
 	}
@@ -207,7 +204,7 @@ func expandSystemLogDeviceDisableId(d *schema.ResourceData, v interface{}, pre s
 func getObjectSystemLogDeviceDisable(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("ttl"); ok {
+	if v, ok := d.GetOk("ttl"); ok || d.HasChange("ttl") {
 		t, err := expandSystemLogDeviceDisableTtl(d, v, "ttl")
 		if err != nil {
 			return &obj, err
@@ -216,7 +213,7 @@ func getObjectSystemLogDeviceDisable(d *schema.ResourceData) (*map[string]interf
 		}
 	}
 
-	if v, ok := d.GetOk("device"); ok {
+	if v, ok := d.GetOk("device"); ok || d.HasChange("device") {
 		t, err := expandSystemLogDeviceDisableDevice(d, v, "device")
 		if err != nil {
 			return &obj, err
@@ -225,7 +222,7 @@ func getObjectSystemLogDeviceDisable(d *schema.ResourceData) (*map[string]interf
 		}
 	}
 
-	if v, ok := d.GetOk("fosid"); ok {
+	if v, ok := d.GetOk("fosid"); ok || d.HasChange("id") {
 		t, err := expandSystemLogDeviceDisableId(d, v, "fosid")
 		if err != nil {
 			return &obj, err

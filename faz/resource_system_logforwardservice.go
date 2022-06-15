@@ -161,7 +161,7 @@ func expandSystemLogForwardServiceAggregationDiskQuota(d *schema.ResourceData, v
 func getObjectSystemLogForwardService(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("accept_aggregation"); ok {
+	if v, ok := d.GetOk("accept_aggregation"); ok || d.HasChange("accept_aggregation") {
 		t, err := expandSystemLogForwardServiceAcceptAggregation(d, v, "accept_aggregation")
 		if err != nil {
 			return &obj, err
@@ -170,7 +170,7 @@ func getObjectSystemLogForwardService(d *schema.ResourceData) (*map[string]inter
 		}
 	}
 
-	if v, ok := d.GetOk("aggregation_disk_quota"); ok {
+	if v, ok := d.GetOk("aggregation_disk_quota"); ok || d.HasChange("aggregation_disk_quota") {
 		t, err := expandSystemLogForwardServiceAggregationDiskQuota(d, v, "aggregation_disk_quota")
 		if err != nil {
 			return &obj, err

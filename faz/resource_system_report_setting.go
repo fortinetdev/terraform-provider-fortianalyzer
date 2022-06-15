@@ -41,7 +41,6 @@ func resourceSystemReportSetting() *schema.Resource {
 			"capwap_service": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"exclude_capwap": &schema.Schema{
 				Type:     schema.TypeString,
@@ -345,7 +344,7 @@ func expandSystemReportSettingWeekStart(d *schema.ResourceData, v interface{}, p
 func getObjectSystemReportSetting(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("aggregate_report"); ok {
+	if v, ok := d.GetOk("aggregate_report"); ok || d.HasChange("aggregate_report") {
 		t, err := expandSystemReportSettingAggregateReport(d, v, "aggregate_report")
 		if err != nil {
 			return &obj, err
@@ -354,7 +353,7 @@ func getObjectSystemReportSetting(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("capwap_port"); ok {
+	if v, ok := d.GetOk("capwap_port"); ok || d.HasChange("capwap_port") {
 		t, err := expandSystemReportSettingCapwapPort(d, v, "capwap_port")
 		if err != nil {
 			return &obj, err
@@ -363,7 +362,7 @@ func getObjectSystemReportSetting(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("capwap_service"); ok {
+	if v, ok := d.GetOk("capwap_service"); ok || d.HasChange("capwap_service") {
 		t, err := expandSystemReportSettingCapwapService(d, v, "capwap_service")
 		if err != nil {
 			return &obj, err
@@ -372,7 +371,7 @@ func getObjectSystemReportSetting(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("exclude_capwap"); ok {
+	if v, ok := d.GetOk("exclude_capwap"); ok || d.HasChange("exclude_capwap") {
 		t, err := expandSystemReportSettingExcludeCapwap(d, v, "exclude_capwap")
 		if err != nil {
 			return &obj, err
@@ -381,7 +380,7 @@ func getObjectSystemReportSetting(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("hcache_lossless"); ok {
+	if v, ok := d.GetOk("hcache_lossless"); ok || d.HasChange("hcache_lossless") {
 		t, err := expandSystemReportSettingHcacheLossless(d, v, "hcache_lossless")
 		if err != nil {
 			return &obj, err
@@ -390,7 +389,7 @@ func getObjectSystemReportSetting(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("ldap_cache_timeout"); ok {
+	if v, ok := d.GetOk("ldap_cache_timeout"); ok || d.HasChange("ldap_cache_timeout") {
 		t, err := expandSystemReportSettingLdapCacheTimeout(d, v, "ldap_cache_timeout")
 		if err != nil {
 			return &obj, err
@@ -399,7 +398,7 @@ func getObjectSystemReportSetting(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("max_table_rows"); ok {
+	if v, ok := d.GetOk("max_table_rows"); ok || d.HasChange("max_table_rows") {
 		t, err := expandSystemReportSettingMaxTableRows(d, v, "max_table_rows")
 		if err != nil {
 			return &obj, err
@@ -408,7 +407,7 @@ func getObjectSystemReportSetting(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("report_priority"); ok {
+	if v, ok := d.GetOk("report_priority"); ok || d.HasChange("report_priority") {
 		t, err := expandSystemReportSettingReportPriority(d, v, "report_priority")
 		if err != nil {
 			return &obj, err
@@ -417,7 +416,7 @@ func getObjectSystemReportSetting(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("template_auto_install"); ok {
+	if v, ok := d.GetOk("template_auto_install"); ok || d.HasChange("template_auto_install") {
 		t, err := expandSystemReportSettingTemplateAutoInstall(d, v, "template_auto_install")
 		if err != nil {
 			return &obj, err
@@ -426,7 +425,7 @@ func getObjectSystemReportSetting(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
-	if v, ok := d.GetOk("week_start"); ok {
+	if v, ok := d.GetOk("week_start"); ok || d.HasChange("week_start") {
 		t, err := expandSystemReportSettingWeekStart(d, v, "week_start")
 		if err != nil {
 			return &obj, err

@@ -31,12 +31,10 @@ func resourceSystemSaml() *schema.Resource {
 			"acs_url": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"cert": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"default_profile": &schema.Schema{
 				Type:     schema.TypeString,
@@ -46,7 +44,6 @@ func resourceSystemSaml() *schema.Resource {
 			"entity_id": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"fabric_idp": &schema.Schema{
 				Type:     schema.TypeList,
@@ -56,27 +53,22 @@ func resourceSystemSaml() *schema.Resource {
 						"dev_id": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"idp_cert": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"idp_entity_id": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"idp_single_logout_url": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"idp_single_sign_on_url": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"idp_status": &schema.Schema{
 							Type:     schema.TypeString,
@@ -94,22 +86,18 @@ func resourceSystemSaml() *schema.Resource {
 			"idp_cert": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"idp_entity_id": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"idp_single_logout_url": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"idp_single_sign_on_url": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"login_auto_redirect": &schema.Schema{
 				Type:     schema.TypeString,
@@ -124,7 +112,6 @@ func resourceSystemSaml() *schema.Resource {
 			"server_address": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"service_providers": &schema.Schema{
 				Type:     schema.TypeList,
@@ -134,47 +121,38 @@ func resourceSystemSaml() *schema.Resource {
 						"idp_entity_id": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"idp_single_logout_url": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"idp_single_sign_on_url": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"name": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"prefix": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"sp_cert": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"sp_entity_id": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"sp_single_logout_url": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"sp_single_sign_on_url": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 					},
 				},
@@ -182,7 +160,6 @@ func resourceSystemSaml() *schema.Resource {
 			"sls_url": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"status": &schema.Schema{
 				Type:     schema.TypeString,
@@ -781,32 +758,32 @@ func expandSystemSamlFabricIdpSSa(d *schema.ResourceData, v interface{}, pre str
 		pre_append := "" // table
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "dev_id"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["dev-id"], _ = expandSystemSamlFabricIdpDevIdSSa(d, i["dev_id"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "idp_cert"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["idp-cert"], _ = expandSystemSamlFabricIdpIdpCertSSa(d, i["idp_cert"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "idp_entity_id"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["idp-entity-id"], _ = expandSystemSamlFabricIdpIdpEntityIdSSa(d, i["idp_entity_id"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "idp_single_logout_url"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["idp-single-logout-url"], _ = expandSystemSamlFabricIdpIdpSingleLogoutUrlSSa(d, i["idp_single_logout_url"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "idp_single_sign_on_url"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["idp-single-sign-on-url"], _ = expandSystemSamlFabricIdpIdpSingleSignOnUrlSSa(d, i["idp_single_sign_on_url"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "idp_status"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["idp-status"], _ = expandSystemSamlFabricIdpIdpStatusSSa(d, i["idp_status"], pre_append)
 		}
 
@@ -889,47 +866,47 @@ func expandSystemSamlServiceProvidersSSa(d *schema.ResourceData, v interface{}, 
 		pre_append := "" // table
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "idp_entity_id"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["idp-entity-id"], _ = expandSystemSamlServiceProvidersIdpEntityIdSSa(d, i["idp_entity_id"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "idp_single_logout_url"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["idp-single-logout-url"], _ = expandSystemSamlServiceProvidersIdpSingleLogoutUrlSSa(d, i["idp_single_logout_url"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "idp_single_sign_on_url"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["idp-single-sign-on-url"], _ = expandSystemSamlServiceProvidersIdpSingleSignOnUrlSSa(d, i["idp_single_sign_on_url"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "name"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["name"], _ = expandSystemSamlServiceProvidersNameSSa(d, i["name"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "prefix"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["prefix"], _ = expandSystemSamlServiceProvidersPrefixSSa(d, i["prefix"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "sp_cert"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["sp-cert"], _ = expandSystemSamlServiceProvidersSpCertSSa(d, i["sp_cert"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "sp_entity_id"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["sp-entity-id"], _ = expandSystemSamlServiceProvidersSpEntityIdSSa(d, i["sp_entity_id"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "sp_single_logout_url"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["sp-single-logout-url"], _ = expandSystemSamlServiceProvidersSpSingleLogoutUrlSSa(d, i["sp_single_logout_url"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "sp_single_sign_on_url"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["sp-single-sign-on-url"], _ = expandSystemSamlServiceProvidersSpSingleSignOnUrlSSa(d, i["sp_single_sign_on_url"], pre_append)
 		}
 
@@ -992,7 +969,7 @@ func expandSystemSamlUserAutoCreateSSa(d *schema.ResourceData, v interface{}, pr
 func getObjectSystemSaml(d *schema.ResourceData, bemptysontable bool) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("acs_url"); ok {
+	if v, ok := d.GetOk("acs_url"); ok || d.HasChange("acs_url") {
 		t, err := expandSystemSamlAcsUrlSSa(d, v, "acs_url")
 		if err != nil {
 			return &obj, err
@@ -1001,7 +978,7 @@ func getObjectSystemSaml(d *schema.ResourceData, bemptysontable bool) (*map[stri
 		}
 	}
 
-	if v, ok := d.GetOk("cert"); ok {
+	if v, ok := d.GetOk("cert"); ok || d.HasChange("cert") {
 		t, err := expandSystemSamlCertSSa(d, v, "cert")
 		if err != nil {
 			return &obj, err
@@ -1010,7 +987,7 @@ func getObjectSystemSaml(d *schema.ResourceData, bemptysontable bool) (*map[stri
 		}
 	}
 
-	if v, ok := d.GetOk("default_profile"); ok {
+	if v, ok := d.GetOk("default_profile"); ok || d.HasChange("default_profile") {
 		t, err := expandSystemSamlDefaultProfileSSa(d, v, "default_profile")
 		if err != nil {
 			return &obj, err
@@ -1019,7 +996,7 @@ func getObjectSystemSaml(d *schema.ResourceData, bemptysontable bool) (*map[stri
 		}
 	}
 
-	if v, ok := d.GetOk("entity_id"); ok {
+	if v, ok := d.GetOk("entity_id"); ok || d.HasChange("entity_id") {
 		t, err := expandSystemSamlEntityIdSSa(d, v, "entity_id")
 		if err != nil {
 			return &obj, err
@@ -1031,7 +1008,7 @@ func getObjectSystemSaml(d *schema.ResourceData, bemptysontable bool) (*map[stri
 	if bemptysontable {
 		obj["fabric-idp"] = make([]struct{}, 0)
 	} else {
-		if v, ok := d.GetOk("fabric_idp"); ok {
+		if v, ok := d.GetOk("fabric_idp"); ok || d.HasChange("fabric_idp") {
 			t, err := expandSystemSamlFabricIdpSSa(d, v, "fabric_idp")
 			if err != nil {
 				return &obj, err
@@ -1041,7 +1018,7 @@ func getObjectSystemSaml(d *schema.ResourceData, bemptysontable bool) (*map[stri
 		}
 	}
 
-	if v, ok := d.GetOk("forticloud_sso"); ok {
+	if v, ok := d.GetOk("forticloud_sso"); ok || d.HasChange("forticloud_sso") {
 		t, err := expandSystemSamlForticloudSsoSSa(d, v, "forticloud_sso")
 		if err != nil {
 			return &obj, err
@@ -1050,7 +1027,7 @@ func getObjectSystemSaml(d *schema.ResourceData, bemptysontable bool) (*map[stri
 		}
 	}
 
-	if v, ok := d.GetOk("idp_cert"); ok {
+	if v, ok := d.GetOk("idp_cert"); ok || d.HasChange("idp_cert") {
 		t, err := expandSystemSamlIdpCertSSa(d, v, "idp_cert")
 		if err != nil {
 			return &obj, err
@@ -1059,7 +1036,7 @@ func getObjectSystemSaml(d *schema.ResourceData, bemptysontable bool) (*map[stri
 		}
 	}
 
-	if v, ok := d.GetOk("idp_entity_id"); ok {
+	if v, ok := d.GetOk("idp_entity_id"); ok || d.HasChange("idp_entity_id") {
 		t, err := expandSystemSamlIdpEntityIdSSa(d, v, "idp_entity_id")
 		if err != nil {
 			return &obj, err
@@ -1068,7 +1045,7 @@ func getObjectSystemSaml(d *schema.ResourceData, bemptysontable bool) (*map[stri
 		}
 	}
 
-	if v, ok := d.GetOk("idp_single_logout_url"); ok {
+	if v, ok := d.GetOk("idp_single_logout_url"); ok || d.HasChange("idp_single_logout_url") {
 		t, err := expandSystemSamlIdpSingleLogoutUrlSSa(d, v, "idp_single_logout_url")
 		if err != nil {
 			return &obj, err
@@ -1077,7 +1054,7 @@ func getObjectSystemSaml(d *schema.ResourceData, bemptysontable bool) (*map[stri
 		}
 	}
 
-	if v, ok := d.GetOk("idp_single_sign_on_url"); ok {
+	if v, ok := d.GetOk("idp_single_sign_on_url"); ok || d.HasChange("idp_single_sign_on_url") {
 		t, err := expandSystemSamlIdpSingleSignOnUrlSSa(d, v, "idp_single_sign_on_url")
 		if err != nil {
 			return &obj, err
@@ -1086,7 +1063,7 @@ func getObjectSystemSaml(d *schema.ResourceData, bemptysontable bool) (*map[stri
 		}
 	}
 
-	if v, ok := d.GetOk("login_auto_redirect"); ok {
+	if v, ok := d.GetOk("login_auto_redirect"); ok || d.HasChange("login_auto_redirect") {
 		t, err := expandSystemSamlLoginAutoRedirectSSa(d, v, "login_auto_redirect")
 		if err != nil {
 			return &obj, err
@@ -1095,7 +1072,7 @@ func getObjectSystemSaml(d *schema.ResourceData, bemptysontable bool) (*map[stri
 		}
 	}
 
-	if v, ok := d.GetOk("role"); ok {
+	if v, ok := d.GetOk("role"); ok || d.HasChange("role") {
 		t, err := expandSystemSamlRoleSSa(d, v, "role")
 		if err != nil {
 			return &obj, err
@@ -1104,7 +1081,7 @@ func getObjectSystemSaml(d *schema.ResourceData, bemptysontable bool) (*map[stri
 		}
 	}
 
-	if v, ok := d.GetOk("server_address"); ok {
+	if v, ok := d.GetOk("server_address"); ok || d.HasChange("server_address") {
 		t, err := expandSystemSamlServerAddressSSa(d, v, "server_address")
 		if err != nil {
 			return &obj, err
@@ -1116,7 +1093,7 @@ func getObjectSystemSaml(d *schema.ResourceData, bemptysontable bool) (*map[stri
 	if bemptysontable {
 		obj["service-providers"] = make([]struct{}, 0)
 	} else {
-		if v, ok := d.GetOk("service_providers"); ok {
+		if v, ok := d.GetOk("service_providers"); ok || d.HasChange("service_providers") {
 			t, err := expandSystemSamlServiceProvidersSSa(d, v, "service_providers")
 			if err != nil {
 				return &obj, err
@@ -1126,7 +1103,7 @@ func getObjectSystemSaml(d *schema.ResourceData, bemptysontable bool) (*map[stri
 		}
 	}
 
-	if v, ok := d.GetOk("sls_url"); ok {
+	if v, ok := d.GetOk("sls_url"); ok || d.HasChange("sls_url") {
 		t, err := expandSystemSamlSlsUrlSSa(d, v, "sls_url")
 		if err != nil {
 			return &obj, err
@@ -1135,7 +1112,7 @@ func getObjectSystemSaml(d *schema.ResourceData, bemptysontable bool) (*map[stri
 		}
 	}
 
-	if v, ok := d.GetOk("status"); ok {
+	if v, ok := d.GetOk("status"); ok || d.HasChange("status") {
 		t, err := expandSystemSamlStatusSSa(d, v, "status")
 		if err != nil {
 			return &obj, err
@@ -1144,7 +1121,7 @@ func getObjectSystemSaml(d *schema.ResourceData, bemptysontable bool) (*map[stri
 		}
 	}
 
-	if v, ok := d.GetOk("user_auto_create"); ok {
+	if v, ok := d.GetOk("user_auto_create"); ok || d.HasChange("user_auto_create") {
 		t, err := expandSystemSamlUserAutoCreateSSa(d, v, "user_auto_create")
 		if err != nil {
 			return &obj, err

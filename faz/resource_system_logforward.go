@@ -32,31 +32,26 @@ func resourceSystemLogForward() *schema.Resource {
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
-				Computed: true,
 			},
 			"agg_data_end_time": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
-				Computed: true,
 			},
 			"agg_data_start_time": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
-				Computed: true,
 			},
 			"agg_logtypes": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
-				Computed: true,
 			},
 			"agg_password": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
-				Computed: true,
 			},
 			"agg_schedule": &schema.Schema{
 				Type:     schema.TypeString,
@@ -66,12 +61,10 @@ func resourceSystemLogForward() *schema.Resource {
 			"agg_time": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Computed: true,
 			},
 			"agg_user": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"device_filter": &schema.Schema{
 				Type:     schema.TypeList,
@@ -86,17 +79,14 @@ func resourceSystemLogForward() *schema.Resource {
 						"adom": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"device": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"id": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 					},
 				},
@@ -105,7 +95,6 @@ func resourceSystemLogForward() *schema.Resource {
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
-				Computed: true,
 			},
 			"fwd_archives": &schema.Schema{
 				Type:     schema.TypeString,
@@ -161,7 +150,6 @@ func resourceSystemLogForward() *schema.Resource {
 				Type:     schema.TypeInt,
 				ForceNew: true,
 				Optional: true,
-				Computed: true,
 			},
 			"log_field_exclusion": &schema.Schema{
 				Type:     schema.TypeList,
@@ -176,12 +164,10 @@ func resourceSystemLogForward() *schema.Resource {
 						"field_list": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"id": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"log_type": &schema.Schema{
 							Type:     schema.TypeString,
@@ -209,7 +195,6 @@ func resourceSystemLogForward() *schema.Resource {
 						"id": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"oper": &schema.Schema{
 							Type:     schema.TypeString,
@@ -242,7 +227,6 @@ func resourceSystemLogForward() *schema.Resource {
 						"field_name": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
-							Computed: true,
 						},
 						"field_type": &schema.Schema{
 							Type:     schema.TypeString,
@@ -252,7 +236,6 @@ func resourceSystemLogForward() *schema.Resource {
 						"id": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 					},
 				},
@@ -266,13 +249,11 @@ func resourceSystemLogForward() *schema.Resource {
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
-				Computed: true,
 			},
 			"log_masking_key": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
-				Computed: true,
 			},
 			"log_masking_status": &schema.Schema{
 				Type:     schema.TypeString,
@@ -287,7 +268,6 @@ func resourceSystemLogForward() *schema.Resource {
 			"pcapurl_domain_ip": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"pcapurl_enrich": &schema.Schema{
 				Type:     schema.TypeString,
@@ -297,7 +277,6 @@ func resourceSystemLogForward() *schema.Resource {
 			"peer_cert_cn": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"proxy_service": &schema.Schema{
 				Type:     schema.TypeString,
@@ -312,17 +291,14 @@ func resourceSystemLogForward() *schema.Resource {
 			"server_addr": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"server_device": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"server_name": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"server_port": &schema.Schema{
 				Type:     schema.TypeInt,
@@ -332,13 +308,11 @@ func resourceSystemLogForward() *schema.Resource {
 			"signature": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Computed: true,
 			},
 			"sync_metadata": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
-				Computed: true,
 			},
 			"dynamic_sort_subtable": &schema.Schema{
 				Type:     schema.TypeString,
@@ -1398,22 +1372,22 @@ func expandSystemLogForwardDeviceFilter(d *schema.ResourceData, v interface{}, p
 		pre_append := "" // table
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "action"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["action"], _ = expandSystemLogForwardDeviceFilterAction(d, i["action"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "adom"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["adom"], _ = expandSystemLogForwardDeviceFilterAdom(d, i["adom"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "device"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["device"], _ = expandSystemLogForwardDeviceFilterDevice(d, i["device"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "id"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["id"], _ = expandSystemLogForwardDeviceFilterId(d, i["id"], pre_append)
 		}
 
@@ -1504,22 +1478,22 @@ func expandSystemLogForwardLogFieldExclusion(d *schema.ResourceData, v interface
 		pre_append := "" // table
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "dev_type"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["dev-type"], _ = expandSystemLogForwardLogFieldExclusionDevType(d, i["dev_type"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "field_list"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["field-list"], _ = expandSystemLogForwardLogFieldExclusionFieldList(d, i["field_list"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "id"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["id"], _ = expandSystemLogForwardLogFieldExclusionId(d, i["id"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "log_type"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["log-type"], _ = expandSystemLogForwardLogFieldExclusionLogType(d, i["log_type"], pre_append)
 		}
 
@@ -1566,22 +1540,22 @@ func expandSystemLogForwardLogFilter(d *schema.ResourceData, v interface{}, pre 
 		pre_append := "" // table
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "field"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["field"], _ = expandSystemLogForwardLogFilterField(d, i["field"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "id"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["id"], _ = expandSystemLogForwardLogFilterId(d, i["id"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "oper"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["oper"], _ = expandSystemLogForwardLogFilterOper(d, i["oper"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "value"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["value"], _ = expandSystemLogForwardLogFilterValue(d, i["value"], pre_append)
 		}
 
@@ -1632,17 +1606,17 @@ func expandSystemLogForwardLogMaskingCustom(d *schema.ResourceData, v interface{
 		pre_append := "" // table
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "field_name"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["field-name"], _ = expandSystemLogForwardLogMaskingCustomFieldName(d, i["field_name"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "field_type"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["field-type"], _ = expandSystemLogForwardLogMaskingCustomFieldType(d, i["field_type"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "id"
-		if _, ok := d.GetOk(pre_append); ok {
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["id"], _ = expandSystemLogForwardLogMaskingCustomId(d, i["id"], pre_append)
 		}
 
@@ -1733,7 +1707,7 @@ func expandSystemLogForwardSyncMetadata(d *schema.ResourceData, v interface{}, p
 func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("agg_archive_types"); ok {
+	if v, ok := d.GetOk("agg_archive_types"); ok || d.HasChange("agg_archive_types") {
 		t, err := expandSystemLogForwardAggArchiveTypes(d, v, "agg_archive_types")
 		if err != nil {
 			return &obj, err
@@ -1742,7 +1716,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("agg_data_end_time"); ok {
+	if v, ok := d.GetOk("agg_data_end_time"); ok || d.HasChange("agg_data_end_time") {
 		t, err := expandSystemLogForwardAggDataEndTime(d, v, "agg_data_end_time")
 		if err != nil {
 			return &obj, err
@@ -1751,7 +1725,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("agg_data_start_time"); ok {
+	if v, ok := d.GetOk("agg_data_start_time"); ok || d.HasChange("agg_data_start_time") {
 		t, err := expandSystemLogForwardAggDataStartTime(d, v, "agg_data_start_time")
 		if err != nil {
 			return &obj, err
@@ -1760,7 +1734,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("agg_logtypes"); ok {
+	if v, ok := d.GetOk("agg_logtypes"); ok || d.HasChange("agg_logtypes") {
 		t, err := expandSystemLogForwardAggLogtypes(d, v, "agg_logtypes")
 		if err != nil {
 			return &obj, err
@@ -1769,7 +1743,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("agg_password"); ok {
+	if v, ok := d.GetOk("agg_password"); ok || d.HasChange("agg_password") {
 		t, err := expandSystemLogForwardAggPassword(d, v, "agg_password")
 		if err != nil {
 			return &obj, err
@@ -1778,7 +1752,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("agg_schedule"); ok {
+	if v, ok := d.GetOk("agg_schedule"); ok || d.HasChange("agg_schedule") {
 		t, err := expandSystemLogForwardAggSchedule(d, v, "agg_schedule")
 		if err != nil {
 			return &obj, err
@@ -1787,7 +1761,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("agg_time"); ok {
+	if v, ok := d.GetOk("agg_time"); ok || d.HasChange("agg_time") {
 		t, err := expandSystemLogForwardAggTime(d, v, "agg_time")
 		if err != nil {
 			return &obj, err
@@ -1796,7 +1770,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("agg_user"); ok {
+	if v, ok := d.GetOk("agg_user"); ok || d.HasChange("agg_user") {
 		t, err := expandSystemLogForwardAggUser(d, v, "agg_user")
 		if err != nil {
 			return &obj, err
@@ -1805,7 +1779,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("device_filter"); ok {
+	if v, ok := d.GetOk("device_filter"); ok || d.HasChange("device_filter") {
 		t, err := expandSystemLogForwardDeviceFilter(d, v, "device_filter")
 		if err != nil {
 			return &obj, err
@@ -1814,7 +1788,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("fwd_archive_types"); ok {
+	if v, ok := d.GetOk("fwd_archive_types"); ok || d.HasChange("fwd_archive_types") {
 		t, err := expandSystemLogForwardFwdArchiveTypes(d, v, "fwd_archive_types")
 		if err != nil {
 			return &obj, err
@@ -1823,7 +1797,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("fwd_archives"); ok {
+	if v, ok := d.GetOk("fwd_archives"); ok || d.HasChange("fwd_archives") {
 		t, err := expandSystemLogForwardFwdArchives(d, v, "fwd_archives")
 		if err != nil {
 			return &obj, err
@@ -1832,7 +1806,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("fwd_compression"); ok {
+	if v, ok := d.GetOk("fwd_compression"); ok || d.HasChange("fwd_compression") {
 		t, err := expandSystemLogForwardFwdCompression(d, v, "fwd_compression")
 		if err != nil {
 			return &obj, err
@@ -1841,7 +1815,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("fwd_facility"); ok {
+	if v, ok := d.GetOk("fwd_facility"); ok || d.HasChange("fwd_facility") {
 		t, err := expandSystemLogForwardFwdFacility(d, v, "fwd_facility")
 		if err != nil {
 			return &obj, err
@@ -1850,7 +1824,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("fwd_ha_bind_vip"); ok {
+	if v, ok := d.GetOk("fwd_ha_bind_vip"); ok || d.HasChange("fwd_ha_bind_vip") {
 		t, err := expandSystemLogForwardFwdHaBindVip(d, v, "fwd_ha_bind_vip")
 		if err != nil {
 			return &obj, err
@@ -1859,7 +1833,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("fwd_log_source_ip"); ok {
+	if v, ok := d.GetOk("fwd_log_source_ip"); ok || d.HasChange("fwd_log_source_ip") {
 		t, err := expandSystemLogForwardFwdLogSourceIp(d, v, "fwd_log_source_ip")
 		if err != nil {
 			return &obj, err
@@ -1868,7 +1842,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("fwd_max_delay"); ok {
+	if v, ok := d.GetOk("fwd_max_delay"); ok || d.HasChange("fwd_max_delay") {
 		t, err := expandSystemLogForwardFwdMaxDelay(d, v, "fwd_max_delay")
 		if err != nil {
 			return &obj, err
@@ -1877,7 +1851,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("fwd_reliable"); ok {
+	if v, ok := d.GetOk("fwd_reliable"); ok || d.HasChange("fwd_reliable") {
 		t, err := expandSystemLogForwardFwdReliable(d, v, "fwd_reliable")
 		if err != nil {
 			return &obj, err
@@ -1886,7 +1860,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("fwd_secure"); ok {
+	if v, ok := d.GetOk("fwd_secure"); ok || d.HasChange("fwd_secure") {
 		t, err := expandSystemLogForwardFwdSecure(d, v, "fwd_secure")
 		if err != nil {
 			return &obj, err
@@ -1895,7 +1869,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("fwd_server_type"); ok {
+	if v, ok := d.GetOk("fwd_server_type"); ok || d.HasChange("fwd_server_type") {
 		t, err := expandSystemLogForwardFwdServerType(d, v, "fwd_server_type")
 		if err != nil {
 			return &obj, err
@@ -1904,7 +1878,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("fwd_syslog_format"); ok {
+	if v, ok := d.GetOk("fwd_syslog_format"); ok || d.HasChange("fwd_syslog_format") {
 		t, err := expandSystemLogForwardFwdSyslogFormat(d, v, "fwd_syslog_format")
 		if err != nil {
 			return &obj, err
@@ -1913,7 +1887,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("fosid"); ok {
+	if v, ok := d.GetOk("fosid"); ok || d.HasChange("id") {
 		t, err := expandSystemLogForwardId(d, v, "fosid")
 		if err != nil {
 			return &obj, err
@@ -1922,7 +1896,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("log_field_exclusion"); ok {
+	if v, ok := d.GetOk("log_field_exclusion"); ok || d.HasChange("log_field_exclusion") {
 		t, err := expandSystemLogForwardLogFieldExclusion(d, v, "log_field_exclusion")
 		if err != nil {
 			return &obj, err
@@ -1931,7 +1905,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("log_field_exclusion_status"); ok {
+	if v, ok := d.GetOk("log_field_exclusion_status"); ok || d.HasChange("log_field_exclusion_status") {
 		t, err := expandSystemLogForwardLogFieldExclusionStatus(d, v, "log_field_exclusion_status")
 		if err != nil {
 			return &obj, err
@@ -1940,7 +1914,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("log_filter"); ok {
+	if v, ok := d.GetOk("log_filter"); ok || d.HasChange("log_filter") {
 		t, err := expandSystemLogForwardLogFilter(d, v, "log_filter")
 		if err != nil {
 			return &obj, err
@@ -1949,7 +1923,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("log_filter_logic"); ok {
+	if v, ok := d.GetOk("log_filter_logic"); ok || d.HasChange("log_filter_logic") {
 		t, err := expandSystemLogForwardLogFilterLogic(d, v, "log_filter_logic")
 		if err != nil {
 			return &obj, err
@@ -1958,7 +1932,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("log_filter_status"); ok {
+	if v, ok := d.GetOk("log_filter_status"); ok || d.HasChange("log_filter_status") {
 		t, err := expandSystemLogForwardLogFilterStatus(d, v, "log_filter_status")
 		if err != nil {
 			return &obj, err
@@ -1967,7 +1941,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("log_masking_custom"); ok {
+	if v, ok := d.GetOk("log_masking_custom"); ok || d.HasChange("log_masking_custom") {
 		t, err := expandSystemLogForwardLogMaskingCustom(d, v, "log_masking_custom")
 		if err != nil {
 			return &obj, err
@@ -1976,7 +1950,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("log_masking_custom_priority"); ok {
+	if v, ok := d.GetOk("log_masking_custom_priority"); ok || d.HasChange("log_masking_custom_priority") {
 		t, err := expandSystemLogForwardLogMaskingCustomPriority(d, v, "log_masking_custom_priority")
 		if err != nil {
 			return &obj, err
@@ -1985,7 +1959,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("log_masking_fields"); ok {
+	if v, ok := d.GetOk("log_masking_fields"); ok || d.HasChange("log_masking_fields") {
 		t, err := expandSystemLogForwardLogMaskingFields(d, v, "log_masking_fields")
 		if err != nil {
 			return &obj, err
@@ -1994,7 +1968,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("log_masking_key"); ok {
+	if v, ok := d.GetOk("log_masking_key"); ok || d.HasChange("log_masking_key") {
 		t, err := expandSystemLogForwardLogMaskingKey(d, v, "log_masking_key")
 		if err != nil {
 			return &obj, err
@@ -2003,7 +1977,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("log_masking_status"); ok {
+	if v, ok := d.GetOk("log_masking_status"); ok || d.HasChange("log_masking_status") {
 		t, err := expandSystemLogForwardLogMaskingStatus(d, v, "log_masking_status")
 		if err != nil {
 			return &obj, err
@@ -2012,7 +1986,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("mode"); ok {
+	if v, ok := d.GetOk("mode"); ok || d.HasChange("mode") {
 		t, err := expandSystemLogForwardMode(d, v, "mode")
 		if err != nil {
 			return &obj, err
@@ -2021,7 +1995,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("pcapurl_domain_ip"); ok {
+	if v, ok := d.GetOk("pcapurl_domain_ip"); ok || d.HasChange("pcapurl_domain_ip") {
 		t, err := expandSystemLogForwardPcapurlDomainIp(d, v, "pcapurl_domain_ip")
 		if err != nil {
 			return &obj, err
@@ -2030,7 +2004,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("pcapurl_enrich"); ok {
+	if v, ok := d.GetOk("pcapurl_enrich"); ok || d.HasChange("pcapurl_enrich") {
 		t, err := expandSystemLogForwardPcapurlEnrich(d, v, "pcapurl_enrich")
 		if err != nil {
 			return &obj, err
@@ -2039,7 +2013,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("peer_cert_cn"); ok {
+	if v, ok := d.GetOk("peer_cert_cn"); ok || d.HasChange("peer_cert_cn") {
 		t, err := expandSystemLogForwardPeerCertCn(d, v, "peer_cert_cn")
 		if err != nil {
 			return &obj, err
@@ -2048,7 +2022,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("proxy_service"); ok {
+	if v, ok := d.GetOk("proxy_service"); ok || d.HasChange("proxy_service") {
 		t, err := expandSystemLogForwardProxyService(d, v, "proxy_service")
 		if err != nil {
 			return &obj, err
@@ -2057,7 +2031,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("proxy_service_priority"); ok {
+	if v, ok := d.GetOk("proxy_service_priority"); ok || d.HasChange("proxy_service_priority") {
 		t, err := expandSystemLogForwardProxyServicePriority(d, v, "proxy_service_priority")
 		if err != nil {
 			return &obj, err
@@ -2066,7 +2040,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("server_addr"); ok {
+	if v, ok := d.GetOk("server_addr"); ok || d.HasChange("server_addr") {
 		t, err := expandSystemLogForwardServerAddr(d, v, "server_addr")
 		if err != nil {
 			return &obj, err
@@ -2075,7 +2049,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("server_device"); ok {
+	if v, ok := d.GetOk("server_device"); ok || d.HasChange("server_device") {
 		t, err := expandSystemLogForwardServerDevice(d, v, "server_device")
 		if err != nil {
 			return &obj, err
@@ -2084,7 +2058,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("server_name"); ok {
+	if v, ok := d.GetOk("server_name"); ok || d.HasChange("server_name") {
 		t, err := expandSystemLogForwardServerName(d, v, "server_name")
 		if err != nil {
 			return &obj, err
@@ -2093,7 +2067,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("server_port"); ok {
+	if v, ok := d.GetOk("server_port"); ok || d.HasChange("server_port") {
 		t, err := expandSystemLogForwardServerPort(d, v, "server_port")
 		if err != nil {
 			return &obj, err
@@ -2102,7 +2076,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("signature"); ok {
+	if v, ok := d.GetOk("signature"); ok || d.HasChange("signature") {
 		t, err := expandSystemLogForwardSignature(d, v, "signature")
 		if err != nil {
 			return &obj, err
@@ -2111,7 +2085,7 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("sync_metadata"); ok {
+	if v, ok := d.GetOk("sync_metadata"); ok || d.HasChange("sync_metadata") {
 		t, err := expandSystemLogForwardSyncMetadata(d, v, "sync_metadata")
 		if err != nil {
 			return &obj, err

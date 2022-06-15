@@ -102,7 +102,6 @@ func resourceSystemLocallogDiskSetting() *schema.Resource {
 			"uploaddir": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"uploadip": &schema.Schema{
 				Type:     schema.TypeString,
@@ -113,12 +112,10 @@ func resourceSystemLocallogDiskSetting() *schema.Resource {
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
-				Computed: true,
 			},
 			"uploadport": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Computed: true,
 			},
 			"uploadsched": &schema.Schema{
 				Type:     schema.TypeString,
@@ -134,7 +131,6 @@ func resourceSystemLocallogDiskSetting() *schema.Resource {
 			"uploaduser": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"uploadzip": &schema.Schema{
 				Type:     schema.TypeString,
@@ -624,7 +620,7 @@ func expandSystemLocallogDiskSettingUploadzip(d *schema.ResourceData, v interfac
 func getObjectSystemLocallogDiskSetting(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("diskfull"); ok {
+	if v, ok := d.GetOk("diskfull"); ok || d.HasChange("diskfull") {
 		t, err := expandSystemLocallogDiskSettingDiskfull(d, v, "diskfull")
 		if err != nil {
 			return &obj, err
@@ -633,7 +629,7 @@ func getObjectSystemLocallogDiskSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("log_disk_full_percentage"); ok {
+	if v, ok := d.GetOk("log_disk_full_percentage"); ok || d.HasChange("log_disk_full_percentage") {
 		t, err := expandSystemLocallogDiskSettingLogDiskFullPercentage(d, v, "log_disk_full_percentage")
 		if err != nil {
 			return &obj, err
@@ -642,7 +638,7 @@ func getObjectSystemLocallogDiskSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("log_disk_quota"); ok {
+	if v, ok := d.GetOk("log_disk_quota"); ok || d.HasChange("log_disk_quota") {
 		t, err := expandSystemLocallogDiskSettingLogDiskQuota(d, v, "log_disk_quota")
 		if err != nil {
 			return &obj, err
@@ -651,7 +647,7 @@ func getObjectSystemLocallogDiskSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("max_log_file_num"); ok {
+	if v, ok := d.GetOk("max_log_file_num"); ok || d.HasChange("max_log_file_num") {
 		t, err := expandSystemLocallogDiskSettingMaxLogFileNum(d, v, "max_log_file_num")
 		if err != nil {
 			return &obj, err
@@ -660,7 +656,7 @@ func getObjectSystemLocallogDiskSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("max_log_file_size"); ok {
+	if v, ok := d.GetOk("max_log_file_size"); ok || d.HasChange("max_log_file_size") {
 		t, err := expandSystemLocallogDiskSettingMaxLogFileSize(d, v, "max_log_file_size")
 		if err != nil {
 			return &obj, err
@@ -669,7 +665,7 @@ func getObjectSystemLocallogDiskSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("roll_day"); ok {
+	if v, ok := d.GetOk("roll_day"); ok || d.HasChange("roll_day") {
 		t, err := expandSystemLocallogDiskSettingRollDay(d, v, "roll_day")
 		if err != nil {
 			return &obj, err
@@ -678,7 +674,7 @@ func getObjectSystemLocallogDiskSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("roll_schedule"); ok {
+	if v, ok := d.GetOk("roll_schedule"); ok || d.HasChange("roll_schedule") {
 		t, err := expandSystemLocallogDiskSettingRollSchedule(d, v, "roll_schedule")
 		if err != nil {
 			return &obj, err
@@ -687,7 +683,7 @@ func getObjectSystemLocallogDiskSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("roll_time"); ok {
+	if v, ok := d.GetOk("roll_time"); ok || d.HasChange("roll_time") {
 		t, err := expandSystemLocallogDiskSettingRollTime(d, v, "roll_time")
 		if err != nil {
 			return &obj, err
@@ -696,7 +692,7 @@ func getObjectSystemLocallogDiskSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("server_type"); ok {
+	if v, ok := d.GetOk("server_type"); ok || d.HasChange("server_type") {
 		t, err := expandSystemLocallogDiskSettingServerType(d, v, "server_type")
 		if err != nil {
 			return &obj, err
@@ -705,7 +701,7 @@ func getObjectSystemLocallogDiskSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("severity"); ok {
+	if v, ok := d.GetOk("severity"); ok || d.HasChange("severity") {
 		t, err := expandSystemLocallogDiskSettingSeverity(d, v, "severity")
 		if err != nil {
 			return &obj, err
@@ -714,7 +710,7 @@ func getObjectSystemLocallogDiskSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("status"); ok {
+	if v, ok := d.GetOk("status"); ok || d.HasChange("status") {
 		t, err := expandSystemLocallogDiskSettingStatus(d, v, "status")
 		if err != nil {
 			return &obj, err
@@ -723,7 +719,7 @@ func getObjectSystemLocallogDiskSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("upload"); ok {
+	if v, ok := d.GetOk("upload"); ok || d.HasChange("upload") {
 		t, err := expandSystemLocallogDiskSettingUpload(d, v, "upload")
 		if err != nil {
 			return &obj, err
@@ -732,7 +728,7 @@ func getObjectSystemLocallogDiskSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("upload_delete_files"); ok {
+	if v, ok := d.GetOk("upload_delete_files"); ok || d.HasChange("upload_delete_files") {
 		t, err := expandSystemLocallogDiskSettingUploadDeleteFiles(d, v, "upload_delete_files")
 		if err != nil {
 			return &obj, err
@@ -741,7 +737,7 @@ func getObjectSystemLocallogDiskSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("upload_time"); ok {
+	if v, ok := d.GetOk("upload_time"); ok || d.HasChange("upload_time") {
 		t, err := expandSystemLocallogDiskSettingUploadTime(d, v, "upload_time")
 		if err != nil {
 			return &obj, err
@@ -750,7 +746,7 @@ func getObjectSystemLocallogDiskSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("uploaddir"); ok {
+	if v, ok := d.GetOk("uploaddir"); ok || d.HasChange("uploaddir") {
 		t, err := expandSystemLocallogDiskSettingUploaddir(d, v, "uploaddir")
 		if err != nil {
 			return &obj, err
@@ -759,7 +755,7 @@ func getObjectSystemLocallogDiskSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("uploadip"); ok {
+	if v, ok := d.GetOk("uploadip"); ok || d.HasChange("uploadip") {
 		t, err := expandSystemLocallogDiskSettingUploadip(d, v, "uploadip")
 		if err != nil {
 			return &obj, err
@@ -768,7 +764,7 @@ func getObjectSystemLocallogDiskSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("uploadpass"); ok {
+	if v, ok := d.GetOk("uploadpass"); ok || d.HasChange("uploadpass") {
 		t, err := expandSystemLocallogDiskSettingUploadpass(d, v, "uploadpass")
 		if err != nil {
 			return &obj, err
@@ -777,7 +773,7 @@ func getObjectSystemLocallogDiskSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("uploadport"); ok {
+	if v, ok := d.GetOk("uploadport"); ok || d.HasChange("uploadport") {
 		t, err := expandSystemLocallogDiskSettingUploadport(d, v, "uploadport")
 		if err != nil {
 			return &obj, err
@@ -786,7 +782,7 @@ func getObjectSystemLocallogDiskSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("uploadsched"); ok {
+	if v, ok := d.GetOk("uploadsched"); ok || d.HasChange("uploadsched") {
 		t, err := expandSystemLocallogDiskSettingUploadsched(d, v, "uploadsched")
 		if err != nil {
 			return &obj, err
@@ -795,7 +791,7 @@ func getObjectSystemLocallogDiskSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("uploadtype"); ok {
+	if v, ok := d.GetOk("uploadtype"); ok || d.HasChange("uploadtype") {
 		t, err := expandSystemLocallogDiskSettingUploadtype(d, v, "uploadtype")
 		if err != nil {
 			return &obj, err
@@ -804,7 +800,7 @@ func getObjectSystemLocallogDiskSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("uploaduser"); ok {
+	if v, ok := d.GetOk("uploaduser"); ok || d.HasChange("uploaduser") {
 		t, err := expandSystemLocallogDiskSettingUploaduser(d, v, "uploaduser")
 		if err != nil {
 			return &obj, err
@@ -813,7 +809,7 @@ func getObjectSystemLocallogDiskSetting(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
-	if v, ok := d.GetOk("uploadzip"); ok {
+	if v, ok := d.GetOk("uploadzip"); ok || d.HasChange("uploadzip") {
 		t, err := expandSystemLocallogDiskSettingUploadzip(d, v, "uploadzip")
 		if err != nil {
 			return &obj, err

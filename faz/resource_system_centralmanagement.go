@@ -46,18 +46,15 @@ func resourceSystemCentralManagement() *schema.Resource {
 			"fmg": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"mgmtid": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Computed: true,
 			},
 			"serial_number": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
-				Computed: true,
 			},
 			"type": &schema.Schema{
 				Type:     schema.TypeString,
@@ -277,7 +274,7 @@ func expandSystemCentralManagementType(d *schema.ResourceData, v interface{}, pr
 func getObjectSystemCentralManagement(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("allow_monitor"); ok {
+	if v, ok := d.GetOk("allow_monitor"); ok || d.HasChange("allow_monitor") {
 		t, err := expandSystemCentralManagementAllowMonitor(d, v, "allow_monitor")
 		if err != nil {
 			return &obj, err
@@ -286,7 +283,7 @@ func getObjectSystemCentralManagement(d *schema.ResourceData) (*map[string]inter
 		}
 	}
 
-	if v, ok := d.GetOk("authorized_manager_only"); ok {
+	if v, ok := d.GetOk("authorized_manager_only"); ok || d.HasChange("authorized_manager_only") {
 		t, err := expandSystemCentralManagementAuthorizedManagerOnly(d, v, "authorized_manager_only")
 		if err != nil {
 			return &obj, err
@@ -295,7 +292,7 @@ func getObjectSystemCentralManagement(d *schema.ResourceData) (*map[string]inter
 		}
 	}
 
-	if v, ok := d.GetOk("enc_algorithm"); ok {
+	if v, ok := d.GetOk("enc_algorithm"); ok || d.HasChange("enc_algorithm") {
 		t, err := expandSystemCentralManagementEncAlgorithm(d, v, "enc_algorithm")
 		if err != nil {
 			return &obj, err
@@ -304,7 +301,7 @@ func getObjectSystemCentralManagement(d *schema.ResourceData) (*map[string]inter
 		}
 	}
 
-	if v, ok := d.GetOk("fmg"); ok {
+	if v, ok := d.GetOk("fmg"); ok || d.HasChange("fmg") {
 		t, err := expandSystemCentralManagementFmg(d, v, "fmg")
 		if err != nil {
 			return &obj, err
@@ -313,7 +310,7 @@ func getObjectSystemCentralManagement(d *schema.ResourceData) (*map[string]inter
 		}
 	}
 
-	if v, ok := d.GetOk("mgmtid"); ok {
+	if v, ok := d.GetOk("mgmtid"); ok || d.HasChange("mgmtid") {
 		t, err := expandSystemCentralManagementMgmtid(d, v, "mgmtid")
 		if err != nil {
 			return &obj, err
@@ -322,7 +319,7 @@ func getObjectSystemCentralManagement(d *schema.ResourceData) (*map[string]inter
 		}
 	}
 
-	if v, ok := d.GetOk("serial_number"); ok {
+	if v, ok := d.GetOk("serial_number"); ok || d.HasChange("serial_number") {
 		t, err := expandSystemCentralManagementSerialNumber(d, v, "serial_number")
 		if err != nil {
 			return &obj, err
@@ -331,7 +328,7 @@ func getObjectSystemCentralManagement(d *schema.ResourceData) (*map[string]inter
 		}
 	}
 
-	if v, ok := d.GetOk("type"); ok {
+	if v, ok := d.GetOk("type"); ok || d.HasChange("type") {
 		t, err := expandSystemCentralManagementType(d, v, "type")
 		if err != nil {
 			return &obj, err

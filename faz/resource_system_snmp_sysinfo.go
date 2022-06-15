@@ -31,17 +31,14 @@ func resourceSystemSnmpSysinfo() *schema.Resource {
 			"contact_info": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"description": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"engine_id": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"fortianalyzer_legacy_sysoid": &schema.Schema{
 				Type:     schema.TypeString,
@@ -51,7 +48,6 @@ func resourceSystemSnmpSysinfo() *schema.Resource {
 			"location": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				Computed: true,
 			},
 			"status": &schema.Schema{
 				Type:     schema.TypeString,
@@ -322,7 +318,7 @@ func expandSystemSnmpSysinfoTrapLowMemoryThreshold(d *schema.ResourceData, v int
 func getObjectSystemSnmpSysinfo(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("contact_info"); ok {
+	if v, ok := d.GetOk("contact_info"); ok || d.HasChange("contact_info") {
 		t, err := expandSystemSnmpSysinfoContactInfo(d, v, "contact_info")
 		if err != nil {
 			return &obj, err
@@ -331,7 +327,7 @@ func getObjectSystemSnmpSysinfo(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("description"); ok {
+	if v, ok := d.GetOk("description"); ok || d.HasChange("description") {
 		t, err := expandSystemSnmpSysinfoDescription(d, v, "description")
 		if err != nil {
 			return &obj, err
@@ -340,7 +336,7 @@ func getObjectSystemSnmpSysinfo(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("engine_id"); ok {
+	if v, ok := d.GetOk("engine_id"); ok || d.HasChange("engine_id") {
 		t, err := expandSystemSnmpSysinfoEngineId(d, v, "engine_id")
 		if err != nil {
 			return &obj, err
@@ -349,7 +345,7 @@ func getObjectSystemSnmpSysinfo(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("fortianalyzer_legacy_sysoid"); ok {
+	if v, ok := d.GetOk("fortianalyzer_legacy_sysoid"); ok || d.HasChange("fortianalyzer_legacy_sysoid") {
 		t, err := expandSystemSnmpSysinfoFortianalyzerLegacySysoid(d, v, "fortianalyzer_legacy_sysoid")
 		if err != nil {
 			return &obj, err
@@ -358,7 +354,7 @@ func getObjectSystemSnmpSysinfo(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("location"); ok {
+	if v, ok := d.GetOk("location"); ok || d.HasChange("location") {
 		t, err := expandSystemSnmpSysinfoLocation(d, v, "location")
 		if err != nil {
 			return &obj, err
@@ -367,7 +363,7 @@ func getObjectSystemSnmpSysinfo(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("status"); ok {
+	if v, ok := d.GetOk("status"); ok || d.HasChange("status") {
 		t, err := expandSystemSnmpSysinfoStatus(d, v, "status")
 		if err != nil {
 			return &obj, err
@@ -376,7 +372,7 @@ func getObjectSystemSnmpSysinfo(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("trap_cpu_high_exclude_nice_threshold"); ok {
+	if v, ok := d.GetOk("trap_cpu_high_exclude_nice_threshold"); ok || d.HasChange("trap_cpu_high_exclude_nice_threshold") {
 		t, err := expandSystemSnmpSysinfoTrapCpuHighExcludeNiceThreshold(d, v, "trap_cpu_high_exclude_nice_threshold")
 		if err != nil {
 			return &obj, err
@@ -385,7 +381,7 @@ func getObjectSystemSnmpSysinfo(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("trap_high_cpu_threshold"); ok {
+	if v, ok := d.GetOk("trap_high_cpu_threshold"); ok || d.HasChange("trap_high_cpu_threshold") {
 		t, err := expandSystemSnmpSysinfoTrapHighCpuThreshold(d, v, "trap_high_cpu_threshold")
 		if err != nil {
 			return &obj, err
@@ -394,7 +390,7 @@ func getObjectSystemSnmpSysinfo(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
-	if v, ok := d.GetOk("trap_low_memory_threshold"); ok {
+	if v, ok := d.GetOk("trap_low_memory_threshold"); ok || d.HasChange("trap_low_memory_threshold") {
 		t, err := expandSystemSnmpSysinfoTrapLowMemoryThreshold(d, v, "trap_low_memory_threshold")
 		if err != nil {
 			return &obj, err
