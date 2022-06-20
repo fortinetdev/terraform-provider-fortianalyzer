@@ -2,6 +2,7 @@
 // Author: Hongbin Lu (@fgtdev-hblu), Xing Li (@lix-fortinet)
 // Documentation:
 // Hongbin Lu (@fgtdev-hblu), Xing Li (@lix-fortinet),
+// Liang Liu (@MaxxLiu22), Yue Wang (@yuew-ftnt)
 
 // Description: Configure preferred SSL/TLS cipher suites
 

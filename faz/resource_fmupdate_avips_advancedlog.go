@@ -2,6 +2,7 @@
 // Author: Hongbin Lu (@fgtdev-hblu), Xing Li (@lix-fortinet)
 // Documentation:
 // Hongbin Lu (@fgtdev-hblu), Xing Li (@lix-fortinet),
+// Liang Liu (@MaxxLiu22), Yue Wang (@yuew-ftnt)
 
 // Description: Enable/disable logging of FortiGuard antivirus and IPS update packages received by FortiManager's built-in FortiGuard.
 
