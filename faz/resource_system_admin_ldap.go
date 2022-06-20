@@ -28,7 +28,7 @@ func resourceSystemAdminLdap() *schema.Resource {
 		},
 
 		Schema: map[string]*schema.Schema{
-			"adom": &schema.Schema{
+			"fazadom": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
 				Elem: &schema.Resource{

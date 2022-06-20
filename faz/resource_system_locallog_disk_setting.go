@@ -112,6 +112,7 @@ func resourceSystemLocallogDiskSetting() *schema.Resource {
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
+				Computed: true,
 			},
 			"uploadport": &schema.Schema{
 				Type:     schema.TypeInt,

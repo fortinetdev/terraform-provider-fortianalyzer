@@ -169,6 +169,7 @@ func resourceSystemLogSettings() *schema.Resource {
 							Type:     schema.TypeSet,
 							Elem:     &schema.Schema{Type: schema.TypeString},
 							Optional: true,
+							Computed: true,
 						},
 						"password2": &schema.Schema{
 							Type:      schema.TypeSet,
