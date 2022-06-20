@@ -9,6 +9,15 @@ description: |-
 # fortianalyzer_fmupdate_fctservices
 Configure FortiGuard to provide services to FortiClient installations.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_fmupdate_fctservices" "trname" {
+  port   = 80
+  status = "enable"
+}
+```
+
 ## Argument Reference
 
 

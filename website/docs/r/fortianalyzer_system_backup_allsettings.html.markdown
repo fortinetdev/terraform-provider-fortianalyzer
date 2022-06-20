@@ -9,6 +9,20 @@ description: |-
 # fortianalyzer_system_backup_allsettings
 Scheduled backup settings.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_backup_allsettings" "trname" {
+  passwd    = ["password"]
+  protocol  = "sftp"
+  server    = "1.1.1.1"
+  status    = "disable"
+  time      = "11:11:11"
+  user      = "user"
+  week_days = ["monday", "tuesday", "wednesday"]
+}
+```
+
 ## Argument Reference
 
 

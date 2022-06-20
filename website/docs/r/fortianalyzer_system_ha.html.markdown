@@ -9,6 +9,14 @@ description: |-
 # fortianalyzer_system_ha
 HA configuration.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_ha" "trname" {
+  mode = "standalone"
+}
+```
+
 ## Argument Reference
 
 

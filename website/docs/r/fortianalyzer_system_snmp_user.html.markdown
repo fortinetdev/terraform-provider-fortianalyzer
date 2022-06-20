@@ -9,6 +9,19 @@ description: |-
 # fortianalyzer_system_snmp_user
 SNMP user configuration.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_snmp_user" "trname" {
+  events         = ["disk_low", "intf_ip_chg", "sys_reboot", "cpu_high", "mem_low", "log-alert", "log-rate", "log-data-rate", "lic-gbday", "lic-dev-quota", "cpu-high-exclude-nice"]
+  name           = "snmp_user"
+  queries        = "enable"
+  query_port     = 161
+  security_level = "no-auth-no-priv"
+
+}
+```
+
 ## Argument Reference
 
 

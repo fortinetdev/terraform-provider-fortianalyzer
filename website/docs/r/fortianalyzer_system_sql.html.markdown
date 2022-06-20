@@ -9,6 +9,22 @@ description: |-
 # fortianalyzer_system_sql
 SQL settings.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_sql" "trname" {
+  background_rebuild         = "enable"
+  compress_table_min_age     = 7
+  database_type              = "postgres"
+  device_count_high          = "disable"
+  event_table_partition_time = 8
+  fct_table_partition_time   = 360
+  rebuild_event              = "enable"
+  rebuild_event_start_time   = ["00:00 2000/01/02"]
+  start_time                 = ["00:00 2000/01/02"]
+}
+```
+
 ## Argument Reference
 
 

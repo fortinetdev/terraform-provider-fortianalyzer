@@ -9,6 +9,14 @@ description: |-
 # fortianalyzer_fmupdate_multilayer
 Configure multilayer mode.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_fmupdate_multilayer" "trname" {
+  webspam_rating = "disable"
+}
+```
+
 ## Argument Reference
 
 

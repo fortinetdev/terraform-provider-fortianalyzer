@@ -9,6 +9,17 @@ description: |-
 # fortianalyzer_system_locallog_syslogd_setting
 Settings for remote syslog server.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_locallog_syslogd_setting" "trname" {
+  csv      = "disable"
+  facility = "local7"
+  severity = "notification"
+  status   = "disable"
+}
+```
+
 ## Argument Reference
 
 

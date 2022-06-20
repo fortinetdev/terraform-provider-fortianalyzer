@@ -9,6 +9,32 @@ description: |-
 # fortianalyzer_system_admin_setting
 Admin setting.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_admin_setting" "trname" {
+  access_banner             = "disable"
+  admin_https_redirect      = "enable"
+  admin_login_max           = 256
+  gui_theme                 = "blue"
+  http_port                 = 80
+  https_port                = 443
+  idle_timeout              = 900
+  idle_timeout_api          = 900
+  idle_timeout_gui          = 900
+  objects_force_deletion    = "enable"
+  shell_access              = "disable"
+  show_add_multiple         = "disable"
+  show_checkbox_in_table    = "disable"
+  show_device_import_export = "disable"
+  show_fct_manager          = "disable"
+  show_hostname             = "disable"
+  show_log_forwarding       = "enable"
+  unreg_dev_opt             = "add_allow_service"
+  webadmin_language         = "auto_detect"
+}
+```
+
 ## Argument Reference
 
 

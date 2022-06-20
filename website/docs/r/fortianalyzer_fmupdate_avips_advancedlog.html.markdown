@@ -9,6 +9,15 @@ description: |-
 # fortianalyzer_fmupdate_avips_advancedlog
 Enable/disable logging of FortiGuard antivirus and IPS update packages received by FortiManager's built-in FortiGuard.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_fmupdate_avips_advancedlog" "trname" {
+  log_fortigate = "disable"
+  log_server    = "enable"
+}
+```
+
 ## Argument Reference
 
 

@@ -9,6 +9,16 @@ description: |-
 # fortianalyzer_system_log_settings_rollingregular
 Log rolling policy for device logs.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_log_settings_rollingregular" "trname" {
+  days   = ["mon", "tue", "wed"]
+  upload = "disable"
+  when   = "weekly"
+}
+```
+
 ## Argument Reference
 
 

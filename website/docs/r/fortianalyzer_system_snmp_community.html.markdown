@@ -9,6 +9,25 @@ description: |-
 # fortianalyzer_system_snmp_community
 SNMP community configuration.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_snmp_community" "trname" {
+  events           = ["disk_low", "intf_ip_chg", "sys_reboot", "cpu_high", "mem_low", "log-alert", "log-rate", "log-data-rate", "lic-gbday", "lic-dev-quota", "cpu-high-exclude-nice"]
+  fosid            = 1
+  name             = "snmp_community"
+  query_v1_port    = 161
+  query_v1_status  = "enable"
+  query_v2c_port   = 161
+  query_v2c_status = "enable"
+  status           = "enable"
+  trap_v1_rport    = 162
+  trap_v1_status   = "enable"
+  trap_v2c_rport   = 162
+  trap_v2c_status  = "enable"
+}
+```
+
 ## Argument Reference
 
 

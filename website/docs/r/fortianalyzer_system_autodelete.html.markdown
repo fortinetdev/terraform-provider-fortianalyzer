@@ -9,6 +9,37 @@ description: |-
 # fortianalyzer_system_autodelete
 Automatic deletion policy for logs, reports, archived, and quarantined files.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_autodelete" "trname" {
+  dlp_files_auto_deletion {
+    retention = "days"
+    runat     = 1
+    status    = "enable"
+    value     = 1
+  }
+  log_auto_deletion {
+    retention = "days"
+    runat     = 1
+    status    = "enable"
+    value     = 1
+  }
+  quarantine_files_auto_deletion {
+    retention = "days"
+    runat     = 1
+    status    = "enable"
+    value     = 1
+  }
+  report_auto_deletion {
+    retention = "days"
+    runat     = 1
+    status    = "enable"
+    value     = 1
+  }
+}
+```
+
 ## Argument Reference
 
 

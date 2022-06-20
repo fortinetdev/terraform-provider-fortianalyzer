@@ -9,6 +9,16 @@ description: |-
 # fortianalyzer_system_ntp_ntpserver
 NTP server.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_ntp_ntpserver" "trname" {
+  fosid  = 2
+  ntpv3  = "disable"
+  server = "ntp1.fortinet.net"
+}
+```
+
 ## Argument Reference
 
 

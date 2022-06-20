@@ -9,6 +9,19 @@ description: |-
 # fortianalyzer_system_mail
 Alert emails.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_mail" "trname" {
+  auth_type = "psk"
+  fosid     = 1
+  passwd    = ["password"]
+  port      = 25
+  server    = "1.1.1.1"
+  user      = "user"
+}
+```
+
 ## Argument Reference
 
 

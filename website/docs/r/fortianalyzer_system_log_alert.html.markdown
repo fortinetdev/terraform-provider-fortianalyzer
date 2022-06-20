@@ -9,6 +9,14 @@ description: |-
 # fortianalyzer_system_log_alert
 Log based alert settings.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_log_alert" "trname" {
+  max_alert_count = 10000
+}
+```
+
 ## Argument Reference
 
 

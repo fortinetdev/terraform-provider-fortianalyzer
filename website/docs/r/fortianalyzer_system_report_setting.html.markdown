@@ -9,6 +9,19 @@ description: |-
 # fortianalyzer_system_report_setting
 Report settings.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_report_setting" "trname" {
+  aggregate_report      = "disable"
+  capwap_port           = 5246
+  week_start            = "sun"
+  template_auto_install = "default"
+  report_priority       = "auto"
+  ldap_cache_timeout    = 60
+}
+```
+
 ## Argument Reference
 
 

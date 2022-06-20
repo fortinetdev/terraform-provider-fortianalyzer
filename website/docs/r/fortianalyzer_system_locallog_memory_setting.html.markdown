@@ -9,6 +9,15 @@ description: |-
 # fortianalyzer_system_locallog_memory_setting
 Settings for memory buffer.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_locallog_memory_setting" "trname" {
+  severity = "notification"
+  status   = "enable"
+}
+```
+
 ## Argument Reference
 
 

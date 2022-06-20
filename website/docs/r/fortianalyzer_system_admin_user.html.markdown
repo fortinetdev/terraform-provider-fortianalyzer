@@ -9,6 +9,24 @@ description: |-
 # fortianalyzer_system_admin_user
 Admin user.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_admin_user" "trname" {
+  change_password  = "enable"
+  login_max        = 32
+  password         = ["password"]
+  profileid        = "Super_User"
+  rpc_permit       = "read-write"
+  trusthost1       = ["0.0.0.0", "0.0.0.0"]
+  two_factor_auth  = "disable"
+  use_global_theme = "disable"
+  user_type        = "local"
+  userid           = "user"
+  wildcard         = "disable"
+}
+```
+
 ## Argument Reference
 
 

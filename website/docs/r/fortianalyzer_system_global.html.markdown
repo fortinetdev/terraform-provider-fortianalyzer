@@ -9,6 +9,39 @@ description: |-
 # fortianalyzer_system_global
 Global range attributes.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_global" "trname" {
+  admin_lockout_duration          = 60
+  admin_lockout_threshold         = 3
+  adom_select                     = "enable"
+  adom_mode                       = "normal"
+  adom_status                     = "enable"
+  backup_compression              = "normal"
+  backup_to_subfolders            = "disable"
+  clone_name_option               = "default"
+  clt_cert_req                    = "disable"
+  console_output                  = "standard"
+  country_flag                    = "enable"
+  create_revision                 = "disable"
+  daylightsavetime                = "enable"
+  default_logview_auto_completion = "enable"
+  default_search_mode             = "filter-based"
+  detect_unregistered_log_device  = "enable"
+  device_view_mode                = "tree"
+  dh_params                       = "2048"
+  disable_module                  = ["fortirecorder", "ai"]
+  enc_algorithm                   = "high"
+  ldap_cache_timeout              = 86400
+  ldapconntimeout                 = 6000
+  lock_preempt                    = "disable"
+  tunnel_mtu                      = 1500
+  webservice_proto                = ["tlsv1.3", "tlsv1.2"]
+
+}
+```
+
 ## Argument Reference
 
 

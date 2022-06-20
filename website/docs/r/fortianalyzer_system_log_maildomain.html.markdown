@@ -9,6 +9,17 @@ description: |-
 # fortianalyzer_system_log_maildomain
 FortiMail domain setting.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_log_maildomain" "trname" {
+  devices = "All_FortiMail"
+  domain  = "fortinet"
+  fosid   = 1
+  vdom    = "123"
+}
+```
+
 ## Argument Reference
 
 

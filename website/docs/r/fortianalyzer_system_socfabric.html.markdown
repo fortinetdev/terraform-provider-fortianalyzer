@@ -9,6 +9,19 @@ description: |-
 # fortianalyzer_system_socfabric
 SOC Fabric.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_socfabric" "trname" {
+  name       = "socfabric"
+  port       = 6443
+  psk        = ["paaword"]
+  status     = "enable"
+  role       = "member"
+  supervisor = "1.1.1.1"
+}
+```
+
 ## Argument Reference
 
 

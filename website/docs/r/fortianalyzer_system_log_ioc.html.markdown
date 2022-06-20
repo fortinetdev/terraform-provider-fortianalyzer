@@ -9,6 +9,19 @@ description: |-
 # fortianalyzer_system_log_ioc
 IoC settings.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_log_ioc" "trname" {
+  notification          = "enable"
+  notification_throttle = 1440
+  rescan_max_runner     = 4
+  rescan_run_at         = 23
+  rescan_status         = "enable"
+  status                = "enable"
+}
+```
+
 ## Argument Reference
 
 

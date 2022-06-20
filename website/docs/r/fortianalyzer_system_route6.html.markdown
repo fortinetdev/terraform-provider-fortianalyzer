@@ -9,6 +9,17 @@ description: |-
 # fortianalyzer_system_route6
 Routing table configuration.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_route6" "trname" {
+  device  = "port1"
+  dst     = ["fe80:cd00:0:cde:1257:0:211e:729c/32"]
+  gateway = "fe80:cd00:0:cde:1257:0:211e:1"
+  prio    = 3
+}
+```
+
 ## Argument Reference
 
 

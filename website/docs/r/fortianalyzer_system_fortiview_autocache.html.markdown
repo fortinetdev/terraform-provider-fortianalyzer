@@ -9,6 +9,16 @@ description: |-
 # fortianalyzer_system_fortiview_autocache
 FortiView auto-cache settings.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_fortiview_autocache" "trname" {
+  aggressive_fortiview = "disable"
+  interval             = 168
+  status               = "enable"
+}
+```
+
 ## Argument Reference
 
 

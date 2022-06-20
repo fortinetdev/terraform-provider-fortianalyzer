@@ -9,6 +9,18 @@ description: |-
 # fortianalyzer_fmupdate_webspam_webproxy
 Configure the web proxy for use with FortiGuard antivirus and IPS updates.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_fmupdate_webspam_webproxy" "trname" {
+  address  = "1.1.1.1"
+  mode     = "proxy"
+  port     = 65535
+  status   = "disable"
+  username = "admin"
+}
+```
+
 ## Argument Reference
 
 

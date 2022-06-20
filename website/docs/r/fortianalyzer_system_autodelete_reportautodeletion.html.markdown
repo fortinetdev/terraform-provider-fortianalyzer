@@ -9,6 +9,17 @@ description: |-
 # fortianalyzer_system_autodelete_reportautodeletion
 Automatic deletion policy for reports.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_autodelete_reportautodeletion" "trname" {
+  retention = "days"
+  runat     = 1
+  status    = "enable"
+  value     = 1
+}
+```
+
 ## Argument Reference
 
 

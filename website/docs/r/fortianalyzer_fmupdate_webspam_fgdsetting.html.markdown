@@ -9,6 +9,40 @@ description: |-
 # fortianalyzer_fmupdate_webspam_fgdsetting
 Configure the FortiGuard run parameters.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_fmupdate_webspam_fgdsetting" "trname" {
+  as_cache                = 1023
+  as_log                  = "nospam"
+  as_preload              = "disable"
+  av_cache                = 300
+  av_log                  = "novirus"
+  av_preload              = "disable"
+  av2_cache               = 800
+  av2_log                 = "noav2"
+  av2_preload             = "disable"
+  eventlog_query          = "disable"
+  fgd_pull_interval       = 10
+  fq_cache                = 300
+  fq_log                  = "all"
+  fq_preload              = "disable"
+  linkd_log               = "debug"
+  max_client_worker       = 4
+  max_log_quota           = 6144
+  max_unrated_site        = 500
+  stat_log_interval       = 60
+  stat_sync_interval      = 60
+  update_interval         = 6
+  update_log              = "enable"
+  wf_cache                = 600
+  wf_dn_cache_expire_time = 30
+  wf_dn_cache_max_number  = 10000
+  wf_log                  = "nourl"
+  wf_preload              = "disable"
+}
+```
+
 ## Argument Reference
 
 

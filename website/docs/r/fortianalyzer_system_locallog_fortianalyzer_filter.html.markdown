@@ -9,6 +9,38 @@ description: |-
 # fortianalyzer_system_locallog_fortianalyzer_filter
 Filter for FortiAnalyzer logging.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_locallog_fortianalyzer_filter" "trname" {
+  event      = "enable"
+  devcfg     = "enable"
+  devops     = "enable"
+  diskquota  = "enable"
+  docker     = "enable"
+  dvm        = "enable"
+  ediscovery = "enable"
+  eventmgmt  = "enable"
+  faz        = "enable"
+  fazsys     = "enable"
+  fgd        = "enable"
+  fmgws      = "enable"
+  fortiview  = "enable"
+  glbcfg     = "enable"
+  ha         = "enable"
+  hcache     = "enable"
+  incident   = "enable"
+  iolog      = "enable"
+  logd       = "enable"
+  logdb      = "enable"
+  logdev     = "enable"
+  logfile    = "enable"
+  logging    = "enable"
+  report     = "enable"
+  system     = "enable"
+}
+```
+
 ## Argument Reference
 
 

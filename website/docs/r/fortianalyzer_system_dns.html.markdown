@@ -9,6 +9,17 @@ description: |-
 # fortianalyzer_system_dns
 DNS configuration.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_dns" "trname" {
+  ip6_primary   = "::"
+  ip6_secondary = "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff"
+  primary       = "1.1.1.1"
+  secondary     = "2.2.2.2"
+}
+```
+
 ## Argument Reference
 
 

@@ -9,6 +9,19 @@ description: |-
 # fortianalyzer_system_admin_tacacs
 TACACS+ server entry configuration.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_admin_tacacs" "trname" {
+  authen_type   = "auto"
+  authorization = "enable"
+  key           = ["key"]
+  name          = "tacacs_user"
+  port          = 49
+  server        = "1.1.1.1"
+}
+```
+
 ## Argument Reference
 
 

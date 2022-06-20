@@ -9,6 +9,17 @@ description: |-
 # fortianalyzer_system_locallog_fortianalyzer_setting
 Settings for locallog to fortianalyzer.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_locallog_fortianalyzer_setting" "trname" {
+  secure_connection = "disable"
+  server            = "1.1.1.1"
+  status            = "upload"
+  upload_time       = ["12:12"]
+}
+```
+
 ## Argument Reference
 
 

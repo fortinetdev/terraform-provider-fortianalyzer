@@ -9,6 +9,16 @@ description: |-
 # fortianalyzer_system_logfetch_serversettings
 Log-fetch server settings.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_logfetch_serversettings" "trname" {
+  max_conn_per_session = 3
+  max_sessions         = 1
+  session_timeout      = 10
+}
+```
+
 ## Argument Reference
 
 

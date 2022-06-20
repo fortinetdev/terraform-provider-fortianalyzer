@@ -9,6 +9,14 @@ description: |-
 # fortianalyzer_fmupdate_analyzer_virusreport
 Send virus detection notification to FortiGuard.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_fmupdate_analyzer_virusreport" "trname" {
+  status = "enable"
+}
+```
+
 ## Argument Reference
 
 

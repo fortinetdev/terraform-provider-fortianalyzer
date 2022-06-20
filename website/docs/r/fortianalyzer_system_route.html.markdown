@@ -9,6 +9,17 @@ description: |-
 # fortianalyzer_system_route
 Routing table configuration.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_route" "trname" {
+  device  = "port1"
+  dst     = ["172.10.21.0", "255.255.255.0"]
+  gateway = "172.10.21.1"
+  seq_num = 2
+}
+```
+
 ## Argument Reference
 
 

@@ -9,6 +9,28 @@ description: |-
 # fortianalyzer_system_logforward
 Log forwarding.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_logforward" "trname" {
+  fwd_archive_types          = ["Web_Archive", "Email_Archive", "IM_Archive", "File_Transfer_Archive", "MMS_Archive", "AV_Quarantine", "IPS_Packets", "EDISC_Archive"]
+  fwd_archives               = "enable"
+  fwd_compression            = "disable"
+  fwd_facility               = "local7"
+  fwd_log_source_ip          = "local_ip"
+  fwd_max_delay              = "5min"
+  fwd_reliable               = "disable"
+  fwd_server_type            = "fortianalyzer"
+  fosid                      = 2
+  log_field_exclusion_status = "disable"
+  log_filter_status          = "disable"
+  log_masking_status         = "disable"
+  mode                       = "forwarding"
+  server_name                = "server"
+  server_addr                = "1.1.1.1"
+}
+```
+
 ## Argument Reference
 
 

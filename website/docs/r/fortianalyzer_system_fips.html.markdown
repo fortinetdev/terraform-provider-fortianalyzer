@@ -9,6 +9,16 @@ description: |-
 # fortianalyzer_system_fips
 Settings for FIPS-CC mode.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_fips" "trname" {
+  entropy_token    = "enable"
+  re_seed_interval = 1440
+  status           = "disable"
+}
+```
+
 ## Argument Reference
 
 

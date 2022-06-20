@@ -9,6 +9,20 @@ description: |-
 # fortianalyzer_system_admin_radius
 Configure radius.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_admin_radius" "trname" {
+  auth_type        = "any"
+  name             = "radius_user"
+  port             = 1812
+  secondary_secret = ["secondary_secret"]
+  secondary_server = "2.2.2.2"
+  secret           = ["secret"]
+  server           = "1.1.1.1"
+}
+```
+
 ## Argument Reference
 
 

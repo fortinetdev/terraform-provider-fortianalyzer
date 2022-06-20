@@ -9,6 +9,18 @@ description: |-
 # fortianalyzer_system_passwordpolicy
 Password policy.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_passwordpolicy" "trname" {
+  change_4_characters = "enable"
+  expire              = 0
+  minimum_length      = 8
+  must_contain        = ["upper-case-letter", "lower-case-letter", "number", "non-alphanumeric"]
+  status              = "disable"
+}
+```
+
 ## Argument Reference
 
 

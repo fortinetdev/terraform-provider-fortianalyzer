@@ -9,6 +9,15 @@ description: |-
 # fortianalyzer_system_report_estbrowsetime
 Report estimated browse time settings
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_report_estbrowsetime" "trname" {
+  max_read_time = 180
+  status        = "enable"
+}
+```
+
 ## Argument Reference
 
 

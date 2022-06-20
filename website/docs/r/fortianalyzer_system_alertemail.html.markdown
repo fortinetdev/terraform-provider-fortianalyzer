@@ -9,6 +9,20 @@ description: |-
 # fortianalyzer_system_alertemail
 Configure alertemail.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_alertemail" "trname" {
+  authentication = "enable"
+  fromaddress    = "from@gamil.com"
+  fromname       = "from"
+  smtppassword   = ["password"]
+  smtpport       = 25
+  smtpserver     = "1.1.1.1"
+  smtpuser       = "user"
+}
+```
+
 ## Argument Reference
 
 

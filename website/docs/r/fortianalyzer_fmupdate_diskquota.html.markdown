@@ -9,6 +9,14 @@ description: |-
 # fortianalyzer_fmupdate_diskquota
 Configure disk space available for use by the Upgrade Manager.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_fmupdate_diskquota" "trname" {
+  value = 51200
+}
+```
+
 ## Argument Reference
 
 

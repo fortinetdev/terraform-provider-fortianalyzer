@@ -9,6 +9,16 @@ description: |-
 # fortianalyzer_system_connector
 Configure connector.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_connector" "trname" {
+  fsso_refresh_interval = 180
+  fsso_sess_timeout     = 300
+  px_svr_timeout        = 300
+}
+```
+
 ## Argument Reference
 
 

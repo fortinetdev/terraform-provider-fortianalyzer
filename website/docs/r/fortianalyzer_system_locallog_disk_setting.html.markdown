@@ -9,6 +9,22 @@ description: |-
 # fortianalyzer_system_locallog_disk_setting
 Settings for local disk logging.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_locallog_disk_setting" "trname" {
+  diskfull                 = "overwrite"
+  log_disk_full_percentage = 80
+  max_log_file_size        = 100
+  roll_day                 = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]
+  roll_schedule            = "weekly"
+  server_type              = "FTP"
+  severity                 = "information"
+  status                   = "enable"
+  upload                   = "disable"
+}
+```
+
 ## Argument Reference
 
 

@@ -9,6 +9,16 @@ description: |-
 # fortianalyzer_system_syslog
 Syslog servers.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_syslog" "trname" {
+  ip   = "1.1.1.1"
+  port = 514
+  name = "syslog"
+}
+```
+
 ## Argument Reference
 
 

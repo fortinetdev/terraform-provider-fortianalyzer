@@ -9,6 +9,16 @@ description: |-
 # fortianalyzer_system_report_autocache
 Report auto-cache settings.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_report_autocache" "trname" {
+  aggressive_schedule = "disable"
+  order               = "oldest-first"
+  status              = "enable"
+}
+```
+
 ## Argument Reference
 
 

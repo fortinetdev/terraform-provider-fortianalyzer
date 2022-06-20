@@ -9,6 +9,22 @@ description: |-
 # fortianalyzer_system_alertevent
 Alert events.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_alertevent" "trname" {
+  enable_generic_text    = ["disable"]
+  enable_severity_filter = ["disable"]
+  event_time_period      = 0.5
+  generic_text           = "warning"
+  name                   = "warning"
+  num_events             = 1
+  severity_filter        = "high"
+  severity_level_comp    = ["="]
+  severity_level_logs    = ["no-check"]
+}
+```
+
 ## Argument Reference
 
 

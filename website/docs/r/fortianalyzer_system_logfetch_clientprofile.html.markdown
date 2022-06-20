@@ -9,6 +9,28 @@ description: |-
 # fortianalyzer_system_logfetch_clientprofile
 Log-fetch client profile settings.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_logfetch_clientprofile" "trname" {
+  end_time         = ["11:12 2023/02/23"]
+  fosid            = 1
+  index_fetch_logs = "enable"
+  log_filter {
+    field = "1"
+    id    = 1
+    oper  = "!="
+    value = 10
+  }
+  log_filter_status = "enable"
+  name              = "clientprofile"
+  password          = ["password"]
+  server_ip         = "1.1.1.1"
+  start_time        = ["11:12 2023/02/15"]
+  user              = "user"
+}
+```
+
 ## Argument Reference
 
 

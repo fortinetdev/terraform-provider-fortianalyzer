@@ -9,6 +9,17 @@ description: |-
 # fortianalyzer_system_metadata_admins
 Configure admins.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_metadata_admins" "trname" {
+  fieldlength = 50
+  fieldname   = "Contact"
+  importance  = "required"
+  status      = "enabled"
+}
+```
+
 ## Argument Reference
 
 

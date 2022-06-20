@@ -9,6 +9,26 @@ description: |-
 # fortianalyzer_fmupdate_fdssetting
 Configure FortiGuard settings.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_fmupdate_fdssetting" "trname" {
+  user_agent                = "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)"
+  fds_clt_ssl_protocol      = "tlsv1.2"
+  fds_ssl_protocol          = "tlsv1.2"
+  fmtr_log                  = "info"
+  fortiguard_anycast        = "disable"
+  fortiguard_anycast_source = "fortinet"
+  linkd_log                 = "info"
+  max_av_ips_version        = "20"
+  max_work                  = 1
+  send_report               = "enable"
+  send_setup                = "disable"
+  umsvc_log                 = "info"
+  unreg_dev_option          = "add-service"
+}
+```
+
 ## Argument Reference
 
 

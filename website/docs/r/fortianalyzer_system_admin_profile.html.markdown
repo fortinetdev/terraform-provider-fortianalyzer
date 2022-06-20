@@ -9,6 +9,23 @@ description: |-
 # fortianalyzer_system_admin_profile
 Admin profile.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_admin_profile" "trname" {
+  profileid          = "profile"
+  realtime_monitor   = "read-write"
+  report_viewer      = "read-write"
+  run_report         = "read-write"
+  scope              = "global"
+  script_access      = "read-write"
+  super_user_profile = "enable"
+  system_setting     = "read-write"
+  triage_events      = "read-write"
+  update_incidents   = "read-write"
+}
+```
+
 ## Argument Reference
 
 

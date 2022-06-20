@@ -9,6 +9,18 @@ description: |-
 # fortianalyzer_system_interface
 Interface configuration.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_interface" "trname" {
+  allowaccess = ["ping", "https", "ssh", "snmp", "http", "webservice", "fgfm", "https-logging", "soc-fabric"]
+  ip          = ["10.160.11.105", "255.255.255.0"]
+  mtu         = 1500
+  name        = "port13"
+  status      = "up"
+}
+```
+
 ## Argument Reference
 
 

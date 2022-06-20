@@ -9,6 +9,20 @@ description: |-
 # fortianalyzer_system_log_settings
 Log settings.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_log_settings" "trname" {
+  browse_max_logfiles   = 10000
+  dns_resolve_dstip     = "disable"
+  download_max_logs     = 100000
+  ha_auto_migrate       = "disable"
+  import_max_logfiles   = 10000
+  log_file_archive_name = "basic"
+  sync_search_timeout   = 60
+}
+```
+
 ## Argument Reference
 
 

@@ -9,6 +9,15 @@ description: |-
 # fortianalyzer_system_logforwardservice
 Log forwarding service.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_logforwardservice" "trname" {
+  accept_aggregation     = "enable"
+  aggregation_disk_quota = 20000
+}
+```
+
 ## Argument Reference
 
 

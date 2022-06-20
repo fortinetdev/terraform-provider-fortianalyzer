@@ -9,6 +9,18 @@ description: |-
 # fortianalyzer_system_centralmanagement
 Central management configuration.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_centralmanagement" "trname" {
+  allow_monitor           = "disable"
+  authorized_manager_only = "enable"
+  enc_algorithm           = "default"
+  fmg                     = "1.1.1.1"
+  type                    = "fortimanager"
+}
+```
+
 ## Argument Reference
 
 

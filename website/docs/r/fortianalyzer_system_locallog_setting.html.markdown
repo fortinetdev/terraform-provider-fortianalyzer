@@ -9,6 +9,16 @@ description: |-
 # fortianalyzer_system_locallog_setting
 Settings for locallog logging.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_locallog_setting" "trname" {
+  log_interval_dev_no_logging = 1440
+  log_interval_disk_full      = 5
+  log_interval_gbday_exceeded = 1440
+}
+```
+
 ## Argument Reference
 
 

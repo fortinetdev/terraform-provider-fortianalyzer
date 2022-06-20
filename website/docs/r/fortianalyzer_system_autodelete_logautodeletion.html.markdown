@@ -9,6 +9,17 @@ description: |-
 # fortianalyzer_system_autodelete_logautodeletion
 Automatic deletion policy for device logs.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_autodelete_logautodeletion" "trname" {
+  retention = "days"
+  runat     = 1
+  status    = "enable"
+  value     = 1
+}
+```
+
 ## Argument Reference
 
 

@@ -9,6 +9,14 @@ description: |-
 # fortianalyzer_fmupdate_service
 Enable/disable services provided by the built-in FortiGuard.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_fmupdate_service" "trname" {
+  avips = "disable"
+}
+```
+
 ## Argument Reference
 
 

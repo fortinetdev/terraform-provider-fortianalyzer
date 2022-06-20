@@ -9,6 +9,19 @@ description: |-
 # fortianalyzer_system_docker
 Docker host.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_docker" "trname" {
+  cpu                       = 50
+  default_address_pool_base = ["172.17.0.0", "255.255.0.0"]
+  default_address_pool_size = 24
+  docker_user_login_max     = 32
+  mem                       = 50
+  status                    = "disable"
+}
+```
+
 ## Argument Reference
 
 

@@ -9,6 +9,44 @@ description: |-
 # fortianalyzer_system_admin_group
 User group.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_admin_group" "trname" {
+  name = "group"
+  member {
+    name = fortianalyzer_system_admin_ldap.member1.name
+  }
+  member {
+    name = fortianalyzer_system_admin_radius.member2.name
+  }
+}
+
+resource "fortianalyzer_system_admin_ldap" "member1" {
+  cnid            = "uid"
+  connect_timeout = 10
+  dn              = "dc=example,dc=com"
+  memberof_attr   = "memberOf"
+  name            = "member1"
+  password        = ["password"]
+  port            = 389
+  secure          = "disable"
+  server          = "1.1.1.1"
+  type            = "simple"
+  username        = "admin"
+}
+
+resource "fortianalyzer_system_admin_radius" "member2" {
+  auth_type        = "any"
+  name             = "member2"
+  port             = 1812
+  secondary_secret = ["secondary_secret"]
+  secondary_server = "2.2.2.2"
+  secret           = ["secret"]
+  server           = "1.1.1.1"
+}
+```
+
 ## Argument Reference
 
 

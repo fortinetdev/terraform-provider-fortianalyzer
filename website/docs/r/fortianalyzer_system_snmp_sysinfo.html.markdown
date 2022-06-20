@@ -9,6 +9,18 @@ description: |-
 # fortianalyzer_system_snmp_sysinfo
 SNMP configuration.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_snmp_sysinfo" "trname" {
+  fortianalyzer_legacy_sysoid          = "disable"
+  status                               = "disable"
+  trap_cpu_high_exclude_nice_threshold = 80
+  trap_high_cpu_threshold              = 80
+  trap_low_memory_threshold            = 80
+}
+```
+
 ## Argument Reference
 
 

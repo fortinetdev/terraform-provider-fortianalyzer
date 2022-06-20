@@ -9,6 +9,15 @@ description: |-
 # fortianalyzer_system_log_ratelimit
 Logging rate limit.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_log_ratelimit" "trname" {
+  mode             = "manual"
+  system_ratelimit = 0
+}
+```
+
 ## Argument Reference
 
 

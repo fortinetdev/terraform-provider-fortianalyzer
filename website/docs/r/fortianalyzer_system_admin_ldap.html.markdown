@@ -9,6 +9,24 @@ description: |-
 # fortianalyzer_system_admin_ldap
 LDAP server entry configuration.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_admin_ldap" "trname" {
+  cnid            = "uid"
+  connect_timeout = 10
+  dn              = "dc=example,dc=com"
+  memberof_attr   = "memberOf"
+  name            = "ldap_user"
+  password        = ["password"]
+  port            = 389
+  secure          = "disable"
+  server          = "1.1.1.1"
+  type            = "simple"
+  username        = "admin"
+}
+```
+
 ## Argument Reference
 
 

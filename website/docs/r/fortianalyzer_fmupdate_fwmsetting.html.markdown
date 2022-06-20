@@ -9,6 +9,19 @@ description: |-
 # fortianalyzer_fmupdate_fwmsetting
 Configure firmware management settings.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_fmupdate_fwmsetting" "trname" {
+  auto_scan_fgt_disk      = "enable"
+  check_fgt_disk          = "enable"
+  fds_failover_fmg        = "enable"
+  fds_image_timeout       = 1800
+  immx_source             = "fmg"
+  multiple_steps_interval = 60
+}
+```
+
 ## Argument Reference
 
 

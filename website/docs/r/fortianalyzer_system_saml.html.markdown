@@ -9,6 +9,17 @@ description: |-
 # fortianalyzer_system_saml
 Global settings for SAML authentication.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_saml" "trname" {
+  default_profile = "Restricted_User"
+  forticloud_sso  = "disable"
+  server_address  = "1.1.1.1"
+  status          = "disable"
+}
+```
+
 ## Argument Reference
 
 

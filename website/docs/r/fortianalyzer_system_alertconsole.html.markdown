@@ -9,6 +9,15 @@ description: |-
 # fortianalyzer_system_alertconsole
 Alert console.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_alertconsole" "trname" {
+  period         = 7
+  severity_level = ["emergency"]
+}
+```
+
 ## Argument Reference
 
 

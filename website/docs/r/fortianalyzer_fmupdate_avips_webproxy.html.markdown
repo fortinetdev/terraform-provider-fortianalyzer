@@ -9,6 +9,18 @@ description: |-
 # fortianalyzer_fmupdate_avips_webproxy
 Configure the web proxy for use with FortiGuard antivirus and IPS updates.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_fmupdate_avips_webproxy" "trname" {
+  mode     = "tunnel"
+  password = ["password"]
+  port     = 80
+  status   = "disable"
+  username = "webproxy"
+}
+```
+
 ## Argument Reference
 
 

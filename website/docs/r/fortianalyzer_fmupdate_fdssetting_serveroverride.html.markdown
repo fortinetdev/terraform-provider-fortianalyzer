@@ -9,6 +9,14 @@ description: |-
 # fortianalyzer_fmupdate_fdssetting_serveroverride
 Server override configure.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_fmupdate_fdssetting_serveroverride" "trname" {
+  status = "disable"
+}
+```
+
 ## Argument Reference
 
 

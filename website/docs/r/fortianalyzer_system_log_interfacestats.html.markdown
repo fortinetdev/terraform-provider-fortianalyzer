@@ -9,6 +9,17 @@ description: |-
 # fortianalyzer_system_log_interfacestats
 Interface statistics settings.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_log_interfacestats" "trname" {
+  billing_report    = "disable"
+  retention_days    = 100
+  sampling_interval = 1200
+  status            = "enable"
+}
+```
+
 ## Argument Reference
 
 
