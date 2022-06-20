@@ -1,5 +1,16 @@
 ## 1.1.0 (Unreleased)
 
+## 1.0.1 (Jun 20, 2022)
+
+IMPROVEMENTS:
+
+* Update sensitive keys
+* Fix type convert issue
+* Fix captial letters issue on Doc
+* Update delete operation for arguments
+* Fix argument of 'fazadom' issue
+* Add examples in Doc
+
 ## 1.0.0 (Mar 11, 2022)
 
 FEATURES:
