@@ -1,5 +1,11 @@
 ## 1.1.0 (Unreleased)
 
+## 1.0.2 (Aug 31, 2022)
+
+IMPROVEMENTS:
+
+* Upgrade Terraform SDK to v2;
+
 ## 1.0.1 (Jun 20, 2022)
 
 IMPROVEMENTS:

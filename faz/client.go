@@ -11,7 +11,7 @@ import (
 
 	"github.com/fortinetdev/forti-sdk-go/fortianalyzer/auth"
 	forticlient "github.com/fortinetdev/forti-sdk-go/fortianalyzer/sdkcore"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
 // Config gets the authentication information from the given metadata
