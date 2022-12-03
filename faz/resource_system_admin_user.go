@@ -200,6 +200,10 @@ func resourceSystemAdminUser() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"fingerprint": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"first_name": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -940,6 +944,10 @@ func flattenSystemAdminUserExtAuthGroupMatch(v interface{}, d *schema.ResourceDa
 	return v
 }
 
+func flattenSystemAdminUserFingerprint(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemAdminUserFirstName(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -1442,6 +1450,16 @@ func refreshObjectSystemAdminUser(d *schema.ResourceData, o map[string]interface
 			}
 		} else {
 			return fmt.Errorf("Error reading ext_auth_group_match: %v", err)
+		}
+	}
+
+	if err = d.Set("fingerprint", flattenSystemAdminUserFingerprint(o["fingerprint"], d, "fingerprint")); err != nil {
+		if vv, ok := fortiAPIPatch(o["fingerprint"], "SystemAdminUser-Fingerprint"); ok {
+			if err = d.Set("fingerprint", vv); err != nil {
+				return fmt.Errorf("Error reading fingerprint: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading fingerprint: %v", err)
 		}
 	}
 
@@ -2289,6 +2307,10 @@ func expandSystemAdminUserExtAuthGroupMatch(d *schema.ResourceData, v interface{
 	return v, nil
 }
 
+func expandSystemAdminUserFingerprint(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemAdminUserFirstName(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -2705,6 +2727,15 @@ func getObjectSystemAdminUser(d *schema.ResourceData) (*map[string]interface{}, 
 			return &obj, err
 		} else if t != nil {
 			obj["ext-auth-group-match"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("fingerprint"); ok || d.HasChange("fingerprint") {
+		t, err := expandSystemAdminUserFingerprint(d, v, "fingerprint")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["fingerprint"] = t
 		}
 	}
 

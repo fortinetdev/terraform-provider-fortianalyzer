@@ -25,7 +25,7 @@ The following arguments are supported:
 ## Attribute Reference
 
 In addition to all the above arguments, the following attributes are exported:
-* `id` - an identifier for the resource.
+* `id` - an identifier for the resource with format {{fosid}}.
 
 ## Import
 
@@ -33,7 +33,7 @@ System LogRatelimitRatelimits can be imported using any of these accepted format
 ```
 
 $ export "FORTIANALYZER_IMPORT_TABLE"="true"
-$ terraform import fortianalyzer_system_log_ratelimit_ratelimits.labelname SystemLogRatelimitRatelimits
+$ terraform import fortianalyzer_system_log_ratelimit_ratelimits.labelname {{fosid}}
 $ unset "FORTIANALYZER_IMPORT_TABLE"
 ```
 

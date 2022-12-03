@@ -192,6 +192,31 @@ func resourceSystemHa() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"vip_block": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"id": &schema.Schema{
+							Type:     schema.TypeInt,
+							Optional: true,
+						},
+						"status": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+							Computed: true,
+						},
+						"vip": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+						},
+						"vip_interface": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+						},
+					},
+				},
+			},
 			"vip": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -515,6 +540,73 @@ func flattenSystemHaUnicastSha(v interface{}, d *schema.ResourceData, pre string
 	return v
 }
 
+func flattenSystemHaVipBlockSha(v interface{}, d *schema.ResourceData, pre string) []map[string]interface{} {
+	if v == nil {
+		return nil
+	}
+
+	l := v.([]interface{})
+	if len(l) == 0 || l[0] == nil {
+		return nil
+	}
+
+	result := make([]map[string]interface{}, 0, len(l))
+
+	con := 0
+	for _, r := range l {
+		tmp := make(map[string]interface{})
+		i := r.(map[string]interface{})
+
+		pre_append := "" // table
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "id"
+		if _, ok := i["id"]; ok {
+			v := flattenSystemHaVipBlockIdSha(i["id"], d, pre_append)
+			tmp["id"] = fortiAPISubPartPatch(v, "SystemHa-VipBlock-Id")
+		}
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "status"
+		if _, ok := i["status"]; ok {
+			v := flattenSystemHaVipBlockStatusSha(i["status"], d, pre_append)
+			tmp["status"] = fortiAPISubPartPatch(v, "SystemHa-VipBlock-Status")
+		}
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "vip"
+		if _, ok := i["vip"]; ok {
+			v := flattenSystemHaVipBlockVipSha(i["vip"], d, pre_append)
+			tmp["vip"] = fortiAPISubPartPatch(v, "SystemHa-VipBlock-Vip")
+		}
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "vip_interface"
+		if _, ok := i["vip-interface"]; ok {
+			v := flattenSystemHaVipBlockVipInterfaceSha(i["vip-interface"], d, pre_append)
+			tmp["vip_interface"] = fortiAPISubPartPatch(v, "SystemHa-VipBlock-VipInterface")
+		}
+
+		result = append(result, tmp)
+
+		con += 1
+	}
+
+	return result
+}
+
+func flattenSystemHaVipBlockIdSha(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemHaVipBlockStatusSha(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemHaVipBlockVipSha(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemHaVipBlockVipInterfaceSha(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemHaVipSha(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -764,13 +856,41 @@ func refreshObjectSystemHa(d *schema.ResourceData, o map[string]interface{}) err
 		}
 	}
 
-	if err = d.Set("vip", flattenSystemHaVipSha(o["vip"], d, "vip")); err != nil {
-		if vv, ok := fortiAPIPatch(o["vip"], "SystemHa-Vip"); ok {
-			if err = d.Set("vip", vv); err != nil {
-				return fmt.Errorf("Error reading vip: %v", err)
+	if _, ok := o["vip"].([]interface{}); ok {
+		if isImportTable() {
+			if err = d.Set("vip_block", flattenSystemHaVipBlockSha(o["vip"], d, "vip_block")); err != nil {
+				if vv, ok := fortiAPIPatch(o["vip"], "SystemHa-VipBlock"); ok {
+					if err = d.Set("vip_block", vv); err != nil {
+						return fmt.Errorf("Error reading vip_block: %v", err)
+					}
+				} else {
+					return fmt.Errorf("Error reading vip_block: %v", err)
+				}
 			}
 		} else {
-			return fmt.Errorf("Error reading vip: %v", err)
+			if _, ok := d.GetOk("vip_block"); ok {
+				if err = d.Set("vip_block", flattenSystemHaVipBlockSha(o["vip"], d, "vip_block")); err != nil {
+					if vv, ok := fortiAPIPatch(o["vip"], "SystemHa-VipBlock"); ok {
+						if err = d.Set("vip_block", vv); err != nil {
+							return fmt.Errorf("Error reading vip_block: %v", err)
+						}
+					} else {
+						return fmt.Errorf("Error reading vip_block: %v", err)
+					}
+				}
+			}
+		}
+	}
+
+	if _, ok := o["vip"].(string); ok {
+		if err = d.Set("vip", flattenSystemHaVipSha(o["vip"], d, "vip")); err != nil {
+			if vv, ok := fortiAPIPatch(o["vip"], "SystemHa-Vip"); ok {
+				if err = d.Set("vip", vv); err != nil {
+					return fmt.Errorf("Error reading vip: %v", err)
+				}
+			} else {
+				return fmt.Errorf("Error reading vip: %v", err)
+			}
 		}
 	}
 
@@ -1011,6 +1131,64 @@ func expandSystemHaUnicastSha(d *schema.ResourceData, v interface{}, pre string)
 	return v, nil
 }
 
+func expandSystemHaVipBlockSha(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	l := v.([]interface{})
+	if len(l) == 0 || l[0] == nil {
+		return nil, nil
+	}
+
+	result := make([]map[string]interface{}, 0, len(l))
+
+	con := 0
+	for _, r := range l {
+		tmp := make(map[string]interface{})
+		i := r.(map[string]interface{})
+		pre_append := "" // table
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "id"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["id"], _ = expandSystemHaVipBlockIdSha(d, i["id"], pre_append)
+		}
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "status"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["status"], _ = expandSystemHaVipBlockStatusSha(d, i["status"], pre_append)
+		}
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "vip"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["vip"], _ = expandSystemHaVipBlockVipSha(d, i["vip"], pre_append)
+		}
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "vip_interface"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["vip-interface"], _ = expandSystemHaVipBlockVipInterfaceSha(d, i["vip_interface"], pre_append)
+		}
+
+		result = append(result, tmp)
+
+		con += 1
+	}
+
+	return result, nil
+}
+
+func expandSystemHaVipBlockIdSha(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemHaVipBlockStatusSha(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemHaVipBlockVipSha(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemHaVipBlockVipInterfaceSha(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemHaVipSha(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -1226,6 +1404,15 @@ func getObjectSystemHa(d *schema.ResourceData) (*map[string]interface{}, error) 
 			return &obj, err
 		} else if t != nil {
 			obj["unicast"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("vip_block"); ok || d.HasChange("vip_block") {
+		t, err := expandSystemHaVipBlockSha(d, v, "vip_block")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["vip"] = t
 		}
 	}
 

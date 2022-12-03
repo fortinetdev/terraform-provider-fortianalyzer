@@ -74,6 +74,7 @@ func resourceDvmdbAdom() *schema.Resource {
 			"mig_mr": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
+				Computed: true,
 			},
 			"mig_os_ver": &schema.Schema{
 				Type:     schema.TypeString,
@@ -88,6 +89,7 @@ func resourceDvmdbAdom() *schema.Resource {
 			"mr": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
+				Computed: true,
 			},
 			"name": &schema.Schema{
 				Type:     schema.TypeString,

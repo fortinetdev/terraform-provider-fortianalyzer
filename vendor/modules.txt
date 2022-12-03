@@ -4,7 +4,7 @@ github.com/agext/levenshtein
 github.com/apparentlymart/go-textseg/v13/textseg
 # github.com/fatih/color v1.13.0
 github.com/fatih/color
-# github.com/fortinetdev/forti-sdk-go v1.7.0
+# github.com/fortinetdev/forti-sdk-go v1.9.3
 github.com/fortinetdev/forti-sdk-go/fortianalyzer/auth
 github.com/fortinetdev/forti-sdk-go/fortianalyzer/config
 github.com/fortinetdev/forti-sdk-go/fortianalyzer/request

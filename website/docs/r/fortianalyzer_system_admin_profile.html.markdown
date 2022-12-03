@@ -54,6 +54,8 @@ The following arguments are supported:
 
 * `device_forticlient` - Manage FortiClient. none - No permission. read - Read permission. read-write - Read-write permission. Valid values: `none`, `read`, `read-write`.
 
+* `device_fortiextender` - Manage FortiExtender. none - No permission. read - Read permission. read-write - Read-write permission. Valid values: `none`, `read`, `read-write`.
+
 * `device_fortiswitch` - Manage FortiSwitch. none - No permission. read - Read permission. read-write - Read-write permission. Valid values: `none`, `read`, `read-write`.
 
 * `device_manager` - Device manager. none - No permission. read - Read permission. read-write - Read-write permission. Valid values: `none`, `read`, `read-write`.

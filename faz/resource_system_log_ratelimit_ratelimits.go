@@ -40,6 +40,7 @@ func resourceSystemLogRatelimitRatelimits() *schema.Resource {
 			},
 			"fosid": &schema.Schema{
 				Type:     schema.TypeInt,
+				ForceNew: true,
 				Optional: true,
 			},
 			"ratelimit": &schema.Schema{
@@ -67,7 +68,7 @@ func resourceSystemLogRatelimitRatelimitsCreate(d *schema.ResourceData, m interf
 		return fmt.Errorf("Error creating SystemLogRatelimitRatelimits resource: %v", err)
 	}
 
-	d.SetId(getStringKey(d, ""))
+	d.SetId(strconv.Itoa(getIntKey(d, "fosid")))
 
 	return resourceSystemLogRatelimitRatelimitsRead(d, m)
 }
@@ -91,7 +92,7 @@ func resourceSystemLogRatelimitRatelimitsUpdate(d *schema.ResourceData, m interf
 
 	log.Printf(strconv.Itoa(c.Retries))
 
-	d.SetId(getStringKey(d, ""))
+	d.SetId(strconv.Itoa(getIntKey(d, "fosid")))
 
 	return resourceSystemLogRatelimitRatelimitsRead(d, m)
 }

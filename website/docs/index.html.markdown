@@ -141,4 +141,4 @@ Check out the FortiAnalyzer provider release notes and additional information fr
 
 ## Versioning
 
-The provider can cover FortiAnalyzer 7.0 versions, the configuration of all parameters should be based on the relevant FortiAnalyzer version manual and FortiAnalyzer API guide.
+The provider can cover FortiAnalyzer 7.0, 7.2 versions, the configuration of all parameters should be based on the relevant FortiAnalyzer version manual and FortiAnalyzer API guide.

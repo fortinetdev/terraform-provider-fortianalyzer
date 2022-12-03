@@ -54,6 +54,7 @@ The following arguments are supported:
 * `private_peer` - Private-Peer. The structure of `private_peer` block is documented below.
 * `unicast` - Use unicast for HA heartbeat. disable - HA heartbeat through multicast. enable - HA heartbeat through unicast. Valid values: `disable`, `enable`.
 
+* `vip_block` - Vip. The structure of `vip_block` block is documented below.
 * `vip` - Virtual IP address for the HA
 * `vip_interface` - Interface for configuring virtual IP address
 * `dynamic_sort_subtable` - true or false, set this parameter to true when using dynamic for_each + toset to configure and sort sub-tables, please do not set this parameter when configuring static sub-tables.
@@ -75,6 +76,14 @@ The `private_peer` block supports:
 * `serial_number` - Serial number of peer.
 * `status` - Peer admin status. disable - Disable. enable - Enable. Valid values: `disable`, `enable`.
 
+
+The `vip_block` block supports:
+
+* `id` - Id.
+* `status` - VIP enabled status. disable - Disable. enable - Enable. Valid values: `disable`, `enable`.
+
+* `vip` - Virtual IP address for the HA
+* `vip_interface` - Interface for configuring virtual IP address
 
 
 ## Attribute Reference

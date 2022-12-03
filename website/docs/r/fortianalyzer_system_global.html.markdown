@@ -66,6 +66,8 @@ The following arguments are supported:
 
 * `console_output` - Console output mode. standard - Standard output. more - More page output. Valid values: `standard`, `more`.
 
+* `contentpack_fgt_install` - Enable/disable outbreak alert auto install for FGT ADOMS . disable - Disable the sql report auto outbreak auto install. enable - Enable the sql report auto outbreak auto install. Valid values: `disable`, `enable`.
+
 * `country_flag` - Country flag Status. disable - Disable country flag icon beside ip address. enable - Enable country flag icon beside ip address. Valid values: `disable`, `enable`.
 
 * `create_revision` - Enable/disable create revision by default. disable - Disable create revision by default. enable - Enable create revision by default. Valid values: `disable`, `enable`.
@@ -90,6 +92,7 @@ The following arguments are supported:
 * `fgfm_local_cert` - set the fgfm local certificate.
 * `fgfm_ssl_protocol` - set the lowest SSL protocols for fgfmsd. sslv3 - set SSLv3 as the lowest version. tlsv1.0 - set TLSv1.0 as the lowest version. tlsv1.1 - set TLSv1.1 as the lowest version. tlsv1.2 - set TLSv1.2 as the lowest version (default). tlsv1.3 - set TLSv1.3 as the lowest version. Valid values: `sslv3`, `tlsv1.0`, `tlsv1.1`, `tlsv1.2`, `tlsv1.3`.
 
+* `gui_polling_interval` - GUI polling interval in seconds (1-288000 default 5).
 * `ha_member_auto_grouping` - Enable/disable automatically group HA members feature disable - Disable automatically grouping HA members feature. enable - Enable automatically grouping HA members only when group name is unique in your network. Valid values: `disable`, `enable`.
 
 * `hostname` - System hostname.
@@ -139,6 +142,8 @@ The following arguments are supported:
 * `ssl_protocol` - SSL protocols. tlsv1.3 - Enable TLSv1.3. tlsv1.2 - Enable TLSv1.2. tlsv1.1 - Enable TLSv1.1. tlsv1.0 - Enable TLSv1.0. sslv3 - Enable SSLv3. Valid values: `tlsv1.3`, `tlsv1.2`, `tlsv1.1`, `tlsv1.0`, `sslv3`.
 
 * `ssl_static_key_ciphers` - Enable/disable SSL static key ciphers. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
+
+* `table_entry_blink` - Enable/disable table entry blink in GUI disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
 
 * `task_list_size` - Maximum number of completed tasks to keep.
 * `tftp` - Enable/disable TFTP in `exec restore image` command (disabled by default in FIPS mode) disable - Disable TFTP enable - Enable TFTP Valid values: `disable`, `enable`.

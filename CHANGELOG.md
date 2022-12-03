@@ -1,4 +1,22 @@
-## 1.1.0 (Unreleased)
+## 1.2.0 (Unreleased)
+
+## 1.1.0 (Dec 1, 2022)
+
+IMPROVEMENTS:
+
+* Support FortiAnalyzer v7.0.4, v7.0.5, v7.2.0, v7.2.1;
+* Add computed feature for some arguments;
+* Fix argument type change between different FortiAnalyzer version of resource resource_system_ha;
+* Fix mkey issue for some resources; 
+* Fix data type convert issue;
+* Fix mkey issue for resource system_log_ratelimit_ratelimits;
+
+FEATURES:
+
+* **New Resource:** `fortianalyzer_fmupdate_fwmsetting_upgradetimeout`
+* **New Resource:** `fortianalyzer_system_ha_vip`
+* **New Resource:** `fortianalyzer_system_localinpolicy`
+* **New Resource:** `fortianalyzer_system_localinpolicy6`
 
 ## 1.0.2 (Aug 31, 2022)
 

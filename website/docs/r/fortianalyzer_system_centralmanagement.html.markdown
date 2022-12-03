@@ -27,6 +27,7 @@ resource "fortianalyzer_system_centralmanagement" "trname" {
 The following arguments are supported:
 
 
+* `acctid` - Account ID.
 * `allow_monitor` - Enable/disable remote monitor of device. disable - Disable. enable - Enable. Valid values: `disable`, `enable`.
 
 * `authorized_manager_only` - Enable/disable restricted to authorized manager only. disable - Disable. enable - Enable. Valid values: `disable`, `enable`.

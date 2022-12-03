@@ -331,12 +331,18 @@ func isImportTable() bool {
 	return false
 }
 
-func convintflist2i(v interface{}) interface{} {
+func conv2int(v interface{}) interface{} {
 	if t, ok := v.([]interface{}); ok {
 		if len(t) == 0 {
 			return v
 		}
 		return t[0]
+	} else if t, ok := v.(string); ok {
+		if t == "" {
+			return 0
+		} else if iVal, _ := strconv.Atoi(t); ok {
+			return iVal
+		}
 	}
 	return v
 }

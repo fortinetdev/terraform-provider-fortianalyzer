@@ -79,6 +79,11 @@ func resourceSystemGlobal() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"contentpack_fgt_install": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"country_flag": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -140,6 +145,11 @@ func resourceSystemGlobal() *schema.Resource {
 			},
 			"fgfm_ssl_protocol": &schema.Schema{
 				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
+			"gui_polling_interval": &schema.Schema{
+				Type:     schema.TypeInt,
 				Optional: true,
 				Computed: true,
 			},
@@ -316,6 +326,11 @@ func resourceSystemGlobal() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"table_entry_blink": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"task_list_size": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
@@ -469,6 +484,10 @@ func flattenSystemGlobalConsoleOutputSga(v interface{}, d *schema.ResourceData, 
 	return v
 }
 
+func flattenSystemGlobalContentpackFgtInstallSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemGlobalCountryFlagSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -518,6 +537,10 @@ func flattenSystemGlobalFgfmLocalCertSga(v interface{}, d *schema.ResourceData, 
 }
 
 func flattenSystemGlobalFgfmSslProtocolSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemGlobalGuiPollingIntervalSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -702,6 +725,10 @@ func flattenSystemGlobalSslStaticKeyCiphersSga(v interface{}, d *schema.Resource
 	return v
 }
 
+func flattenSystemGlobalTableEntryBlinkSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemGlobalTaskListSizeSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -833,6 +860,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 		}
 	}
 
+	if err = d.Set("contentpack_fgt_install", flattenSystemGlobalContentpackFgtInstallSga(o["contentpack-fgt-install"], d, "contentpack_fgt_install")); err != nil {
+		if vv, ok := fortiAPIPatch(o["contentpack-fgt-install"], "SystemGlobal-ContentpackFgtInstall"); ok {
+			if err = d.Set("contentpack_fgt_install", vv); err != nil {
+				return fmt.Errorf("Error reading contentpack_fgt_install: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading contentpack_fgt_install: %v", err)
+		}
+	}
+
 	if err = d.Set("country_flag", flattenSystemGlobalCountryFlagSga(o["country-flag"], d, "country_flag")); err != nil {
 		if vv, ok := fortiAPIPatch(o["country-flag"], "SystemGlobal-CountryFlag"); ok {
 			if err = d.Set("country_flag", vv); err != nil {
@@ -960,6 +997,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 			}
 		} else {
 			return fmt.Errorf("Error reading fgfm_ssl_protocol: %v", err)
+		}
+	}
+
+	if err = d.Set("gui_polling_interval", flattenSystemGlobalGuiPollingIntervalSga(o["gui-polling-interval"], d, "gui_polling_interval")); err != nil {
+		if vv, ok := fortiAPIPatch(o["gui-polling-interval"], "SystemGlobal-GuiPollingInterval"); ok {
+			if err = d.Set("gui_polling_interval", vv); err != nil {
+				return fmt.Errorf("Error reading gui_polling_interval: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading gui_polling_interval: %v", err)
 		}
 	}
 
@@ -1297,6 +1344,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 		}
 	}
 
+	if err = d.Set("table_entry_blink", flattenSystemGlobalTableEntryBlinkSga(o["table-entry-blink"], d, "table_entry_blink")); err != nil {
+		if vv, ok := fortiAPIPatch(o["table-entry-blink"], "SystemGlobal-TableEntryBlink"); ok {
+			if err = d.Set("table_entry_blink", vv); err != nil {
+				return fmt.Errorf("Error reading table_entry_blink: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading table_entry_blink: %v", err)
+		}
+	}
+
 	if err = d.Set("task_list_size", flattenSystemGlobalTaskListSizeSga(o["task-list-size"], d, "task_list_size")); err != nil {
 		if vv, ok := fortiAPIPatch(o["task-list-size"], "SystemGlobal-TaskListSize"); ok {
 			if err = d.Set("task_list_size", vv); err != nil {
@@ -1416,6 +1473,10 @@ func expandSystemGlobalConsoleOutputSga(d *schema.ResourceData, v interface{}, p
 	return v, nil
 }
 
+func expandSystemGlobalContentpackFgtInstallSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemGlobalCountryFlagSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -1465,6 +1526,10 @@ func expandSystemGlobalFgfmLocalCertSga(d *schema.ResourceData, v interface{}, p
 }
 
 func expandSystemGlobalFgfmSslProtocolSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemGlobalGuiPollingIntervalSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -1641,6 +1706,10 @@ func expandSystemGlobalSslStaticKeyCiphersSga(d *schema.ResourceData, v interfac
 	return v, nil
 }
 
+func expandSystemGlobalTableEntryBlinkSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemGlobalTaskListSizeSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -1762,6 +1831,15 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
+	if v, ok := d.GetOk("contentpack_fgt_install"); ok || d.HasChange("contentpack_fgt_install") {
+		t, err := expandSystemGlobalContentpackFgtInstallSga(d, v, "contentpack_fgt_install")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["contentpack-fgt-install"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("country_flag"); ok || d.HasChange("country_flag") {
 		t, err := expandSystemGlobalCountryFlagSga(d, v, "country_flag")
 		if err != nil {
@@ -1876,6 +1954,15 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 			return &obj, err
 		} else if t != nil {
 			obj["fgfm-ssl-protocol"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("gui_polling_interval"); ok || d.HasChange("gui_polling_interval") {
+		t, err := expandSystemGlobalGuiPollingIntervalSga(d, v, "gui_polling_interval")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["gui-polling-interval"] = t
 		}
 	}
 
@@ -2164,6 +2251,15 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 			return &obj, err
 		} else if t != nil {
 			obj["ssl-static-key-ciphers"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("table_entry_blink"); ok || d.HasChange("table_entry_blink") {
+		t, err := expandSystemGlobalTableEntryBlinkSga(d, v, "table_entry_blink")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["table-entry-blink"] = t
 		}
 	}
 

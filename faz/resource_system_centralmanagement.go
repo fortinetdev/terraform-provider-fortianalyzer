@@ -29,6 +29,10 @@ func resourceSystemCentralManagement() *schema.Resource {
 		},
 
 		Schema: map[string]*schema.Schema{
+			"acctid": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"allow_monitor": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -135,6 +139,10 @@ func resourceSystemCentralManagementRead(d *schema.ResourceData, m interface{}) 
 	return nil
 }
 
+func flattenSystemCentralManagementAcctid(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemCentralManagementAllowMonitor(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -152,7 +160,7 @@ func flattenSystemCentralManagementFmg(v interface{}, d *schema.ResourceData, pr
 }
 
 func flattenSystemCentralManagementMgmtid(v interface{}, d *schema.ResourceData, pre string) interface{} {
-	return v
+	return conv2int(v)
 }
 
 func flattenSystemCentralManagementSerialNumber(v interface{}, d *schema.ResourceData, pre string) interface{} {
@@ -165,6 +173,16 @@ func flattenSystemCentralManagementType(v interface{}, d *schema.ResourceData, p
 
 func refreshObjectSystemCentralManagement(d *schema.ResourceData, o map[string]interface{}) error {
 	var err error
+
+	if err = d.Set("acctid", flattenSystemCentralManagementAcctid(o["acctid"], d, "acctid")); err != nil {
+		if vv, ok := fortiAPIPatch(o["acctid"], "SystemCentralManagement-Acctid"); ok {
+			if err = d.Set("acctid", vv); err != nil {
+				return fmt.Errorf("Error reading acctid: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading acctid: %v", err)
+		}
+	}
 
 	if err = d.Set("allow_monitor", flattenSystemCentralManagementAllowMonitor(o["allow-monitor"], d, "allow_monitor")); err != nil {
 		if vv, ok := fortiAPIPatch(o["allow-monitor"], "SystemCentralManagement-AllowMonitor"); ok {
@@ -245,6 +263,10 @@ func flattenSystemCentralManagementFortiTestDebug(d *schema.ResourceData, fosdeb
 	log.Printf("ER List: %v", e)
 }
 
+func expandSystemCentralManagementAcctid(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemCentralManagementAllowMonitor(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -275,6 +297,15 @@ func expandSystemCentralManagementType(d *schema.ResourceData, v interface{}, pr
 
 func getObjectSystemCentralManagement(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
+
+	if v, ok := d.GetOk("acctid"); ok || d.HasChange("acctid") {
+		t, err := expandSystemCentralManagementAcctid(d, v, "acctid")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["acctid"] = t
+		}
+	}
 
 	if v, ok := d.GetOk("allow_monitor"); ok || d.HasChange("allow_monitor") {
 		t, err := expandSystemCentralManagementAllowMonitor(d, v, "allow_monitor")
