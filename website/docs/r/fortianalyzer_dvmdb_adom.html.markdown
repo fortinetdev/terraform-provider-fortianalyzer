@@ -34,6 +34,8 @@ The following arguments are supported:
 * `name` - Name.
 * `os_ver` - Os_Ver. Valid values: `unknown`, `0.0`, `1.0`, `2.0`, `3.0`, `4.0`, `5.0`, `6.0`, `7.0`, `8.0`.
 
+* `restricted_prds_unitary` - Restricted_Prds. Valid values: `fos`, `foc`, `fml`, `fch`, `fwb`, `log`, `fct`, `faz`, `fsa`, `fsw`, `fmg`, `fdd`, `fac`, `fpx`, `fna`, `ffw`, `fsr`, `fad`, `fdc`, `fap`, `fxt`, `fts`, `fai`, `fwc`, `fis`, `fed`, `fabric`.
+
 * `restricted_prds` - Restricted_Prds. Valid values: `fos`, `foc`, `fml`, `fch`, `fwb`, `log`, `fct`, `faz`, `fsa`, `fsw`, `fmg`, `fdd`, `fac`, `fpx`, `fna`, `ffw`, `fsr`, `fad`, `fdc`, `fap`, `fxt`.
 
 * `state` - State.

@@ -25,6 +25,8 @@ resource "fortianalyzer_system_locallog_setting" "trname" {
 The following arguments are supported:
 
 
+* `log_daemon_crash` - Send a logmsg when a daemon crashes. enable/disable disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
+
 * `log_interval_dev_no_logging` - Interval in minute for logging the event of no logs received from a device.
 * `log_interval_disk_full` - Interval in minute for logging the event of disk full.
 * `log_interval_gbday_exceeded` - Interval in minute for logging the event of the GB/Day license exceeded.

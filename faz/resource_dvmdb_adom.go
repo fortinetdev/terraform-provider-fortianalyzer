@@ -101,6 +101,11 @@ func resourceDvmdbAdom() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"restricted_prds_unitary": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"restricted_prds": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
@@ -275,6 +280,10 @@ func flattenDvmdbAdomOsVer(v interface{}, d *schema.ResourceData, pre string) in
 	return v
 }
 
+func flattenDvmdbAdomRestrictedPrdsUnitary(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenDvmdbAdomRestrictedPrds(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return flattenStringList(v)
 }
@@ -444,13 +453,27 @@ func refreshObjectDvmdbAdom(d *schema.ResourceData, o map[string]interface{}) er
 		}
 	}
 
-	if err = d.Set("restricted_prds", flattenDvmdbAdomRestrictedPrds(o["restricted_prds"], d, "restricted_prds")); err != nil {
-		if vv, ok := fortiAPIPatch(o["restricted_prds"], "DvmdbAdom-RestrictedPrds"); ok {
-			if err = d.Set("restricted_prds", vv); err != nil {
+	if _, ok := o["restricted_prds"].(string); ok {
+		if err = d.Set("restricted_prds_unitary", flattenDvmdbAdomRestrictedPrdsUnitary(o["restricted_prds"], d, "restricted_prds_unitary")); err != nil {
+			if vv, ok := fortiAPIPatch(o["restricted_prds"], "DvmdbAdom-RestrictedPrdsUnitary"); ok {
+				if err = d.Set("restricted_prds_unitary", vv); err != nil {
+					return fmt.Errorf("Error reading restricted_prds_unitary: %v", err)
+				}
+			} else {
+				return fmt.Errorf("Error reading restricted_prds_unitary: %v", err)
+			}
+		}
+	}
+
+	if _, ok := o["restricted_prds"].([]interface{}); ok {
+		if err = d.Set("restricted_prds", flattenDvmdbAdomRestrictedPrds(o["restricted_prds"], d, "restricted_prds")); err != nil {
+			if vv, ok := fortiAPIPatch(o["restricted_prds"], "DvmdbAdom-RestrictedPrds"); ok {
+				if err = d.Set("restricted_prds", vv); err != nil {
+					return fmt.Errorf("Error reading restricted_prds: %v", err)
+				}
+			} else {
 				return fmt.Errorf("Error reading restricted_prds: %v", err)
 			}
-		} else {
-			return fmt.Errorf("Error reading restricted_prds: %v", err)
 		}
 	}
 
@@ -550,6 +573,10 @@ func expandDvmdbAdomName(d *schema.ResourceData, v interface{}, pre string) (int
 }
 
 func expandDvmdbAdomOsVer(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandDvmdbAdomRestrictedPrdsUnitary(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -704,6 +731,15 @@ func getObjectDvmdbAdom(d *schema.ResourceData) (*map[string]interface{}, error)
 			return &obj, err
 		} else if t != nil {
 			obj["os_ver"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("restricted_prds_unitary"); ok || d.HasChange("restricted_prds_unitary") {
+		t, err := expandDvmdbAdomRestrictedPrdsUnitary(d, v, "restricted_prds_unitary")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["restricted_prds"] = t
 		}
 	}
 

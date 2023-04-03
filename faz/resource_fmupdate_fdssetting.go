@@ -190,6 +190,11 @@ func resourceFmupdateFdsSetting() *schema.Resource {
 					},
 				},
 			},
+			"system_support_faz": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
+			},
 			"system_support_fct": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
@@ -614,6 +619,10 @@ func flattenFmupdateFdsSettingServerOverrideStatusFfa(v interface{}, d *schema.R
 	return v
 }
 
+func flattenFmupdateFdsSettingSystemSupportFazFfa(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
+}
+
 func flattenFmupdateFdsSettingSystemSupportFctFfa(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return flattenStringList(v)
 }
@@ -885,6 +894,16 @@ func refreshObjectFmupdateFdsSetting(d *schema.ResourceData, o map[string]interf
 					return fmt.Errorf("Error reading server_override: %v", err)
 				}
 			}
+		}
+	}
+
+	if err = d.Set("system_support_faz", flattenFmupdateFdsSettingSystemSupportFazFfa(o["system-support-faz"], d, "system_support_faz")); err != nil {
+		if vv, ok := fortiAPIPatch(o["system-support-faz"], "FmupdateFdsSetting-SystemSupportFaz"); ok {
+			if err = d.Set("system_support_faz", vv); err != nil {
+				return fmt.Errorf("Error reading system_support_faz: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading system_support_faz: %v", err)
 		}
 	}
 
@@ -1275,6 +1294,10 @@ func expandFmupdateFdsSettingServerOverrideStatusFfa(d *schema.ResourceData, v i
 	return v, nil
 }
 
+func expandFmupdateFdsSettingSystemSupportFazFfa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
+}
+
 func expandFmupdateFdsSettingSystemSupportFctFfa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return expandStringList(v.(*schema.Set).List()), nil
 }
@@ -1489,6 +1512,15 @@ func getObjectFmupdateFdsSetting(d *schema.ResourceData) (*map[string]interface{
 			return &obj, err
 		} else if t != nil {
 			obj["server-override"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("system_support_faz"); ok || d.HasChange("system_support_faz") {
+		t, err := expandFmupdateFdsSettingSystemSupportFazFfa(d, v, "system_support_faz")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["system-support-faz"] = t
 		}
 	}
 

@@ -62,6 +62,11 @@ func resourceSystemAdminSetting() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"fsw_ignore_platform_check": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"gui_theme": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -257,6 +262,10 @@ func flattenSystemAdminSettingBannerMessage(v interface{}, d *schema.ResourceDat
 	return v
 }
 
+func flattenSystemAdminSettingFswIgnorePlatformCheck(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemAdminSettingGuiTheme(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -403,6 +412,16 @@ func refreshObjectSystemAdminSetting(d *schema.ResourceData, o map[string]interf
 			}
 		} else {
 			return fmt.Errorf("Error reading banner_message: %v", err)
+		}
+	}
+
+	if err = d.Set("fsw_ignore_platform_check", flattenSystemAdminSettingFswIgnorePlatformCheck(o["fsw-ignore-platform-check"], d, "fsw_ignore_platform_check")); err != nil {
+		if vv, ok := fortiAPIPatch(o["fsw-ignore-platform-check"], "SystemAdminSetting-FswIgnorePlatformCheck"); ok {
+			if err = d.Set("fsw_ignore_platform_check", vv); err != nil {
+				return fmt.Errorf("Error reading fsw_ignore_platform_check: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading fsw_ignore_platform_check: %v", err)
 		}
 	}
 
@@ -623,6 +642,10 @@ func expandSystemAdminSettingBannerMessage(d *schema.ResourceData, v interface{}
 	return v, nil
 }
 
+func expandSystemAdminSettingFswIgnorePlatformCheck(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemAdminSettingGuiTheme(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -762,6 +785,15 @@ func getObjectSystemAdminSetting(d *schema.ResourceData) (*map[string]interface{
 			return &obj, err
 		} else if t != nil {
 			obj["banner-message"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("fsw_ignore_platform_check"); ok || d.HasChange("fsw_ignore_platform_check") {
+		t, err := expandSystemAdminSettingFswIgnorePlatformCheck(d, v, "fsw_ignore_platform_check")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["fsw-ignore-platform-check"] = t
 		}
 	}
 

@@ -29,6 +29,11 @@ func resourceSystemLocallogSetting() *schema.Resource {
 		},
 
 		Schema: map[string]*schema.Schema{
+			"log_daemon_crash": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"log_interval_dev_no_logging": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
@@ -116,6 +121,10 @@ func resourceSystemLocallogSettingRead(d *schema.ResourceData, m interface{}) er
 	return nil
 }
 
+func flattenSystemLocallogSettingLogDaemonCrash(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemLocallogSettingLogIntervalDevNoLogging(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -130,6 +139,16 @@ func flattenSystemLocallogSettingLogIntervalGbdayExceeded(v interface{}, d *sche
 
 func refreshObjectSystemLocallogSetting(d *schema.ResourceData, o map[string]interface{}) error {
 	var err error
+
+	if err = d.Set("log_daemon_crash", flattenSystemLocallogSettingLogDaemonCrash(o["log-daemon-crash"], d, "log_daemon_crash")); err != nil {
+		if vv, ok := fortiAPIPatch(o["log-daemon-crash"], "SystemLocallogSetting-LogDaemonCrash"); ok {
+			if err = d.Set("log_daemon_crash", vv); err != nil {
+				return fmt.Errorf("Error reading log_daemon_crash: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading log_daemon_crash: %v", err)
+		}
+	}
 
 	if err = d.Set("log_interval_dev_no_logging", flattenSystemLocallogSettingLogIntervalDevNoLogging(o["log-interval-dev-no-logging"], d, "log_interval_dev_no_logging")); err != nil {
 		if vv, ok := fortiAPIPatch(o["log-interval-dev-no-logging"], "SystemLocallogSetting-LogIntervalDevNoLogging"); ok {
@@ -170,6 +189,10 @@ func flattenSystemLocallogSettingFortiTestDebug(d *schema.ResourceData, fosdebug
 	log.Printf("ER List: %v", e)
 }
 
+func expandSystemLocallogSettingLogDaemonCrash(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemLocallogSettingLogIntervalDevNoLogging(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -184,6 +207,15 @@ func expandSystemLocallogSettingLogIntervalGbdayExceeded(d *schema.ResourceData,
 
 func getObjectSystemLocallogSetting(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
+
+	if v, ok := d.GetOk("log_daemon_crash"); ok || d.HasChange("log_daemon_crash") {
+		t, err := expandSystemLocallogSettingLogDaemonCrash(d, v, "log_daemon_crash")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["log-daemon-crash"] = t
+		}
+	}
 
 	if v, ok := d.GetOk("log_interval_dev_no_logging"); ok || d.HasChange("log_interval_dev_no_logging") {
 		t, err := expandSystemLocallogSettingLogIntervalDevNoLogging(d, v, "log_interval_dev_no_logging")

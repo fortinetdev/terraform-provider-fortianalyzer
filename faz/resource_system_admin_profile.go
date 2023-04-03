@@ -170,6 +170,11 @@ func resourceSystemAdminProfile() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"ips_lock": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"ipv6_trusthost1": &schema.Schema{
 				Type:     schema.TypeList,
 				Elem:     &schema.Schema{Type: schema.TypeString},
@@ -613,6 +618,10 @@ func flattenSystemAdminProfileFortirecorderSetting(v interface{}, d *schema.Reso
 	return v
 }
 
+func flattenSystemAdminProfileIpsLock(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemAdminProfileIpv6Trusthost1(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return flattenStringList(v)
 }
@@ -989,6 +998,16 @@ func refreshObjectSystemAdminProfile(d *schema.ResourceData, o map[string]interf
 			}
 		} else {
 			return fmt.Errorf("Error reading fortirecorder_setting: %v", err)
+		}
+	}
+
+	if err = d.Set("ips_lock", flattenSystemAdminProfileIpsLock(o["ips-lock"], d, "ips_lock")); err != nil {
+		if vv, ok := fortiAPIPatch(o["ips-lock"], "SystemAdminProfile-IpsLock"); ok {
+			if err = d.Set("ips_lock", vv); err != nil {
+				return fmt.Errorf("Error reading ips_lock: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading ips_lock: %v", err)
 		}
 	}
 
@@ -1483,6 +1502,10 @@ func expandSystemAdminProfileFortirecorderSetting(d *schema.ResourceData, v inte
 	return v, nil
 }
 
+func expandSystemAdminProfileIpsLock(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemAdminProfileIpv6Trusthost1(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return expandStringList(v.([]interface{})), nil
 }
@@ -1831,6 +1854,15 @@ func getObjectSystemAdminProfile(d *schema.ResourceData) (*map[string]interface{
 			return &obj, err
 		} else if t != nil {
 			obj["fortirecorder-setting"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("ips_lock"); ok || d.HasChange("ips_lock") {
+		t, err := expandSystemAdminProfileIpsLock(d, v, "ips_lock")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["ips-lock"] = t
 		}
 	}
 

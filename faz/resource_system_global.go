@@ -34,6 +34,11 @@ func resourceSystemGlobal() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"admin_lockout_method": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"admin_lockout_threshold": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
@@ -135,9 +140,19 @@ func resourceSystemGlobal() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"event_correlation_cache_size": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
 			"fgfm_ca_cert": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
+			},
+			"fgfm_cert_exclusive": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
 			},
 			"fgfm_local_cert": &schema.Schema{
 				Type:     schema.TypeString,
@@ -145,6 +160,11 @@ func resourceSystemGlobal() *schema.Resource {
 			},
 			"fgfm_ssl_protocol": &schema.Schema{
 				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
+			"gui_curl_timeout": &schema.Schema{
+				Type:     schema.TypeInt,
 				Optional: true,
 				Computed: true,
 			},
@@ -448,6 +468,10 @@ func flattenSystemGlobalAdminLockoutDurationSga(v interface{}, d *schema.Resourc
 	return v
 }
 
+func flattenSystemGlobalAdminLockoutMethodSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemGlobalAdminLockoutThresholdSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -528,7 +552,15 @@ func flattenSystemGlobalEncAlgorithmSga(v interface{}, d *schema.ResourceData, p
 	return v
 }
 
+func flattenSystemGlobalEventCorrelationCacheSizeSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemGlobalFgfmCaCertSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemGlobalFgfmCertExclusiveSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -537,6 +569,10 @@ func flattenSystemGlobalFgfmLocalCertSga(v interface{}, d *schema.ResourceData, 
 }
 
 func flattenSystemGlobalFgfmSslProtocolSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemGlobalGuiCurlTimeoutSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -770,6 +806,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 		}
 	}
 
+	if err = d.Set("admin_lockout_method", flattenSystemGlobalAdminLockoutMethodSga(o["admin-lockout-method"], d, "admin_lockout_method")); err != nil {
+		if vv, ok := fortiAPIPatch(o["admin-lockout-method"], "SystemGlobal-AdminLockoutMethod"); ok {
+			if err = d.Set("admin_lockout_method", vv); err != nil {
+				return fmt.Errorf("Error reading admin_lockout_method: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading admin_lockout_method: %v", err)
+		}
+	}
+
 	if err = d.Set("admin_lockout_threshold", flattenSystemGlobalAdminLockoutThresholdSga(o["admin-lockout-threshold"], d, "admin_lockout_threshold")); err != nil {
 		if vv, ok := fortiAPIPatch(o["admin-lockout-threshold"], "SystemGlobal-AdminLockoutThreshold"); ok {
 			if err = d.Set("admin_lockout_threshold", vv); err != nil {
@@ -970,6 +1016,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 		}
 	}
 
+	if err = d.Set("event_correlation_cache_size", flattenSystemGlobalEventCorrelationCacheSizeSga(o["event-correlation-cache-size"], d, "event_correlation_cache_size")); err != nil {
+		if vv, ok := fortiAPIPatch(o["event-correlation-cache-size"], "SystemGlobal-EventCorrelationCacheSize"); ok {
+			if err = d.Set("event_correlation_cache_size", vv); err != nil {
+				return fmt.Errorf("Error reading event_correlation_cache_size: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading event_correlation_cache_size: %v", err)
+		}
+	}
+
 	if err = d.Set("fgfm_ca_cert", flattenSystemGlobalFgfmCaCertSga(o["fgfm-ca-cert"], d, "fgfm_ca_cert")); err != nil {
 		if vv, ok := fortiAPIPatch(o["fgfm-ca-cert"], "SystemGlobal-FgfmCaCert"); ok {
 			if err = d.Set("fgfm_ca_cert", vv); err != nil {
@@ -977,6 +1033,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 			}
 		} else {
 			return fmt.Errorf("Error reading fgfm_ca_cert: %v", err)
+		}
+	}
+
+	if err = d.Set("fgfm_cert_exclusive", flattenSystemGlobalFgfmCertExclusiveSga(o["fgfm-cert-exclusive"], d, "fgfm_cert_exclusive")); err != nil {
+		if vv, ok := fortiAPIPatch(o["fgfm-cert-exclusive"], "SystemGlobal-FgfmCertExclusive"); ok {
+			if err = d.Set("fgfm_cert_exclusive", vv); err != nil {
+				return fmt.Errorf("Error reading fgfm_cert_exclusive: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading fgfm_cert_exclusive: %v", err)
 		}
 	}
 
@@ -997,6 +1063,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 			}
 		} else {
 			return fmt.Errorf("Error reading fgfm_ssl_protocol: %v", err)
+		}
+	}
+
+	if err = d.Set("gui_curl_timeout", flattenSystemGlobalGuiCurlTimeoutSga(o["gui-curl-timeout"], d, "gui_curl_timeout")); err != nil {
+		if vv, ok := fortiAPIPatch(o["gui-curl-timeout"], "SystemGlobal-GuiCurlTimeout"); ok {
+			if err = d.Set("gui_curl_timeout", vv); err != nil {
+				return fmt.Errorf("Error reading gui_curl_timeout: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading gui_curl_timeout: %v", err)
 		}
 	}
 
@@ -1437,6 +1513,10 @@ func expandSystemGlobalAdminLockoutDurationSga(d *schema.ResourceData, v interfa
 	return v, nil
 }
 
+func expandSystemGlobalAdminLockoutMethodSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemGlobalAdminLockoutThresholdSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -1517,7 +1597,15 @@ func expandSystemGlobalEncAlgorithmSga(d *schema.ResourceData, v interface{}, pr
 	return v, nil
 }
 
+func expandSystemGlobalEventCorrelationCacheSizeSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemGlobalFgfmCaCertSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemGlobalFgfmCertExclusiveSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -1526,6 +1614,10 @@ func expandSystemGlobalFgfmLocalCertSga(d *schema.ResourceData, v interface{}, p
 }
 
 func expandSystemGlobalFgfmSslProtocolSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemGlobalGuiCurlTimeoutSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -1750,6 +1842,15 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
+	if v, ok := d.GetOk("admin_lockout_method"); ok || d.HasChange("admin_lockout_method") {
+		t, err := expandSystemGlobalAdminLockoutMethodSga(d, v, "admin_lockout_method")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["admin-lockout-method"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("admin_lockout_threshold"); ok || d.HasChange("admin_lockout_threshold") {
 		t, err := expandSystemGlobalAdminLockoutThresholdSga(d, v, "admin_lockout_threshold")
 		if err != nil {
@@ -1930,12 +2031,30 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
+	if v, ok := d.GetOk("event_correlation_cache_size"); ok || d.HasChange("event_correlation_cache_size") {
+		t, err := expandSystemGlobalEventCorrelationCacheSizeSga(d, v, "event_correlation_cache_size")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["event-correlation-cache-size"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("fgfm_ca_cert"); ok || d.HasChange("fgfm_ca_cert") {
 		t, err := expandSystemGlobalFgfmCaCertSga(d, v, "fgfm_ca_cert")
 		if err != nil {
 			return &obj, err
 		} else if t != nil {
 			obj["fgfm-ca-cert"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("fgfm_cert_exclusive"); ok || d.HasChange("fgfm_cert_exclusive") {
+		t, err := expandSystemGlobalFgfmCertExclusiveSga(d, v, "fgfm_cert_exclusive")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["fgfm-cert-exclusive"] = t
 		}
 	}
 
@@ -1954,6 +2073,15 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 			return &obj, err
 		} else if t != nil {
 			obj["fgfm-ssl-protocol"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("gui_curl_timeout"); ok || d.HasChange("gui_curl_timeout") {
+		t, err := expandSystemGlobalGuiCurlTimeoutSga(d, v, "gui_curl_timeout")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["gui-curl-timeout"] = t
 		}
 	}
 

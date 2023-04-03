@@ -76,6 +76,8 @@ The following arguments are supported:
 
 * `fortirecorder_setting` - FortiRecorder settings. none - No permission. read - Read permission. read-write - Read-write permission. Valid values: `none`, `read`, `read-write`.
 
+* `ips_lock` - IPS locking none - No permission. read - Read permission. read-write - Read-write permission. Valid values: `none`, `read`, `read-write`.
+
 * `ipv6_trusthost1` - Admin user trusted host IPv6, default ::/0 for all.
 * `ipv6_trusthost10` - Admin user trusted host IPv6, default ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff/128 for none.
 * `ipv6_trusthost2` - Admin user trusted host IPv6, default ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff/128 for none.

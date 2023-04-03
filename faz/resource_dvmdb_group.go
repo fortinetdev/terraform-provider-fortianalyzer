@@ -45,6 +45,11 @@ func resourceDvmdbGroup() *schema.Resource {
 				Optional: true,
 				ForceNew: true,
 			},
+			"cluster_type": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"desc": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -182,6 +187,10 @@ func resourceDvmdbGroupRead(d *schema.ResourceData, m interface{}) error {
 	return nil
 }
 
+func flattenDvmdbGroupClusterType(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenDvmdbGroupDesc(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -208,6 +217,16 @@ func flattenDvmdbGroupType(v interface{}, d *schema.ResourceData, pre string) in
 
 func refreshObjectDvmdbGroup(d *schema.ResourceData, o map[string]interface{}) error {
 	var err error
+
+	if err = d.Set("cluster_type", flattenDvmdbGroupClusterType(o["cluster_type"], d, "cluster_type")); err != nil {
+		if vv, ok := fortiAPIPatch(o["cluster_type"], "DvmdbGroup-ClusterType"); ok {
+			if err = d.Set("cluster_type", vv); err != nil {
+				return fmt.Errorf("Error reading cluster_type: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading cluster_type: %v", err)
+		}
+	}
 
 	if err = d.Set("desc", flattenDvmdbGroupDesc(o["desc"], d, "desc")); err != nil {
 		if vv, ok := fortiAPIPatch(o["desc"], "DvmdbGroup-Desc"); ok {
@@ -278,6 +297,10 @@ func flattenDvmdbGroupFortiTestDebug(d *schema.ResourceData, fosdebugsn int, fos
 	log.Printf("ER List: %v", e)
 }
 
+func expandDvmdbGroupClusterType(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandDvmdbGroupDesc(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -304,6 +327,15 @@ func expandDvmdbGroupType(d *schema.ResourceData, v interface{}, pre string) (in
 
 func getObjectDvmdbGroup(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
+
+	if v, ok := d.GetOk("cluster_type"); ok || d.HasChange("cluster_type") {
+		t, err := expandDvmdbGroupClusterType(d, v, "cluster_type")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["cluster_type"] = t
+		}
+	}
 
 	if v, ok := d.GetOk("desc"); ok || d.HasChange("desc") {
 		t, err := expandDvmdbGroupDesc(d, v, "desc")
