@@ -25,6 +25,7 @@ resource "fortianalyzer_system_connector" "trname" {
 The following arguments are supported:
 
 
+* `cloud_orchest_refresh_interval` - Cloud Orchestration refresh interval (300 - 1800 seconds).
 * `conn_refresh_interval` - connector refresh interval (60 - 1800 seconds).
 * `fsso_refresh_interval` - FSSO refresh interval (60 - 600 seconds).
 * `fsso_sess_timeout` - FSSO session timeout (60 - 600 seconds).

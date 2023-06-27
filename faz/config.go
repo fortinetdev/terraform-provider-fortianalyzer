@@ -148,8 +148,13 @@ func getEnumValbyBit(v interface{}, emap map[int]string) interface{} {
 
 func getStringKey(d *schema.ResourceData, field string) string {
 	if v, ok := d.GetOkExists(field); ok {
-		if v1, ok := v.(string); ok {
-			return v1
+		switch v := v.(type) {
+		case int:
+			return strconv.Itoa(v)
+		default:
+			if v1, ok := v.(string); ok {
+				return v1
+			}
 		}
 	}
 

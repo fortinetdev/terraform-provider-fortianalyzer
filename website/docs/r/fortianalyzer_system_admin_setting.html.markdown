@@ -50,6 +50,8 @@ The following arguments are supported:
 * `auth_addr` - IP which is used by FGT to authorize FAZ.
 * `auth_port` - Port which is used by FGT to authorize FAZ.
 * `banner_message` - Banner message.
+* `firmware_upgrade_check` - Enable/disable firmware upgrade check. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
+
 * `fsw_ignore_platform_check` - Enable/disable FortiSwitch Manager switch platform support check. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
 
 * `gui_theme` - Color scheme to use for the administration GUI. blue - Blueberry green - Kiwi red - Cherry melongene - Plum spring - Spring summer - Summer autumn - Autumn winter - Winter circuit-board - Circuit Board calla-lily - Calla Lily binary-tunnel - Binary Tunnel mars - Mars blue-sea - Blue Sea technology - Technology landscape - Landscape twilight - Twilight canyon - Canyon northern-light - Northern Light astronomy - Astronomy fish - Fish penguin - Penguin mountain - Mountain panda - Panda parrot - Parrot cave - Cave zebra - Zebra contrast-dark - High Contrast Dark Valid values: `blue`, `green`, `red`, `melongene`, `spring`, `summer`, `autumn`, `winter`, `circuit-board`, `calla-lily`, `binary-tunnel`, `mars`, `blue-sea`, `technology`, `landscape`, `twilight`, `canyon`, `northern-light`, `astronomy`, `fish`, `penguin`, `mountain`, `panda`, `parrot`, `cave`, `zebra`, `contrast-dark`.

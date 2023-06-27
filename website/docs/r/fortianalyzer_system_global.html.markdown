@@ -111,7 +111,10 @@ The following arguments are supported:
 
 * `log_checksum` - Record log file hash value, timestamp, and authentication code at transmission or rolling. none - No record log file checksum. md5 - Record log file's MD5 hash value only. md5-auth - Record log file's MD5 hash value and authentication code. Valid values: `none`, `md5`, `md5-auth`.
 
+* `log_checksum_upload` - Enable/disable upload log checksum with log files. disable - Disable attribute function. enable - Enable attribute function. Valid values: `disable`, `enable`.
+
 * `log_forward_cache_size` - Log forwarding disk cache size (GB).
+* `log_forward_plugin_workers` - Maximum workers for running log forward output plugins, the valid range is 2 to 20
 * `log_mode` - Log system operation mode. analyzer - Operation mode is Analyzer collector - Operation mode is Collector Valid values: `analyzer`, `collector`.
 
 * `longitude` - fmg location longitude
@@ -119,6 +122,8 @@ The following arguments are supported:
 * `max_log_forward` - Maximum number of log-forward and aggregation settings.
 * `max_running_reports` - Maximum number of reports generating at one time.
 * `multiple_steps_upgrade_in_autolink` - Enable/disable multiple steps upgade in autolink process disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
+
+* `no_copy_permission_check` - Do not perform permission check to block object changes in different adom during copy and install. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
 
 * `normalized_intf_zone_only` - allow normalized interface to be zone only. disable - Disable SSL low-grade encryption. enable - Enable SSL low-grade encryption. Valid values: `disable`, `enable`.
 

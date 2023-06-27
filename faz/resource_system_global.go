@@ -212,7 +212,17 @@ func resourceSystemGlobal() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"log_checksum_upload": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"log_forward_cache_size": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
+			"log_forward_plugin_workers": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
 				Computed: true,
@@ -241,6 +251,11 @@ func resourceSystemGlobal() *schema.Resource {
 				Computed: true,
 			},
 			"multiple_steps_upgrade_in_autolink": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
+			"no_copy_permission_check": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
@@ -612,7 +627,15 @@ func flattenSystemGlobalLogChecksumSga(v interface{}, d *schema.ResourceData, pr
 	return v
 }
 
+func flattenSystemGlobalLogChecksumUploadSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemGlobalLogForwardCacheSizeSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemGlobalLogForwardPluginWorkersSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -637,6 +660,10 @@ func flattenSystemGlobalMaxRunningReportsSga(v interface{}, d *schema.ResourceDa
 }
 
 func flattenSystemGlobalMultipleStepsUpgradeInAutolinkSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemGlobalNoCopyPermissionCheckSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -1166,6 +1193,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 		}
 	}
 
+	if err = d.Set("log_checksum_upload", flattenSystemGlobalLogChecksumUploadSga(o["log-checksum-upload"], d, "log_checksum_upload")); err != nil {
+		if vv, ok := fortiAPIPatch(o["log-checksum-upload"], "SystemGlobal-LogChecksumUpload"); ok {
+			if err = d.Set("log_checksum_upload", vv); err != nil {
+				return fmt.Errorf("Error reading log_checksum_upload: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading log_checksum_upload: %v", err)
+		}
+	}
+
 	if err = d.Set("log_forward_cache_size", flattenSystemGlobalLogForwardCacheSizeSga(o["log-forward-cache-size"], d, "log_forward_cache_size")); err != nil {
 		if vv, ok := fortiAPIPatch(o["log-forward-cache-size"], "SystemGlobal-LogForwardCacheSize"); ok {
 			if err = d.Set("log_forward_cache_size", vv); err != nil {
@@ -1173,6 +1210,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 			}
 		} else {
 			return fmt.Errorf("Error reading log_forward_cache_size: %v", err)
+		}
+	}
+
+	if err = d.Set("log_forward_plugin_workers", flattenSystemGlobalLogForwardPluginWorkersSga(o["log-forward-plugin-workers"], d, "log_forward_plugin_workers")); err != nil {
+		if vv, ok := fortiAPIPatch(o["log-forward-plugin-workers"], "SystemGlobal-LogForwardPluginWorkers"); ok {
+			if err = d.Set("log_forward_plugin_workers", vv); err != nil {
+				return fmt.Errorf("Error reading log_forward_plugin_workers: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading log_forward_plugin_workers: %v", err)
 		}
 	}
 
@@ -1233,6 +1280,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 			}
 		} else {
 			return fmt.Errorf("Error reading multiple_steps_upgrade_in_autolink: %v", err)
+		}
+	}
+
+	if err = d.Set("no_copy_permission_check", flattenSystemGlobalNoCopyPermissionCheckSga(o["no-copy-permission-check"], d, "no_copy_permission_check")); err != nil {
+		if vv, ok := fortiAPIPatch(o["no-copy-permission-check"], "SystemGlobal-NoCopyPermissionCheck"); ok {
+			if err = d.Set("no_copy_permission_check", vv); err != nil {
+				return fmt.Errorf("Error reading no_copy_permission_check: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading no_copy_permission_check: %v", err)
 		}
 	}
 
@@ -1657,7 +1714,15 @@ func expandSystemGlobalLogChecksumSga(d *schema.ResourceData, v interface{}, pre
 	return v, nil
 }
 
+func expandSystemGlobalLogChecksumUploadSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemGlobalLogForwardCacheSizeSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemGlobalLogForwardPluginWorkersSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -1682,6 +1747,10 @@ func expandSystemGlobalMaxRunningReportsSga(d *schema.ResourceData, v interface{
 }
 
 func expandSystemGlobalMultipleStepsUpgradeInAutolinkSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemGlobalNoCopyPermissionCheckSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -2166,12 +2235,30 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
+	if v, ok := d.GetOk("log_checksum_upload"); ok || d.HasChange("log_checksum_upload") {
+		t, err := expandSystemGlobalLogChecksumUploadSga(d, v, "log_checksum_upload")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["log-checksum-upload"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("log_forward_cache_size"); ok || d.HasChange("log_forward_cache_size") {
 		t, err := expandSystemGlobalLogForwardCacheSizeSga(d, v, "log_forward_cache_size")
 		if err != nil {
 			return &obj, err
 		} else if t != nil {
 			obj["log-forward-cache-size"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("log_forward_plugin_workers"); ok || d.HasChange("log_forward_plugin_workers") {
+		t, err := expandSystemGlobalLogForwardPluginWorkersSga(d, v, "log_forward_plugin_workers")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["log-forward-plugin-workers"] = t
 		}
 	}
 
@@ -2226,6 +2313,15 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 			return &obj, err
 		} else if t != nil {
 			obj["multiple-steps-upgrade-in-autolink"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("no_copy_permission_check"); ok || d.HasChange("no_copy_permission_check") {
+		t, err := expandSystemGlobalNoCopyPermissionCheckSga(d, v, "no_copy_permission_check")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["no-copy-permission-check"] = t
 		}
 	}
 

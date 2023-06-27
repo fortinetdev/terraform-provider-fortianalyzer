@@ -63,6 +63,27 @@ func resourceSystemSocFabric() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"trusted_list": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"id": &schema.Schema{
+							Type:     schema.TypeInt,
+							Optional: true,
+						},
+						"serial": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+						},
+					},
+				},
+			},
+			"dynamic_sort_subtable": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Default:  "false",
+			},
 		},
 	}
 }
@@ -163,6 +184,53 @@ func flattenSystemSocFabricSupervisor(v interface{}, d *schema.ResourceData, pre
 	return v
 }
 
+func flattenSystemSocFabricTrustedList(v interface{}, d *schema.ResourceData, pre string) []map[string]interface{} {
+	if v == nil {
+		return nil
+	}
+
+	l := v.([]interface{})
+	if len(l) == 0 || l[0] == nil {
+		return nil
+	}
+
+	result := make([]map[string]interface{}, 0, len(l))
+
+	con := 0
+	for _, r := range l {
+		tmp := make(map[string]interface{})
+		i := r.(map[string]interface{})
+
+		pre_append := "" // table
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "id"
+		if _, ok := i["id"]; ok {
+			v := flattenSystemSocFabricTrustedListId(i["id"], d, pre_append)
+			tmp["id"] = fortiAPISubPartPatch(v, "SystemSocFabric-TrustedList-Id")
+		}
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "serial"
+		if _, ok := i["serial"]; ok {
+			v := flattenSystemSocFabricTrustedListSerial(i["serial"], d, pre_append)
+			tmp["serial"] = fortiAPISubPartPatch(v, "SystemSocFabric-TrustedList-Serial")
+		}
+
+		result = append(result, tmp)
+
+		con += 1
+	}
+
+	return result
+}
+
+func flattenSystemSocFabricTrustedListId(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemSocFabricTrustedListSerial(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func refreshObjectSystemSocFabric(d *schema.ResourceData, o map[string]interface{}) error {
 	var err error
 
@@ -226,6 +294,30 @@ func refreshObjectSystemSocFabric(d *schema.ResourceData, o map[string]interface
 		}
 	}
 
+	if isImportTable() {
+		if err = d.Set("trusted_list", flattenSystemSocFabricTrustedList(o["trusted-list"], d, "trusted_list")); err != nil {
+			if vv, ok := fortiAPIPatch(o["trusted-list"], "SystemSocFabric-TrustedList"); ok {
+				if err = d.Set("trusted_list", vv); err != nil {
+					return fmt.Errorf("Error reading trusted_list: %v", err)
+				}
+			} else {
+				return fmt.Errorf("Error reading trusted_list: %v", err)
+			}
+		}
+	} else {
+		if _, ok := d.GetOk("trusted_list"); ok {
+			if err = d.Set("trusted_list", flattenSystemSocFabricTrustedList(o["trusted-list"], d, "trusted_list")); err != nil {
+				if vv, ok := fortiAPIPatch(o["trusted-list"], "SystemSocFabric-TrustedList"); ok {
+					if err = d.Set("trusted_list", vv); err != nil {
+						return fmt.Errorf("Error reading trusted_list: %v", err)
+					}
+				} else {
+					return fmt.Errorf("Error reading trusted_list: %v", err)
+				}
+			}
+		}
+	}
+
 	return nil
 }
 
@@ -260,6 +352,46 @@ func expandSystemSocFabricStatus(d *schema.ResourceData, v interface{}, pre stri
 }
 
 func expandSystemSocFabricSupervisor(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemSocFabricTrustedList(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	l := v.([]interface{})
+	if len(l) == 0 || l[0] == nil {
+		return nil, nil
+	}
+
+	result := make([]map[string]interface{}, 0, len(l))
+
+	con := 0
+	for _, r := range l {
+		tmp := make(map[string]interface{})
+		i := r.(map[string]interface{})
+		pre_append := "" // table
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "id"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["id"], _ = expandSystemSocFabricTrustedListId(d, i["id"], pre_append)
+		}
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "serial"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["serial"], _ = expandSystemSocFabricTrustedListSerial(d, i["serial"], pre_append)
+		}
+
+		result = append(result, tmp)
+
+		con += 1
+	}
+
+	return result, nil
+}
+
+func expandSystemSocFabricTrustedListId(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemSocFabricTrustedListSerial(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -326,6 +458,15 @@ func getObjectSystemSocFabric(d *schema.ResourceData) (*map[string]interface{}, 
 			return &obj, err
 		} else if t != nil {
 			obj["supervisor"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("trusted_list"); ok || d.HasChange("trusted_list") {
+		t, err := expandSystemSocFabricTrustedList(d, v, "trusted_list")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["trusted-list"] = t
 		}
 	}
 

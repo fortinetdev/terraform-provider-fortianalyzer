@@ -34,6 +34,11 @@ func resourceSystemLocallogSetting() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"log_interval_adom_perf_stats": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
 			"log_interval_dev_no_logging": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
@@ -125,6 +130,10 @@ func flattenSystemLocallogSettingLogDaemonCrash(v interface{}, d *schema.Resourc
 	return v
 }
 
+func flattenSystemLocallogSettingLogIntervalAdomPerfStats(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemLocallogSettingLogIntervalDevNoLogging(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -147,6 +156,16 @@ func refreshObjectSystemLocallogSetting(d *schema.ResourceData, o map[string]int
 			}
 		} else {
 			return fmt.Errorf("Error reading log_daemon_crash: %v", err)
+		}
+	}
+
+	if err = d.Set("log_interval_adom_perf_stats", flattenSystemLocallogSettingLogIntervalAdomPerfStats(o["log-interval-adom-perf-stats"], d, "log_interval_adom_perf_stats")); err != nil {
+		if vv, ok := fortiAPIPatch(o["log-interval-adom-perf-stats"], "SystemLocallogSetting-LogIntervalAdomPerfStats"); ok {
+			if err = d.Set("log_interval_adom_perf_stats", vv); err != nil {
+				return fmt.Errorf("Error reading log_interval_adom_perf_stats: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading log_interval_adom_perf_stats: %v", err)
 		}
 	}
 
@@ -193,6 +212,10 @@ func expandSystemLocallogSettingLogDaemonCrash(d *schema.ResourceData, v interfa
 	return v, nil
 }
 
+func expandSystemLocallogSettingLogIntervalAdomPerfStats(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemLocallogSettingLogIntervalDevNoLogging(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -214,6 +237,15 @@ func getObjectSystemLocallogSetting(d *schema.ResourceData) (*map[string]interfa
 			return &obj, err
 		} else if t != nil {
 			obj["log-daemon-crash"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("log_interval_adom_perf_stats"); ok || d.HasChange("log_interval_adom_perf_stats") {
+		t, err := expandSystemLocallogSettingLogIntervalAdomPerfStats(d, v, "log_interval_adom_perf_stats")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["log-interval-adom-perf-stats"] = t
 		}
 	}
 

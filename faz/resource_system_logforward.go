@@ -133,6 +133,10 @@ func resourceSystemLogForward() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"fwd_output_plugin_id": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"fwd_reliable": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -547,6 +551,10 @@ func flattenSystemLogForwardFwdLogSourceIp(v interface{}, d *schema.ResourceData
 }
 
 func flattenSystemLogForwardFwdMaxDelay(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemLogForwardFwdOutputPluginId(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -1014,6 +1022,16 @@ func refreshObjectSystemLogForward(d *schema.ResourceData, o map[string]interfac
 		}
 	}
 
+	if err = d.Set("fwd_output_plugin_id", flattenSystemLogForwardFwdOutputPluginId(o["fwd-output-plugin-id"], d, "fwd_output_plugin_id")); err != nil {
+		if vv, ok := fortiAPIPatch(o["fwd-output-plugin-id"], "SystemLogForward-FwdOutputPluginId"); ok {
+			if err = d.Set("fwd_output_plugin_id", vv); err != nil {
+				return fmt.Errorf("Error reading fwd_output_plugin_id: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading fwd_output_plugin_id: %v", err)
+		}
+	}
+
 	if err = d.Set("fwd_reliable", flattenSystemLogForwardFwdReliable(o["fwd-reliable"], d, "fwd_reliable")); err != nil {
 		if vv, ok := fortiAPIPatch(o["fwd-reliable"], "SystemLogForward-FwdReliable"); ok {
 			if err = d.Set("fwd_reliable", vv); err != nil {
@@ -1453,6 +1471,10 @@ func expandSystemLogForwardFwdMaxDelay(d *schema.ResourceData, v interface{}, pr
 	return v, nil
 }
 
+func expandSystemLogForwardFwdOutputPluginId(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemLogForwardFwdReliable(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -1858,6 +1880,15 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 			return &obj, err
 		} else if t != nil {
 			obj["fwd-max-delay"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("fwd_output_plugin_id"); ok || d.HasChange("fwd_output_plugin_id") {
+		t, err := expandSystemLogForwardFwdOutputPluginId(d, v, "fwd_output_plugin_id")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["fwd-output-plugin-id"] = t
 		}
 	}
 

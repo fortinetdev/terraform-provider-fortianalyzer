@@ -43,6 +43,11 @@ func resourceSystemCentralManagement() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"elite_service": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"enc_algorithm": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -151,6 +156,10 @@ func flattenSystemCentralManagementAuthorizedManagerOnly(v interface{}, d *schem
 	return v
 }
 
+func flattenSystemCentralManagementEliteService(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemCentralManagementEncAlgorithm(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -201,6 +210,16 @@ func refreshObjectSystemCentralManagement(d *schema.ResourceData, o map[string]i
 			}
 		} else {
 			return fmt.Errorf("Error reading authorized_manager_only: %v", err)
+		}
+	}
+
+	if err = d.Set("elite_service", flattenSystemCentralManagementEliteService(o["elite-service"], d, "elite_service")); err != nil {
+		if vv, ok := fortiAPIPatch(o["elite-service"], "SystemCentralManagement-EliteService"); ok {
+			if err = d.Set("elite_service", vv); err != nil {
+				return fmt.Errorf("Error reading elite_service: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading elite_service: %v", err)
 		}
 	}
 
@@ -275,6 +294,10 @@ func expandSystemCentralManagementAuthorizedManagerOnly(d *schema.ResourceData, 
 	return v, nil
 }
 
+func expandSystemCentralManagementEliteService(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemCentralManagementEncAlgorithm(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -322,6 +345,15 @@ func getObjectSystemCentralManagement(d *schema.ResourceData) (*map[string]inter
 			return &obj, err
 		} else if t != nil {
 			obj["authorized-manager-only"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("elite_service"); ok || d.HasChange("elite_service") {
+		t, err := expandSystemCentralManagementEliteService(d, v, "elite_service")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["elite-service"] = t
 		}
 	}
 

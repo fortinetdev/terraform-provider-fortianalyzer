@@ -62,6 +62,11 @@ func resourceSystemAdminSetting() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"firmware_upgrade_check": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"fsw_ignore_platform_check": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -262,6 +267,10 @@ func flattenSystemAdminSettingBannerMessage(v interface{}, d *schema.ResourceDat
 	return v
 }
 
+func flattenSystemAdminSettingFirmwareUpgradeCheck(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemAdminSettingFswIgnorePlatformCheck(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -412,6 +421,16 @@ func refreshObjectSystemAdminSetting(d *schema.ResourceData, o map[string]interf
 			}
 		} else {
 			return fmt.Errorf("Error reading banner_message: %v", err)
+		}
+	}
+
+	if err = d.Set("firmware_upgrade_check", flattenSystemAdminSettingFirmwareUpgradeCheck(o["firmware-upgrade-check"], d, "firmware_upgrade_check")); err != nil {
+		if vv, ok := fortiAPIPatch(o["firmware-upgrade-check"], "SystemAdminSetting-FirmwareUpgradeCheck"); ok {
+			if err = d.Set("firmware_upgrade_check", vv); err != nil {
+				return fmt.Errorf("Error reading firmware_upgrade_check: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading firmware_upgrade_check: %v", err)
 		}
 	}
 
@@ -642,6 +661,10 @@ func expandSystemAdminSettingBannerMessage(d *schema.ResourceData, v interface{}
 	return v, nil
 }
 
+func expandSystemAdminSettingFirmwareUpgradeCheck(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemAdminSettingFswIgnorePlatformCheck(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -785,6 +808,15 @@ func getObjectSystemAdminSetting(d *schema.ResourceData) (*map[string]interface{
 			return &obj, err
 		} else if t != nil {
 			obj["banner-message"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("firmware_upgrade_check"); ok || d.HasChange("firmware_upgrade_check") {
+		t, err := expandSystemAdminSettingFirmwareUpgradeCheck(d, v, "firmware_upgrade_check")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["firmware-upgrade-check"] = t
 		}
 	}
 

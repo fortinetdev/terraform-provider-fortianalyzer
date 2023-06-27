@@ -192,6 +192,7 @@ func Provider() *schema.Provider {
 			"fortianalyzer_system_sniffer":                                resourceSystemSniffer(),
 			"fortianalyzer_system_snmp_community":                         resourceSystemSnmpCommunity(),
 			"fortianalyzer_system_snmp_sysinfo":                           resourceSystemSnmpSysinfo(),
+			"fortianalyzer_system_socfabric_trustedlist":                  resourceSystemSocFabricTrustedList(),
 			"fortianalyzer_system_snmp_user":                              resourceSystemSnmpUser(),
 			"fortianalyzer_system_socfabric":                              resourceSystemSocFabric(),
 			"fortianalyzer_system_sql":                                    resourceSystemSql(),

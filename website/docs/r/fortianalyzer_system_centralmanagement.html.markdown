@@ -32,6 +32,8 @@ The following arguments are supported:
 
 * `authorized_manager_only` - Enable/disable restricted to authorized manager only. disable - Disable. enable - Enable. Valid values: `disable`, `enable`.
 
+* `elite_service` - Enable/disable elite service. disable - Disable elite service. enable - Enable elite service. Valid values: `disable`, `enable`.
+
 * `enc_algorithm` - SSL communication encryption algorithms. default - SSL communication with high and medium encryption algorithms low - SSL communication with low encryption algorithms high - SSL communication with high encryption algorithms Valid values: `default`, `low`, `high`.
 
 * `fmg` - Address of Fortimanager (IP or FQDN).

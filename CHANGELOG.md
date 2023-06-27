@@ -1,4 +1,14 @@
-## 1.2.0 (Unreleased)
+## 1.2.1 (Unreleased)
+
+## 1.2.0 (Jun 26, 2023)
+
+IMPROVEMENTS:
+
+* Support FortiAnalyzer v7.0.8, v7.2.3, v7.4.0;
+
+FEATURES:
+
+* **New Resource:** `resource_system_socfabric_trustedlist`
 
 ## 1.1.1 (Mar 29, 2023)
 

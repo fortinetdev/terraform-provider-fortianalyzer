@@ -63,6 +63,7 @@ The following arguments are supported:
 
 * `fwd_max_delay` - Max delay for near realtime log forwarding. realtime - Realtime forwarding, no delay. 1min - Near realtime forwarding with up to one miniute delay. 5min - Near realtime forwarding with up to five miniutes delay. Valid values: `realtime`, `1min`, `5min`.
 
+* `fwd_output_plugin_id` - Name of the output plugin profile
 * `fwd_reliable` - Enable/disable reliable logging. disable - Disable reliable logging. enable - Enable reliable logging. Valid values: `disable`, `enable`.
 
 * `fwd_secure` - Enable/disable TLS/SSL secured reliable logging. disable - Disable TLS/SSL secured reliable logging. enable - Enable TLS/SSL secured reliable logging. Valid values: `disable`, `enable`.
