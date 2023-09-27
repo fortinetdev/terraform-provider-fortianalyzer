@@ -1,4 +1,17 @@
-## 1.2.1 (Unreleased)
+## 1.3.1 (Unreleased)
+
+## 1.3.0 (Sep 27, 2023)
+
+IMPROVEMENTS:
+
+* Support FortiAnalyzer v7.4.1;
+
+FEATURES:
+
+* **New Resource:** `fortianalyzer_system_csf`
+* **New Resource:** `fortianalyzer_system_csf_fabricconnector`
+* **New Resource:** `resource_system_socfabric_trustedlist`
+* **New Resource:** `fortianalyzer_system_csf_trustedlist`
 
 ## 1.2.0 (Jun 26, 2023)
 

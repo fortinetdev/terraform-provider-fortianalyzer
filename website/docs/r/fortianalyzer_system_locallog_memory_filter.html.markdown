@@ -44,6 +44,8 @@ resource "fortianalyzer_system_locallog_memory_filter" "trname" {
 The following arguments are supported:
 
 
+* `controller` - Controller application generic messages. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
+
 * `aid` - Log aid messages. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
 
 * `devcfg` - Log device configuration message. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.

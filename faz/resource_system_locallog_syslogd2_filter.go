@@ -29,6 +29,11 @@ func resourceSystemLocallogSyslogd2Filter() *schema.Resource {
 		},
 
 		Schema: map[string]*schema.Schema{
+			"controller": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"aid": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -311,6 +316,10 @@ func resourceSystemLocallogSyslogd2FilterRead(d *schema.ResourceData, m interfac
 	return nil
 }
 
+func flattenSystemLocallogSyslogd2FilterController(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemLocallogSyslogd2FilterAid(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -481,6 +490,16 @@ func flattenSystemLocallogSyslogd2FilterWebport(v interface{}, d *schema.Resourc
 
 func refreshObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData, o map[string]interface{}) error {
 	var err error
+
+	if err = d.Set("controller", flattenSystemLocallogSyslogd2FilterController(o["controller"], d, "controller")); err != nil {
+		if vv, ok := fortiAPIPatch(o["controller"], "SystemLocallogSyslogd2Filter-Controller"); ok {
+			if err = d.Set("controller", vv); err != nil {
+				return fmt.Errorf("Error reading controller: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading controller: %v", err)
+		}
+	}
 
 	if err = d.Set("aid", flattenSystemLocallogSyslogd2FilterAid(o["aid"], d, "aid")); err != nil {
 		if vv, ok := fortiAPIPatch(o["aid"], "SystemLocallogSyslogd2Filter-Aid"); ok {
@@ -911,6 +930,10 @@ func flattenSystemLocallogSyslogd2FilterFortiTestDebug(d *schema.ResourceData, f
 	log.Printf("ER List: %v", e)
 }
 
+func expandSystemLocallogSyslogd2FilterController(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemLocallogSyslogd2FilterAid(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -1081,6 +1104,15 @@ func expandSystemLocallogSyslogd2FilterWebport(d *schema.ResourceData, v interfa
 
 func getObjectSystemLocallogSyslogd2Filter(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
+
+	if v, ok := d.GetOk("controller"); ok || d.HasChange("controller") {
+		t, err := expandSystemLocallogSyslogd2FilterController(d, v, "controller")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["controller"] = t
+		}
+	}
 
 	if v, ok := d.GetOk("aid"); ok || d.HasChange("aid") {
 		t, err := expandSystemLocallogSyslogd2FilterAid(d, v, "aid")

@@ -43,6 +43,10 @@ func resourceDvmdbAdom() *schema.Resource {
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
 			},
+			"lock_override": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+			},
 			"log_db_retention_hours": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
@@ -236,6 +240,10 @@ func flattenDvmdbAdomFlags(v interface{}, d *schema.ResourceData, pre string) in
 	return flattenStringList(v)
 }
 
+func flattenDvmdbAdomLockOverride(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenDvmdbAdomLogDbRetentionHours(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -338,6 +346,16 @@ func refreshObjectDvmdbAdom(d *schema.ResourceData, o map[string]interface{}) er
 			}
 		} else {
 			return fmt.Errorf("Error reading flags: %v", err)
+		}
+	}
+
+	if err = d.Set("lock_override", flattenDvmdbAdomLockOverride(o["lock_override"], d, "lock_override")); err != nil {
+		if vv, ok := fortiAPIPatch(o["lock_override"], "DvmdbAdom-LockOverride"); ok {
+			if err = d.Set("lock_override", vv); err != nil {
+				return fmt.Errorf("Error reading lock_override: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading lock_override: %v", err)
 		}
 	}
 
@@ -546,6 +564,10 @@ func expandDvmdbAdomFlags(d *schema.ResourceData, v interface{}, pre string) (in
 	return expandStringList(v.(*schema.Set).List()), nil
 }
 
+func expandDvmdbAdomLockOverride(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandDvmdbAdomLogDbRetentionHours(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -645,6 +667,15 @@ func getObjectDvmdbAdom(d *schema.ResourceData) (*map[string]interface{}, error)
 			return &obj, err
 		} else if t != nil {
 			obj["flags"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("lock_override"); ok || d.HasChange("lock_override") {
+		t, err := expandDvmdbAdomLockOverride(d, v, "lock_override")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["lock_override"] = t
 		}
 	}
 

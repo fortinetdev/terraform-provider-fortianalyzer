@@ -58,6 +58,8 @@ The following arguments are supported:
 
 * `adom_status` - ADOM status. disable - Disable ADOM mode. enable - Enable ADOM mode. Valid values: `disable`, `enable`.
 
+* `apache_mode` - Set apache mode. event - Apache event mode. prefork - Apache prefork mode. Valid values: `event`, `prefork`.
+
 * `backup_compression` - Compression level. none - No compression. low - Low compression (fastest). normal - Normal compression. high - Best compression (slowest). Valid values: `none`, `low`, `normal`, `high`.
 
 * `backup_to_subfolders` - Enable/disable creation of subfolders on server for backup storage. disable - Disable creation of subfolders on server for backup storage. enable - Enable creation of subfolders on server for backup storage. Valid values: `disable`, `enable`.
@@ -97,6 +99,7 @@ The following arguments are supported:
 * `fgfm_local_cert` - set the fgfm local certificate.
 * `fgfm_ssl_protocol` - set the lowest SSL protocols for fgfmsd. sslv3 - set SSLv3 as the lowest version. tlsv1.0 - set TLSv1.0 as the lowest version. tlsv1.1 - set TLSv1.1 as the lowest version. tlsv1.2 - set TLSv1.2 as the lowest version (default). tlsv1.3 - set TLSv1.3 as the lowest version. Valid values: `sslv3`, `tlsv1.0`, `tlsv1.1`, `tlsv1.2`, `tlsv1.3`.
 
+* `fortiservice_port` - FortiService port (1 - 65535, default = 8013). Used by FortiClient endpoint compliance. Older versions of FortiClient used a different port.
 * `gui_curl_timeout` - GUI curl timeout in seconds (5-900 default 30).
 * `gui_polling_interval` - GUI polling interval in seconds (1-288000 default 5).
 * `ha_member_auto_grouping` - Enable/disable automatically group HA members feature disable - Disable automatically grouping HA members feature. enable - Enable automatically grouping HA members only when group name is unique in your network. Valid values: `disable`, `enable`.
@@ -118,12 +121,16 @@ The following arguments are supported:
 * `log_mode` - Log system operation mode. analyzer - Operation mode is Analyzer collector - Operation mode is Collector Valid values: `analyzer`, `collector`.
 
 * `longitude` - fmg location longitude
+* `management_ip` - Management IP address of this FortiGate. Used to log into this FortiGate from another FortiGate in the Security Fabric.
+* `management_port` - Overriding port for management connection (Overrides admin port).
 * `max_aggregation_tasks` - Maximum number of concurrent tasks of a log aggregation session.
 * `max_log_forward` - Maximum number of log-forward and aggregation settings.
 * `max_running_reports` - Maximum number of reports generating at one time.
 * `multiple_steps_upgrade_in_autolink` - Enable/disable multiple steps upgade in autolink process disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
 
 * `no_copy_permission_check` - Do not perform permission check to block object changes in different adom during copy and install. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
+
+* `no_vip_value_check` - Enable/disable skipping policy instead of throwing error when vip has no default or dynamic mapping during policy copy disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
 
 * `normalized_intf_zone_only` - allow normalized interface to be zone only. disable - Disable SSL low-grade encryption. enable - Enable SSL low-grade encryption. Valid values: `disable`, `enable`.
 

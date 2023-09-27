@@ -29,6 +29,11 @@ func resourceSystemLocallogFortianalyzerFilter() *schema.Resource {
 		},
 
 		Schema: map[string]*schema.Schema{
+			"controller": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"aid": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -311,6 +316,10 @@ func resourceSystemLocallogFortianalyzerFilterRead(d *schema.ResourceData, m int
 	return nil
 }
 
+func flattenSystemLocallogFortianalyzerFilterController(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemLocallogFortianalyzerFilterAid(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -481,6 +490,16 @@ func flattenSystemLocallogFortianalyzerFilterWebport(v interface{}, d *schema.Re
 
 func refreshObjectSystemLocallogFortianalyzerFilter(d *schema.ResourceData, o map[string]interface{}) error {
 	var err error
+
+	if err = d.Set("controller", flattenSystemLocallogFortianalyzerFilterController(o["controller"], d, "controller")); err != nil {
+		if vv, ok := fortiAPIPatch(o["controller"], "SystemLocallogFortianalyzerFilter-Controller"); ok {
+			if err = d.Set("controller", vv); err != nil {
+				return fmt.Errorf("Error reading controller: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading controller: %v", err)
+		}
+	}
 
 	if err = d.Set("aid", flattenSystemLocallogFortianalyzerFilterAid(o["aid"], d, "aid")); err != nil {
 		if vv, ok := fortiAPIPatch(o["aid"], "SystemLocallogFortianalyzerFilter-Aid"); ok {
@@ -911,6 +930,10 @@ func flattenSystemLocallogFortianalyzerFilterFortiTestDebug(d *schema.ResourceDa
 	log.Printf("ER List: %v", e)
 }
 
+func expandSystemLocallogFortianalyzerFilterController(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemLocallogFortianalyzerFilterAid(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -1081,6 +1104,15 @@ func expandSystemLocallogFortianalyzerFilterWebport(d *schema.ResourceData, v in
 
 func getObjectSystemLocallogFortianalyzerFilter(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
+
+	if v, ok := d.GetOk("controller"); ok || d.HasChange("controller") {
+		t, err := expandSystemLocallogFortianalyzerFilterController(d, v, "controller")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["controller"] = t
+		}
+	}
 
 	if v, ok := d.GetOk("aid"); ok || d.HasChange("aid") {
 		t, err := expandSystemLocallogFortianalyzerFilterAid(d, v, "aid")

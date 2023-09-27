@@ -29,6 +29,11 @@ func resourceSystemLocallogDiskFilter() *schema.Resource {
 		},
 
 		Schema: map[string]*schema.Schema{
+			"controller": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"aid": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -311,6 +316,10 @@ func resourceSystemLocallogDiskFilterRead(d *schema.ResourceData, m interface{})
 	return nil
 }
 
+func flattenSystemLocallogDiskFilterController(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemLocallogDiskFilterAid(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -481,6 +490,16 @@ func flattenSystemLocallogDiskFilterWebport(v interface{}, d *schema.ResourceDat
 
 func refreshObjectSystemLocallogDiskFilter(d *schema.ResourceData, o map[string]interface{}) error {
 	var err error
+
+	if err = d.Set("controller", flattenSystemLocallogDiskFilterController(o["controller"], d, "controller")); err != nil {
+		if vv, ok := fortiAPIPatch(o["controller"], "SystemLocallogDiskFilter-Controller"); ok {
+			if err = d.Set("controller", vv); err != nil {
+				return fmt.Errorf("Error reading controller: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading controller: %v", err)
+		}
+	}
 
 	if err = d.Set("aid", flattenSystemLocallogDiskFilterAid(o["aid"], d, "aid")); err != nil {
 		if vv, ok := fortiAPIPatch(o["aid"], "SystemLocallogDiskFilter-Aid"); ok {
@@ -911,6 +930,10 @@ func flattenSystemLocallogDiskFilterFortiTestDebug(d *schema.ResourceData, fosde
 	log.Printf("ER List: %v", e)
 }
 
+func expandSystemLocallogDiskFilterController(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemLocallogDiskFilterAid(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -1081,6 +1104,15 @@ func expandSystemLocallogDiskFilterWebport(d *schema.ResourceData, v interface{}
 
 func getObjectSystemLocallogDiskFilter(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
+
+	if v, ok := d.GetOk("controller"); ok || d.HasChange("controller") {
+		t, err := expandSystemLocallogDiskFilterController(d, v, "controller")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["controller"] = t
+		}
+	}
 
 	if v, ok := d.GetOk("aid"); ok || d.HasChange("aid") {
 		t, err := expandSystemLocallogDiskFilterAid(d, v, "aid")

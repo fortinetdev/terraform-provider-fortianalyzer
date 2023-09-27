@@ -59,7 +59,8 @@ func resourceSystemSocFabricTrustedListCreate(d *schema.ResourceData, m interfac
 		return fmt.Errorf("Error creating SystemSocFabricTrustedList resource: %v", err)
 	}
 
-	d.SetId(getStringKey(d, "fosid"))
+	d.SetId(strconv.Itoa(getIntKey(d, "fosid")))
+
 	return resourceSystemSocFabricTrustedListRead(d, m)
 }
 
@@ -82,7 +83,7 @@ func resourceSystemSocFabricTrustedListUpdate(d *schema.ResourceData, m interfac
 
 	log.Printf(strconv.Itoa(c.Retries))
 
-	d.SetId(getStringKey(d, "fosid"))
+	d.SetId(strconv.Itoa(getIntKey(d, "fosid")))
 
 	return resourceSystemSocFabricTrustedListRead(d, m)
 }
@@ -131,18 +132,10 @@ func resourceSystemSocFabricTrustedListRead(d *schema.ResourceData, m interface{
 	return nil
 }
 
-func flattenSystemSocFabricTrustedListId1(v interface{}, d *schema.ResourceData, pre string) interface{} {
-	return v
-}
-
-func flattenSystemSocFabricTrustedListSerial1(v interface{}, d *schema.ResourceData, pre string) interface{} {
-	return v
-}
-
 func refreshObjectSystemSocFabricTrustedList(d *schema.ResourceData, o map[string]interface{}) error {
 	var err error
 
-	if err = d.Set("fosid", flattenSystemSocFabricTrustedListId1(o["id"], d, "fosid")); err != nil {
+	if err = d.Set("fosid", flattenSystemSocFabricTrustedListId(o["id"], d, "fosid")); err != nil {
 		if vv, ok := fortiAPIPatch(o["id"], "SystemSocFabricTrustedList-Id"); ok {
 			if err = d.Set("fosid", vv); err != nil {
 				return fmt.Errorf("Error reading fosid: %v", err)
@@ -152,7 +145,7 @@ func refreshObjectSystemSocFabricTrustedList(d *schema.ResourceData, o map[strin
 		}
 	}
 
-	if err = d.Set("serial", flattenSystemSocFabricTrustedListSerial1(o["serial"], d, "serial")); err != nil {
+	if err = d.Set("serial", flattenSystemSocFabricTrustedListSerial(o["serial"], d, "serial")); err != nil {
 		if vv, ok := fortiAPIPatch(o["serial"], "SystemSocFabricTrustedList-Serial"); ok {
 			if err = d.Set("serial", vv); err != nil {
 				return fmt.Errorf("Error reading serial: %v", err)
@@ -171,19 +164,11 @@ func flattenSystemSocFabricTrustedListFortiTestDebug(d *schema.ResourceData, fos
 	log.Printf("ER List: %v", e)
 }
 
-func expandSystemSocFabricTrustedListId1(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
-	return v, nil
-}
-
-func expandSystemSocFabricTrustedListSerial1(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
-	return v, nil
-}
-
 func getObjectSystemSocFabricTrustedList(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
 	if v, ok := d.GetOk("fosid"); ok || d.HasChange("fosid") {
-		t, err := expandSystemSocFabricTrustedListId1(d, v, "fosid")
+		t, err := expandSystemSocFabricTrustedListId(d, v, "fosid")
 		if err != nil {
 			return &obj, err
 		} else if t != nil {
@@ -192,7 +177,7 @@ func getObjectSystemSocFabricTrustedList(d *schema.ResourceData) (*map[string]in
 	}
 
 	if v, ok := d.GetOk("serial"); ok || d.HasChange("serial") {
-		t, err := expandSystemSocFabricTrustedListSerial1(d, v, "serial")
+		t, err := expandSystemSocFabricTrustedListSerial(d, v, "serial")
 		if err != nil {
 			return &obj, err
 		} else if t != nil {

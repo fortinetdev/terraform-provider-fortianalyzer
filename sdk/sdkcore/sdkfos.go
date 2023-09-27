@@ -12,6 +12,8 @@ import (
 	"fmt"
 )
 
+
+
 // UpdateDvmCmdAddDevice API operation for FortiAnalyzer updates the specified CmdAddDevice.
 // Returns the index value of the CmdAddDevice and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -23,9 +25,13 @@ func (c *FortiSDKClient) UpdateDvmCmdAddDevice(params *map[string]interface{}, g
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	output, err = createUpdate(c, globaladom, path, "exec", params, false)
 	return
 }
+
+
+
 
 // UpdateDvmCmdDelDevice API operation for FortiAnalyzer updates the specified CmdDelDevice.
 // Returns the index value of the CmdDelDevice and execution result when the request executes successfully.
@@ -38,9 +44,12 @@ func (c *FortiSDKClient) UpdateDvmCmdDelDevice(params *map[string]interface{}, g
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	output, err = createUpdate(c, globaladom, path, "exec", params, false)
 	return
 }
+
+
 
 // CreateDvmdbAdom API operation for FortiAnalyzer creates a new Adom.
 // Returns the index value of the Adom and execution result when the request executes successfully.
@@ -174,6 +183,7 @@ func (c *FortiSDKClient) ReadDvmdbGroup(globaladom, mkey string, paralist []stri
 	return
 }
 
+
 // UpdateFmupdateAnalyzerVirusreport API operation for FortiAnalyzer updates the specified AnalyzerVirusreport.
 // Returns the index value of the AnalyzerVirusreport and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -184,6 +194,7 @@ func (c *FortiSDKClient) UpdateFmupdateAnalyzerVirusreport(params *map[string]in
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -210,9 +221,11 @@ func (c *FortiSDKClient) ReadFmupdateAnalyzerVirusreport(globaladom, mkey string
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateFmupdateAvIpsAdvancedLog API operation for FortiAnalyzer updates the specified Av IpsAdvanced Log.
 // Returns the index value of the Av IpsAdvanced Log and execution result when the request executes successfully.
@@ -224,6 +237,7 @@ func (c *FortiSDKClient) UpdateFmupdateAvIpsAdvancedLog(params *map[string]inter
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -250,9 +264,11 @@ func (c *FortiSDKClient) ReadFmupdateAvIpsAdvancedLog(globaladom, mkey string, p
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateFmupdateAvIpsWebProxy API operation for FortiAnalyzer updates the specified Av IpsWeb Proxy.
 // Returns the index value of the Av IpsWeb Proxy and execution result when the request executes successfully.
@@ -264,6 +280,7 @@ func (c *FortiSDKClient) UpdateFmupdateAvIpsWebProxy(params *map[string]interfac
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -290,9 +307,11 @@ func (c *FortiSDKClient) ReadFmupdateAvIpsWebProxy(globaladom, mkey string, para
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateFmupdateCustomUrlList API operation for FortiAnalyzer updates the specified Custom Url List.
 // Returns the index value of the Custom Url List and execution result when the request executes successfully.
@@ -304,6 +323,7 @@ func (c *FortiSDKClient) UpdateFmupdateCustomUrlList(params *map[string]interfac
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -330,9 +350,11 @@ func (c *FortiSDKClient) ReadFmupdateCustomUrlList(globaladom, mkey string, para
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateFmupdateDiskQuota API operation for FortiAnalyzer updates the specified Disk Quota.
 // Returns the index value of the Disk Quota and execution result when the request executes successfully.
@@ -344,6 +366,7 @@ func (c *FortiSDKClient) UpdateFmupdateDiskQuota(params *map[string]interface{},
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -370,9 +393,11 @@ func (c *FortiSDKClient) ReadFmupdateDiskQuota(globaladom, mkey string, paralist
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateFmupdateFctServices API operation for FortiAnalyzer updates the specified Fct Services.
 // Returns the index value of the Fct Services and execution result when the request executes successfully.
@@ -384,6 +409,7 @@ func (c *FortiSDKClient) UpdateFmupdateFctServices(params *map[string]interface{
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -410,9 +436,11 @@ func (c *FortiSDKClient) ReadFmupdateFctServices(globaladom, mkey string, parali
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateFmupdateFdsSetting API operation for FortiAnalyzer updates the specified Fds Setting.
 // Returns the index value of the Fds Setting and execution result when the request executes successfully.
@@ -424,6 +452,7 @@ func (c *FortiSDKClient) UpdateFmupdateFdsSetting(params *map[string]interface{}
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -450,9 +479,11 @@ func (c *FortiSDKClient) ReadFmupdateFdsSetting(globaladom, mkey string, paralis
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateFmupdateFdsSettingPushOverride API operation for FortiAnalyzer updates the specified Fds SettingPush Override.
 // Returns the index value of the Fds SettingPush Override and execution result when the request executes successfully.
@@ -464,6 +495,7 @@ func (c *FortiSDKClient) UpdateFmupdateFdsSettingPushOverride(params *map[string
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -490,9 +522,11 @@ func (c *FortiSDKClient) ReadFmupdateFdsSettingPushOverride(globaladom, mkey str
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateFmupdateFdsSettingPushOverrideToClient API operation for FortiAnalyzer updates the specified Fds SettingPush Override To Client.
 // Returns the index value of the Fds SettingPush Override To Client and execution result when the request executes successfully.
@@ -504,6 +538,7 @@ func (c *FortiSDKClient) UpdateFmupdateFdsSettingPushOverrideToClient(params *ma
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -530,9 +565,11 @@ func (c *FortiSDKClient) ReadFmupdateFdsSettingPushOverrideToClient(globaladom, 
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateFmupdateFdsSettingServerOverride API operation for FortiAnalyzer updates the specified Fds SettingServer Override.
 // Returns the index value of the Fds SettingServer Override and execution result when the request executes successfully.
@@ -544,6 +581,7 @@ func (c *FortiSDKClient) UpdateFmupdateFdsSettingServerOverride(params *map[stri
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -570,9 +608,11 @@ func (c *FortiSDKClient) ReadFmupdateFdsSettingServerOverride(globaladom, mkey s
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateFmupdateFdsSettingUpdateSchedule API operation for FortiAnalyzer updates the specified Fds SettingUpdate Schedule.
 // Returns the index value of the Fds SettingUpdate Schedule and execution result when the request executes successfully.
@@ -584,6 +624,7 @@ func (c *FortiSDKClient) UpdateFmupdateFdsSettingUpdateSchedule(params *map[stri
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -610,9 +651,11 @@ func (c *FortiSDKClient) ReadFmupdateFdsSettingUpdateSchedule(globaladom, mkey s
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateFmupdateFwmSetting API operation for FortiAnalyzer updates the specified Fwm Setting.
 // Returns the index value of the Fwm Setting and execution result when the request executes successfully.
@@ -624,6 +667,7 @@ func (c *FortiSDKClient) UpdateFmupdateFwmSetting(params *map[string]interface{}
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -650,9 +694,11 @@ func (c *FortiSDKClient) ReadFmupdateFwmSetting(globaladom, mkey string, paralis
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateFmupdateFwmSettingUpgradeTimeout API operation for FortiAnalyzer updates the specified Fwm SettingUpgrade Timeout.
 // Returns the index value of the Fwm SettingUpgrade Timeout and execution result when the request executes successfully.
@@ -664,6 +710,7 @@ func (c *FortiSDKClient) UpdateFmupdateFwmSettingUpgradeTimeout(params *map[stri
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -690,9 +737,11 @@ func (c *FortiSDKClient) ReadFmupdateFwmSettingUpgradeTimeout(globaladom, mkey s
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateFmupdateMultilayer API operation for FortiAnalyzer updates the specified Multilayer.
 // Returns the index value of the Multilayer and execution result when the request executes successfully.
@@ -704,6 +753,7 @@ func (c *FortiSDKClient) UpdateFmupdateMultilayer(params *map[string]interface{}
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -730,9 +780,11 @@ func (c *FortiSDKClient) ReadFmupdateMultilayer(globaladom, mkey string, paralis
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateFmupdatePublicnetwork API operation for FortiAnalyzer updates the specified Publicnetwork.
 // Returns the index value of the Publicnetwork and execution result when the request executes successfully.
@@ -744,6 +796,7 @@ func (c *FortiSDKClient) UpdateFmupdatePublicnetwork(params *map[string]interfac
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -770,9 +823,11 @@ func (c *FortiSDKClient) ReadFmupdatePublicnetwork(globaladom, mkey string, para
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateFmupdateServerAccessPriorities API operation for FortiAnalyzer updates the specified Server Access Priorities.
 // Returns the index value of the Server Access Priorities and execution result when the request executes successfully.
@@ -784,6 +839,7 @@ func (c *FortiSDKClient) UpdateFmupdateServerAccessPriorities(params *map[string
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -810,9 +866,11 @@ func (c *FortiSDKClient) ReadFmupdateServerAccessPriorities(globaladom, mkey str
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateFmupdateServerOverrideStatus API operation for FortiAnalyzer updates the specified Server Override Status.
 // Returns the index value of the Server Override Status and execution result when the request executes successfully.
@@ -824,6 +882,7 @@ func (c *FortiSDKClient) UpdateFmupdateServerOverrideStatus(params *map[string]i
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -850,9 +909,11 @@ func (c *FortiSDKClient) ReadFmupdateServerOverrideStatus(globaladom, mkey strin
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateFmupdateService API operation for FortiAnalyzer updates the specified Service.
 // Returns the index value of the Service and execution result when the request executes successfully.
@@ -864,6 +925,7 @@ func (c *FortiSDKClient) UpdateFmupdateService(params *map[string]interface{}, g
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -890,9 +952,11 @@ func (c *FortiSDKClient) ReadFmupdateService(globaladom, mkey string, paralist [
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateFmupdateWebSpamFgdSetting API operation for FortiAnalyzer updates the specified Web SpamFgd Setting.
 // Returns the index value of the Web SpamFgd Setting and execution result when the request executes successfully.
@@ -904,6 +968,7 @@ func (c *FortiSDKClient) UpdateFmupdateWebSpamFgdSetting(params *map[string]inte
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -930,9 +995,11 @@ func (c *FortiSDKClient) ReadFmupdateWebSpamFgdSetting(globaladom, mkey string, 
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateFmupdateWebSpamWebProxy API operation for FortiAnalyzer updates the specified Web SpamWeb Proxy.
 // Returns the index value of the Web SpamWeb Proxy and execution result when the request executes successfully.
@@ -944,6 +1011,7 @@ func (c *FortiSDKClient) UpdateFmupdateWebSpamWebProxy(params *map[string]interf
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -969,6 +1037,7 @@ func (c *FortiSDKClient) ReadFmupdateWebSpamWebProxy(globaladom, mkey string, pa
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
@@ -1238,6 +1307,7 @@ func (c *FortiSDKClient) ReadSystemAdminRadius(globaladom, mkey string, paralist
 	return
 }
 
+
 // UpdateSystemAdminSetting API operation for FortiAnalyzer updates the specified AdminSetting.
 // Returns the index value of the AdminSetting and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -1248,6 +1318,7 @@ func (c *FortiSDKClient) UpdateSystemAdminSetting(params *map[string]interface{}
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -1273,6 +1344,7 @@ func (c *FortiSDKClient) ReadSystemAdminSetting(globaladom, mkey string, paralis
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
@@ -1410,6 +1482,7 @@ func (c *FortiSDKClient) ReadSystemAdminUser(globaladom, mkey string, paralist [
 	return
 }
 
+
 // UpdateSystemAlertConsole API operation for FortiAnalyzer updates the specified Alert Console.
 // Returns the index value of the Alert Console and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -1420,6 +1493,7 @@ func (c *FortiSDKClient) UpdateSystemAlertConsole(params *map[string]interface{}
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -1445,6 +1519,7 @@ func (c *FortiSDKClient) ReadSystemAlertConsole(globaladom, mkey string, paralis
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
@@ -1516,6 +1591,7 @@ func (c *FortiSDKClient) ReadSystemAlertEvent(globaladom, mkey string, paralist 
 	return
 }
 
+
 // UpdateSystemAlertemail API operation for FortiAnalyzer updates the specified Alertemail.
 // Returns the index value of the Alertemail and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -1526,6 +1602,7 @@ func (c *FortiSDKClient) UpdateSystemAlertemail(params *map[string]interface{}, 
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -1552,9 +1629,11 @@ func (c *FortiSDKClient) ReadSystemAlertemail(globaladom, mkey string, paralist 
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemAutoDelete API operation for FortiAnalyzer updates the specified Auto Delete.
 // Returns the index value of the Auto Delete and execution result when the request executes successfully.
@@ -1566,6 +1645,7 @@ func (c *FortiSDKClient) UpdateSystemAutoDelete(params *map[string]interface{}, 
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -1592,9 +1672,11 @@ func (c *FortiSDKClient) ReadSystemAutoDelete(globaladom, mkey string, paralist 
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemAutoDeleteDlpFilesAutoDeletion API operation for FortiAnalyzer updates the specified Auto DeleteDlp Files Auto Deletion.
 // Returns the index value of the Auto DeleteDlp Files Auto Deletion and execution result when the request executes successfully.
@@ -1606,6 +1688,7 @@ func (c *FortiSDKClient) UpdateSystemAutoDeleteDlpFilesAutoDeletion(params *map[
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -1632,9 +1715,11 @@ func (c *FortiSDKClient) ReadSystemAutoDeleteDlpFilesAutoDeletion(globaladom, mk
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemAutoDeleteLogAutoDeletion API operation for FortiAnalyzer updates the specified Auto DeleteLog Auto Deletion.
 // Returns the index value of the Auto DeleteLog Auto Deletion and execution result when the request executes successfully.
@@ -1646,6 +1731,7 @@ func (c *FortiSDKClient) UpdateSystemAutoDeleteLogAutoDeletion(params *map[strin
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -1672,9 +1758,11 @@ func (c *FortiSDKClient) ReadSystemAutoDeleteLogAutoDeletion(globaladom, mkey st
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemAutoDeleteQuarantineFilesAutoDeletion API operation for FortiAnalyzer updates the specified Auto DeleteQuarantine Files Auto Deletion.
 // Returns the index value of the Auto DeleteQuarantine Files Auto Deletion and execution result when the request executes successfully.
@@ -1686,6 +1774,7 @@ func (c *FortiSDKClient) UpdateSystemAutoDeleteQuarantineFilesAutoDeletion(param
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -1712,9 +1801,11 @@ func (c *FortiSDKClient) ReadSystemAutoDeleteQuarantineFilesAutoDeletion(globala
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemAutoDeleteReportAutoDeletion API operation for FortiAnalyzer updates the specified Auto DeleteReport Auto Deletion.
 // Returns the index value of the Auto DeleteReport Auto Deletion and execution result when the request executes successfully.
@@ -1726,6 +1817,7 @@ func (c *FortiSDKClient) UpdateSystemAutoDeleteReportAutoDeletion(params *map[st
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -1752,9 +1844,11 @@ func (c *FortiSDKClient) ReadSystemAutoDeleteReportAutoDeletion(globaladom, mkey
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemBackupAllSettings API operation for FortiAnalyzer updates the specified BackupAll Settings.
 // Returns the index value of the BackupAll Settings and execution result when the request executes successfully.
@@ -1766,6 +1860,7 @@ func (c *FortiSDKClient) UpdateSystemBackupAllSettings(params *map[string]interf
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -1792,9 +1887,11 @@ func (c *FortiSDKClient) ReadSystemBackupAllSettings(globaladom, mkey string, pa
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemCentralManagement API operation for FortiAnalyzer updates the specified Central Management.
 // Returns the index value of the Central Management and execution result when the request executes successfully.
@@ -1806,6 +1903,7 @@ func (c *FortiSDKClient) UpdateSystemCentralManagement(params *map[string]interf
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -1831,6 +1929,7 @@ func (c *FortiSDKClient) ReadSystemCentralManagement(globaladom, mkey string, pa
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
@@ -2034,6 +2133,73 @@ func (c *FortiSDKClient) ReadSystemCertificateLocal(globaladom, mkey string, par
 	return
 }
 
+// CreateSystemCsfTrustedList API operation for FortiAnalyzer creates a new CsfTrusted List.
+// Returns the index value of the CsfTrusted List and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - csf trusted-list chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateSystemCsfTrustedList(params *map[string]interface{}, globaladom string, paralist []string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/system/csf/trusted-list"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, globaladom, path, "add", params, false)
+	return
+}
+
+// UpdateSystemCsfTrustedList API operation for FortiAnalyzer updates the specified CsfTrusted List.
+// Returns the index value of the CsfTrusted List and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - csf trusted-list chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateSystemCsfTrustedList(params *map[string]interface{}, globaladom, mkey string, paralist []string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/system/csf/trusted-list"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, globaladom, path, "set", params, false)
+	return
+}
+
+// DeleteSystemCsfTrustedList API operation for FortiAnalyzer deletes the specified CsfTrusted List.
+// Returns error for service API and SDK errors.
+// See the system - csf trusted-list chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteSystemCsfTrustedList(globaladom, mkey string, paralist []string) (err error) {
+	path := "/cli/[*]/system/csf/trusted-list"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, globaladom, path, "delete", false)
+	return
+}
+
+// ReadSystemCsfTrustedList API operation for FortiAnalyzer gets the CsfTrusted List
+// with the specified index value.
+// Returns the requested CsfTrusted List value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - csf trusted-list chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadSystemCsfTrustedList(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
+	path := "/cli/[*]/system/csf/trusted-list"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, globaladom, path, "get", false)
+	return
+}
+
+
 // UpdateSystemCertificateOftp API operation for FortiAnalyzer updates the specified CertificateOftp.
 // Returns the index value of the CertificateOftp and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -2044,6 +2210,7 @@ func (c *FortiSDKClient) UpdateSystemCertificateOftp(params *map[string]interfac
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -2069,6 +2236,73 @@ func (c *FortiSDKClient) ReadSystemCertificateOftp(globaladom, mkey string, para
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
+
+	mapTmp, err = read(c, globaladom, path, "get", false)
+	return
+}
+
+// CreateSystemCsfFabricConnector API operation for FortiAnalyzer creates a new CsfFabric Connector.
+// Returns the index value of the CsfFabric Connector and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - csf fabric-connector chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateSystemCsfFabricConnector(params *map[string]interface{}, globaladom string, paralist []string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/system/csf/fabric-connector"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, globaladom, path, "add", params, false)
+	return
+}
+
+// UpdateSystemCsfFabricConnector API operation for FortiAnalyzer updates the specified CsfFabric Connector.
+// Returns the index value of the CsfFabric Connector and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - csf fabric-connector chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateSystemCsfFabricConnector(params *map[string]interface{}, globaladom, mkey string, paralist []string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/system/csf/fabric-connector"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, globaladom, path, "set", params, false)
+	return
+}
+
+// DeleteSystemCsfFabricConnector API operation for FortiAnalyzer deletes the specified CsfFabric Connector.
+// Returns error for service API and SDK errors.
+// See the system - csf fabric-connector chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteSystemCsfFabricConnector(globaladom, mkey string, paralist []string) (err error) {
+	path := "/cli/[*]/system/csf/fabric-connector"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, globaladom, path, "delete", false)
+	return
+}
+
+// ReadSystemCsfFabricConnector API operation for FortiAnalyzer gets the CsfFabric Connector
+// with the specified index value.
+// Returns the requested CsfFabric Connector value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - csf fabric-connector chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadSystemCsfFabricConnector(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
+	path := "/cli/[*]/system/csf/fabric-connector"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
 
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
@@ -2140,6 +2374,49 @@ func (c *FortiSDKClient) ReadSystemCertificateRemote(globaladom, mkey string, pa
 	return
 }
 
+
+// UpdateSystemCsf API operation for FortiAnalyzer updates the specified Csf.
+// Returns the index value of the Csf and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - csf chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateSystemCsf(params *map[string]interface{}, globaladom, mkey string, paralist []string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/system/csf"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+
+	output, err = createUpdate(c, globaladom, path, "set", params, false)
+	return
+}
+
+// DeleteSystemCsf API operation for FortiAnalyzer deletes the specified Csf.
+// Returns error for service API and SDK errors.
+// See the system - csf chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteSystemCsf(globaladom, mkey string, paralist []string) (err error) {
+
+	//No unset API for system - csf
+	return
+}
+
+// ReadSystemCsf API operation for FortiAnalyzer gets the Csf
+// with the specified index value.
+// Returns the requested Csf value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - csf chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadSystemCsf(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
+	path := "/cli/[*]/system/csf"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+
+	mapTmp, err = read(c, globaladom, path, "get", false)
+	return
+}
+
 // CreateSystemCertificateSsh API operation for FortiAnalyzer creates a new CertificateSsh.
 // Returns the index value of the CertificateSsh and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -2206,6 +2483,7 @@ func (c *FortiSDKClient) ReadSystemCertificateSsh(globaladom, mkey string, paral
 	return
 }
 
+
 // UpdateSystemConnector API operation for FortiAnalyzer updates the specified Connector.
 // Returns the index value of the Connector and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -2216,6 +2494,7 @@ func (c *FortiSDKClient) UpdateSystemConnector(params *map[string]interface{}, g
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -2242,9 +2521,11 @@ func (c *FortiSDKClient) ReadSystemConnector(globaladom, mkey string, paralist [
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemDns API operation for FortiAnalyzer updates the specified Dns.
 // Returns the index value of the Dns and execution result when the request executes successfully.
@@ -2256,6 +2537,7 @@ func (c *FortiSDKClient) UpdateSystemDns(params *map[string]interface{}, globala
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -2282,9 +2564,11 @@ func (c *FortiSDKClient) ReadSystemDns(globaladom, mkey string, paralist []strin
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemDocker API operation for FortiAnalyzer updates the specified Docker.
 // Returns the index value of the Docker and execution result when the request executes successfully.
@@ -2296,6 +2580,7 @@ func (c *FortiSDKClient) UpdateSystemDocker(params *map[string]interface{}, glob
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -2322,9 +2607,11 @@ func (c *FortiSDKClient) ReadSystemDocker(globaladom, mkey string, paralist []st
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemFips API operation for FortiAnalyzer updates the specified Fips.
 // Returns the index value of the Fips and execution result when the request executes successfully.
@@ -2336,6 +2623,7 @@ func (c *FortiSDKClient) UpdateSystemFips(params *map[string]interface{}, global
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -2362,9 +2650,11 @@ func (c *FortiSDKClient) ReadSystemFips(globaladom, mkey string, paralist []stri
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemFortiviewAutoCache API operation for FortiAnalyzer updates the specified FortiviewAuto Cache.
 // Returns the index value of the FortiviewAuto Cache and execution result when the request executes successfully.
@@ -2376,6 +2666,7 @@ func (c *FortiSDKClient) UpdateSystemFortiviewAutoCache(params *map[string]inter
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -2402,9 +2693,11 @@ func (c *FortiSDKClient) ReadSystemFortiviewAutoCache(globaladom, mkey string, p
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemFortiviewSetting API operation for FortiAnalyzer updates the specified FortiviewSetting.
 // Returns the index value of the FortiviewSetting and execution result when the request executes successfully.
@@ -2416,6 +2709,7 @@ func (c *FortiSDKClient) UpdateSystemFortiviewSetting(params *map[string]interfa
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -2442,9 +2736,11 @@ func (c *FortiSDKClient) ReadSystemFortiviewSetting(globaladom, mkey string, par
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemGlobal API operation for FortiAnalyzer updates the specified Global.
 // Returns the index value of the Global and execution result when the request executes successfully.
@@ -2456,6 +2752,7 @@ func (c *FortiSDKClient) UpdateSystemGlobal(params *map[string]interface{}, glob
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -2481,6 +2778,7 @@ func (c *FortiSDKClient) ReadSystemGlobal(globaladom, mkey string, paralist []st
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
@@ -2552,6 +2850,7 @@ func (c *FortiSDKClient) ReadSystemGlobalSslCipherSuites(globaladom, mkey string
 	return
 }
 
+
 // UpdateSystemGuiact API operation for FortiAnalyzer updates the specified Guiact.
 // Returns the index value of the Guiact and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -2562,6 +2861,7 @@ func (c *FortiSDKClient) UpdateSystemGuiact(params *map[string]interface{}, glob
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -2588,9 +2888,11 @@ func (c *FortiSDKClient) ReadSystemGuiact(globaladom, mkey string, paralist []st
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemHa API operation for FortiAnalyzer updates the specified Ha.
 // Returns the index value of the Ha and execution result when the request executes successfully.
@@ -2602,6 +2904,7 @@ func (c *FortiSDKClient) UpdateSystemHa(params *map[string]interface{}, globalad
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -2627,6 +2930,7 @@ func (c *FortiSDKClient) ReadSystemHa(globaladom, mkey string, paralist []string
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
@@ -3028,6 +3332,7 @@ func (c *FortiSDKClient) ReadSystemLocalInPolicy6(globaladom, mkey string, paral
 	return
 }
 
+
 // UpdateSystemLocallogDiskFilter API operation for FortiAnalyzer updates the specified LocallogDiskFilter.
 // Returns the index value of the LocallogDiskFilter and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -3038,6 +3343,7 @@ func (c *FortiSDKClient) UpdateSystemLocallogDiskFilter(params *map[string]inter
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -3064,9 +3370,11 @@ func (c *FortiSDKClient) ReadSystemLocallogDiskFilter(globaladom, mkey string, p
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemLocallogDiskSetting API operation for FortiAnalyzer updates the specified LocallogDiskSetting.
 // Returns the index value of the LocallogDiskSetting and execution result when the request executes successfully.
@@ -3078,6 +3386,7 @@ func (c *FortiSDKClient) UpdateSystemLocallogDiskSetting(params *map[string]inte
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -3104,9 +3413,11 @@ func (c *FortiSDKClient) ReadSystemLocallogDiskSetting(globaladom, mkey string, 
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemLocallogFortianalyzer2Filter API operation for FortiAnalyzer updates the specified LocallogFortianalyzer2Filter.
 // Returns the index value of the LocallogFortianalyzer2Filter and execution result when the request executes successfully.
@@ -3118,6 +3429,7 @@ func (c *FortiSDKClient) UpdateSystemLocallogFortianalyzer2Filter(params *map[st
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -3144,9 +3456,11 @@ func (c *FortiSDKClient) ReadSystemLocallogFortianalyzer2Filter(globaladom, mkey
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemLocallogFortianalyzer2Setting API operation for FortiAnalyzer updates the specified LocallogFortianalyzer2Setting.
 // Returns the index value of the LocallogFortianalyzer2Setting and execution result when the request executes successfully.
@@ -3158,6 +3472,7 @@ func (c *FortiSDKClient) UpdateSystemLocallogFortianalyzer2Setting(params *map[s
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -3184,9 +3499,11 @@ func (c *FortiSDKClient) ReadSystemLocallogFortianalyzer2Setting(globaladom, mke
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemLocallogFortianalyzer3Filter API operation for FortiAnalyzer updates the specified LocallogFortianalyzer3Filter.
 // Returns the index value of the LocallogFortianalyzer3Filter and execution result when the request executes successfully.
@@ -3198,6 +3515,7 @@ func (c *FortiSDKClient) UpdateSystemLocallogFortianalyzer3Filter(params *map[st
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -3224,9 +3542,11 @@ func (c *FortiSDKClient) ReadSystemLocallogFortianalyzer3Filter(globaladom, mkey
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemLocallogFortianalyzer3Setting API operation for FortiAnalyzer updates the specified LocallogFortianalyzer3Setting.
 // Returns the index value of the LocallogFortianalyzer3Setting and execution result when the request executes successfully.
@@ -3238,6 +3558,7 @@ func (c *FortiSDKClient) UpdateSystemLocallogFortianalyzer3Setting(params *map[s
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -3264,9 +3585,11 @@ func (c *FortiSDKClient) ReadSystemLocallogFortianalyzer3Setting(globaladom, mke
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemLocallogFortianalyzerFilter API operation for FortiAnalyzer updates the specified LocallogFortianalyzerFilter.
 // Returns the index value of the LocallogFortianalyzerFilter and execution result when the request executes successfully.
@@ -3278,6 +3601,7 @@ func (c *FortiSDKClient) UpdateSystemLocallogFortianalyzerFilter(params *map[str
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -3304,9 +3628,11 @@ func (c *FortiSDKClient) ReadSystemLocallogFortianalyzerFilter(globaladom, mkey 
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemLocallogFortianalyzerSetting API operation for FortiAnalyzer updates the specified LocallogFortianalyzerSetting.
 // Returns the index value of the LocallogFortianalyzerSetting and execution result when the request executes successfully.
@@ -3318,6 +3644,7 @@ func (c *FortiSDKClient) UpdateSystemLocallogFortianalyzerSetting(params *map[st
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -3344,9 +3671,11 @@ func (c *FortiSDKClient) ReadSystemLocallogFortianalyzerSetting(globaladom, mkey
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemLocallogMemoryFilter API operation for FortiAnalyzer updates the specified LocallogMemoryFilter.
 // Returns the index value of the LocallogMemoryFilter and execution result when the request executes successfully.
@@ -3358,6 +3687,7 @@ func (c *FortiSDKClient) UpdateSystemLocallogMemoryFilter(params *map[string]int
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -3384,9 +3714,11 @@ func (c *FortiSDKClient) ReadSystemLocallogMemoryFilter(globaladom, mkey string,
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemLocallogMemorySetting API operation for FortiAnalyzer updates the specified LocallogMemorySetting.
 // Returns the index value of the LocallogMemorySetting and execution result when the request executes successfully.
@@ -3398,6 +3730,7 @@ func (c *FortiSDKClient) UpdateSystemLocallogMemorySetting(params *map[string]in
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -3424,9 +3757,11 @@ func (c *FortiSDKClient) ReadSystemLocallogMemorySetting(globaladom, mkey string
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemLocallogSetting API operation for FortiAnalyzer updates the specified LocallogSetting.
 // Returns the index value of the LocallogSetting and execution result when the request executes successfully.
@@ -3438,6 +3773,7 @@ func (c *FortiSDKClient) UpdateSystemLocallogSetting(params *map[string]interfac
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -3464,9 +3800,11 @@ func (c *FortiSDKClient) ReadSystemLocallogSetting(globaladom, mkey string, para
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemLocallogSyslogd2Filter API operation for FortiAnalyzer updates the specified LocallogSyslogd2Filter.
 // Returns the index value of the LocallogSyslogd2Filter and execution result when the request executes successfully.
@@ -3478,6 +3816,7 @@ func (c *FortiSDKClient) UpdateSystemLocallogSyslogd2Filter(params *map[string]i
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -3504,9 +3843,11 @@ func (c *FortiSDKClient) ReadSystemLocallogSyslogd2Filter(globaladom, mkey strin
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemLocallogSyslogd2Setting API operation for FortiAnalyzer updates the specified LocallogSyslogd2Setting.
 // Returns the index value of the LocallogSyslogd2Setting and execution result when the request executes successfully.
@@ -3518,6 +3859,7 @@ func (c *FortiSDKClient) UpdateSystemLocallogSyslogd2Setting(params *map[string]
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -3544,9 +3886,11 @@ func (c *FortiSDKClient) ReadSystemLocallogSyslogd2Setting(globaladom, mkey stri
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemLocallogSyslogd3Filter API operation for FortiAnalyzer updates the specified LocallogSyslogd3Filter.
 // Returns the index value of the LocallogSyslogd3Filter and execution result when the request executes successfully.
@@ -3558,6 +3902,7 @@ func (c *FortiSDKClient) UpdateSystemLocallogSyslogd3Filter(params *map[string]i
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -3584,9 +3929,11 @@ func (c *FortiSDKClient) ReadSystemLocallogSyslogd3Filter(globaladom, mkey strin
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemLocallogSyslogd3Setting API operation for FortiAnalyzer updates the specified LocallogSyslogd3Setting.
 // Returns the index value of the LocallogSyslogd3Setting and execution result when the request executes successfully.
@@ -3598,6 +3945,7 @@ func (c *FortiSDKClient) UpdateSystemLocallogSyslogd3Setting(params *map[string]
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -3624,9 +3972,11 @@ func (c *FortiSDKClient) ReadSystemLocallogSyslogd3Setting(globaladom, mkey stri
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemLocallogSyslogdFilter API operation for FortiAnalyzer updates the specified LocallogSyslogdFilter.
 // Returns the index value of the LocallogSyslogdFilter and execution result when the request executes successfully.
@@ -3638,6 +3988,7 @@ func (c *FortiSDKClient) UpdateSystemLocallogSyslogdFilter(params *map[string]in
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -3664,9 +4015,11 @@ func (c *FortiSDKClient) ReadSystemLocallogSyslogdFilter(globaladom, mkey string
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemLocallogSyslogdSetting API operation for FortiAnalyzer updates the specified LocallogSyslogdSetting.
 // Returns the index value of the LocallogSyslogdSetting and execution result when the request executes successfully.
@@ -3678,6 +4031,7 @@ func (c *FortiSDKClient) UpdateSystemLocallogSyslogdSetting(params *map[string]i
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -3703,6 +4057,7 @@ func (c *FortiSDKClient) ReadSystemLocallogSyslogdSetting(globaladom, mkey strin
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
@@ -3774,6 +4129,7 @@ func (c *FortiSDKClient) ReadSystemLogFetchClientProfile(globaladom, mkey string
 	return
 }
 
+
 // UpdateSystemLogFetchServerSettings API operation for FortiAnalyzer updates the specified Log FetchServer Settings.
 // Returns the index value of the Log FetchServer Settings and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -3784,6 +4140,7 @@ func (c *FortiSDKClient) UpdateSystemLogFetchServerSettings(params *map[string]i
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -3809,6 +4166,7 @@ func (c *FortiSDKClient) ReadSystemLogFetchServerSettings(globaladom, mkey strin
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
@@ -3880,6 +4238,7 @@ func (c *FortiSDKClient) ReadSystemLogForward(globaladom, mkey string, paralist 
 	return
 }
 
+
 // UpdateSystemLogForwardService API operation for FortiAnalyzer updates the specified Log Forward Service.
 // Returns the index value of the Log Forward Service and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -3890,6 +4249,7 @@ func (c *FortiSDKClient) UpdateSystemLogForwardService(params *map[string]interf
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -3916,9 +4276,11 @@ func (c *FortiSDKClient) ReadSystemLogForwardService(globaladom, mkey string, pa
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemLogAlert API operation for FortiAnalyzer updates the specified LogAlert.
 // Returns the index value of the LogAlert and execution result when the request executes successfully.
@@ -3930,6 +4292,7 @@ func (c *FortiSDKClient) UpdateSystemLogAlert(params *map[string]interface{}, gl
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -3955,6 +4318,7 @@ func (c *FortiSDKClient) ReadSystemLogAlert(globaladom, mkey string, paralist []
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
@@ -4026,6 +4390,7 @@ func (c *FortiSDKClient) ReadSystemLogDeviceDisable(globaladom, mkey string, par
 	return
 }
 
+
 // UpdateSystemLogFosPolicyStats API operation for FortiAnalyzer updates the specified LogFos Policy Stats.
 // Returns the index value of the LogFos Policy Stats and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -4036,6 +4401,7 @@ func (c *FortiSDKClient) UpdateSystemLogFosPolicyStats(params *map[string]interf
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -4062,9 +4428,11 @@ func (c *FortiSDKClient) ReadSystemLogFosPolicyStats(globaladom, mkey string, pa
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemLogInterfaceStats API operation for FortiAnalyzer updates the specified LogInterface Stats.
 // Returns the index value of the LogInterface Stats and execution result when the request executes successfully.
@@ -4076,6 +4444,7 @@ func (c *FortiSDKClient) UpdateSystemLogInterfaceStats(params *map[string]interf
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -4102,9 +4471,54 @@ func (c *FortiSDKClient) ReadSystemLogInterfaceStats(globaladom, mkey string, pa
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
+
+// UpdateSystemLogPcapFile API operation for FortiAnalyzer updates the specified LogPcap File.
+// Returns the index value of the LogPcap File and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - log pcap-file chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateSystemLogPcapFile(params *map[string]interface{}, globaladom, mkey string, paralist []string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/system/log/pcap-file"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+
+	output, err = createUpdate(c, globaladom, path, "set", params, false)
+	return
+}
+
+// DeleteSystemLogPcapFile API operation for FortiAnalyzer deletes the specified LogPcap File.
+// Returns error for service API and SDK errors.
+// See the system - log pcap-file chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteSystemLogPcapFile(globaladom, mkey string, paralist []string) (err error) {
+
+	//No unset API for system - log pcap-file
+	return
+}
+
+// ReadSystemLogPcapFile API operation for FortiAnalyzer gets the LogPcap File
+// with the specified index value.
+// Returns the requested LogPcap File value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - log pcap-file chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadSystemLogPcapFile(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
+	path := "/cli/[*]/system/log/pcap-file"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+
+	mapTmp, err = read(c, globaladom, path, "get", false)
+	return
+}
+
 
 // UpdateSystemLogIoc API operation for FortiAnalyzer updates the specified LogIoc.
 // Returns the index value of the LogIoc and execution result when the request executes successfully.
@@ -4116,6 +4530,7 @@ func (c *FortiSDKClient) UpdateSystemLogIoc(params *map[string]interface{}, glob
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -4141,6 +4556,7 @@ func (c *FortiSDKClient) ReadSystemLogIoc(globaladom, mkey string, paralist []st
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
@@ -4212,6 +4628,7 @@ func (c *FortiSDKClient) ReadSystemLogMailDomain(globaladom, mkey string, parali
 	return
 }
 
+
 // UpdateSystemLogRatelimit API operation for FortiAnalyzer updates the specified LogRatelimit.
 // Returns the index value of the LogRatelimit and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -4222,6 +4639,7 @@ func (c *FortiSDKClient) UpdateSystemLogRatelimit(params *map[string]interface{}
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -4247,6 +4665,7 @@ func (c *FortiSDKClient) ReadSystemLogRatelimit(globaladom, mkey string, paralis
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
@@ -4384,6 +4803,7 @@ func (c *FortiSDKClient) ReadSystemLogRatelimitRatelimits(globaladom, mkey strin
 	return
 }
 
+
 // UpdateSystemLogSettings API operation for FortiAnalyzer updates the specified LogSettings.
 // Returns the index value of the LogSettings and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -4394,6 +4814,7 @@ func (c *FortiSDKClient) UpdateSystemLogSettings(params *map[string]interface{},
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -4420,9 +4841,11 @@ func (c *FortiSDKClient) ReadSystemLogSettings(globaladom, mkey string, paralist
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemLogSettingsRollingAnalyzer API operation for FortiAnalyzer updates the specified LogSettingsRolling Analyzer.
 // Returns the index value of the LogSettingsRolling Analyzer and execution result when the request executes successfully.
@@ -4434,6 +4857,7 @@ func (c *FortiSDKClient) UpdateSystemLogSettingsRollingAnalyzer(params *map[stri
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -4460,9 +4884,11 @@ func (c *FortiSDKClient) ReadSystemLogSettingsRollingAnalyzer(globaladom, mkey s
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemLogSettingsRollingLocal API operation for FortiAnalyzer updates the specified LogSettingsRolling Local.
 // Returns the index value of the LogSettingsRolling Local and execution result when the request executes successfully.
@@ -4474,6 +4900,7 @@ func (c *FortiSDKClient) UpdateSystemLogSettingsRollingLocal(params *map[string]
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -4500,9 +4927,11 @@ func (c *FortiSDKClient) ReadSystemLogSettingsRollingLocal(globaladom, mkey stri
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemLogSettingsRollingRegular API operation for FortiAnalyzer updates the specified LogSettingsRolling Regular.
 // Returns the index value of the LogSettingsRolling Regular and execution result when the request executes successfully.
@@ -4514,6 +4943,7 @@ func (c *FortiSDKClient) UpdateSystemLogSettingsRollingRegular(params *map[strin
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -4540,9 +4970,11 @@ func (c *FortiSDKClient) ReadSystemLogSettingsRollingRegular(globaladom, mkey st
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemLogTopology API operation for FortiAnalyzer updates the specified LogTopology.
 // Returns the index value of the LogTopology and execution result when the request executes successfully.
@@ -4554,6 +4986,7 @@ func (c *FortiSDKClient) UpdateSystemLogTopology(params *map[string]interface{},
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -4579,6 +5012,7 @@ func (c *FortiSDKClient) ReadSystemLogTopology(globaladom, mkey string, paralist
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
@@ -4716,6 +5150,7 @@ func (c *FortiSDKClient) ReadSystemMetadataAdmins(globaladom, mkey string, paral
 	return
 }
 
+
 // UpdateSystemNtp API operation for FortiAnalyzer updates the specified Ntp.
 // Returns the index value of the Ntp and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -4726,6 +5161,7 @@ func (c *FortiSDKClient) UpdateSystemNtp(params *map[string]interface{}, globala
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -4751,6 +5187,7 @@ func (c *FortiSDKClient) ReadSystemNtp(globaladom, mkey string, paralist []strin
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
@@ -4822,6 +5259,7 @@ func (c *FortiSDKClient) ReadSystemNtpNtpserver(globaladom, mkey string, paralis
 	return
 }
 
+
 // UpdateSystemPasswordPolicy API operation for FortiAnalyzer updates the specified Password Policy.
 // Returns the index value of the Password Policy and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -4832,6 +5270,7 @@ func (c *FortiSDKClient) UpdateSystemPasswordPolicy(params *map[string]interface
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -4858,9 +5297,11 @@ func (c *FortiSDKClient) ReadSystemPasswordPolicy(globaladom, mkey string, paral
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemReportAutoCache API operation for FortiAnalyzer updates the specified ReportAuto Cache.
 // Returns the index value of the ReportAuto Cache and execution result when the request executes successfully.
@@ -4872,6 +5313,7 @@ func (c *FortiSDKClient) UpdateSystemReportAutoCache(params *map[string]interfac
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -4898,9 +5340,11 @@ func (c *FortiSDKClient) ReadSystemReportAutoCache(globaladom, mkey string, para
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemReportEstBrowseTime API operation for FortiAnalyzer updates the specified ReportEst Browse Time.
 // Returns the index value of the ReportEst Browse Time and execution result when the request executes successfully.
@@ -4912,6 +5356,7 @@ func (c *FortiSDKClient) UpdateSystemReportEstBrowseTime(params *map[string]inte
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -4938,9 +5383,11 @@ func (c *FortiSDKClient) ReadSystemReportEstBrowseTime(globaladom, mkey string, 
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
 
 // UpdateSystemReportSetting API operation for FortiAnalyzer updates the specified ReportSetting.
 // Returns the index value of the ReportSetting and execution result when the request executes successfully.
@@ -4952,6 +5399,7 @@ func (c *FortiSDKClient) UpdateSystemReportSetting(params *map[string]interface{
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -4977,6 +5425,7 @@ func (c *FortiSDKClient) ReadSystemReportSetting(globaladom, mkey string, parali
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
@@ -5114,6 +5563,7 @@ func (c *FortiSDKClient) ReadSystemRoute6(globaladom, mkey string, paralist []st
 	return
 }
 
+
 // UpdateSystemSaml API operation for FortiAnalyzer updates the specified Saml.
 // Returns the index value of the Saml and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -5124,6 +5574,7 @@ func (c *FortiSDKClient) UpdateSystemSaml(params *map[string]interface{}, global
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -5149,6 +5600,7 @@ func (c *FortiSDKClient) ReadSystemSaml(globaladom, mkey string, paralist []stri
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
@@ -5418,6 +5870,7 @@ func (c *FortiSDKClient) ReadSystemSnmpCommunity(globaladom, mkey string, parali
 	return
 }
 
+
 // UpdateSystemSnmpSysinfo API operation for FortiAnalyzer updates the specified SnmpSysinfo.
 // Returns the index value of the SnmpSysinfo and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -5428,6 +5881,7 @@ func (c *FortiSDKClient) UpdateSystemSnmpSysinfo(params *map[string]interface{},
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -5454,71 +5908,6 @@ func (c *FortiSDKClient) ReadSystemSnmpSysinfo(globaladom, mkey string, paralist
 		return nil, fmt.Errorf("%v", err)
 	}
 
-	mapTmp, err = read(c, globaladom, path, "get", false)
-	return
-}
-
-// CreateSystemSocFabricTrustedList API operation for FortiAnalyzer creates a new Soc FabricTrusted List.
-// Returns the index value of the Soc FabricTrusted List and execution result when the request executes successfully.
-// Returns error for service API and SDK errors.
-// See the system - soc-fabric trusted-list chapter in the FortiAnalyzer Handbook - CLI Reference.
-func (c *FortiSDKClient) CreateSystemSocFabricTrustedList(params *map[string]interface{}, globaladom string, paralist []string) (output map[string]interface{}, err error) {
-	path := "/cli/[*]/system/soc-fabric/trusted-list"
-	path, err = replaceParaWithValue(path, paralist)
-	if err != nil {
-		return nil, fmt.Errorf("%v", err)
-	}
-
-	output, err = createUpdate(c, globaladom, path, "add", params, false)
-	return
-}
-
-// UpdateSystemSocFabricTrustedList API operation for FortiAnalyzer updates the specified Soc FabricTrusted List.
-// Returns the index value of the Soc FabricTrusted List and execution result when the request executes successfully.
-// Returns error for service API and SDK errors.
-// See the system - soc-fabric trusted-list chapter in the FortiAnalyzer Handbook - CLI Reference.
-func (c *FortiSDKClient) UpdateSystemSocFabricTrustedList(params *map[string]interface{}, globaladom, mkey string, paralist []string) (output map[string]interface{}, err error) {
-	path := "/cli/[*]/system/soc-fabric/trusted-list"
-	path, err = replaceParaWithValue(path, paralist)
-	if err != nil {
-		return nil, fmt.Errorf("%v", err)
-	}
-
-	path += "/" + escapeURLString(mkey)
-
-	output, err = createUpdate(c, globaladom, path, "set", params, false)
-	return
-}
-
-// DeleteSystemSocFabricTrustedList API operation for FortiAnalyzer deletes the specified Soc FabricTrusted List.
-// Returns error for service API and SDK errors.
-// See the system - soc-fabric trusted-list chapter in the FortiAnalyzer Handbook - CLI Reference.
-func (c *FortiSDKClient) DeleteSystemSocFabricTrustedList(globaladom, mkey string, paralist []string) (err error) {
-	path := "/cli/[*]/system/soc-fabric/trusted-list"
-	path, err = replaceParaWithValue(path, paralist)
-	if err != nil {
-		return fmt.Errorf("%v", err)
-	}
-
-	path += "/" + escapeURLString(mkey)
-
-	err = delete(c, globaladom, path, "delete", false)
-	return
-}
-
-// ReadSystemSocFabricTrustedList API operation for FortiAnalyzer gets the Soc FabricTrusted List
-// with the specified index value.
-// Returns the requested Soc FabricTrusted List value when the request executes successfully.
-// Returns error for service API and SDK errors.
-// See the system - soc-fabric trusted-list chapter in the FortiAnalyzer Handbook - CLI Reference.
-func (c *FortiSDKClient) ReadSystemSocFabricTrustedList(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
-	path := "/cli/[*]/system/soc-fabric/trusted-list"
-	path, err = replaceParaWithValue(path, paralist)
-	if err != nil {
-		return nil, fmt.Errorf("%v", err)
-	}
-
-	path += "/" + escapeURLString(mkey)
 
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
@@ -5590,6 +5979,7 @@ func (c *FortiSDKClient) ReadSystemSnmpUser(globaladom, mkey string, paralist []
 	return
 }
 
+
 // UpdateSystemSocFabric API operation for FortiAnalyzer updates the specified Soc Fabric.
 // Returns the index value of the Soc Fabric and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -5600,6 +5990,7 @@ func (c *FortiSDKClient) UpdateSystemSocFabric(params *map[string]interface{}, g
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -5626,9 +6017,77 @@ func (c *FortiSDKClient) ReadSystemSocFabric(globaladom, mkey string, paralist [
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
 }
+
+// CreateSystemSocFabricTrustedList API operation for FortiAnalyzer creates a new Soc FabricTrusted List.
+// Returns the index value of the Soc FabricTrusted List and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - soc-fabric trusted-list chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateSystemSocFabricTrustedList(params *map[string]interface{}, globaladom string, paralist []string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/system/soc-fabric/trusted-list"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, globaladom, path, "add", params, false)
+	return
+}
+
+// UpdateSystemSocFabricTrustedList API operation for FortiAnalyzer updates the specified Soc FabricTrusted List.
+// Returns the index value of the Soc FabricTrusted List and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - soc-fabric trusted-list chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateSystemSocFabricTrustedList(params *map[string]interface{}, globaladom, mkey string, paralist []string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/system/soc-fabric/trusted-list"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, globaladom, path, "set", params, false)
+	return
+}
+
+// DeleteSystemSocFabricTrustedList API operation for FortiAnalyzer deletes the specified Soc FabricTrusted List.
+// Returns error for service API and SDK errors.
+// See the system - soc-fabric trusted-list chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteSystemSocFabricTrustedList(globaladom, mkey string, paralist []string) (err error) {
+	path := "/cli/[*]/system/soc-fabric/trusted-list"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, globaladom, path, "delete", false)
+	return
+}
+
+// ReadSystemSocFabricTrustedList API operation for FortiAnalyzer gets the Soc FabricTrusted List
+// with the specified index value.
+// Returns the requested Soc FabricTrusted List value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - soc-fabric trusted-list chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadSystemSocFabricTrustedList(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
+	path := "/cli/[*]/system/soc-fabric/trusted-list"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, globaladom, path, "get", false)
+	return
+}
+
 
 // UpdateSystemSql API operation for FortiAnalyzer updates the specified Sql.
 // Returns the index value of the Sql and execution result when the request executes successfully.
@@ -5640,6 +6099,7 @@ func (c *FortiSDKClient) UpdateSystemSql(params *map[string]interface{}, globala
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -5665,6 +6125,7 @@ func (c *FortiSDKClient) ReadSystemSql(globaladom, mkey string, paralist []strin
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
@@ -5934,6 +6395,7 @@ func (c *FortiSDKClient) ReadSystemSyslog(globaladom, mkey string, paralist []st
 	return
 }
 
+
 // UpdateSystemWebProxy API operation for FortiAnalyzer updates the specified Web Proxy.
 // Returns the index value of the Web Proxy and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -5944,6 +6406,7 @@ func (c *FortiSDKClient) UpdateSystemWebProxy(params *map[string]interface{}, gl
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	output, err = createUpdate(c, globaladom, path, "set", params, false)
 	return
@@ -5969,6 +6432,7 @@ func (c *FortiSDKClient) ReadSystemWebProxy(globaladom, mkey string, paralist []
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
+
 
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
