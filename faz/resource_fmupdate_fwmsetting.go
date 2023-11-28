@@ -64,6 +64,16 @@ func resourceFmupdateFwmSetting() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"retry_interval": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
+			"retry_max": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
 			"upgrade_timeout": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
@@ -235,6 +245,14 @@ func flattenFmupdateFwmSettingLogFfb(v interface{}, d *schema.ResourceData, pre 
 }
 
 func flattenFmupdateFwmSettingMultipleStepsIntervalFfb(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenFmupdateFwmSettingRetryIntervalFfb(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenFmupdateFwmSettingRetryMaxFfb(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -441,6 +459,26 @@ func refreshObjectFmupdateFwmSetting(d *schema.ResourceData, o map[string]interf
 		}
 	}
 
+	if err = d.Set("retry_interval", flattenFmupdateFwmSettingRetryIntervalFfb(o["retry-interval"], d, "retry_interval")); err != nil {
+		if vv, ok := fortiAPIPatch(o["retry-interval"], "FmupdateFwmSetting-RetryInterval"); ok {
+			if err = d.Set("retry_interval", vv); err != nil {
+				return fmt.Errorf("Error reading retry_interval: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading retry_interval: %v", err)
+		}
+	}
+
+	if err = d.Set("retry_max", flattenFmupdateFwmSettingRetryMaxFfb(o["retry-max"], d, "retry_max")); err != nil {
+		if vv, ok := fortiAPIPatch(o["retry-max"], "FmupdateFwmSetting-RetryMax"); ok {
+			if err = d.Set("retry_max", vv); err != nil {
+				return fmt.Errorf("Error reading retry_max: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading retry_max: %v", err)
+		}
+	}
+
 	if isImportTable() {
 		if err = d.Set("upgrade_timeout", flattenFmupdateFwmSettingUpgradeTimeoutFfb(o["upgrade-timeout"], d, "upgrade_timeout")); err != nil {
 			if vv, ok := fortiAPIPatch(o["upgrade-timeout"], "FmupdateFwmSetting-UpgradeTimeout"); ok {
@@ -499,6 +537,14 @@ func expandFmupdateFwmSettingLogFfb(d *schema.ResourceData, v interface{}, pre s
 }
 
 func expandFmupdateFwmSettingMultipleStepsIntervalFfb(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandFmupdateFwmSettingRetryIntervalFfb(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandFmupdateFwmSettingRetryMaxFfb(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -683,6 +729,24 @@ func getObjectFmupdateFwmSetting(d *schema.ResourceData) (*map[string]interface{
 			return &obj, err
 		} else if t != nil {
 			obj["multiple-steps-interval"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("retry_interval"); ok || d.HasChange("retry_interval") {
+		t, err := expandFmupdateFwmSettingRetryIntervalFfb(d, v, "retry_interval")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["retry-interval"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("retry_max"); ok || d.HasChange("retry_max") {
+		t, err := expandFmupdateFwmSettingRetryMaxFfb(d, v, "retry_max")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["retry-max"] = t
 		}
 	}
 

@@ -29,12 +29,12 @@ func resourceSystemLocallogMemoryFilter() *schema.Resource {
 		},
 
 		Schema: map[string]*schema.Schema{
-			"controller": &schema.Schema{
+			"aid": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
-			"aid": &schema.Schema{
+			"controller": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
@@ -316,11 +316,11 @@ func resourceSystemLocallogMemoryFilterRead(d *schema.ResourceData, m interface{
 	return nil
 }
 
-func flattenSystemLocallogMemoryFilterController(v interface{}, d *schema.ResourceData, pre string) interface{} {
+func flattenSystemLocallogMemoryFilterAid(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
-func flattenSystemLocallogMemoryFilterAid(v interface{}, d *schema.ResourceData, pre string) interface{} {
+func flattenSystemLocallogMemoryFilterController(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -491,16 +491,6 @@ func flattenSystemLocallogMemoryFilterWebport(v interface{}, d *schema.ResourceD
 func refreshObjectSystemLocallogMemoryFilter(d *schema.ResourceData, o map[string]interface{}) error {
 	var err error
 
-	if err = d.Set("controller", flattenSystemLocallogMemoryFilterController(o["controller"], d, "controller")); err != nil {
-		if vv, ok := fortiAPIPatch(o["controller"], "SystemLocallogMemoryFilter-Controller"); ok {
-			if err = d.Set("controller", vv); err != nil {
-				return fmt.Errorf("Error reading controller: %v", err)
-			}
-		} else {
-			return fmt.Errorf("Error reading controller: %v", err)
-		}
-	}
-
 	if err = d.Set("aid", flattenSystemLocallogMemoryFilterAid(o["aid"], d, "aid")); err != nil {
 		if vv, ok := fortiAPIPatch(o["aid"], "SystemLocallogMemoryFilter-Aid"); ok {
 			if err = d.Set("aid", vv); err != nil {
@@ -508,6 +498,16 @@ func refreshObjectSystemLocallogMemoryFilter(d *schema.ResourceData, o map[strin
 			}
 		} else {
 			return fmt.Errorf("Error reading aid: %v", err)
+		}
+	}
+
+	if err = d.Set("controller", flattenSystemLocallogMemoryFilterController(o["controller"], d, "controller")); err != nil {
+		if vv, ok := fortiAPIPatch(o["controller"], "SystemLocallogMemoryFilter-Controller"); ok {
+			if err = d.Set("controller", vv); err != nil {
+				return fmt.Errorf("Error reading controller: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading controller: %v", err)
 		}
 	}
 
@@ -930,11 +930,11 @@ func flattenSystemLocallogMemoryFilterFortiTestDebug(d *schema.ResourceData, fos
 	log.Printf("ER List: %v", e)
 }
 
-func expandSystemLocallogMemoryFilterController(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+func expandSystemLocallogMemoryFilterAid(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
-func expandSystemLocallogMemoryFilterAid(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+func expandSystemLocallogMemoryFilterController(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -1105,21 +1105,21 @@ func expandSystemLocallogMemoryFilterWebport(d *schema.ResourceData, v interface
 func getObjectSystemLocallogMemoryFilter(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("controller"); ok || d.HasChange("controller") {
-		t, err := expandSystemLocallogMemoryFilterController(d, v, "controller")
-		if err != nil {
-			return &obj, err
-		} else if t != nil {
-			obj["controller"] = t
-		}
-	}
-
 	if v, ok := d.GetOk("aid"); ok || d.HasChange("aid") {
 		t, err := expandSystemLocallogMemoryFilterAid(d, v, "aid")
 		if err != nil {
 			return &obj, err
 		} else if t != nil {
 			obj["aid"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("controller"); ok || d.HasChange("controller") {
+		t, err := expandSystemLocallogMemoryFilterController(d, v, "controller")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["controller"] = t
 		}
 	}
 

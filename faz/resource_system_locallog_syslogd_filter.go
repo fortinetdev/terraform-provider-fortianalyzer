@@ -29,12 +29,12 @@ func resourceSystemLocallogSyslogdFilter() *schema.Resource {
 		},
 
 		Schema: map[string]*schema.Schema{
-			"controller": &schema.Schema{
+			"aid": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
-			"aid": &schema.Schema{
+			"controller": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
@@ -316,11 +316,11 @@ func resourceSystemLocallogSyslogdFilterRead(d *schema.ResourceData, m interface
 	return nil
 }
 
-func flattenSystemLocallogSyslogdFilterController(v interface{}, d *schema.ResourceData, pre string) interface{} {
+func flattenSystemLocallogSyslogdFilterAid(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
-func flattenSystemLocallogSyslogdFilterAid(v interface{}, d *schema.ResourceData, pre string) interface{} {
+func flattenSystemLocallogSyslogdFilterController(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -491,16 +491,6 @@ func flattenSystemLocallogSyslogdFilterWebport(v interface{}, d *schema.Resource
 func refreshObjectSystemLocallogSyslogdFilter(d *schema.ResourceData, o map[string]interface{}) error {
 	var err error
 
-	if err = d.Set("controller", flattenSystemLocallogSyslogdFilterController(o["controller"], d, "controller")); err != nil {
-		if vv, ok := fortiAPIPatch(o["controller"], "SystemLocallogSyslogdFilter-Controller"); ok {
-			if err = d.Set("controller", vv); err != nil {
-				return fmt.Errorf("Error reading controller: %v", err)
-			}
-		} else {
-			return fmt.Errorf("Error reading controller: %v", err)
-		}
-	}
-
 	if err = d.Set("aid", flattenSystemLocallogSyslogdFilterAid(o["aid"], d, "aid")); err != nil {
 		if vv, ok := fortiAPIPatch(o["aid"], "SystemLocallogSyslogdFilter-Aid"); ok {
 			if err = d.Set("aid", vv); err != nil {
@@ -508,6 +498,16 @@ func refreshObjectSystemLocallogSyslogdFilter(d *schema.ResourceData, o map[stri
 			}
 		} else {
 			return fmt.Errorf("Error reading aid: %v", err)
+		}
+	}
+
+	if err = d.Set("controller", flattenSystemLocallogSyslogdFilterController(o["controller"], d, "controller")); err != nil {
+		if vv, ok := fortiAPIPatch(o["controller"], "SystemLocallogSyslogdFilter-Controller"); ok {
+			if err = d.Set("controller", vv); err != nil {
+				return fmt.Errorf("Error reading controller: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading controller: %v", err)
 		}
 	}
 
@@ -930,11 +930,11 @@ func flattenSystemLocallogSyslogdFilterFortiTestDebug(d *schema.ResourceData, fo
 	log.Printf("ER List: %v", e)
 }
 
-func expandSystemLocallogSyslogdFilterController(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+func expandSystemLocallogSyslogdFilterAid(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
-func expandSystemLocallogSyslogdFilterAid(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+func expandSystemLocallogSyslogdFilterController(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -1105,21 +1105,21 @@ func expandSystemLocallogSyslogdFilterWebport(d *schema.ResourceData, v interfac
 func getObjectSystemLocallogSyslogdFilter(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("controller"); ok || d.HasChange("controller") {
-		t, err := expandSystemLocallogSyslogdFilterController(d, v, "controller")
-		if err != nil {
-			return &obj, err
-		} else if t != nil {
-			obj["controller"] = t
-		}
-	}
-
 	if v, ok := d.GetOk("aid"); ok || d.HasChange("aid") {
 		t, err := expandSystemLocallogSyslogdFilterAid(d, v, "aid")
 		if err != nil {
 			return &obj, err
 		} else if t != nil {
 			obj["aid"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("controller"); ok || d.HasChange("controller") {
+		t, err := expandSystemLocallogSyslogdFilterController(d, v, "controller")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["controller"] = t
 		}
 	}
 

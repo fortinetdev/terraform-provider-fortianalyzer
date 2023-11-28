@@ -1,4 +1,10 @@
-## 1.3.1 (Unreleased)
+## 1.4.0 (Unreleased)
+
+## 1.3.1 (Nov 27, 2023)
+
+IMPROVEMENTS:
+
+* Support FortiAnalyzer v7.0.9, v7.0.10, v7.2.4;
 
 ## 1.3.0 (Sep 27, 2023)
 

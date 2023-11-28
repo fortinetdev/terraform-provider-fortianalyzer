@@ -29,12 +29,12 @@ func resourceSystemLocallogFortianalyzer2Filter() *schema.Resource {
 		},
 
 		Schema: map[string]*schema.Schema{
-			"controller": &schema.Schema{
+			"aid": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
-			"aid": &schema.Schema{
+			"controller": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
@@ -316,11 +316,11 @@ func resourceSystemLocallogFortianalyzer2FilterRead(d *schema.ResourceData, m in
 	return nil
 }
 
-func flattenSystemLocallogFortianalyzer2FilterController(v interface{}, d *schema.ResourceData, pre string) interface{} {
+func flattenSystemLocallogFortianalyzer2FilterAid(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
-func flattenSystemLocallogFortianalyzer2FilterAid(v interface{}, d *schema.ResourceData, pre string) interface{} {
+func flattenSystemLocallogFortianalyzer2FilterController(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -491,16 +491,6 @@ func flattenSystemLocallogFortianalyzer2FilterWebport(v interface{}, d *schema.R
 func refreshObjectSystemLocallogFortianalyzer2Filter(d *schema.ResourceData, o map[string]interface{}) error {
 	var err error
 
-	if err = d.Set("controller", flattenSystemLocallogFortianalyzer2FilterController(o["controller"], d, "controller")); err != nil {
-		if vv, ok := fortiAPIPatch(o["controller"], "SystemLocallogFortianalyzer2Filter-Controller"); ok {
-			if err = d.Set("controller", vv); err != nil {
-				return fmt.Errorf("Error reading controller: %v", err)
-			}
-		} else {
-			return fmt.Errorf("Error reading controller: %v", err)
-		}
-	}
-
 	if err = d.Set("aid", flattenSystemLocallogFortianalyzer2FilterAid(o["aid"], d, "aid")); err != nil {
 		if vv, ok := fortiAPIPatch(o["aid"], "SystemLocallogFortianalyzer2Filter-Aid"); ok {
 			if err = d.Set("aid", vv); err != nil {
@@ -508,6 +498,16 @@ func refreshObjectSystemLocallogFortianalyzer2Filter(d *schema.ResourceData, o m
 			}
 		} else {
 			return fmt.Errorf("Error reading aid: %v", err)
+		}
+	}
+
+	if err = d.Set("controller", flattenSystemLocallogFortianalyzer2FilterController(o["controller"], d, "controller")); err != nil {
+		if vv, ok := fortiAPIPatch(o["controller"], "SystemLocallogFortianalyzer2Filter-Controller"); ok {
+			if err = d.Set("controller", vv); err != nil {
+				return fmt.Errorf("Error reading controller: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading controller: %v", err)
 		}
 	}
 
@@ -930,11 +930,11 @@ func flattenSystemLocallogFortianalyzer2FilterFortiTestDebug(d *schema.ResourceD
 	log.Printf("ER List: %v", e)
 }
 
-func expandSystemLocallogFortianalyzer2FilterController(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+func expandSystemLocallogFortianalyzer2FilterAid(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
-func expandSystemLocallogFortianalyzer2FilterAid(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+func expandSystemLocallogFortianalyzer2FilterController(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -1105,21 +1105,21 @@ func expandSystemLocallogFortianalyzer2FilterWebport(d *schema.ResourceData, v i
 func getObjectSystemLocallogFortianalyzer2Filter(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("controller"); ok || d.HasChange("controller") {
-		t, err := expandSystemLocallogFortianalyzer2FilterController(d, v, "controller")
-		if err != nil {
-			return &obj, err
-		} else if t != nil {
-			obj["controller"] = t
-		}
-	}
-
 	if v, ok := d.GetOk("aid"); ok || d.HasChange("aid") {
 		t, err := expandSystemLocallogFortianalyzer2FilterAid(d, v, "aid")
 		if err != nil {
 			return &obj, err
 		} else if t != nil {
 			obj["aid"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("controller"); ok || d.HasChange("controller") {
+		t, err := expandSystemLocallogFortianalyzer2FilterController(d, v, "controller")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["controller"] = t
 		}
 	}
 

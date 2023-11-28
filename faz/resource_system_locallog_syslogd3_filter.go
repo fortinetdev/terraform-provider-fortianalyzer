@@ -29,12 +29,12 @@ func resourceSystemLocallogSyslogd3Filter() *schema.Resource {
 		},
 
 		Schema: map[string]*schema.Schema{
-			"controller": &schema.Schema{
+			"aid": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
-			"aid": &schema.Schema{
+			"controller": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
@@ -316,11 +316,11 @@ func resourceSystemLocallogSyslogd3FilterRead(d *schema.ResourceData, m interfac
 	return nil
 }
 
-func flattenSystemLocallogSyslogd3FilterController(v interface{}, d *schema.ResourceData, pre string) interface{} {
+func flattenSystemLocallogSyslogd3FilterAid(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
-func flattenSystemLocallogSyslogd3FilterAid(v interface{}, d *schema.ResourceData, pre string) interface{} {
+func flattenSystemLocallogSyslogd3FilterController(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -491,16 +491,6 @@ func flattenSystemLocallogSyslogd3FilterWebport(v interface{}, d *schema.Resourc
 func refreshObjectSystemLocallogSyslogd3Filter(d *schema.ResourceData, o map[string]interface{}) error {
 	var err error
 
-	if err = d.Set("controller", flattenSystemLocallogSyslogd3FilterController(o["controller"], d, "controller")); err != nil {
-		if vv, ok := fortiAPIPatch(o["controller"], "SystemLocallogSyslogd3Filter-Controller"); ok {
-			if err = d.Set("controller", vv); err != nil {
-				return fmt.Errorf("Error reading controller: %v", err)
-			}
-		} else {
-			return fmt.Errorf("Error reading controller: %v", err)
-		}
-	}
-
 	if err = d.Set("aid", flattenSystemLocallogSyslogd3FilterAid(o["aid"], d, "aid")); err != nil {
 		if vv, ok := fortiAPIPatch(o["aid"], "SystemLocallogSyslogd3Filter-Aid"); ok {
 			if err = d.Set("aid", vv); err != nil {
@@ -508,6 +498,16 @@ func refreshObjectSystemLocallogSyslogd3Filter(d *schema.ResourceData, o map[str
 			}
 		} else {
 			return fmt.Errorf("Error reading aid: %v", err)
+		}
+	}
+
+	if err = d.Set("controller", flattenSystemLocallogSyslogd3FilterController(o["controller"], d, "controller")); err != nil {
+		if vv, ok := fortiAPIPatch(o["controller"], "SystemLocallogSyslogd3Filter-Controller"); ok {
+			if err = d.Set("controller", vv); err != nil {
+				return fmt.Errorf("Error reading controller: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading controller: %v", err)
 		}
 	}
 
@@ -930,11 +930,11 @@ func flattenSystemLocallogSyslogd3FilterFortiTestDebug(d *schema.ResourceData, f
 	log.Printf("ER List: %v", e)
 }
 
-func expandSystemLocallogSyslogd3FilterController(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+func expandSystemLocallogSyslogd3FilterAid(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
-func expandSystemLocallogSyslogd3FilterAid(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+func expandSystemLocallogSyslogd3FilterController(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -1105,21 +1105,21 @@ func expandSystemLocallogSyslogd3FilterWebport(d *schema.ResourceData, v interfa
 func getObjectSystemLocallogSyslogd3Filter(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("controller"); ok || d.HasChange("controller") {
-		t, err := expandSystemLocallogSyslogd3FilterController(d, v, "controller")
-		if err != nil {
-			return &obj, err
-		} else if t != nil {
-			obj["controller"] = t
-		}
-	}
-
 	if v, ok := d.GetOk("aid"); ok || d.HasChange("aid") {
 		t, err := expandSystemLocallogSyslogd3FilterAid(d, v, "aid")
 		if err != nil {
 			return &obj, err
 		} else if t != nil {
 			obj["aid"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("controller"); ok || d.HasChange("controller") {
+		t, err := expandSystemLocallogSyslogd3FilterController(d, v, "controller")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["controller"] = t
 		}
 	}
 
