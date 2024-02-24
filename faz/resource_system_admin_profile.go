@@ -165,6 +165,11 @@ func resourceSystemAdminProfile() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"fgt_gui_proxy": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"fortirecorder_setting": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -359,6 +364,35 @@ func resourceSystemAdminProfile() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
+			},
+			"write_passwd_access": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
+			"write_passwd_profiles": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"profileid": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+						},
+					},
+				},
+			},
+			"write_passwd_user_list": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"userid": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+						},
+					},
+				},
 			},
 			"dynamic_sort_subtable": &schema.Schema{
 				Type:     schema.TypeString,
@@ -614,6 +648,10 @@ func flattenSystemAdminProfileFabricViewer(v interface{}, d *schema.ResourceData
 	return v
 }
 
+func flattenSystemAdminProfileFgtGuiProxy(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemAdminProfileFortirecorderSetting(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -751,6 +789,84 @@ func flattenSystemAdminProfileTrusthost9(v interface{}, d *schema.ResourceData, 
 }
 
 func flattenSystemAdminProfileUpdateIncidents(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemAdminProfileWritePasswdAccess(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemAdminProfileWritePasswdProfiles(v interface{}, d *schema.ResourceData, pre string) []map[string]interface{} {
+	if v == nil {
+		return nil
+	}
+
+	l := v.([]interface{})
+	if len(l) == 0 || l[0] == nil {
+		return nil
+	}
+
+	result := make([]map[string]interface{}, 0, len(l))
+
+	con := 0
+	for _, r := range l {
+		tmp := make(map[string]interface{})
+		i := r.(map[string]interface{})
+
+		pre_append := "" // table
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "profileid"
+		if _, ok := i["profileid"]; ok {
+			v := flattenSystemAdminProfileWritePasswdProfilesProfileid(i["profileid"], d, pre_append)
+			tmp["profileid"] = fortiAPISubPartPatch(v, "SystemAdminProfile-WritePasswdProfiles-Profileid")
+		}
+
+		result = append(result, tmp)
+
+		con += 1
+	}
+
+	return result
+}
+
+func flattenSystemAdminProfileWritePasswdProfilesProfileid(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemAdminProfileWritePasswdUserList(v interface{}, d *schema.ResourceData, pre string) []map[string]interface{} {
+	if v == nil {
+		return nil
+	}
+
+	l := v.([]interface{})
+	if len(l) == 0 || l[0] == nil {
+		return nil
+	}
+
+	result := make([]map[string]interface{}, 0, len(l))
+
+	con := 0
+	for _, r := range l {
+		tmp := make(map[string]interface{})
+		i := r.(map[string]interface{})
+
+		pre_append := "" // table
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "userid"
+		if _, ok := i["userid"]; ok {
+			v := flattenSystemAdminProfileWritePasswdUserListUserid(i["userid"], d, pre_append)
+			tmp["userid"] = fortiAPISubPartPatch(v, "SystemAdminProfile-WritePasswdUserList-Userid")
+		}
+
+		result = append(result, tmp)
+
+		con += 1
+	}
+
+	return result
+}
+
+func flattenSystemAdminProfileWritePasswdUserListUserid(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -988,6 +1104,16 @@ func refreshObjectSystemAdminProfile(d *schema.ResourceData, o map[string]interf
 			}
 		} else {
 			return fmt.Errorf("Error reading fabric_viewer: %v", err)
+		}
+	}
+
+	if err = d.Set("fgt_gui_proxy", flattenSystemAdminProfileFgtGuiProxy(o["fgt-gui-proxy"], d, "fgt_gui_proxy")); err != nil {
+		if vv, ok := fortiAPIPatch(o["fgt-gui-proxy"], "SystemAdminProfile-FgtGuiProxy"); ok {
+			if err = d.Set("fgt_gui_proxy", vv); err != nil {
+				return fmt.Errorf("Error reading fgt_gui_proxy: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading fgt_gui_proxy: %v", err)
 		}
 	}
 
@@ -1341,6 +1467,64 @@ func refreshObjectSystemAdminProfile(d *schema.ResourceData, o map[string]interf
 		}
 	}
 
+	if err = d.Set("write_passwd_access", flattenSystemAdminProfileWritePasswdAccess(o["write-passwd-access"], d, "write_passwd_access")); err != nil {
+		if vv, ok := fortiAPIPatch(o["write-passwd-access"], "SystemAdminProfile-WritePasswdAccess"); ok {
+			if err = d.Set("write_passwd_access", vv); err != nil {
+				return fmt.Errorf("Error reading write_passwd_access: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading write_passwd_access: %v", err)
+		}
+	}
+
+	if isImportTable() {
+		if err = d.Set("write_passwd_profiles", flattenSystemAdminProfileWritePasswdProfiles(o["write-passwd-profiles"], d, "write_passwd_profiles")); err != nil {
+			if vv, ok := fortiAPIPatch(o["write-passwd-profiles"], "SystemAdminProfile-WritePasswdProfiles"); ok {
+				if err = d.Set("write_passwd_profiles", vv); err != nil {
+					return fmt.Errorf("Error reading write_passwd_profiles: %v", err)
+				}
+			} else {
+				return fmt.Errorf("Error reading write_passwd_profiles: %v", err)
+			}
+		}
+	} else {
+		if _, ok := d.GetOk("write_passwd_profiles"); ok {
+			if err = d.Set("write_passwd_profiles", flattenSystemAdminProfileWritePasswdProfiles(o["write-passwd-profiles"], d, "write_passwd_profiles")); err != nil {
+				if vv, ok := fortiAPIPatch(o["write-passwd-profiles"], "SystemAdminProfile-WritePasswdProfiles"); ok {
+					if err = d.Set("write_passwd_profiles", vv); err != nil {
+						return fmt.Errorf("Error reading write_passwd_profiles: %v", err)
+					}
+				} else {
+					return fmt.Errorf("Error reading write_passwd_profiles: %v", err)
+				}
+			}
+		}
+	}
+
+	if isImportTable() {
+		if err = d.Set("write_passwd_user_list", flattenSystemAdminProfileWritePasswdUserList(o["write-passwd-user-list"], d, "write_passwd_user_list")); err != nil {
+			if vv, ok := fortiAPIPatch(o["write-passwd-user-list"], "SystemAdminProfile-WritePasswdUserList"); ok {
+				if err = d.Set("write_passwd_user_list", vv); err != nil {
+					return fmt.Errorf("Error reading write_passwd_user_list: %v", err)
+				}
+			} else {
+				return fmt.Errorf("Error reading write_passwd_user_list: %v", err)
+			}
+		}
+	} else {
+		if _, ok := d.GetOk("write_passwd_user_list"); ok {
+			if err = d.Set("write_passwd_user_list", flattenSystemAdminProfileWritePasswdUserList(o["write-passwd-user-list"], d, "write_passwd_user_list")); err != nil {
+				if vv, ok := fortiAPIPatch(o["write-passwd-user-list"], "SystemAdminProfile-WritePasswdUserList"); ok {
+					if err = d.Set("write_passwd_user_list", vv); err != nil {
+						return fmt.Errorf("Error reading write_passwd_user_list: %v", err)
+					}
+				} else {
+					return fmt.Errorf("Error reading write_passwd_user_list: %v", err)
+				}
+			}
+		}
+	}
+
 	return nil
 }
 
@@ -1498,6 +1682,10 @@ func expandSystemAdminProfileFabricViewer(d *schema.ResourceData, v interface{},
 	return v, nil
 }
 
+func expandSystemAdminProfileFgtGuiProxy(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemAdminProfileFortirecorderSetting(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -1635,6 +1823,72 @@ func expandSystemAdminProfileTrusthost9(d *schema.ResourceData, v interface{}, p
 }
 
 func expandSystemAdminProfileUpdateIncidents(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemAdminProfileWritePasswdAccess(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemAdminProfileWritePasswdProfiles(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	l := v.([]interface{})
+	if len(l) == 0 || l[0] == nil {
+		return nil, nil
+	}
+
+	result := make([]map[string]interface{}, 0, len(l))
+
+	con := 0
+	for _, r := range l {
+		tmp := make(map[string]interface{})
+		i := r.(map[string]interface{})
+		pre_append := "" // table
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "profileid"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["profileid"], _ = expandSystemAdminProfileWritePasswdProfilesProfileid(d, i["profileid"], pre_append)
+		}
+
+		result = append(result, tmp)
+
+		con += 1
+	}
+
+	return result, nil
+}
+
+func expandSystemAdminProfileWritePasswdProfilesProfileid(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemAdminProfileWritePasswdUserList(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	l := v.([]interface{})
+	if len(l) == 0 || l[0] == nil {
+		return nil, nil
+	}
+
+	result := make([]map[string]interface{}, 0, len(l))
+
+	con := 0
+	for _, r := range l {
+		tmp := make(map[string]interface{})
+		i := r.(map[string]interface{})
+		pre_append := "" // table
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "userid"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["userid"], _ = expandSystemAdminProfileWritePasswdUserListUserid(d, i["userid"], pre_append)
+		}
+
+		result = append(result, tmp)
+
+		con += 1
+	}
+
+	return result, nil
+}
+
+func expandSystemAdminProfileWritePasswdUserListUserid(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -1845,6 +2099,15 @@ func getObjectSystemAdminProfile(d *schema.ResourceData) (*map[string]interface{
 			return &obj, err
 		} else if t != nil {
 			obj["fabric-viewer"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("fgt_gui_proxy"); ok || d.HasChange("fgt_gui_proxy") {
+		t, err := expandSystemAdminProfileFgtGuiProxy(d, v, "fgt_gui_proxy")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["fgt-gui-proxy"] = t
 		}
 	}
 
@@ -2160,6 +2423,33 @@ func getObjectSystemAdminProfile(d *schema.ResourceData) (*map[string]interface{
 			return &obj, err
 		} else if t != nil {
 			obj["update-incidents"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("write_passwd_access"); ok || d.HasChange("write_passwd_access") {
+		t, err := expandSystemAdminProfileWritePasswdAccess(d, v, "write_passwd_access")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["write-passwd-access"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("write_passwd_profiles"); ok || d.HasChange("write_passwd_profiles") {
+		t, err := expandSystemAdminProfileWritePasswdProfiles(d, v, "write_passwd_profiles")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["write-passwd-profiles"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("write_passwd_user_list"); ok || d.HasChange("write_passwd_user_list") {
+		t, err := expandSystemAdminProfileWritePasswdUserList(d, v, "write_passwd_user_list")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["write-passwd-user-list"] = t
 		}
 	}
 

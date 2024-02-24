@@ -62,6 +62,16 @@ func resourceSystemAlertEvent() *schema.Resource {
 					},
 				},
 			},
+			"enable_generic_text_unitary": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
+			"enable_severity_filter_unitary": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"enable_generic_text": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
@@ -94,6 +104,11 @@ func resourceSystemAlertEvent() *schema.Resource {
 				Computed: true,
 			},
 			"severity_filter": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
+			"severity_level_comp_unitary": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
@@ -296,6 +311,14 @@ func flattenSystemAlertEventAlertDestinationType(v interface{}, d *schema.Resour
 	return v
 }
 
+func flattenSystemAlertEventEnableGenericTextUnitary(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemAlertEventEnableSeverityFilterUnitary(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemAlertEventEnableGenericText(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return flattenStringList(v)
 }
@@ -321,6 +344,10 @@ func flattenSystemAlertEventNumEvents(v interface{}, d *schema.ResourceData, pre
 }
 
 func flattenSystemAlertEventSeverityFilter(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemAlertEventSeverityLevelCompUnitary(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -359,23 +386,51 @@ func refreshObjectSystemAlertEvent(d *schema.ResourceData, o map[string]interfac
 		}
 	}
 
-	if err = d.Set("enable_generic_text", flattenSystemAlertEventEnableGenericText(o["enable-generic-text"], d, "enable_generic_text")); err != nil {
-		if vv, ok := fortiAPIPatch(o["enable-generic-text"], "SystemAlertEvent-EnableGenericText"); ok {
-			if err = d.Set("enable_generic_text", vv); err != nil {
-				return fmt.Errorf("Error reading enable_generic_text: %v", err)
+	if _, ok := o["enable-generic-text"].(string); ok {
+		if err = d.Set("enable_generic_text_unitary", flattenSystemAlertEventEnableGenericTextUnitary(o["enable-generic-text"], d, "enable_generic_text_unitary")); err != nil {
+			if vv, ok := fortiAPIPatch(o["enable-generic-text"], "SystemAlertEvent-EnableGenericTextUnitary"); ok {
+				if err = d.Set("enable_generic_text_unitary", vv); err != nil {
+					return fmt.Errorf("Error reading enable_generic_text_unitary: %v", err)
+				}
+			} else {
+				return fmt.Errorf("Error reading enable_generic_text_unitary: %v", err)
 			}
-		} else {
-			return fmt.Errorf("Error reading enable_generic_text: %v", err)
 		}
 	}
 
-	if err = d.Set("enable_severity_filter", flattenSystemAlertEventEnableSeverityFilter(o["enable-severity-filter"], d, "enable_severity_filter")); err != nil {
-		if vv, ok := fortiAPIPatch(o["enable-severity-filter"], "SystemAlertEvent-EnableSeverityFilter"); ok {
-			if err = d.Set("enable_severity_filter", vv); err != nil {
+	if _, ok := o["enable-severity-filter"].(string); ok {
+		if err = d.Set("enable_severity_filter_unitary", flattenSystemAlertEventEnableSeverityFilterUnitary(o["enable-severity-filter"], d, "enable_severity_filter_unitary")); err != nil {
+			if vv, ok := fortiAPIPatch(o["enable-severity-filter"], "SystemAlertEvent-EnableSeverityFilterUnitary"); ok {
+				if err = d.Set("enable_severity_filter_unitary", vv); err != nil {
+					return fmt.Errorf("Error reading enable_severity_filter_unitary: %v", err)
+				}
+			} else {
+				return fmt.Errorf("Error reading enable_severity_filter_unitary: %v", err)
+			}
+		}
+	}
+
+	if _, ok := o["enable-generic-text"].([]interface{}); ok {
+		if err = d.Set("enable_generic_text", flattenSystemAlertEventEnableGenericText(o["enable-generic-text"], d, "enable_generic_text")); err != nil {
+			if vv, ok := fortiAPIPatch(o["enable-generic-text"], "SystemAlertEvent-EnableGenericText"); ok {
+				if err = d.Set("enable_generic_text", vv); err != nil {
+					return fmt.Errorf("Error reading enable_generic_text: %v", err)
+				}
+			} else {
+				return fmt.Errorf("Error reading enable_generic_text: %v", err)
+			}
+		}
+	}
+
+	if _, ok := o["enable-severity-filter"].([]interface{}); ok {
+		if err = d.Set("enable_severity_filter", flattenSystemAlertEventEnableSeverityFilter(o["enable-severity-filter"], d, "enable_severity_filter")); err != nil {
+			if vv, ok := fortiAPIPatch(o["enable-severity-filter"], "SystemAlertEvent-EnableSeverityFilter"); ok {
+				if err = d.Set("enable_severity_filter", vv); err != nil {
+					return fmt.Errorf("Error reading enable_severity_filter: %v", err)
+				}
+			} else {
 				return fmt.Errorf("Error reading enable_severity_filter: %v", err)
 			}
-		} else {
-			return fmt.Errorf("Error reading enable_severity_filter: %v", err)
 		}
 	}
 
@@ -429,13 +484,27 @@ func refreshObjectSystemAlertEvent(d *schema.ResourceData, o map[string]interfac
 		}
 	}
 
-	if err = d.Set("severity_level_comp", flattenSystemAlertEventSeverityLevelComp(o["severity-level-comp"], d, "severity_level_comp")); err != nil {
-		if vv, ok := fortiAPIPatch(o["severity-level-comp"], "SystemAlertEvent-SeverityLevelComp"); ok {
-			if err = d.Set("severity_level_comp", vv); err != nil {
+	if _, ok := o["severity-level-comp"].(string); ok {
+		if err = d.Set("severity_level_comp_unitary", flattenSystemAlertEventSeverityLevelCompUnitary(o["severity-level-comp"], d, "severity_level_comp_unitary")); err != nil {
+			if vv, ok := fortiAPIPatch(o["severity-level-comp"], "SystemAlertEvent-SeverityLevelCompUnitary"); ok {
+				if err = d.Set("severity_level_comp_unitary", vv); err != nil {
+					return fmt.Errorf("Error reading severity_level_comp_unitary: %v", err)
+				}
+			} else {
+				return fmt.Errorf("Error reading severity_level_comp_unitary: %v", err)
+			}
+		}
+	}
+
+	if _, ok := o["severity-level-comp"].([]interface{}); ok {
+		if err = d.Set("severity_level_comp", flattenSystemAlertEventSeverityLevelComp(o["severity-level-comp"], d, "severity_level_comp")); err != nil {
+			if vv, ok := fortiAPIPatch(o["severity-level-comp"], "SystemAlertEvent-SeverityLevelComp"); ok {
+				if err = d.Set("severity_level_comp", vv); err != nil {
+					return fmt.Errorf("Error reading severity_level_comp: %v", err)
+				}
+			} else {
 				return fmt.Errorf("Error reading severity_level_comp: %v", err)
 			}
-		} else {
-			return fmt.Errorf("Error reading severity_level_comp: %v", err)
 		}
 	}
 
@@ -534,6 +603,14 @@ func expandSystemAlertEventAlertDestinationType(d *schema.ResourceData, v interf
 	return v, nil
 }
 
+func expandSystemAlertEventEnableGenericTextUnitary(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemAlertEventEnableSeverityFilterUnitary(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemAlertEventEnableGenericText(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return expandStringList(v.(*schema.Set).List()), nil
 }
@@ -562,6 +639,10 @@ func expandSystemAlertEventSeverityFilter(d *schema.ResourceData, v interface{},
 	return v, nil
 }
 
+func expandSystemAlertEventSeverityLevelCompUnitary(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemAlertEventSeverityLevelComp(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return expandStringList(v.(*schema.Set).List()), nil
 }
@@ -579,6 +660,24 @@ func getObjectSystemAlertEvent(d *schema.ResourceData) (*map[string]interface{},
 			return &obj, err
 		} else if t != nil {
 			obj["alert-destination"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("enable_generic_text_unitary"); ok || d.HasChange("enable_generic_text_unitary") {
+		t, err := expandSystemAlertEventEnableGenericTextUnitary(d, v, "enable_generic_text_unitary")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["enable-generic-text"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("enable_severity_filter_unitary"); ok || d.HasChange("enable_severity_filter_unitary") {
+		t, err := expandSystemAlertEventEnableSeverityFilterUnitary(d, v, "enable_severity_filter_unitary")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["enable-severity-filter"] = t
 		}
 	}
 
@@ -642,6 +741,15 @@ func getObjectSystemAlertEvent(d *schema.ResourceData) (*map[string]interface{},
 			return &obj, err
 		} else if t != nil {
 			obj["severity-filter"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("severity_level_comp_unitary"); ok || d.HasChange("severity_level_comp_unitary") {
+		t, err := expandSystemAlertEventSeverityLevelCompUnitary(d, v, "severity_level_comp_unitary")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["severity-level-comp"] = t
 		}
 	}
 

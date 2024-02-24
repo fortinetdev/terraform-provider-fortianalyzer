@@ -203,6 +203,7 @@ func resourceFmupdateWebSpamFgdSetting() *schema.Resource {
 									"service_type": &schema.Schema{
 										Type:     schema.TypeString,
 										Optional: true,
+										Computed: true,
 									},
 								},
 							},

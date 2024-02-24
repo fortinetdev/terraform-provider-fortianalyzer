@@ -34,6 +34,11 @@ func resourceSystemAlertConsole() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"severity_level_unitary": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"severity_level": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
@@ -116,6 +121,10 @@ func flattenSystemAlertConsolePeriod(v interface{}, d *schema.ResourceData, pre 
 	return v
 }
 
+func flattenSystemAlertConsoleSeverityLevelUnitary(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemAlertConsoleSeverityLevel(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return flattenStringList(v)
 }
@@ -133,13 +142,27 @@ func refreshObjectSystemAlertConsole(d *schema.ResourceData, o map[string]interf
 		}
 	}
 
-	if err = d.Set("severity_level", flattenSystemAlertConsoleSeverityLevel(o["severity-level"], d, "severity_level")); err != nil {
-		if vv, ok := fortiAPIPatch(o["severity-level"], "SystemAlertConsole-SeverityLevel"); ok {
-			if err = d.Set("severity_level", vv); err != nil {
+	if _, ok := o["severity-level"].(string); ok {
+		if err = d.Set("severity_level_unitary", flattenSystemAlertConsoleSeverityLevelUnitary(o["severity-level"], d, "severity_level_unitary")); err != nil {
+			if vv, ok := fortiAPIPatch(o["severity-level"], "SystemAlertConsole-SeverityLevelUnitary"); ok {
+				if err = d.Set("severity_level_unitary", vv); err != nil {
+					return fmt.Errorf("Error reading severity_level_unitary: %v", err)
+				}
+			} else {
+				return fmt.Errorf("Error reading severity_level_unitary: %v", err)
+			}
+		}
+	}
+
+	if _, ok := o["severity-level"].([]interface{}); ok {
+		if err = d.Set("severity_level", flattenSystemAlertConsoleSeverityLevel(o["severity-level"], d, "severity_level")); err != nil {
+			if vv, ok := fortiAPIPatch(o["severity-level"], "SystemAlertConsole-SeverityLevel"); ok {
+				if err = d.Set("severity_level", vv); err != nil {
+					return fmt.Errorf("Error reading severity_level: %v", err)
+				}
+			} else {
 				return fmt.Errorf("Error reading severity_level: %v", err)
 			}
-		} else {
-			return fmt.Errorf("Error reading severity_level: %v", err)
 		}
 	}
 
@@ -156,6 +179,10 @@ func expandSystemAlertConsolePeriod(d *schema.ResourceData, v interface{}, pre s
 	return v, nil
 }
 
+func expandSystemAlertConsoleSeverityLevelUnitary(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemAlertConsoleSeverityLevel(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return expandStringList(v.(*schema.Set).List()), nil
 }
@@ -169,6 +196,15 @@ func getObjectSystemAlertConsole(d *schema.ResourceData) (*map[string]interface{
 			return &obj, err
 		} else if t != nil {
 			obj["period"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("severity_level_unitary"); ok || d.HasChange("severity_level_unitary") {
+		t, err := expandSystemAlertConsoleSeverityLevelUnitary(d, v, "severity_level_unitary")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["severity-level"] = t
 		}
 	}
 

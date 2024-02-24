@@ -113,6 +113,16 @@ func resourceSystemLogSettings() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"log_interval_dev_no_logging": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
+			"log_upload_interval_dev_no_logging": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
 			"rolling_analyzer": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
@@ -722,6 +732,14 @@ func flattenSystemLogSettingsKeepDevLogsSlsa(v interface{}, d *schema.ResourceDa
 }
 
 func flattenSystemLogSettingsLogFileArchiveNameSlsa(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemLogSettingsLogIntervalDevNoLoggingSlsa(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemLogSettingsLogUploadIntervalDevNoLoggingSlsa(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -1807,6 +1825,26 @@ func refreshObjectSystemLogSettings(d *schema.ResourceData, o map[string]interfa
 		}
 	}
 
+	if err = d.Set("log_interval_dev_no_logging", flattenSystemLogSettingsLogIntervalDevNoLoggingSlsa(o["log-interval-dev-no-logging"], d, "log_interval_dev_no_logging")); err != nil {
+		if vv, ok := fortiAPIPatch(o["log-interval-dev-no-logging"], "SystemLogSettings-LogIntervalDevNoLogging"); ok {
+			if err = d.Set("log_interval_dev_no_logging", vv); err != nil {
+				return fmt.Errorf("Error reading log_interval_dev_no_logging: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading log_interval_dev_no_logging: %v", err)
+		}
+	}
+
+	if err = d.Set("log_upload_interval_dev_no_logging", flattenSystemLogSettingsLogUploadIntervalDevNoLoggingSlsa(o["log-upload-interval-dev-no-logging"], d, "log_upload_interval_dev_no_logging")); err != nil {
+		if vv, ok := fortiAPIPatch(o["log-upload-interval-dev-no-logging"], "SystemLogSettings-LogUploadIntervalDevNoLogging"); ok {
+			if err = d.Set("log_upload_interval_dev_no_logging", vv); err != nil {
+				return fmt.Errorf("Error reading log_upload_interval_dev_no_logging: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading log_upload_interval_dev_no_logging: %v", err)
+		}
+	}
+
 	if isImportTable() {
 		if err = d.Set("rolling_analyzer", flattenSystemLogSettingsRollingAnalyzerSlsa(o["rolling-analyzer"], d, "rolling_analyzer")); err != nil {
 			if vv, ok := fortiAPIPatch(o["rolling-analyzer"], "SystemLogSettings-RollingAnalyzer"); ok {
@@ -1981,6 +2019,14 @@ func expandSystemLogSettingsKeepDevLogsSlsa(d *schema.ResourceData, v interface{
 }
 
 func expandSystemLogSettingsLogFileArchiveNameSlsa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemLogSettingsLogIntervalDevNoLoggingSlsa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemLogSettingsLogUploadIntervalDevNoLoggingSlsa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -2949,6 +2995,24 @@ func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}
 			return &obj, err
 		} else if t != nil {
 			obj["log-file-archive-name"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("log_interval_dev_no_logging"); ok || d.HasChange("log_interval_dev_no_logging") {
+		t, err := expandSystemLogSettingsLogIntervalDevNoLoggingSlsa(d, v, "log_interval_dev_no_logging")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["log-interval-dev-no-logging"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("log_upload_interval_dev_no_logging"); ok || d.HasChange("log_upload_interval_dev_no_logging") {
+		t, err := expandSystemLogSettingsLogUploadIntervalDevNoLoggingSlsa(d, v, "log_upload_interval_dev_no_logging")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["log-upload-interval-dev-no-logging"] = t
 		}
 	}
 

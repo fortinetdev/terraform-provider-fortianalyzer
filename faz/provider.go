@@ -73,6 +73,30 @@ func Provider() *schema.Provider {
 				Optional: true,
 				Computed: true,
 			},
+
+			"logsession": &schema.Schema{
+				Type:     schema.TypeBool,
+				Optional: true,
+				Default:  false,
+			},
+
+			"presession": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Default:  "",
+			},
+
+			"token": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Default:  "",
+			},
+
+			"clean_session": &schema.Schema{
+				Type:     schema.TypeBool,
+				Optional: true,
+				Default:  false,
+			},
 		},
 
 		ResourcesMap: map[string]*schema.Resource{
@@ -221,6 +245,11 @@ func providerConfigure(d *schema.ResourceData) (interface{}, error) {
 		ScopeType:     d.Get("scopetype").(string),
 		Adom:          d.Get("adom").(string),
 		ImportOptions: d.Get("import_options").(*schema.Set),
+
+		Session:      d.Get("presession").(string),
+		Token:        d.Get("token").(string),
+		LogSession:   d.Get("logsession").(bool),
+		CleanSession: d.Get("clean_session").(bool),
 	}
 
 	v1, ok1 := d.GetOkExists("insecure")

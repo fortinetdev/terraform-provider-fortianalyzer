@@ -49,6 +49,11 @@ func resourceFmupdateFwmSetting() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"health_check": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"immx_source": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -59,8 +64,23 @@ func resourceFmupdateFwmSetting() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"max_device_history": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
+			"max_profile_history": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
 			"multiple_steps_interval": &schema.Schema{
 				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
+			"retrieve": &schema.Schema{
+				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
@@ -71,6 +91,11 @@ func resourceFmupdateFwmSetting() *schema.Resource {
 			},
 			"retry_max": &schema.Schema{
 				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
+			"revision_diff": &schema.Schema{
+				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
@@ -96,6 +121,11 @@ func resourceFmupdateFwmSetting() *schema.Resource {
 							Computed: true,
 						},
 						"ha_sync_timeout": &schema.Schema{
+							Type:     schema.TypeInt,
+							Optional: true,
+							Computed: true,
+						},
+						"health_check_timeout": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
 							Computed: true,
@@ -236,6 +266,10 @@ func flattenFmupdateFwmSettingFdsImageTimeoutFfb(v interface{}, d *schema.Resour
 	return v
 }
 
+func flattenFmupdateFwmSettingHealthCheckFfb(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenFmupdateFwmSettingImmxSourceFfb(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -244,7 +278,19 @@ func flattenFmupdateFwmSettingLogFfb(v interface{}, d *schema.ResourceData, pre 
 	return v
 }
 
+func flattenFmupdateFwmSettingMaxDeviceHistoryFfb(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenFmupdateFwmSettingMaxProfileHistoryFfb(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenFmupdateFwmSettingMultipleStepsIntervalFfb(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenFmupdateFwmSettingRetrieveFfb(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -253,6 +299,10 @@ func flattenFmupdateFwmSettingRetryIntervalFfb(v interface{}, d *schema.Resource
 }
 
 func flattenFmupdateFwmSettingRetryMaxFfb(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenFmupdateFwmSettingRevisionDiffFfb(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -283,6 +333,11 @@ func flattenFmupdateFwmSettingUpgradeTimeoutFfb(v interface{}, d *schema.Resourc
 	pre_append = pre + ".0." + "ha_sync_timeout"
 	if _, ok := i["ha-sync-timeout"]; ok {
 		result["ha_sync_timeout"] = flattenFmupdateFwmSettingUpgradeTimeoutHaSyncTimeoutFfb(i["ha-sync-timeout"], d, pre_append)
+	}
+
+	pre_append = pre + ".0." + "health_check_timeout"
+	if _, ok := i["health-check-timeout"]; ok {
+		result["health_check_timeout"] = flattenFmupdateFwmSettingUpgradeTimeoutHealthCheckTimeoutFfb(i["health-check-timeout"], d, pre_append)
 	}
 
 	pre_append = pre + ".0." + "license_check_timeout"
@@ -347,6 +402,10 @@ func flattenFmupdateFwmSettingUpgradeTimeoutCtrlPutImageByFdsTimeoutFfb(v interf
 }
 
 func flattenFmupdateFwmSettingUpgradeTimeoutHaSyncTimeoutFfb(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenFmupdateFwmSettingUpgradeTimeoutHealthCheckTimeoutFfb(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -429,6 +488,16 @@ func refreshObjectFmupdateFwmSetting(d *schema.ResourceData, o map[string]interf
 		}
 	}
 
+	if err = d.Set("health_check", flattenFmupdateFwmSettingHealthCheckFfb(o["health-check"], d, "health_check")); err != nil {
+		if vv, ok := fortiAPIPatch(o["health-check"], "FmupdateFwmSetting-HealthCheck"); ok {
+			if err = d.Set("health_check", vv); err != nil {
+				return fmt.Errorf("Error reading health_check: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading health_check: %v", err)
+		}
+	}
+
 	if err = d.Set("immx_source", flattenFmupdateFwmSettingImmxSourceFfb(o["immx-source"], d, "immx_source")); err != nil {
 		if vv, ok := fortiAPIPatch(o["immx-source"], "FmupdateFwmSetting-ImmxSource"); ok {
 			if err = d.Set("immx_source", vv); err != nil {
@@ -449,6 +518,26 @@ func refreshObjectFmupdateFwmSetting(d *schema.ResourceData, o map[string]interf
 		}
 	}
 
+	if err = d.Set("max_device_history", flattenFmupdateFwmSettingMaxDeviceHistoryFfb(o["max-device-history"], d, "max_device_history")); err != nil {
+		if vv, ok := fortiAPIPatch(o["max-device-history"], "FmupdateFwmSetting-MaxDeviceHistory"); ok {
+			if err = d.Set("max_device_history", vv); err != nil {
+				return fmt.Errorf("Error reading max_device_history: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading max_device_history: %v", err)
+		}
+	}
+
+	if err = d.Set("max_profile_history", flattenFmupdateFwmSettingMaxProfileHistoryFfb(o["max-profile-history"], d, "max_profile_history")); err != nil {
+		if vv, ok := fortiAPIPatch(o["max-profile-history"], "FmupdateFwmSetting-MaxProfileHistory"); ok {
+			if err = d.Set("max_profile_history", vv); err != nil {
+				return fmt.Errorf("Error reading max_profile_history: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading max_profile_history: %v", err)
+		}
+	}
+
 	if err = d.Set("multiple_steps_interval", flattenFmupdateFwmSettingMultipleStepsIntervalFfb(o["multiple-steps-interval"], d, "multiple_steps_interval")); err != nil {
 		if vv, ok := fortiAPIPatch(o["multiple-steps-interval"], "FmupdateFwmSetting-MultipleStepsInterval"); ok {
 			if err = d.Set("multiple_steps_interval", vv); err != nil {
@@ -456,6 +545,16 @@ func refreshObjectFmupdateFwmSetting(d *schema.ResourceData, o map[string]interf
 			}
 		} else {
 			return fmt.Errorf("Error reading multiple_steps_interval: %v", err)
+		}
+	}
+
+	if err = d.Set("retrieve", flattenFmupdateFwmSettingRetrieveFfb(o["retrieve"], d, "retrieve")); err != nil {
+		if vv, ok := fortiAPIPatch(o["retrieve"], "FmupdateFwmSetting-Retrieve"); ok {
+			if err = d.Set("retrieve", vv); err != nil {
+				return fmt.Errorf("Error reading retrieve: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading retrieve: %v", err)
 		}
 	}
 
@@ -476,6 +575,16 @@ func refreshObjectFmupdateFwmSetting(d *schema.ResourceData, o map[string]interf
 			}
 		} else {
 			return fmt.Errorf("Error reading retry_max: %v", err)
+		}
+	}
+
+	if err = d.Set("revision_diff", flattenFmupdateFwmSettingRevisionDiffFfb(o["revision-diff"], d, "revision_diff")); err != nil {
+		if vv, ok := fortiAPIPatch(o["revision-diff"], "FmupdateFwmSetting-RevisionDiff"); ok {
+			if err = d.Set("revision_diff", vv); err != nil {
+				return fmt.Errorf("Error reading revision_diff: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading revision_diff: %v", err)
 		}
 	}
 
@@ -528,6 +637,10 @@ func expandFmupdateFwmSettingFdsImageTimeoutFfb(d *schema.ResourceData, v interf
 	return v, nil
 }
 
+func expandFmupdateFwmSettingHealthCheckFfb(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandFmupdateFwmSettingImmxSourceFfb(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -536,7 +649,19 @@ func expandFmupdateFwmSettingLogFfb(d *schema.ResourceData, v interface{}, pre s
 	return v, nil
 }
 
+func expandFmupdateFwmSettingMaxDeviceHistoryFfb(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandFmupdateFwmSettingMaxProfileHistoryFfb(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandFmupdateFwmSettingMultipleStepsIntervalFfb(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandFmupdateFwmSettingRetrieveFfb(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -545,6 +670,10 @@ func expandFmupdateFwmSettingRetryIntervalFfb(d *schema.ResourceData, v interfac
 }
 
 func expandFmupdateFwmSettingRetryMaxFfb(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandFmupdateFwmSettingRevisionDiffFfb(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -573,6 +702,10 @@ func expandFmupdateFwmSettingUpgradeTimeoutFfb(d *schema.ResourceData, v interfa
 	pre_append = pre + ".0." + "ha_sync_timeout"
 	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["ha-sync-timeout"], _ = expandFmupdateFwmSettingUpgradeTimeoutHaSyncTimeoutFfb(d, i["ha_sync_timeout"], pre_append)
+	}
+	pre_append = pre + ".0." + "health_check_timeout"
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+		result["health-check-timeout"], _ = expandFmupdateFwmSettingUpgradeTimeoutHealthCheckTimeoutFfb(d, i["health_check_timeout"], pre_append)
 	}
 	pre_append = pre + ".0." + "license_check_timeout"
 	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
@@ -627,6 +760,10 @@ func expandFmupdateFwmSettingUpgradeTimeoutCtrlPutImageByFdsTimeoutFfb(d *schema
 }
 
 func expandFmupdateFwmSettingUpgradeTimeoutHaSyncTimeoutFfb(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandFmupdateFwmSettingUpgradeTimeoutHealthCheckTimeoutFfb(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -705,6 +842,15 @@ func getObjectFmupdateFwmSetting(d *schema.ResourceData) (*map[string]interface{
 		}
 	}
 
+	if v, ok := d.GetOk("health_check"); ok || d.HasChange("health_check") {
+		t, err := expandFmupdateFwmSettingHealthCheckFfb(d, v, "health_check")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["health-check"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("immx_source"); ok || d.HasChange("immx_source") {
 		t, err := expandFmupdateFwmSettingImmxSourceFfb(d, v, "immx_source")
 		if err != nil {
@@ -723,12 +869,39 @@ func getObjectFmupdateFwmSetting(d *schema.ResourceData) (*map[string]interface{
 		}
 	}
 
+	if v, ok := d.GetOk("max_device_history"); ok || d.HasChange("max_device_history") {
+		t, err := expandFmupdateFwmSettingMaxDeviceHistoryFfb(d, v, "max_device_history")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["max-device-history"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("max_profile_history"); ok || d.HasChange("max_profile_history") {
+		t, err := expandFmupdateFwmSettingMaxProfileHistoryFfb(d, v, "max_profile_history")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["max-profile-history"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("multiple_steps_interval"); ok || d.HasChange("multiple_steps_interval") {
 		t, err := expandFmupdateFwmSettingMultipleStepsIntervalFfb(d, v, "multiple_steps_interval")
 		if err != nil {
 			return &obj, err
 		} else if t != nil {
 			obj["multiple-steps-interval"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("retrieve"); ok || d.HasChange("retrieve") {
+		t, err := expandFmupdateFwmSettingRetrieveFfb(d, v, "retrieve")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["retrieve"] = t
 		}
 	}
 
@@ -747,6 +920,15 @@ func getObjectFmupdateFwmSetting(d *schema.ResourceData) (*map[string]interface{
 			return &obj, err
 		} else if t != nil {
 			obj["retry-max"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("revision_diff"); ok || d.HasChange("revision_diff") {
+		t, err := expandFmupdateFwmSettingRevisionDiffFfb(d, v, "revision_diff")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["revision-diff"] = t
 		}
 	}
 

@@ -49,6 +49,11 @@ func resourceFmupdateFwmSettingUpgradeTimeout() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"health_check_timeout": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
 			"license_check_timeout": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
@@ -182,6 +187,10 @@ func flattenFmupdateFwmSettingUpgradeTimeoutHaSyncTimeout(v interface{}, d *sche
 	return v
 }
 
+func flattenFmupdateFwmSettingUpgradeTimeoutHealthCheckTimeout(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenFmupdateFwmSettingUpgradeTimeoutLicenseCheckTimeout(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -258,6 +267,16 @@ func refreshObjectFmupdateFwmSettingUpgradeTimeout(d *schema.ResourceData, o map
 			}
 		} else {
 			return fmt.Errorf("Error reading ha_sync_timeout: %v", err)
+		}
+	}
+
+	if err = d.Set("health_check_timeout", flattenFmupdateFwmSettingUpgradeTimeoutHealthCheckTimeout(o["health-check-timeout"], d, "health_check_timeout")); err != nil {
+		if vv, ok := fortiAPIPatch(o["health-check-timeout"], "FmupdateFwmSettingUpgradeTimeout-HealthCheckTimeout"); ok {
+			if err = d.Set("health_check_timeout", vv); err != nil {
+				return fmt.Errorf("Error reading health_check_timeout: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading health_check_timeout: %v", err)
 		}
 	}
 
@@ -376,6 +395,10 @@ func expandFmupdateFwmSettingUpgradeTimeoutHaSyncTimeout(d *schema.ResourceData,
 	return v, nil
 }
 
+func expandFmupdateFwmSettingUpgradeTimeoutHealthCheckTimeout(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandFmupdateFwmSettingUpgradeTimeoutLicenseCheckTimeout(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -448,6 +471,15 @@ func getObjectFmupdateFwmSettingUpgradeTimeout(d *schema.ResourceData) (*map[str
 			return &obj, err
 		} else if t != nil {
 			obj["ha-sync-timeout"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("health_check_timeout"); ok || d.HasChange("health_check_timeout") {
+		t, err := expandFmupdateFwmSettingUpgradeTimeoutHealthCheckTimeout(d, v, "health_check_timeout")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["health-check-timeout"] = t
 		}
 	}
 

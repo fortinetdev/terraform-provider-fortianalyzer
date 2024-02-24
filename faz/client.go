@@ -25,7 +25,10 @@ type Config struct {
 	Adom          string
 	ImportOptions *schema.Set
 
-	Session string
+	Session      string
+	Token        string
+	LogSession   bool
+	CleanSession bool
 }
 
 // FortiClient contains the basic FAZ SDK connection information to FAZ
@@ -51,12 +54,20 @@ func (c *Config) CreateClient() (interface{}, error) {
 func createFAZClient(fClient *FortiClient, c *Config) error {
 	config := &tls.Config{}
 
-	auth := auth.NewAuth(c.Hostname, c.User, c.Passwd, c.CABundle, c.Session)
+	auth := auth.NewAuth(c.Hostname, c.User, c.Passwd, c.CABundle,
+		c.Session, c.Token, c.LogSession, c.CleanSession)
 
 	if auth.Hostname == "" {
 		_, err := auth.GetEnvHostname()
 		if err != nil {
 			return fmt.Errorf("Error reading Hostname")
+		}
+	}
+
+	if auth.Token == "" {
+		_, err := auth.GetEnvToken()
+		if err != nil {
+			return fmt.Errorf("Error reading Token")
 		}
 	}
 
@@ -118,7 +129,10 @@ func createFAZClient(fClient *FortiClient, c *Config) error {
 		Timeout:   time.Second * 250,
 	}
 
-	fc := forticlient.NewClient(auth, client)
+	fc, err := forticlient.NewClient(auth, client)
+	if err != nil {
+		return err
+	}
 
 	fClient.Cfg = c
 	fClient.Client = fc

@@ -13,9 +13,12 @@ import (
 ////////////////////////////////////////////////////////////////////////
 
 func createUpdate(c *FortiSDKClient, globaladom, path string, method string, params *map[string]interface{}, move bool) (output map[string]interface{}, err error) {
-	log.Printf("shengh3: %v, %v:    %v\n", globaladom, path, params)
-
-	data := encodeData(c, globaladom, path, method, params, move)
+	log.Printf("[INFO] Request infomation: %v, %v:    %v\n", globaladom, path, params)
+	session := ""
+	if c.Config.Auth.CleanSession {
+		session, err = c.loginSession()
+	}
+	data := encodeData(c, globaladom, path, method, session, params, move)
 	locJSON, err := json.Marshal(data)
 	if err != nil {
 		log.Fatal(err)
@@ -25,6 +28,9 @@ func createUpdate(c *FortiSDKClient, globaladom, path string, method string, par
 
 	req := c.NewRequest("POST", "/jsonrpc", nil, bytes)
 	err = req.Send()
+	if c.Config.Auth.CleanSession {
+		c.logoutSession(session)
+	}
 	if err != nil || req.HTTPResponse == nil {
 		err = fmt.Errorf("cannot send request %v", err)
 		return
@@ -36,21 +42,25 @@ func createUpdate(c *FortiSDKClient, globaladom, path string, method string, par
 		err = fmt.Errorf("cannot get response body %v", err)
 		return
 	}
+	// log.Printf("FAZ create/update response: %s", string(body))
 
 	var result map[string]interface{}
 	json.Unmarshal([]byte(string(body)), &result)
 	err = fortiAPIErrorFormat(result, string(body))
 
 	if err == nil {
-		output = decodeData(result)
-		log.Printf("Successful\n")
+		output, err = decodeData(result)
 	}
 
 	return
 }
 
 func delete(c *FortiSDKClient, globaladom, path string, method string, move bool) (err error) {
-	data := encodeData(c, globaladom, path, method, nil, move)
+	session := ""
+	if c.Config.Auth.CleanSession {
+		session, err = c.loginSession()
+	}
+	data := encodeData(c, globaladom, path, method, session, nil, move)
 	locJSON, err := json.Marshal(data)
 	if err != nil {
 		log.Fatal(err)
@@ -60,6 +70,9 @@ func delete(c *FortiSDKClient, globaladom, path string, method string, move bool
 
 	req := c.NewRequest("POST", "/jsonrpc", nil, bytes)
 	err = req.Send()
+	if c.Config.Auth.CleanSession {
+		c.logoutSession(session)
+	}
 	if err != nil || req.HTTPResponse == nil {
 		err = fmt.Errorf("cannot send request %v", err)
 		return
@@ -71,7 +84,7 @@ func delete(c *FortiSDKClient, globaladom, path string, method string, move bool
 		err = fmt.Errorf("cannot get response body %v", err)
 		return
 	}
-	log.Printf("FAZ response: %s", string(body))
+	// log.Printf("FAZ delete response: %s", string(body))
 
 	var result map[string]interface{}
 	json.Unmarshal([]byte(string(body)), &result)
@@ -82,7 +95,11 @@ func delete(c *FortiSDKClient, globaladom, path string, method string, move bool
 }
 
 func read(c *FortiSDKClient, globaladom, path string, method string, move bool) (mapTmp map[string]interface{}, err error) {
-	data := encodeData(c, globaladom, path, method, nil, move)
+	session := ""
+	if c.Config.Auth.CleanSession {
+		session, err = c.loginSession()
+	}
+	data := encodeData(c, globaladom, path, method, session, nil, move)
 	locJSON, err := json.Marshal(data)
 	if err != nil {
 		log.Fatal(err)
@@ -92,6 +109,9 @@ func read(c *FortiSDKClient, globaladom, path string, method string, move bool) 
 
 	req := c.NewRequest("POST", "/jsonrpc", nil, bytes)
 	err = req.Send()
+	if c.Config.Auth.CleanSession {
+		c.logoutSession(session)
+	}
 	if err != nil || req.HTTPResponse == nil {
 		err = fmt.Errorf("cannot send request %v", err)
 		return
@@ -103,7 +123,7 @@ func read(c *FortiSDKClient, globaladom, path string, method string, move bool) 
 		err = fmt.Errorf("cannot get response body %v", err)
 		return
 	}
-	log.Printf("FAZ reading response: %s", string(body))
+	// log.Printf("FAZ reading response: %s", string(body))
 
 	var result map[string]interface{}
 	json.Unmarshal([]byte(string(body)), &result)
@@ -111,7 +131,7 @@ func read(c *FortiSDKClient, globaladom, path string, method string, move bool) 
 	err = fortiAPIErrorFormat(result, string(body))
 
 	if err == nil {
-		mapTmp = decodeData(result)
+		mapTmp, err = decodeData(result)
 	}
 
 	return
@@ -123,17 +143,23 @@ func computerPath(globaladom, path string) string {
 	return path
 }
 
-func encodeData(c *FortiSDKClient, globaladom, path, method string, params *map[string]interface{}, move bool) map[string]interface{} {
+func encodeData(c *FortiSDKClient, globaladom, path, method, session string, params *map[string]interface{}, move bool) map[string]interface{} {
 	data := make(map[string]interface{})
 	data["method"] = method
 	data["params"] = make([]map[string]interface{}, 0)
-	data["verbose"] = 1
-	data["session"] = c.Session
+	if method == "get" {
+		data["verbose"] = 1
+	}
+	if session != "" {
+		data["session"] = session
+	} else if c.Session != "" {
+		data["session"] = c.Session
+	}
 
 	paramItem := make(map[string]interface{})
 	paramItem["url"] = computerPath(globaladom, path) //"/cli/global/system/admin/setting"
 
-	log.Printf("shengh: %v\n", paramItem["url"])
+	log.Printf("[INFO] Request URL: %v\n", paramItem["url"])
 
 	if move == false {
 		paramItem["data"] = params
@@ -149,18 +175,31 @@ func encodeData(c *FortiSDKClient, globaladom, path, method string, params *map[
 	return data
 }
 
-func decodeData(result map[string]interface{}) map[string]interface{} {
+func decodeData(result map[string]interface{}) (dataMap map[string]interface{}, err error) {
 	v := result["result"]
 
 	// fortiapi intercepted all the exceptions
 	l := v.([]interface{})
 	v2 := l[0].(map[string]interface{})
 	if v2["data"] != nil {
-		mapTmp := v2["data"].(map[string]interface{})
-		return mapTmp
+		if dataList, ok := v2["data"].([]interface{}); ok {
+			if len(dataList) == 0 {
+				err = fmt.Errorf("API response is empty.")
+				return
+			}
+			if dataMap, ok = dataList[0].(map[string]interface{}); ok {
+				return
+			} else {
+				err = fmt.Errorf("The element of data list is not map for the API response. Please file an issue on provider's Github repository.")
+			}
+		} else if dataMap, ok = v2["data"].(map[string]interface{}); ok {
+			return
+		} else {
+			err = fmt.Errorf("Could not identify the type of parameter 'data' of API response. Please file an issue on provider's Github repository.")
+		}
 	}
 
-	return nil
+	return
 }
 
 func fortiAPIErrorFormat(result map[string]interface{}, body string) (err error) {

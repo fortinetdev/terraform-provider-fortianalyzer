@@ -62,6 +62,16 @@ func resourceSystemAdminSetting() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"fgt_gui_proxy": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
+			"fgt_gui_proxy_port": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
 			"firmware_upgrade_check": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -267,6 +277,14 @@ func flattenSystemAdminSettingBannerMessage(v interface{}, d *schema.ResourceDat
 	return v
 }
 
+func flattenSystemAdminSettingFgtGuiProxy(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemAdminSettingFgtGuiProxyPort(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemAdminSettingFirmwareUpgradeCheck(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -421,6 +439,26 @@ func refreshObjectSystemAdminSetting(d *schema.ResourceData, o map[string]interf
 			}
 		} else {
 			return fmt.Errorf("Error reading banner_message: %v", err)
+		}
+	}
+
+	if err = d.Set("fgt_gui_proxy", flattenSystemAdminSettingFgtGuiProxy(o["fgt-gui-proxy"], d, "fgt_gui_proxy")); err != nil {
+		if vv, ok := fortiAPIPatch(o["fgt-gui-proxy"], "SystemAdminSetting-FgtGuiProxy"); ok {
+			if err = d.Set("fgt_gui_proxy", vv); err != nil {
+				return fmt.Errorf("Error reading fgt_gui_proxy: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading fgt_gui_proxy: %v", err)
+		}
+	}
+
+	if err = d.Set("fgt_gui_proxy_port", flattenSystemAdminSettingFgtGuiProxyPort(o["fgt-gui-proxy-port"], d, "fgt_gui_proxy_port")); err != nil {
+		if vv, ok := fortiAPIPatch(o["fgt-gui-proxy-port"], "SystemAdminSetting-FgtGuiProxyPort"); ok {
+			if err = d.Set("fgt_gui_proxy_port", vv); err != nil {
+				return fmt.Errorf("Error reading fgt_gui_proxy_port: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading fgt_gui_proxy_port: %v", err)
 		}
 	}
 
@@ -661,6 +699,14 @@ func expandSystemAdminSettingBannerMessage(d *schema.ResourceData, v interface{}
 	return v, nil
 }
 
+func expandSystemAdminSettingFgtGuiProxy(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemAdminSettingFgtGuiProxyPort(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemAdminSettingFirmwareUpgradeCheck(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -808,6 +854,24 @@ func getObjectSystemAdminSetting(d *schema.ResourceData) (*map[string]interface{
 			return &obj, err
 		} else if t != nil {
 			obj["banner-message"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("fgt_gui_proxy"); ok || d.HasChange("fgt_gui_proxy") {
+		t, err := expandSystemAdminSettingFgtGuiProxy(d, v, "fgt_gui_proxy")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["fgt-gui-proxy"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("fgt_gui_proxy_port"); ok || d.HasChange("fgt_gui_proxy_port") {
+		t, err := expandSystemAdminSettingFgtGuiProxyPort(d, v, "fgt_gui_proxy_port")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["fgt-gui-proxy-port"] = t
 		}
 	}
 

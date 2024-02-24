@@ -32,6 +32,10 @@ The following arguments are supported:
 
 
 * `alert_destination` - Alert-Destination. The structure of `alert_destination` block is documented below.
+* `enable_generic_text_unitary` - Enable/disable generic text match. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
+
+* `enable_severity_filter_unitary` - Enable/disable alert severity filter. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
+
 * `enable_generic_text` - Enable/disable generic text match. enable - Enable setting. disable - Disable setting. Valid values: `enable`, `disable`.
 
 * `enable_severity_filter` - Enable/disable alert severity filter. enable - Enable setting. disable - Disable setting. Valid values: `enable`, `disable`.
@@ -43,6 +47,8 @@ The following arguments are supported:
 * `num_events` - Minimum number of events required within time period. 1 - 1 event. 5 - 5 events. 10 - 10 events. 50 - 50 events. 100 - 100 events. Valid values: `1`, `5`, `10`, `50`, `100`.
 
 * `severity_filter` - Required log severity to trigger alert. high - High level alert. medium-high - Medium-high level alert. medium - Medium level alert. medium-low - Medium-low level alert. low - Low level alert. Valid values: `high`, `medium-high`, `medium`, `medium-low`, `low`.
+
+* `severity_level_comp_unitary` - Log severity threshold comparison criterion. Valid values: `=`, `>=`, `<=`.
 
 * `severity_level_comp` - Log severity threshold comparison criterion. Valid values: `>=`, `=`, `<=`.
 

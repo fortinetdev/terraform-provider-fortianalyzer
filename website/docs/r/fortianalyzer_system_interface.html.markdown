@@ -31,7 +31,12 @@ The following arguments are supported:
 * `alias` - Alias.
 * `allowaccess` - Allow management access to interface. ping - PING access. https - HTTPS access. ssh - SSH access. snmp - SNMP access. http - HTTP access. webservice - Web service access. fgfm - FortiManager access. https-logging - Logging over HTTPS access. soc-fabric - SOC Fabric access. Valid values: `ping`, `https`, `ssh`, `snmp`, `http`, `webservice`, `fgfm`, `https-logging`, `soc-fabric`.
 
+* `defaultgw` - Enable/disable default gateway. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
+
 * `description` - Description.
+* `dhcp_client_identifier` - DHCP client identifier.
+* `dns_server_override` - Enable/disable use DNS acquired by DHCP or PPPoE. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
+
 * `interface` - Underlying interface name.
 * `ip` - IP address of interface.
 * `ipv6` - Ipv6. The structure of `ipv6` block is documented below.
@@ -46,7 +51,11 @@ The following arguments are supported:
 * `min_links` - Minimum number of aggregated ports that must be up.
 * `min_links_down` - Action to take when less than the configured minimum number of links are active. operational - Set the aggregate operationally down. administrative - Set the aggregate administratively down. Valid values: `operational`, `administrative`.
 
+* `mode` - Addressing mode (static, DHCP). static - Static setting. dhcp - External DHCP client mode. Valid values: `static`, `dhcp`.
+
 * `mtu` - Maximum transportation unit(68 - 9000).
+* `mtu_override` - Enable/disable use MTU acquired by DHCP or PPPoE. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
+
 * `name` - Interface name.
 * `speed` - Speed. auto - Auto adjust speed. 10full - 10M full-duplex. 10half - 10M half-duplex. 100full - 100M full-duplex. 100half - 100M half-duplex. 1000full - 1000M full-duplex. 10000full - 10000M full-duplex. Valid values: `auto`, `10full`, `10half`, `100full`, `100half`, `1000full`, `10000full`.
 

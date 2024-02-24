@@ -74,6 +74,8 @@ The following arguments are supported:
 
 * `fabric_viewer` - Fabric viewer. none - No permission. read - Read permission. read-write - Read-write permission. Valid values: `none`, `read`, `read-write`.
 
+* `fgt_gui_proxy` - FortiGate GUI proxy. disable - No permission. enable - With permission. Valid values: `disable`, `enable`.
+
 * `fortirecorder_setting` - FortiRecorder settings. none - No permission. read - Read permission. read-write - Read-write permission. Valid values: `none`, `read`, `read-write`.
 
 * `ips_lock` - IPS locking none - No permission. read - Read permission. read-write - Read-write permission. Valid values: `none`, `read`, `read-write`.
@@ -123,6 +125,10 @@ The following arguments are supported:
 * `trusthost9` - Admin user trusted host IP, default 255.255.255.255 255.255.255.255 for none.
 * `update_incidents` - Create/update incidents. none - No permission. read - Read permission. read-write - Read-write permission. Valid values: `none`, `read`, `read-write`.
 
+* `write_passwd_access` - set all/specify-by-user/specify-by-profile write password access mode. all - All except super users. specify-by-user - Specify by user. specify-by-profile - Specify by profile. Valid values: `all`, `specify-by-user`, `specify-by-profile`.
+
+* `write_passwd_profiles` - Write-Passwd-Profiles. The structure of `write_passwd_profiles` block is documented below.
+* `write_passwd_user_list` - Write-Passwd-User-List. The structure of `write_passwd_user_list` block is documented below.
 * `dynamic_sort_subtable` - true or false, set this parameter to true when using dynamic for_each + toset to configure and sort sub-tables, please do not set this parameter when configuring static sub-tables.
 
 The `datamask_custom_fields` block supports:
@@ -134,6 +140,14 @@ The `datamask_custom_fields` block supports:
 
 * `field_type` - Field type. string - String. ip - IP. mac - MAC address. email - Email address. unknown - Unknown. Valid values: `string`, `ip`, `mac`, `email`, `unknown`.
 
+
+The `write_passwd_profiles` block supports:
+
+* `profileid` - Profile ID.
+
+The `write_passwd_user_list` block supports:
+
+* `userid` - User ID.
 
 
 ## Attribute Reference

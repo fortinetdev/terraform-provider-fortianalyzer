@@ -50,6 +50,9 @@ The following arguments are supported:
 * `auth_addr` - IP which is used by FGT to authorize FAZ.
 * `auth_port` - Port which is used by FGT to authorize FAZ.
 * `banner_message` - Banner message.
+* `fgt_gui_proxy` - Enable/disable FortiGate GUI proxy. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
+
+* `fgt_gui_proxy_port` - FortiGate GUI proxy port.
 * `firmware_upgrade_check` - Enable/disable firmware upgrade check. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
 
 * `fsw_ignore_platform_check` - Enable/disable FortiSwitch Manager switch platform support check. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.

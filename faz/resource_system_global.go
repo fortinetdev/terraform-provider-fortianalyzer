@@ -64,6 +64,11 @@ func resourceSystemGlobal() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"api_ip_binding": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"backup_compression": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -348,6 +353,31 @@ func resourceSystemGlobal() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"ssh_enc_algo": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
+			},
+			"ssh_hostkey_algo": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
+			},
+			"ssh_kex_algo": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
+			},
+			"ssh_mac_algo": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
+			},
+			"ssh_strong_crypto": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"ssl_cipher_suites": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
@@ -528,6 +558,10 @@ func flattenSystemGlobalAdomStatusSga(v interface{}, d *schema.ResourceData, pre
 }
 
 func flattenSystemGlobalApacheModeSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemGlobalApiIpBindingSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -763,6 +797,26 @@ func flattenSystemGlobalSearchAllAdomsSga(v interface{}, d *schema.ResourceData,
 	return v
 }
 
+func flattenSystemGlobalSshEncAlgoSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
+}
+
+func flattenSystemGlobalSshHostkeyAlgoSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
+}
+
+func flattenSystemGlobalSshKexAlgoSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
+}
+
+func flattenSystemGlobalSshMacAlgoSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
+}
+
+func flattenSystemGlobalSshStrongCryptoSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemGlobalSslCipherSuitesSga(v interface{}, d *schema.ResourceData, pre string) []map[string]interface{} {
 	if v == nil {
 		return nil
@@ -934,6 +988,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 			}
 		} else {
 			return fmt.Errorf("Error reading apache_mode: %v", err)
+		}
+	}
+
+	if err = d.Set("api_ip_binding", flattenSystemGlobalApiIpBindingSga(o["api-ip-binding"], d, "api_ip_binding")); err != nil {
+		if vv, ok := fortiAPIPatch(o["api-ip-binding"], "SystemGlobal-ApiIpBinding"); ok {
+			if err = d.Set("api_ip_binding", vv); err != nil {
+				return fmt.Errorf("Error reading api_ip_binding: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading api_ip_binding: %v", err)
 		}
 	}
 
@@ -1517,6 +1581,56 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 		}
 	}
 
+	if err = d.Set("ssh_enc_algo", flattenSystemGlobalSshEncAlgoSga(o["ssh-enc-algo"], d, "ssh_enc_algo")); err != nil {
+		if vv, ok := fortiAPIPatch(o["ssh-enc-algo"], "SystemGlobal-SshEncAlgo"); ok {
+			if err = d.Set("ssh_enc_algo", vv); err != nil {
+				return fmt.Errorf("Error reading ssh_enc_algo: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading ssh_enc_algo: %v", err)
+		}
+	}
+
+	if err = d.Set("ssh_hostkey_algo", flattenSystemGlobalSshHostkeyAlgoSga(o["ssh-hostkey-algo"], d, "ssh_hostkey_algo")); err != nil {
+		if vv, ok := fortiAPIPatch(o["ssh-hostkey-algo"], "SystemGlobal-SshHostkeyAlgo"); ok {
+			if err = d.Set("ssh_hostkey_algo", vv); err != nil {
+				return fmt.Errorf("Error reading ssh_hostkey_algo: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading ssh_hostkey_algo: %v", err)
+		}
+	}
+
+	if err = d.Set("ssh_kex_algo", flattenSystemGlobalSshKexAlgoSga(o["ssh-kex-algo"], d, "ssh_kex_algo")); err != nil {
+		if vv, ok := fortiAPIPatch(o["ssh-kex-algo"], "SystemGlobal-SshKexAlgo"); ok {
+			if err = d.Set("ssh_kex_algo", vv); err != nil {
+				return fmt.Errorf("Error reading ssh_kex_algo: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading ssh_kex_algo: %v", err)
+		}
+	}
+
+	if err = d.Set("ssh_mac_algo", flattenSystemGlobalSshMacAlgoSga(o["ssh-mac-algo"], d, "ssh_mac_algo")); err != nil {
+		if vv, ok := fortiAPIPatch(o["ssh-mac-algo"], "SystemGlobal-SshMacAlgo"); ok {
+			if err = d.Set("ssh_mac_algo", vv); err != nil {
+				return fmt.Errorf("Error reading ssh_mac_algo: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading ssh_mac_algo: %v", err)
+		}
+	}
+
+	if err = d.Set("ssh_strong_crypto", flattenSystemGlobalSshStrongCryptoSga(o["ssh-strong-crypto"], d, "ssh_strong_crypto")); err != nil {
+		if vv, ok := fortiAPIPatch(o["ssh-strong-crypto"], "SystemGlobal-SshStrongCrypto"); ok {
+			if err = d.Set("ssh_strong_crypto", vv); err != nil {
+				return fmt.Errorf("Error reading ssh_strong_crypto: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading ssh_strong_crypto: %v", err)
+		}
+	}
+
 	if isImportTable() {
 		if err = d.Set("ssl_cipher_suites", flattenSystemGlobalSslCipherSuitesSga(o["ssl-cipher-suites"], d, "ssl_cipher_suites")); err != nil {
 			if vv, ok := fortiAPIPatch(o["ssl-cipher-suites"], "SystemGlobal-SslCipherSuites"); ok {
@@ -1685,6 +1799,10 @@ func expandSystemGlobalAdomStatusSga(d *schema.ResourceData, v interface{}, pre 
 }
 
 func expandSystemGlobalApacheModeSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemGlobalApiIpBindingSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -1920,6 +2038,26 @@ func expandSystemGlobalSearchAllAdomsSga(d *schema.ResourceData, v interface{}, 
 	return v, nil
 }
 
+func expandSystemGlobalSshEncAlgoSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
+}
+
+func expandSystemGlobalSshHostkeyAlgoSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
+}
+
+func expandSystemGlobalSshKexAlgoSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
+}
+
+func expandSystemGlobalSshMacAlgoSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
+}
+
+func expandSystemGlobalSshStrongCryptoSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemGlobalSslCipherSuitesSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	l := v.([]interface{})
 	if len(l) == 0 || l[0] == nil {
@@ -2076,6 +2214,15 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 			return &obj, err
 		} else if t != nil {
 			obj["apache-mode"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("api_ip_binding"); ok || d.HasChange("api_ip_binding") {
+		t, err := expandSystemGlobalApiIpBindingSga(d, v, "api_ip_binding")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["api-ip-binding"] = t
 		}
 	}
 
@@ -2598,6 +2745,51 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 			return &obj, err
 		} else if t != nil {
 			obj["search-all-adoms"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("ssh_enc_algo"); ok || d.HasChange("ssh_enc_algo") {
+		t, err := expandSystemGlobalSshEncAlgoSga(d, v, "ssh_enc_algo")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["ssh-enc-algo"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("ssh_hostkey_algo"); ok || d.HasChange("ssh_hostkey_algo") {
+		t, err := expandSystemGlobalSshHostkeyAlgoSga(d, v, "ssh_hostkey_algo")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["ssh-hostkey-algo"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("ssh_kex_algo"); ok || d.HasChange("ssh_kex_algo") {
+		t, err := expandSystemGlobalSshKexAlgoSga(d, v, "ssh_kex_algo")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["ssh-kex-algo"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("ssh_mac_algo"); ok || d.HasChange("ssh_mac_algo") {
+		t, err := expandSystemGlobalSshMacAlgoSga(d, v, "ssh_mac_algo")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["ssh-mac-algo"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("ssh_strong_crypto"); ok || d.HasChange("ssh_strong_crypto") {
+		t, err := expandSystemGlobalSshStrongCryptoSga(d, v, "ssh_strong_crypto")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["ssh-strong-crypto"] = t
 		}
 	}
 

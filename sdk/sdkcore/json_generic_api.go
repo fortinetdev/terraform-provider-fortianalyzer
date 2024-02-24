@@ -1,10 +1,9 @@
-
 package forticlient
 
 import (
-	"fmt"
-	"encoding/json"
 	"bytes"
+	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 )
@@ -14,7 +13,13 @@ func (c *FortiSDKClient) JsonGenericAPI(data string) (output string, err error) 
 	rev := map[string]interface{}{}
 	json.Unmarshal([]byte(data), &rev)
 	rev["verbose"] = 1
-	rev["session"] = c.Session
+	session := ""
+	if c.Config.Auth.CleanSession {
+		session, err = c.loginSession()
+		rev["session"] = session
+	} else if c.Session != "" {
+		rev["session"] = c.Session
+	}
 
 	locJSON, err := json.Marshal(rev)
 	if err != nil {
@@ -26,6 +31,9 @@ func (c *FortiSDKClient) JsonGenericAPI(data string) (output string, err error) 
 
 	req := c.NewRequest("POST", "/jsonrpc", nil, bytes)
 	err = req.Send()
+	if c.Config.Auth.CleanSession {
+		err = c.logoutSession(session)
+	}
 	if err != nil || req.HTTPResponse == nil {
 		err = fmt.Errorf("cannot send request %v", err)
 		return
