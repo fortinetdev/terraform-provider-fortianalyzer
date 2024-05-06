@@ -2133,72 +2133,6 @@ func (c *FortiSDKClient) ReadSystemCertificateLocal(globaladom, mkey string, par
 	return
 }
 
-// CreateSystemCsfTrustedList API operation for FortiAnalyzer creates a new CsfTrusted List.
-// Returns the index value of the CsfTrusted List and execution result when the request executes successfully.
-// Returns error for service API and SDK errors.
-// See the system - csf trusted-list chapter in the FortiAnalyzer Handbook - CLI Reference.
-func (c *FortiSDKClient) CreateSystemCsfTrustedList(params *map[string]interface{}, globaladom string, paralist []string) (output map[string]interface{}, err error) {
-	path := "/cli/[*]/system/csf/trusted-list"
-	path, err = replaceParaWithValue(path, paralist)
-	if err != nil {
-		return nil, fmt.Errorf("%v", err)
-	}
-
-	output, err = createUpdate(c, globaladom, path, "add", params, false)
-	return
-}
-
-// UpdateSystemCsfTrustedList API operation for FortiAnalyzer updates the specified CsfTrusted List.
-// Returns the index value of the CsfTrusted List and execution result when the request executes successfully.
-// Returns error for service API and SDK errors.
-// See the system - csf trusted-list chapter in the FortiAnalyzer Handbook - CLI Reference.
-func (c *FortiSDKClient) UpdateSystemCsfTrustedList(params *map[string]interface{}, globaladom, mkey string, paralist []string) (output map[string]interface{}, err error) {
-	path := "/cli/[*]/system/csf/trusted-list"
-	path, err = replaceParaWithValue(path, paralist)
-	if err != nil {
-		return nil, fmt.Errorf("%v", err)
-	}
-
-	path += "/" + escapeURLString(mkey)
-
-	output, err = createUpdate(c, globaladom, path, "set", params, false)
-	return
-}
-
-// DeleteSystemCsfTrustedList API operation for FortiAnalyzer deletes the specified CsfTrusted List.
-// Returns error for service API and SDK errors.
-// See the system - csf trusted-list chapter in the FortiAnalyzer Handbook - CLI Reference.
-func (c *FortiSDKClient) DeleteSystemCsfTrustedList(globaladom, mkey string, paralist []string) (err error) {
-	path := "/cli/[*]/system/csf/trusted-list"
-	path, err = replaceParaWithValue(path, paralist)
-	if err != nil {
-		return fmt.Errorf("%v", err)
-	}
-
-	path += "/" + escapeURLString(mkey)
-
-	err = delete(c, globaladom, path, "delete", false)
-	return
-}
-
-// ReadSystemCsfTrustedList API operation for FortiAnalyzer gets the CsfTrusted List
-// with the specified index value.
-// Returns the requested CsfTrusted List value when the request executes successfully.
-// Returns error for service API and SDK errors.
-// See the system - csf trusted-list chapter in the FortiAnalyzer Handbook - CLI Reference.
-func (c *FortiSDKClient) ReadSystemCsfTrustedList(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
-	path := "/cli/[*]/system/csf/trusted-list"
-	path, err = replaceParaWithValue(path, paralist)
-	if err != nil {
-		return nil, fmt.Errorf("%v", err)
-	}
-
-	path += "/" + escapeURLString(mkey)
-
-	mapTmp, err = read(c, globaladom, path, "get", false)
-	return
-}
-
 
 // UpdateSystemCertificateOftp API operation for FortiAnalyzer updates the specified CertificateOftp.
 // Returns the index value of the CertificateOftp and execution result when the request executes successfully.
@@ -2237,72 +2171,6 @@ func (c *FortiSDKClient) ReadSystemCertificateOftp(globaladom, mkey string, para
 		return nil, fmt.Errorf("%v", err)
 	}
 
-
-	mapTmp, err = read(c, globaladom, path, "get", false)
-	return
-}
-
-// CreateSystemCsfFabricConnector API operation for FortiAnalyzer creates a new CsfFabric Connector.
-// Returns the index value of the CsfFabric Connector and execution result when the request executes successfully.
-// Returns error for service API and SDK errors.
-// See the system - csf fabric-connector chapter in the FortiAnalyzer Handbook - CLI Reference.
-func (c *FortiSDKClient) CreateSystemCsfFabricConnector(params *map[string]interface{}, globaladom string, paralist []string) (output map[string]interface{}, err error) {
-	path := "/cli/[*]/system/csf/fabric-connector"
-	path, err = replaceParaWithValue(path, paralist)
-	if err != nil {
-		return nil, fmt.Errorf("%v", err)
-	}
-
-	output, err = createUpdate(c, globaladom, path, "add", params, false)
-	return
-}
-
-// UpdateSystemCsfFabricConnector API operation for FortiAnalyzer updates the specified CsfFabric Connector.
-// Returns the index value of the CsfFabric Connector and execution result when the request executes successfully.
-// Returns error for service API and SDK errors.
-// See the system - csf fabric-connector chapter in the FortiAnalyzer Handbook - CLI Reference.
-func (c *FortiSDKClient) UpdateSystemCsfFabricConnector(params *map[string]interface{}, globaladom, mkey string, paralist []string) (output map[string]interface{}, err error) {
-	path := "/cli/[*]/system/csf/fabric-connector"
-	path, err = replaceParaWithValue(path, paralist)
-	if err != nil {
-		return nil, fmt.Errorf("%v", err)
-	}
-
-	path += "/" + escapeURLString(mkey)
-
-	output, err = createUpdate(c, globaladom, path, "set", params, false)
-	return
-}
-
-// DeleteSystemCsfFabricConnector API operation for FortiAnalyzer deletes the specified CsfFabric Connector.
-// Returns error for service API and SDK errors.
-// See the system - csf fabric-connector chapter in the FortiAnalyzer Handbook - CLI Reference.
-func (c *FortiSDKClient) DeleteSystemCsfFabricConnector(globaladom, mkey string, paralist []string) (err error) {
-	path := "/cli/[*]/system/csf/fabric-connector"
-	path, err = replaceParaWithValue(path, paralist)
-	if err != nil {
-		return fmt.Errorf("%v", err)
-	}
-
-	path += "/" + escapeURLString(mkey)
-
-	err = delete(c, globaladom, path, "delete", false)
-	return
-}
-
-// ReadSystemCsfFabricConnector API operation for FortiAnalyzer gets the CsfFabric Connector
-// with the specified index value.
-// Returns the requested CsfFabric Connector value when the request executes successfully.
-// Returns error for service API and SDK errors.
-// See the system - csf fabric-connector chapter in the FortiAnalyzer Handbook - CLI Reference.
-func (c *FortiSDKClient) ReadSystemCsfFabricConnector(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
-	path := "/cli/[*]/system/csf/fabric-connector"
-	path, err = replaceParaWithValue(path, paralist)
-	if err != nil {
-		return nil, fmt.Errorf("%v", err)
-	}
-
-	path += "/" + escapeURLString(mkey)
 
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
@@ -2369,49 +2237,6 @@ func (c *FortiSDKClient) ReadSystemCertificateRemote(globaladom, mkey string, pa
 	}
 
 	path += "/" + escapeURLString(mkey)
-
-	mapTmp, err = read(c, globaladom, path, "get", false)
-	return
-}
-
-
-// UpdateSystemCsf API operation for FortiAnalyzer updates the specified Csf.
-// Returns the index value of the Csf and execution result when the request executes successfully.
-// Returns error for service API and SDK errors.
-// See the system - csf chapter in the FortiAnalyzer Handbook - CLI Reference.
-func (c *FortiSDKClient) UpdateSystemCsf(params *map[string]interface{}, globaladom, mkey string, paralist []string) (output map[string]interface{}, err error) {
-	path := "/cli/[*]/system/csf"
-	path, err = replaceParaWithValue(path, paralist)
-	if err != nil {
-		return nil, fmt.Errorf("%v", err)
-	}
-
-
-	output, err = createUpdate(c, globaladom, path, "set", params, false)
-	return
-}
-
-// DeleteSystemCsf API operation for FortiAnalyzer deletes the specified Csf.
-// Returns error for service API and SDK errors.
-// See the system - csf chapter in the FortiAnalyzer Handbook - CLI Reference.
-func (c *FortiSDKClient) DeleteSystemCsf(globaladom, mkey string, paralist []string) (err error) {
-
-	//No unset API for system - csf
-	return
-}
-
-// ReadSystemCsf API operation for FortiAnalyzer gets the Csf
-// with the specified index value.
-// Returns the requested Csf value when the request executes successfully.
-// Returns error for service API and SDK errors.
-// See the system - csf chapter in the FortiAnalyzer Handbook - CLI Reference.
-func (c *FortiSDKClient) ReadSystemCsf(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
-	path := "/cli/[*]/system/csf"
-	path, err = replaceParaWithValue(path, paralist)
-	if err != nil {
-		return nil, fmt.Errorf("%v", err)
-	}
-
 
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
@@ -2521,6 +2346,181 @@ func (c *FortiSDKClient) ReadSystemConnector(globaladom, mkey string, paralist [
 		return nil, fmt.Errorf("%v", err)
 	}
 
+
+	mapTmp, err = read(c, globaladom, path, "get", false)
+	return
+}
+
+
+// UpdateSystemCsf API operation for FortiAnalyzer updates the specified Csf.
+// Returns the index value of the Csf and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - csf chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateSystemCsf(params *map[string]interface{}, globaladom, mkey string, paralist []string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/system/csf"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+
+	output, err = createUpdate(c, globaladom, path, "set", params, false)
+	return
+}
+
+// DeleteSystemCsf API operation for FortiAnalyzer deletes the specified Csf.
+// Returns error for service API and SDK errors.
+// See the system - csf chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteSystemCsf(globaladom, mkey string, paralist []string) (err error) {
+
+	//No unset API for system - csf
+	return
+}
+
+// ReadSystemCsf API operation for FortiAnalyzer gets the Csf
+// with the specified index value.
+// Returns the requested Csf value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - csf chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadSystemCsf(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
+	path := "/cli/[*]/system/csf"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+
+	mapTmp, err = read(c, globaladom, path, "get", false)
+	return
+}
+
+// CreateSystemCsfFabricConnector API operation for FortiAnalyzer creates a new CsfFabric Connector.
+// Returns the index value of the CsfFabric Connector and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - csf fabric-connector chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateSystemCsfFabricConnector(params *map[string]interface{}, globaladom string, paralist []string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/system/csf/fabric-connector"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, globaladom, path, "add", params, false)
+	return
+}
+
+// UpdateSystemCsfFabricConnector API operation for FortiAnalyzer updates the specified CsfFabric Connector.
+// Returns the index value of the CsfFabric Connector and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - csf fabric-connector chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateSystemCsfFabricConnector(params *map[string]interface{}, globaladom, mkey string, paralist []string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/system/csf/fabric-connector"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, globaladom, path, "set", params, false)
+	return
+}
+
+// DeleteSystemCsfFabricConnector API operation for FortiAnalyzer deletes the specified CsfFabric Connector.
+// Returns error for service API and SDK errors.
+// See the system - csf fabric-connector chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteSystemCsfFabricConnector(globaladom, mkey string, paralist []string) (err error) {
+	path := "/cli/[*]/system/csf/fabric-connector"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, globaladom, path, "delete", false)
+	return
+}
+
+// ReadSystemCsfFabricConnector API operation for FortiAnalyzer gets the CsfFabric Connector
+// with the specified index value.
+// Returns the requested CsfFabric Connector value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - csf fabric-connector chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadSystemCsfFabricConnector(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
+	path := "/cli/[*]/system/csf/fabric-connector"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, globaladom, path, "get", false)
+	return
+}
+
+// CreateSystemCsfTrustedList API operation for FortiAnalyzer creates a new CsfTrusted List.
+// Returns the index value of the CsfTrusted List and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - csf trusted-list chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateSystemCsfTrustedList(params *map[string]interface{}, globaladom string, paralist []string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/system/csf/trusted-list"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, globaladom, path, "add", params, false)
+	return
+}
+
+// UpdateSystemCsfTrustedList API operation for FortiAnalyzer updates the specified CsfTrusted List.
+// Returns the index value of the CsfTrusted List and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - csf trusted-list chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateSystemCsfTrustedList(params *map[string]interface{}, globaladom, mkey string, paralist []string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/system/csf/trusted-list"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, globaladom, path, "set", params, false)
+	return
+}
+
+// DeleteSystemCsfTrustedList API operation for FortiAnalyzer deletes the specified CsfTrusted List.
+// Returns error for service API and SDK errors.
+// See the system - csf trusted-list chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteSystemCsfTrustedList(globaladom, mkey string, paralist []string) (err error) {
+	path := "/cli/[*]/system/csf/trusted-list"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, globaladom, path, "delete", false)
+	return
+}
+
+// ReadSystemCsfTrustedList API operation for FortiAnalyzer gets the CsfTrusted List
+// with the specified index value.
+// Returns the requested CsfTrusted List value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - csf trusted-list chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadSystemCsfTrustedList(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
+	path := "/cli/[*]/system/csf/trusted-list"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
 
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return
@@ -4477,49 +4477,6 @@ func (c *FortiSDKClient) ReadSystemLogInterfaceStats(globaladom, mkey string, pa
 }
 
 
-// UpdateSystemLogPcapFile API operation for FortiAnalyzer updates the specified LogPcap File.
-// Returns the index value of the LogPcap File and execution result when the request executes successfully.
-// Returns error for service API and SDK errors.
-// See the system - log pcap-file chapter in the FortiAnalyzer Handbook - CLI Reference.
-func (c *FortiSDKClient) UpdateSystemLogPcapFile(params *map[string]interface{}, globaladom, mkey string, paralist []string) (output map[string]interface{}, err error) {
-	path := "/cli/[*]/system/log/pcap-file"
-	path, err = replaceParaWithValue(path, paralist)
-	if err != nil {
-		return nil, fmt.Errorf("%v", err)
-	}
-
-
-	output, err = createUpdate(c, globaladom, path, "set", params, false)
-	return
-}
-
-// DeleteSystemLogPcapFile API operation for FortiAnalyzer deletes the specified LogPcap File.
-// Returns error for service API and SDK errors.
-// See the system - log pcap-file chapter in the FortiAnalyzer Handbook - CLI Reference.
-func (c *FortiSDKClient) DeleteSystemLogPcapFile(globaladom, mkey string, paralist []string) (err error) {
-
-	//No unset API for system - log pcap-file
-	return
-}
-
-// ReadSystemLogPcapFile API operation for FortiAnalyzer gets the LogPcap File
-// with the specified index value.
-// Returns the requested LogPcap File value when the request executes successfully.
-// Returns error for service API and SDK errors.
-// See the system - log pcap-file chapter in the FortiAnalyzer Handbook - CLI Reference.
-func (c *FortiSDKClient) ReadSystemLogPcapFile(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
-	path := "/cli/[*]/system/log/pcap-file"
-	path, err = replaceParaWithValue(path, paralist)
-	if err != nil {
-		return nil, fmt.Errorf("%v", err)
-	}
-
-
-	mapTmp, err = read(c, globaladom, path, "get", false)
-	return
-}
-
-
 // UpdateSystemLogIoc API operation for FortiAnalyzer updates the specified LogIoc.
 // Returns the index value of the LogIoc and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -4623,6 +4580,49 @@ func (c *FortiSDKClient) ReadSystemLogMailDomain(globaladom, mkey string, parali
 	}
 
 	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, globaladom, path, "get", false)
+	return
+}
+
+
+// UpdateSystemLogPcapFile API operation for FortiAnalyzer updates the specified LogPcap File.
+// Returns the index value of the LogPcap File and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - log pcap-file chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateSystemLogPcapFile(params *map[string]interface{}, globaladom, mkey string, paralist []string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/system/log/pcap-file"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+
+	output, err = createUpdate(c, globaladom, path, "set", params, false)
+	return
+}
+
+// DeleteSystemLogPcapFile API operation for FortiAnalyzer deletes the specified LogPcap File.
+// Returns error for service API and SDK errors.
+// See the system - log pcap-file chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteSystemLogPcapFile(globaladom, mkey string, paralist []string) (err error) {
+
+	//No unset API for system - log pcap-file
+	return
+}
+
+// ReadSystemLogPcapFile API operation for FortiAnalyzer gets the LogPcap File
+// with the specified index value.
+// Returns the requested LogPcap File value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - log pcap-file chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadSystemLogPcapFile(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
+	path := "/cli/[*]/system/log/pcap-file"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
 
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return

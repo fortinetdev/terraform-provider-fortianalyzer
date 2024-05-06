@@ -155,7 +155,7 @@ func expandDvmCmdDelDeviceFlags(d *schema.ResourceData, v interface{}, pre strin
 func getObjectDvmCmdDelDevice(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("fazadom"); ok || d.HasChange("adom") {
+	if v, ok := d.GetOk("fazadom"); ok || d.HasChange("fazadom") {
 		t, err := expandDvmCmdDelDeviceAdom(d, v, "fazadom")
 		if err != nil {
 			return &obj, err

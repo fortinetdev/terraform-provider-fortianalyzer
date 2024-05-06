@@ -688,7 +688,7 @@ func expandSystemAdminLdapUsername(d *schema.ResourceData, v interface{}, pre st
 func getObjectSystemAdminLdap(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("fazadom"); ok || d.HasChange("adom") {
+	if v, ok := d.GetOk("fazadom"); ok || d.HasChange("fazadom") {
 		t, err := expandSystemAdminLdapAdom(d, v, "fazadom")
 		if err != nil {
 			return &obj, err

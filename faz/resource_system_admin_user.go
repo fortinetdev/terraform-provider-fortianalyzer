@@ -2626,7 +2626,7 @@ func expandSystemAdminUserWildcard(d *schema.ResourceData, v interface{}, pre st
 func getObjectSystemAdminUser(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
-	if v, ok := d.GetOk("fazadom"); ok || d.HasChange("adom") {
+	if v, ok := d.GetOk("fazadom"); ok || d.HasChange("fazadom") {
 		t, err := expandSystemAdminUserAdom(d, v, "fazadom")
 		if err != nil {
 			return &obj, err

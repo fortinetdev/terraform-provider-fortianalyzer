@@ -35,6 +35,7 @@ func resourceSystemGlobalSslCipherSuites() *schema.Resource {
 			},
 			"priority": &schema.Schema{
 				Type:     schema.TypeInt,
+				ForceNew: true,
 				Optional: true,
 			},
 			"version": &schema.Schema{
@@ -63,7 +64,7 @@ func resourceSystemGlobalSslCipherSuitesCreate(d *schema.ResourceData, m interfa
 		return fmt.Errorf("Error creating SystemGlobalSslCipherSuites resource: %v", err)
 	}
 
-	d.SetId(getStringKey(d, "cipher"))
+	d.SetId(strconv.Itoa(getIntKey(d, "priority")))
 
 	return resourceSystemGlobalSslCipherSuitesRead(d, m)
 }
@@ -87,7 +88,7 @@ func resourceSystemGlobalSslCipherSuitesUpdate(d *schema.ResourceData, m interfa
 
 	log.Printf(strconv.Itoa(c.Retries))
 
-	d.SetId(getStringKey(d, "cipher"))
+	d.SetId(strconv.Itoa(getIntKey(d, "priority")))
 
 	return resourceSystemGlobalSslCipherSuitesRead(d, m)
 }
