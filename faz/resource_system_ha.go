@@ -71,6 +71,10 @@ func resourceSystemHa() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"local_cert": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"log_sync": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -92,6 +96,14 @@ func resourceSystemHa() *schema.Resource {
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
+						"addr": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+						},
+						"addr_hb": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+						},
 						"id": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
@@ -338,6 +350,10 @@ func flattenSystemHaLoadBalanceSha(v interface{}, d *schema.ResourceData, pre st
 	return v
 }
 
+func flattenSystemHaLocalCertSha(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemHaLogSyncSha(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -368,6 +384,18 @@ func flattenSystemHaPeerSha(v interface{}, d *schema.ResourceData, pre string) [
 		i := r.(map[string]interface{})
 
 		pre_append := "" // table
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "addr"
+		if _, ok := i["addr"]; ok {
+			v := flattenSystemHaPeerAddrSha(i["addr"], d, pre_append)
+			tmp["addr"] = fortiAPISubPartPatch(v, "SystemHa-Peer-Addr")
+		}
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "addr_hb"
+		if _, ok := i["addr-hb"]; ok {
+			v := flattenSystemHaPeerAddrHbSha(i["addr-hb"], d, pre_append)
+			tmp["addr_hb"] = fortiAPISubPartPatch(v, "SystemHa-Peer-AddrHb")
+		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "id"
 		if _, ok := i["id"]; ok {
@@ -405,6 +433,14 @@ func flattenSystemHaPeerSha(v interface{}, d *schema.ResourceData, pre string) [
 	}
 
 	return result
+}
+
+func flattenSystemHaPeerAddrSha(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemHaPeerAddrHbSha(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
 }
 
 func flattenSystemHaPeerIdSha(v interface{}, d *schema.ResourceData, pre string) interface{} {
@@ -708,6 +744,16 @@ func refreshObjectSystemHa(d *schema.ResourceData, o map[string]interface{}) err
 		}
 	}
 
+	if err = d.Set("local_cert", flattenSystemHaLocalCertSha(o["local-cert"], d, "local_cert")); err != nil {
+		if vv, ok := fortiAPIPatch(o["local-cert"], "SystemHa-LocalCert"); ok {
+			if err = d.Set("local_cert", vv); err != nil {
+				return fmt.Errorf("Error reading local_cert: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading local_cert: %v", err)
+		}
+	}
+
 	if err = d.Set("log_sync", flattenSystemHaLogSyncSha(o["log-sync"], d, "log_sync")); err != nil {
 		if vv, ok := fortiAPIPatch(o["log-sync"], "SystemHa-LogSync"); ok {
 			if err = d.Set("log_sync", vv); err != nil {
@@ -949,6 +995,10 @@ func expandSystemHaLoadBalanceSha(d *schema.ResourceData, v interface{}, pre str
 	return v, nil
 }
 
+func expandSystemHaLocalCertSha(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemHaLogSyncSha(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -974,6 +1024,16 @@ func expandSystemHaPeerSha(d *schema.ResourceData, v interface{}, pre string) (i
 		tmp := make(map[string]interface{})
 		i := r.(map[string]interface{})
 		pre_append := "" // table
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "addr"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["addr"], _ = expandSystemHaPeerAddrSha(d, i["addr"], pre_append)
+		}
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "addr_hb"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["addr-hb"], _ = expandSystemHaPeerAddrHbSha(d, i["addr_hb"], pre_append)
+		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "id"
 		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
@@ -1006,6 +1066,14 @@ func expandSystemHaPeerSha(d *schema.ResourceData, v interface{}, pre string) (i
 	}
 
 	return result, nil
+}
+
+func expandSystemHaPeerAddrSha(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemHaPeerAddrHbSha(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
 }
 
 func expandSystemHaPeerIdSha(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
@@ -1278,6 +1346,15 @@ func getObjectSystemHa(d *schema.ResourceData) (*map[string]interface{}, error) 
 			return &obj, err
 		} else if t != nil {
 			obj["load-balance"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("local_cert"); ok || d.HasChange("local_cert") {
+		t, err := expandSystemHaLocalCertSha(d, v, "local_cert")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["local-cert"] = t
 		}
 	}
 

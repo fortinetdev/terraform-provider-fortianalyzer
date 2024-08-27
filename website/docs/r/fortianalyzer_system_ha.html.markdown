@@ -35,6 +35,7 @@ The following arguments are supported:
 * `initial_sync_threads` - Number of threads used for initial sync (1-15).
 * `load_balance` - Load balance to secondaries. disable - Disable load-balance to secondaries. round-robin - Round-Robin mode. Valid values: `disable`, `round-robin`.
 
+* `local_cert` - set the ha local certificate.
 * `log_sync` - Sync logs to secondary FortiAnalyzers. disable - Disable. enable - Enable. Valid values: `disable`, `enable`.
 
 * `mode` - Standalone or HA (a-p) mode standalone - Standalone mode. a-p - Active-Passive mode. Valid values: `standalone`, `a-p`.
@@ -61,6 +62,8 @@ The following arguments are supported:
 
 The `peer` block supports:
 
+* `addr` - Address of peer for management and data.
+* `addr_hb` - Address of peer&apos;s interface for heartbeat, set if different from ip. (needed only when using unicast)
 * `id` - Id.
 * `ip` - IP address of peer for management and data.
 * `ip_hb` - IP address of peer's VIP interface for heartbeat, set if different from ip. (needed only when using unicast)

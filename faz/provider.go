@@ -204,6 +204,7 @@ func Provider() *schema.Provider {
 			"fortianalyzer_system_log_settings_rollinglocal":              resourceSystemLogSettingsRollingLocal(),
 			"fortianalyzer_system_log_settings_rollingregular":            resourceSystemLogSettingsRollingRegular(),
 			"fortianalyzer_system_log_topology":                           resourceSystemLogTopology(),
+			"fortianalyzer_system_log_ueba":                               resourceSystemLogUeba(),
 			"fortianalyzer_system_mail":                                   resourceSystemMail(),
 			"fortianalyzer_system_metadata_admins":                        resourceSystemMetadataAdmins(),
 			"fortianalyzer_system_ntp":                                    resourceSystemNtp(),

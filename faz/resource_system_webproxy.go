@@ -177,15 +177,15 @@ func refreshObjectSystemWebProxy(d *schema.ResourceData, o map[string]interface{
 		}
 	}
 
-	if err = d.Set("password", flattenSystemWebProxyPassword(o["password"], d, "password")); err != nil {
-		if vv, ok := fortiAPIPatch(o["password"], "SystemWebProxy-Password"); ok {
-			if err = d.Set("password", vv); err != nil {
-				return fmt.Errorf("Error reading password: %v", err)
-			}
-		} else {
-			return fmt.Errorf("Error reading password: %v", err)
-		}
-	}
+	// if err = d.Set("password", flattenSystemWebProxyPassword(o["password"], d, "password")); err != nil {
+	// 	if vv, ok := fortiAPIPatch(o["password"], "SystemWebProxy-Password"); ok {
+	// 		if err = d.Set("password", vv); err != nil {
+	// 			return fmt.Errorf("Error reading password: %v", err)
+	// 		}
+	// 	} else {
+	// 		return fmt.Errorf("Error reading password: %v", err)
+	// 	}
+	// }
 
 	if err = d.Set("port", flattenSystemWebProxyPort(o["port"], d, "port")); err != nil {
 		if vv, ok := fortiAPIPatch(o["port"], "SystemWebProxy-Port"); ok {

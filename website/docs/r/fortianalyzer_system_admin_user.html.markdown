@@ -56,6 +56,8 @@ The following arguments are supported:
 * `first_name` - First name.
 * `force_password_change` - Enable/disable force password change on next login. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
 
+* `fortiai` - Enable/disble FortiAI. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
+
 * `group` - Group name.
 * `hidden` - Hidden administrator.
 * `ipv6_trusthost1` - Admin user trusted host IPv6, default ::/0 for all.
@@ -74,9 +76,11 @@ The following arguments are supported:
 * `meta_data` - Meta-Data. The structure of `meta_data` block is documented below.
 * `mobile_number` - Mobile number.
 * `pager_number` - Pager number.
+* `password_unitary` - Password.
 * `password` - Password.
 * `password_expire` - Password expire time in GMT.
 * `phone_number` - Phone number.
+* `policy_block` - Policy-Block. The structure of `policy_block` block is documented below.
 * `policy_package` - Policy-Package. The structure of `policy_package` block is documented below.
 * `profileid` - Profile ID.
 * `radius_server` - RADIUS server name.
@@ -165,6 +169,10 @@ The `meta_data` block supports:
 
 * `status` - Status. disabled - This field is disabled. enabled - This field is enabled. Valid values: `disabled`, `enabled`.
 
+
+The `policy_block` block supports:
+
+* `policy_block_name` - Policy block names.
 
 The `policy_package` block supports:
 

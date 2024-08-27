@@ -32,6 +32,7 @@ func resourceSystemSaml() *schema.Resource {
 			"acs_url": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
+				Computed: true,
 			},
 			"auth_request_signed": &schema.Schema{
 				Type:     schema.TypeString,
@@ -50,6 +51,7 @@ func resourceSystemSaml() *schema.Resource {
 			"entity_id": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
+				Computed: true,
 			},
 			"fabric_idp": &schema.Schema{
 				Type:     schema.TypeList,
@@ -174,6 +176,7 @@ func resourceSystemSaml() *schema.Resource {
 			"sls_url": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
+				Computed: true,
 			},
 			"status": &schema.Schema{
 				Type:     schema.TypeString,

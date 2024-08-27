@@ -217,6 +217,11 @@ func resourceSystemAdminUser() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"fortiai": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"group": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -326,6 +331,11 @@ func resourceSystemAdminUser() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"password_unitary": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"password": &schema.Schema{
 				Type:      schema.TypeSet,
 				Elem:      &schema.Schema{Type: schema.TypeString},
@@ -340,6 +350,18 @@ func resourceSystemAdminUser() *schema.Resource {
 			"phone_number": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
+			},
+			"policy_block": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"policy_block_name": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+						},
+					},
+				},
 			},
 			"policy_package": &schema.Schema{
 				Type:     schema.TypeList,
@@ -964,6 +986,10 @@ func flattenSystemAdminUserForcePasswordChange(v interface{}, d *schema.Resource
 	return v
 }
 
+func flattenSystemAdminUserFortiai(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemAdminUserGroup(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -1109,6 +1135,10 @@ func flattenSystemAdminUserPagerNumber(v interface{}, d *schema.ResourceData, pr
 	return v
 }
 
+func flattenSystemAdminUserPasswordUnitary(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemAdminUserPassword(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return flattenStringList(v)
 }
@@ -1118,6 +1148,43 @@ func flattenSystemAdminUserPasswordExpire(v interface{}, d *schema.ResourceData,
 }
 
 func flattenSystemAdminUserPhoneNumber(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemAdminUserPolicyBlock(v interface{}, d *schema.ResourceData, pre string) []map[string]interface{} {
+	if v == nil {
+		return nil
+	}
+
+	l := v.([]interface{})
+	if len(l) == 0 || l[0] == nil {
+		return nil
+	}
+
+	result := make([]map[string]interface{}, 0, len(l))
+
+	con := 0
+	for _, r := range l {
+		tmp := make(map[string]interface{})
+		i := r.(map[string]interface{})
+
+		pre_append := "" // table
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "policy_block_name"
+		if _, ok := i["policy-block-name"]; ok {
+			v := flattenSystemAdminUserPolicyBlockPolicyBlockName(i["policy-block-name"], d, pre_append)
+			tmp["policy_block_name"] = fortiAPISubPartPatch(v, "SystemAdminUser-PolicyBlock-PolicyBlockName")
+		}
+
+		result = append(result, tmp)
+
+		con += 1
+	}
+
+	return result
+}
+
+func flattenSystemAdminUserPolicyBlockPolicyBlockName(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -1501,6 +1568,16 @@ func refreshObjectSystemAdminUser(d *schema.ResourceData, o map[string]interface
 		}
 	}
 
+	if err = d.Set("fortiai", flattenSystemAdminUserFortiai(o["fortiai"], d, "fortiai")); err != nil {
+		if vv, ok := fortiAPIPatch(o["fortiai"], "SystemAdminUser-Fortiai"); ok {
+			if err = d.Set("fortiai", vv); err != nil {
+				return fmt.Errorf("Error reading fortiai: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading fortiai: %v", err)
+		}
+	}
+
 	if err = d.Set("group", flattenSystemAdminUserGroup(o["group"], d, "group")); err != nil {
 		if vv, ok := fortiAPIPatch(o["group"], "SystemAdminUser-Group"); ok {
 			if err = d.Set("group", vv); err != nil {
@@ -1695,6 +1772,18 @@ func refreshObjectSystemAdminUser(d *schema.ResourceData, o map[string]interface
 		}
 	}
 
+	if _, ok := o["password"].(string); ok {
+		if err = d.Set("password_unitary", flattenSystemAdminUserPasswordUnitary(o["password"], d, "password_unitary")); err != nil {
+			if vv, ok := fortiAPIPatch(o["password"], "SystemAdminUser-PasswordUnitary"); ok {
+				if err = d.Set("password_unitary", vv); err != nil {
+					return fmt.Errorf("Error reading password_unitary: %v", err)
+				}
+			} else {
+				return fmt.Errorf("Error reading password_unitary: %v", err)
+			}
+		}
+	}
+
 	if err = d.Set("password_expire", flattenSystemAdminUserPasswordExpire(o["password-expire"], d, "password_expire")); err != nil {
 		if vv, ok := fortiAPIPatch(o["password-expire"], "SystemAdminUser-PasswordExpire"); ok {
 			if err = d.Set("password_expire", vv); err != nil {
@@ -1712,6 +1801,30 @@ func refreshObjectSystemAdminUser(d *schema.ResourceData, o map[string]interface
 			}
 		} else {
 			return fmt.Errorf("Error reading phone_number: %v", err)
+		}
+	}
+
+	if isImportTable() {
+		if err = d.Set("policy_block", flattenSystemAdminUserPolicyBlock(o["policy-block"], d, "policy_block")); err != nil {
+			if vv, ok := fortiAPIPatch(o["policy-block"], "SystemAdminUser-PolicyBlock"); ok {
+				if err = d.Set("policy_block", vv); err != nil {
+					return fmt.Errorf("Error reading policy_block: %v", err)
+				}
+			} else {
+				return fmt.Errorf("Error reading policy_block: %v", err)
+			}
+		}
+	} else {
+		if _, ok := d.GetOk("policy_block"); ok {
+			if err = d.Set("policy_block", flattenSystemAdminUserPolicyBlock(o["policy-block"], d, "policy_block")); err != nil {
+				if vv, ok := fortiAPIPatch(o["policy-block"], "SystemAdminUser-PolicyBlock"); ok {
+					if err = d.Set("policy_block", vv); err != nil {
+						return fmt.Errorf("Error reading policy_block: %v", err)
+					}
+				} else {
+					return fmt.Errorf("Error reading policy_block: %v", err)
+				}
+			}
 		}
 	}
 
@@ -2341,6 +2454,10 @@ func expandSystemAdminUserForcePasswordChange(d *schema.ResourceData, v interfac
 	return v, nil
 }
 
+func expandSystemAdminUserFortiai(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemAdminUserGroup(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -2476,6 +2593,10 @@ func expandSystemAdminUserPagerNumber(d *schema.ResourceData, v interface{}, pre
 	return v, nil
 }
 
+func expandSystemAdminUserPasswordUnitary(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemAdminUserPassword(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return expandStringList(v.(*schema.Set).List()), nil
 }
@@ -2485,6 +2606,37 @@ func expandSystemAdminUserPasswordExpire(d *schema.ResourceData, v interface{}, 
 }
 
 func expandSystemAdminUserPhoneNumber(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemAdminUserPolicyBlock(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	l := v.([]interface{})
+	if len(l) == 0 || l[0] == nil {
+		return nil, nil
+	}
+
+	result := make([]map[string]interface{}, 0, len(l))
+
+	con := 0
+	for _, r := range l {
+		tmp := make(map[string]interface{})
+		i := r.(map[string]interface{})
+		pre_append := "" // table
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "policy_block_name"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["policy-block-name"], _ = expandSystemAdminUserPolicyBlockPolicyBlockName(d, i["policy_block_name"], pre_append)
+		}
+
+		result = append(result, tmp)
+
+		con += 1
+	}
+
+	return result, nil
+}
+
+func expandSystemAdminUserPolicyBlockPolicyBlockName(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -2788,6 +2940,15 @@ func getObjectSystemAdminUser(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
+	if v, ok := d.GetOk("fortiai"); ok || d.HasChange("fortiai") {
+		t, err := expandSystemAdminUserFortiai(d, v, "fortiai")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["fortiai"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("group"); ok || d.HasChange("group") {
 		t, err := expandSystemAdminUserGroup(d, v, "group")
 		if err != nil {
@@ -2950,6 +3111,15 @@ func getObjectSystemAdminUser(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
+	if v, ok := d.GetOk("password_unitary"); ok || d.HasChange("password_unitary") {
+		t, err := expandSystemAdminUserPasswordUnitary(d, v, "password_unitary")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["password"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("password"); ok || d.HasChange("password") {
 		t, err := expandSystemAdminUserPassword(d, v, "password")
 		if err != nil {
@@ -2974,6 +3144,15 @@ func getObjectSystemAdminUser(d *schema.ResourceData) (*map[string]interface{}, 
 			return &obj, err
 		} else if t != nil {
 			obj["phone-number"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("policy_block"); ok || d.HasChange("policy_block") {
+		t, err := expandSystemAdminUserPolicyBlock(d, v, "policy_block")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["policy-block"] = t
 		}
 	}
 

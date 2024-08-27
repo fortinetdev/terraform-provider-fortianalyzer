@@ -46,6 +46,8 @@ The following arguments are supported:
 
 * `trusted_list` - Trusted-List. The structure of `trusted_list` block is documented below.
 * `upstream` - IP/FQDN of the FortiGate upstream from this FortiGate in the Security Fabric.
+* `upstream_confirm` - Upstream authorization confirm. discover - Discover upstream device&apos;s info. confirm - Confirm upstream device&apos;s access. Valid values: `discover`, `confirm`.
+
 * `upstream_port` - The port number to use to communicate with the FortiGate upstream from this FortiGate in the Security Fabric (default = 8013).
 * `dynamic_sort_subtable` - true or false, set this parameter to true when using dynamic for_each + toset to configure and sort sub-tables, please do not set this parameter when configuring static sub-tables.
 

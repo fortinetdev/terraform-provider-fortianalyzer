@@ -5018,6 +5018,49 @@ func (c *FortiSDKClient) ReadSystemLogTopology(globaladom, mkey string, paralist
 	return
 }
 
+
+// UpdateSystemLogUeba API operation for FortiAnalyzer updates the specified LogUeba.
+// Returns the index value of the LogUeba and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - log ueba chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateSystemLogUeba(params *map[string]interface{}, globaladom, mkey string, paralist []string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/system/log/ueba"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+
+	output, err = createUpdate(c, globaladom, path, "set", params, false)
+	return
+}
+
+// DeleteSystemLogUeba API operation for FortiAnalyzer deletes the specified LogUeba.
+// Returns error for service API and SDK errors.
+// See the system - log ueba chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteSystemLogUeba(globaladom, mkey string, paralist []string) (err error) {
+
+	//No unset API for system - log ueba
+	return
+}
+
+// ReadSystemLogUeba API operation for FortiAnalyzer gets the LogUeba
+// with the specified index value.
+// Returns the requested LogUeba value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - log ueba chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadSystemLogUeba(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
+	path := "/cli/[*]/system/log/ueba"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+
+	mapTmp, err = read(c, globaladom, path, "get", false)
+	return
+}
+
 // CreateSystemMail API operation for FortiAnalyzer creates a new Mail.
 // Returns the index value of the Mail and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.

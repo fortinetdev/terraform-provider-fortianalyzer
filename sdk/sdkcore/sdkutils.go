@@ -123,7 +123,7 @@ func read(c *FortiSDKClient, globaladom, path string, method string, move bool) 
 		err = fmt.Errorf("cannot get response body %v", err)
 		return
 	}
-	// log.Printf("FAZ reading response: %s", string(body))
+	log.Printf("[INFO] reading response: %s", string(body))
 
 	var result map[string]interface{}
 	json.Unmarshal([]byte(string(body)), &result)

@@ -72,6 +72,8 @@ The following arguments are supported:
 
 * `fwd_syslog_format` - Forwarding format for syslog. fgt - fgt syslog format rfc-5424 - rfc-5424 syslog format Valid values: `fgt`, `rfc-5424`.
 
+* `fwd_syslog_transparent` - Enable/disable transparently forwarding logs from syslog devices to syslog server. disable - Disable syslog transparent forward mode. Received syslogs becomes part of a FAZ syslog when forwarded out. enable - Enable syslog transparent forward mode. Received syslogs are forwarded without modifications. faz-enrich - Disable syslog transparent forward mode. Additional FAZ fields are added to the end of syslog. Valid values: `disable`, `enable`, `faz-enrich`.
+
 * `fosid` - Log forwarding ID.
 * `log_field_exclusion` - Log-Field-Exclusion. The structure of `log_field_exclusion` block is documented below.
 * `log_field_exclusion_status` - Enable or disable log field exclusion. disable - Disable log field exclusion. enable - Enable log field exclusion. Valid values: `disable`, `enable`.

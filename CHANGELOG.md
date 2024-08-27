@@ -1,6 +1,17 @@
-## 1.4.0 (Unreleased)
+## 1.5.0 (Unreleased)
 
-## 1.3.3 (May 1, 2024)
+## 1.4.0 (August 27, 2024)
+
+IMPROVEMENTS:
+
+* Support FortiAnalyzer v7.2.5, v7.4.3, v7.6.0, 1 new resource;
+* Improved parameters;
+
+FEATURES:
+
+* **New Resource:** `fortianalyzer_system_log_ueba`
+
+## 1.3.3 (May 3, 2024)
 
 IMPROVEMENTS:
 

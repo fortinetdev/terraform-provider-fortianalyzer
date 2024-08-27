@@ -29,6 +29,11 @@ func resourceSystemAdminProfile() *schema.Resource {
 		},
 
 		Schema: map[string]*schema.Schema{
+			"adom_admin": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"adom_lock": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -493,6 +498,10 @@ func resourceSystemAdminProfileRead(d *schema.ResourceData, m interface{}) error
 	return nil
 }
 
+func flattenSystemAdminProfileAdomAdmin(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemAdminProfileAdomLock(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -872,6 +881,16 @@ func flattenSystemAdminProfileWritePasswdUserListUserid(v interface{}, d *schema
 
 func refreshObjectSystemAdminProfile(d *schema.ResourceData, o map[string]interface{}) error {
 	var err error
+
+	if err = d.Set("adom_admin", flattenSystemAdminProfileAdomAdmin(o["adom-admin"], d, "adom_admin")); err != nil {
+		if vv, ok := fortiAPIPatch(o["adom-admin"], "SystemAdminProfile-AdomAdmin"); ok {
+			if err = d.Set("adom_admin", vv); err != nil {
+				return fmt.Errorf("Error reading adom_admin: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading adom_admin: %v", err)
+		}
+	}
 
 	if err = d.Set("adom_lock", flattenSystemAdminProfileAdomLock(o["adom-lock"], d, "adom_lock")); err != nil {
 		if vv, ok := fortiAPIPatch(o["adom-lock"], "SystemAdminProfile-AdomLock"); ok {
@@ -1534,6 +1553,10 @@ func flattenSystemAdminProfileFortiTestDebug(d *schema.ResourceData, fosdebugsn 
 	log.Printf("ER List: %v", e)
 }
 
+func expandSystemAdminProfileAdomAdmin(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemAdminProfileAdomLock(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -1894,6 +1917,15 @@ func expandSystemAdminProfileWritePasswdUserListUserid(d *schema.ResourceData, v
 
 func getObjectSystemAdminProfile(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
+
+	if v, ok := d.GetOk("adom_admin"); ok || d.HasChange("adom_admin") {
+		t, err := expandSystemAdminProfileAdomAdmin(d, v, "adom_admin")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["adom-admin"] = t
+		}
+	}
 
 	if v, ok := d.GetOk("adom_lock"); ok || d.HasChange("adom_lock") {
 		t, err := expandSystemAdminProfileAdomLock(d, v, "adom_lock")

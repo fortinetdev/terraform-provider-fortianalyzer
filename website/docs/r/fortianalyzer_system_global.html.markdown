@@ -48,10 +48,12 @@ resource "fortianalyzer_system_global" "trname" {
 The following arguments are supported:
 
 
+* `admin_host` - Administrative host for HTTP and HTTPs. When set, will be used in lieu of the client&apos;s Host header for any redirection.
 * `admin_lockout_duration` - Lockout duration(sec) for administration.
 * `admin_lockout_method` - Lockout method for administration. ip - Lockout by IP user - Lockout by user Valid values: `ip`, `user`.
 
 * `admin_lockout_threshold` - Lockout threshold for administration.
+* `admin_ssh_grace_time` - Maximum time in seconds permitted between making an SSH connection to the FortiManager unit and authenticating (10 - 3600 sec (1 hour), default 120).
 * `adom_mode` - ADOM mode. normal - Normal ADOM mode. advanced - Advanced ADOM mode. Valid values: `normal`, `advanced`.
 
 * `adom_select` - Enable/disable select ADOM after login. disable - Disable select ADOM after login. enable - Enable select ADOM after login. Valid values: `disable`, `enable`.
@@ -95,6 +97,10 @@ The following arguments are supported:
 * `enc_algorithm` - SSL communication encryption algorithms. low - SSL communication using all available encryption algorithms. medium - SSL communication using high and medium encryption algorithms. high - SSL communication using high encryption algorithms. Valid values: `low`, `medium`, `high`.
 
 * `event_correlation_cache_size` - Maimum event correlation cache size (GB)
+* `fabric_storage_pool_quota` - Disk quota for Fabric (MB).
+* `fabric_storage_pool_size` - Max storage pooll size
+* `fcp_cfg_service` - Enable/disable FCP service processing configuration requests disable - FCP service doesn&apos;t process configuration requests from web enable - FCP service processes configuration requests from web. Valid values: `disable`, `enable`.
+
 * `fgfm_ca_cert` - set the extra fgfm CA certificates.
 * `fgfm_cert_exclusive` - set if the local or CA certificates should be used exclusively. disable - Used certificate best-effort. enable - Used certificate exclusive. Valid values: `disable`, `enable`.
 
@@ -107,6 +113,8 @@ The following arguments are supported:
 * `ha_member_auto_grouping` - Enable/disable automatically group HA members feature disable - Disable automatically grouping HA members feature. enable - Enable automatically grouping HA members only when group name is unique in your network. Valid values: `disable`, `enable`.
 
 * `hostname` - System hostname.
+* `jsonapi_log` - enable jsonapi log. disable - disable jsonapi log. request - logging jsonapi request. response - logging jsonapi response. all - logging both jsonapi request &amp; response. Valid values: `disable`, `request`, `response`, `all`.
+
 * `language` - System global language. english - English simch - Simplified Chinese japanese - Japanese korean - Korean spanish - Spanish trach - Traditional Chinese Valid values: `english`, `simch`, `japanese`, `korean`, `spanish`, `trach`.
 
 * `latitude` - fmg location latitude

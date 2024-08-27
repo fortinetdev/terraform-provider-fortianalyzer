@@ -15,6 +15,8 @@ Peers.
 The following arguments are supported:
 
 
+* `addr` - Address of peer for management and data.
+* `addr_hb` - Address of peer&apos;s interface for heartbeat, set if different from ip. (needed only when using unicast)
 * `fosid` - Id.
 * `ip` - IP address of peer for management and data.
 * `ip_hb` - IP address of peer's VIP interface for heartbeat, set if different from ip. (needed only when using unicast)

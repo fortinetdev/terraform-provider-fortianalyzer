@@ -4,10 +4,12 @@
 - [![Gitter chat](https://badges.gitter.im/hashicorp-terraform/Lobby.png)](https://gitter.im/hashicorp-terraform/Lobby)
 - Mailing list: [Google Groups](http://groups.google.com/group/terraform-tool)
 
+<img src="https://www.datocms-assets.com/2885/1629941242-logo-terraform-main.svg" width="600px">
+
 ## Requirements
 
 - [Terraform](https://www.terraform.io/downloads.html) 0.12.x +
-- [Go](https://golang.org/doc/install) 1.13.x (to build the provider plugin)
+- [Go](https://golang.org/doc/install) 1.21.x (to build the provider plugin)
 - The provider can cover FortiAnalyzer version 7.0.
 
 ## Building the Provider

@@ -29,6 +29,14 @@ func resourceSystemHaPeer() *schema.Resource {
 		},
 
 		Schema: map[string]*schema.Schema{
+			"addr": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
+			"addr_hb": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"fosid": &schema.Schema{
 				Type:     schema.TypeInt,
 				ForceNew: true,
@@ -145,6 +153,14 @@ func resourceSystemHaPeerRead(d *schema.ResourceData, m interface{}) error {
 	return nil
 }
 
+func flattenSystemHaPeerAddr(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemHaPeerAddrHb(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemHaPeerId(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -167,6 +183,26 @@ func flattenSystemHaPeerStatus(v interface{}, d *schema.ResourceData, pre string
 
 func refreshObjectSystemHaPeer(d *schema.ResourceData, o map[string]interface{}) error {
 	var err error
+
+	if err = d.Set("addr", flattenSystemHaPeerAddr(o["addr"], d, "addr")); err != nil {
+		if vv, ok := fortiAPIPatch(o["addr"], "SystemHaPeer-Addr"); ok {
+			if err = d.Set("addr", vv); err != nil {
+				return fmt.Errorf("Error reading addr: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading addr: %v", err)
+		}
+	}
+
+	if err = d.Set("addr_hb", flattenSystemHaPeerAddrHb(o["addr-hb"], d, "addr_hb")); err != nil {
+		if vv, ok := fortiAPIPatch(o["addr-hb"], "SystemHaPeer-AddrHb"); ok {
+			if err = d.Set("addr_hb", vv); err != nil {
+				return fmt.Errorf("Error reading addr_hb: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading addr_hb: %v", err)
+		}
+	}
 
 	if err = d.Set("fosid", flattenSystemHaPeerId(o["id"], d, "fosid")); err != nil {
 		if vv, ok := fortiAPIPatch(o["id"], "SystemHaPeer-Id"); ok {
@@ -227,6 +263,14 @@ func flattenSystemHaPeerFortiTestDebug(d *schema.ResourceData, fosdebugsn int, f
 	log.Printf("ER List: %v", e)
 }
 
+func expandSystemHaPeerAddr(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemHaPeerAddrHb(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemHaPeerId(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -249,6 +293,24 @@ func expandSystemHaPeerStatus(d *schema.ResourceData, v interface{}, pre string)
 
 func getObjectSystemHaPeer(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
+
+	if v, ok := d.GetOk("addr"); ok || d.HasChange("addr") {
+		t, err := expandSystemHaPeerAddr(d, v, "addr")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["addr"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("addr_hb"); ok || d.HasChange("addr_hb") {
+		t, err := expandSystemHaPeerAddrHb(d, v, "addr_hb")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["addr-hb"] = t
+		}
+	}
 
 	if v, ok := d.GetOk("fosid"); ok || d.HasChange("fosid") {
 		t, err := expandSystemHaPeerId(d, v, "fosid")

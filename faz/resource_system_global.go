@@ -29,6 +29,10 @@ func resourceSystemGlobal() *schema.Resource {
 		},
 
 		Schema: map[string]*schema.Schema{
+			"admin_host": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"admin_lockout_duration": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
@@ -40,6 +44,11 @@ func resourceSystemGlobal() *schema.Resource {
 				Computed: true,
 			},
 			"admin_lockout_threshold": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
+			"admin_ssh_grace_time": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
 				Computed: true,
@@ -155,6 +164,21 @@ func resourceSystemGlobal() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"fabric_storage_pool_quota": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
+			"fabric_storage_pool_size": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
+			"fcp_cfg_service": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"fgfm_ca_cert": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -194,6 +218,11 @@ func resourceSystemGlobal() *schema.Resource {
 				Computed: true,
 			},
 			"hostname": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
+			"jsonapi_log": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
@@ -357,21 +386,25 @@ func resourceSystemGlobal() *schema.Resource {
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
+				Computed: true,
 			},
 			"ssh_hostkey_algo": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
+				Computed: true,
 			},
 			"ssh_kex_algo": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
+				Computed: true,
 			},
 			"ssh_mac_algo": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
+				Computed: true,
 			},
 			"ssh_strong_crypto": &schema.Schema{
 				Type:     schema.TypeString,
@@ -533,6 +566,10 @@ func resourceSystemGlobalRead(d *schema.ResourceData, m interface{}) error {
 	return nil
 }
 
+func flattenSystemGlobalAdminHostSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemGlobalAdminLockoutDurationSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -542,6 +579,10 @@ func flattenSystemGlobalAdminLockoutMethodSga(v interface{}, d *schema.ResourceD
 }
 
 func flattenSystemGlobalAdminLockoutThresholdSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemGlobalAdminSshGraceTimeSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -633,6 +674,18 @@ func flattenSystemGlobalEventCorrelationCacheSizeSga(v interface{}, d *schema.Re
 	return v
 }
 
+func flattenSystemGlobalFabricStoragePoolQuotaSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemGlobalFabricStoragePoolSizeSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemGlobalFcpCfgServiceSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemGlobalFgfmCaCertSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -666,6 +719,10 @@ func flattenSystemGlobalHaMemberAutoGroupingSga(v interface{}, d *schema.Resourc
 }
 
 func flattenSystemGlobalHostnameSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemGlobalJsonapiLogSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -921,6 +978,16 @@ func flattenSystemGlobalWorkflowMaxSessionsSga(v interface{}, d *schema.Resource
 func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{}) error {
 	var err error
 
+	if err = d.Set("admin_host", flattenSystemGlobalAdminHostSga(o["admin-host"], d, "admin_host")); err != nil {
+		if vv, ok := fortiAPIPatch(o["admin-host"], "SystemGlobal-AdminHost"); ok {
+			if err = d.Set("admin_host", vv); err != nil {
+				return fmt.Errorf("Error reading admin_host: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading admin_host: %v", err)
+		}
+	}
+
 	if err = d.Set("admin_lockout_duration", flattenSystemGlobalAdminLockoutDurationSga(o["admin-lockout-duration"], d, "admin_lockout_duration")); err != nil {
 		if vv, ok := fortiAPIPatch(o["admin-lockout-duration"], "SystemGlobal-AdminLockoutDuration"); ok {
 			if err = d.Set("admin_lockout_duration", vv); err != nil {
@@ -948,6 +1015,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 			}
 		} else {
 			return fmt.Errorf("Error reading admin_lockout_threshold: %v", err)
+		}
+	}
+
+	if err = d.Set("admin_ssh_grace_time", flattenSystemGlobalAdminSshGraceTimeSga(o["admin-ssh-grace-time"], d, "admin_ssh_grace_time")); err != nil {
+		if vv, ok := fortiAPIPatch(o["admin-ssh-grace-time"], "SystemGlobal-AdminSshGraceTime"); ok {
+			if err = d.Set("admin_ssh_grace_time", vv); err != nil {
+				return fmt.Errorf("Error reading admin_ssh_grace_time: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading admin_ssh_grace_time: %v", err)
 		}
 	}
 
@@ -1171,6 +1248,36 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 		}
 	}
 
+	if err = d.Set("fabric_storage_pool_quota", flattenSystemGlobalFabricStoragePoolQuotaSga(o["fabric-storage-pool-quota"], d, "fabric_storage_pool_quota")); err != nil {
+		if vv, ok := fortiAPIPatch(o["fabric-storage-pool-quota"], "SystemGlobal-FabricStoragePoolQuota"); ok {
+			if err = d.Set("fabric_storage_pool_quota", vv); err != nil {
+				return fmt.Errorf("Error reading fabric_storage_pool_quota: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading fabric_storage_pool_quota: %v", err)
+		}
+	}
+
+	if err = d.Set("fabric_storage_pool_size", flattenSystemGlobalFabricStoragePoolSizeSga(o["fabric-storage-pool-size"], d, "fabric_storage_pool_size")); err != nil {
+		if vv, ok := fortiAPIPatch(o["fabric-storage-pool-size"], "SystemGlobal-FabricStoragePoolSize"); ok {
+			if err = d.Set("fabric_storage_pool_size", vv); err != nil {
+				return fmt.Errorf("Error reading fabric_storage_pool_size: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading fabric_storage_pool_size: %v", err)
+		}
+	}
+
+	if err = d.Set("fcp_cfg_service", flattenSystemGlobalFcpCfgServiceSga(o["fcp-cfg-service"], d, "fcp_cfg_service")); err != nil {
+		if vv, ok := fortiAPIPatch(o["fcp-cfg-service"], "SystemGlobal-FcpCfgService"); ok {
+			if err = d.Set("fcp_cfg_service", vv); err != nil {
+				return fmt.Errorf("Error reading fcp_cfg_service: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading fcp_cfg_service: %v", err)
+		}
+	}
+
 	if err = d.Set("fgfm_ca_cert", flattenSystemGlobalFgfmCaCertSga(o["fgfm-ca-cert"], d, "fgfm_ca_cert")); err != nil {
 		if vv, ok := fortiAPIPatch(o["fgfm-ca-cert"], "SystemGlobal-FgfmCaCert"); ok {
 			if err = d.Set("fgfm_ca_cert", vv); err != nil {
@@ -1258,6 +1365,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 			}
 		} else {
 			return fmt.Errorf("Error reading hostname: %v", err)
+		}
+	}
+
+	if err = d.Set("jsonapi_log", flattenSystemGlobalJsonapiLogSga(o["jsonapi-log"], d, "jsonapi_log")); err != nil {
+		if vv, ok := fortiAPIPatch(o["jsonapi-log"], "SystemGlobal-JsonapiLog"); ok {
+			if err = d.Set("jsonapi_log", vv); err != nil {
+				return fmt.Errorf("Error reading jsonapi_log: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading jsonapi_log: %v", err)
 		}
 	}
 
@@ -1774,6 +1891,10 @@ func flattenSystemGlobalFortiTestDebug(d *schema.ResourceData, fosdebugsn int, f
 	log.Printf("ER List: %v", e)
 }
 
+func expandSystemGlobalAdminHostSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemGlobalAdminLockoutDurationSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -1783,6 +1904,10 @@ func expandSystemGlobalAdminLockoutMethodSga(d *schema.ResourceData, v interface
 }
 
 func expandSystemGlobalAdminLockoutThresholdSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemGlobalAdminSshGraceTimeSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -1874,6 +1999,18 @@ func expandSystemGlobalEventCorrelationCacheSizeSga(d *schema.ResourceData, v in
 	return v, nil
 }
 
+func expandSystemGlobalFabricStoragePoolQuotaSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemGlobalFabricStoragePoolSizeSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemGlobalFcpCfgServiceSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemGlobalFgfmCaCertSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -1907,6 +2044,10 @@ func expandSystemGlobalHaMemberAutoGroupingSga(d *schema.ResourceData, v interfa
 }
 
 func expandSystemGlobalHostnameSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemGlobalJsonapiLogSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -2154,6 +2295,15 @@ func expandSystemGlobalWorkflowMaxSessionsSga(d *schema.ResourceData, v interfac
 func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
+	if v, ok := d.GetOk("admin_host"); ok || d.HasChange("admin_host") {
+		t, err := expandSystemGlobalAdminHostSga(d, v, "admin_host")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["admin-host"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("admin_lockout_duration"); ok || d.HasChange("admin_lockout_duration") {
 		t, err := expandSystemGlobalAdminLockoutDurationSga(d, v, "admin_lockout_duration")
 		if err != nil {
@@ -2178,6 +2328,15 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 			return &obj, err
 		} else if t != nil {
 			obj["admin-lockout-threshold"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("admin_ssh_grace_time"); ok || d.HasChange("admin_ssh_grace_time") {
+		t, err := expandSystemGlobalAdminSshGraceTimeSga(d, v, "admin_ssh_grace_time")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["admin-ssh-grace-time"] = t
 		}
 	}
 
@@ -2379,6 +2538,33 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
+	if v, ok := d.GetOk("fabric_storage_pool_quota"); ok || d.HasChange("fabric_storage_pool_quota") {
+		t, err := expandSystemGlobalFabricStoragePoolQuotaSga(d, v, "fabric_storage_pool_quota")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["fabric-storage-pool-quota"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("fabric_storage_pool_size"); ok || d.HasChange("fabric_storage_pool_size") {
+		t, err := expandSystemGlobalFabricStoragePoolSizeSga(d, v, "fabric_storage_pool_size")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["fabric-storage-pool-size"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("fcp_cfg_service"); ok || d.HasChange("fcp_cfg_service") {
+		t, err := expandSystemGlobalFcpCfgServiceSga(d, v, "fcp_cfg_service")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["fcp-cfg-service"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("fgfm_ca_cert"); ok || d.HasChange("fgfm_ca_cert") {
 		t, err := expandSystemGlobalFgfmCaCertSga(d, v, "fgfm_ca_cert")
 		if err != nil {
@@ -2457,6 +2643,15 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 			return &obj, err
 		} else if t != nil {
 			obj["hostname"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("jsonapi_log"); ok || d.HasChange("jsonapi_log") {
+		t, err := expandSystemGlobalJsonapiLogSga(d, v, "jsonapi_log")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["jsonapi-log"] = t
 		}
 	}
 

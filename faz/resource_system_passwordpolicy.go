@@ -48,6 +48,10 @@ func resourceSystemPasswordPolicy() *schema.Resource {
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
 			},
+			"password_history": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+			},
 			"status": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -141,6 +145,10 @@ func flattenSystemPasswordPolicyMustContain(v interface{}, d *schema.ResourceDat
 	return flattenStringList(v)
 }
 
+func flattenSystemPasswordPolicyPasswordHistory(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemPasswordPolicyStatus(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -188,6 +196,16 @@ func refreshObjectSystemPasswordPolicy(d *schema.ResourceData, o map[string]inte
 		}
 	}
 
+	if err = d.Set("password_history", flattenSystemPasswordPolicyPasswordHistory(o["password-history"], d, "password_history")); err != nil {
+		if vv, ok := fortiAPIPatch(o["password-history"], "SystemPasswordPolicy-PasswordHistory"); ok {
+			if err = d.Set("password_history", vv); err != nil {
+				return fmt.Errorf("Error reading password_history: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading password_history: %v", err)
+		}
+	}
+
 	if err = d.Set("status", flattenSystemPasswordPolicyStatus(o["status"], d, "status")); err != nil {
 		if vv, ok := fortiAPIPatch(o["status"], "SystemPasswordPolicy-Status"); ok {
 			if err = d.Set("status", vv); err != nil {
@@ -221,6 +239,10 @@ func expandSystemPasswordPolicyMinimumLength(d *schema.ResourceData, v interface
 
 func expandSystemPasswordPolicyMustContain(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return expandStringList(v.(*schema.Set).List()), nil
+}
+
+func expandSystemPasswordPolicyPasswordHistory(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
 }
 
 func expandSystemPasswordPolicyStatus(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
@@ -263,6 +285,15 @@ func getObjectSystemPasswordPolicy(d *schema.ResourceData) (*map[string]interfac
 			return &obj, err
 		} else if t != nil {
 			obj["must-contain"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("password_history"); ok || d.HasChange("password_history") {
+		t, err := expandSystemPasswordPolicyPasswordHistory(d, v, "password_history")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["password-history"] = t
 		}
 	}
 

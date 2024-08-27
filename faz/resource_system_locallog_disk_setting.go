@@ -462,15 +462,15 @@ func refreshObjectSystemLocallogDiskSetting(d *schema.ResourceData, o map[string
 		}
 	}
 
-	if err = d.Set("uploadpass", flattenSystemLocallogDiskSettingUploadpass(o["uploadpass"], d, "uploadpass")); err != nil {
-		if vv, ok := fortiAPIPatch(o["uploadpass"], "SystemLocallogDiskSetting-Uploadpass"); ok {
-			if err = d.Set("uploadpass", vv); err != nil {
-				return fmt.Errorf("Error reading uploadpass: %v", err)
-			}
-		} else {
-			return fmt.Errorf("Error reading uploadpass: %v", err)
-		}
-	}
+	// if err = d.Set("uploadpass", flattenSystemLocallogDiskSettingUploadpass(o["uploadpass"], d, "uploadpass")); err != nil {
+	// 	if vv, ok := fortiAPIPatch(o["uploadpass"], "SystemLocallogDiskSetting-Uploadpass"); ok {
+	// 		if err = d.Set("uploadpass", vv); err != nil {
+	// 			return fmt.Errorf("Error reading uploadpass: %v", err)
+	// 		}
+	// 	} else {
+	// 		return fmt.Errorf("Error reading uploadpass: %v", err)
+	// 	}
+	// }
 
 	if err = d.Set("uploadport", flattenSystemLocallogDiskSettingUploadport(o["uploadport"], d, "uploadport")); err != nil {
 		if vv, ok := fortiAPIPatch(o["uploadport"], "SystemLocallogDiskSetting-Uploadport"); ok {

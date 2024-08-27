@@ -157,6 +157,11 @@ func resourceSystemLogForward() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"fwd_syslog_transparent": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"fosid": &schema.Schema{
 				Type:     schema.TypeInt,
 				ForceNew: true,
@@ -571,6 +576,10 @@ func flattenSystemLogForwardFwdServerType(v interface{}, d *schema.ResourceData,
 }
 
 func flattenSystemLogForwardFwdSyslogFormat(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemLogForwardFwdSyslogTransparent(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -1072,6 +1081,16 @@ func refreshObjectSystemLogForward(d *schema.ResourceData, o map[string]interfac
 		}
 	}
 
+	if err = d.Set("fwd_syslog_transparent", flattenSystemLogForwardFwdSyslogTransparent(o["fwd-syslog-transparent"], d, "fwd_syslog_transparent")); err != nil {
+		if vv, ok := fortiAPIPatch(o["fwd-syslog-transparent"], "SystemLogForward-FwdSyslogTransparent"); ok {
+			if err = d.Set("fwd_syslog_transparent", vv); err != nil {
+				return fmt.Errorf("Error reading fwd_syslog_transparent: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading fwd_syslog_transparent: %v", err)
+		}
+	}
+
 	if err = d.Set("fosid", flattenSystemLogForwardId(o["id"], d, "fosid")); err != nil {
 		if vv, ok := fortiAPIPatch(o["id"], "SystemLogForward-Id"); ok {
 			if err = d.Set("fosid", vv); err != nil {
@@ -1324,15 +1343,15 @@ func refreshObjectSystemLogForward(d *schema.ResourceData, o map[string]interfac
 		}
 	}
 
-	if err = d.Set("signature", flattenSystemLogForwardSignature(o["signature"], d, "signature")); err != nil {
-		if vv, ok := fortiAPIPatch(o["signature"], "SystemLogForward-Signature"); ok {
-			if err = d.Set("signature", vv); err != nil {
-				return fmt.Errorf("Error reading signature: %v", err)
-			}
-		} else {
-			return fmt.Errorf("Error reading signature: %v", err)
-		}
-	}
+	// if err = d.Set("signature", flattenSystemLogForwardSignature(o["signature"], d, "signature")); err != nil {
+	// 	if vv, ok := fortiAPIPatch(o["signature"], "SystemLogForward-Signature"); ok {
+	// 		if err = d.Set("signature", vv); err != nil {
+	// 			return fmt.Errorf("Error reading signature: %v", err)
+	// 		}
+	// 	} else {
+	// 		return fmt.Errorf("Error reading signature: %v", err)
+	// 	}
+	// }
 
 	if err = d.Set("sync_metadata", flattenSystemLogForwardSyncMetadata(o["sync-metadata"], d, "sync_metadata")); err != nil {
 		if vv, ok := fortiAPIPatch(o["sync-metadata"], "SystemLogForward-SyncMetadata"); ok {
@@ -1488,6 +1507,10 @@ func expandSystemLogForwardFwdServerType(d *schema.ResourceData, v interface{}, 
 }
 
 func expandSystemLogForwardFwdSyslogFormat(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemLogForwardFwdSyslogTransparent(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -1928,6 +1951,15 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
+	if v, ok := d.GetOk("fwd_syslog_transparent"); ok || d.HasChange("fwd_syslog_transparent") {
+		t, err := expandSystemLogForwardFwdSyslogTransparent(d, v, "fwd_syslog_transparent")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["fwd-syslog-transparent"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("fosid"); ok || d.HasChange("fosid") {
 		t, err := expandSystemLogForwardId(d, v, "fosid")
 		if err != nil {
@@ -2117,14 +2149,14 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	if v, ok := d.GetOk("signature"); ok || d.HasChange("signature") {
-		t, err := expandSystemLogForwardSignature(d, v, "signature")
-		if err != nil {
-			return &obj, err
-		} else if t != nil {
-			obj["signature"] = t
-		}
-	}
+	// if v, ok := d.GetOk("signature"); ok || d.HasChange("signature") {
+	// 	t, err := expandSystemLogForwardSignature(d, v, "signature")
+	// 	if err != nil {
+	// 		return &obj, err
+	// 	} else if t != nil {
+	// 		obj["signature"] = t
+	// 	}
+	// }
 
 	if v, ok := d.GetOk("sync_metadata"); ok || d.HasChange("sync_metadata") {
 		t, err := expandSystemLogForwardSyncMetadata(d, v, "sync_metadata")

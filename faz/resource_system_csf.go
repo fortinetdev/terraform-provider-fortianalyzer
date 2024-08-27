@@ -186,6 +186,11 @@ func resourceSystemCsf() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"upstream_confirm": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"upstream_port": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
@@ -508,6 +513,10 @@ func flattenSystemCsfUpstream(v interface{}, d *schema.ResourceData, pre string)
 	return v
 }
 
+func flattenSystemCsfUpstreamConfirm(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemCsfUpstreamPort(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -730,6 +739,16 @@ func refreshObjectSystemCsf(d *schema.ResourceData, o map[string]interface{}) er
 			}
 		} else {
 			return fmt.Errorf("Error reading upstream: %v", err)
+		}
+	}
+
+	if err = d.Set("upstream_confirm", flattenSystemCsfUpstreamConfirm(o["upstream-confirm"], d, "upstream_confirm")); err != nil {
+		if vv, ok := fortiAPIPatch(o["upstream-confirm"], "SystemCsf-UpstreamConfirm"); ok {
+			if err = d.Set("upstream_confirm", vv); err != nil {
+				return fmt.Errorf("Error reading upstream_confirm: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading upstream_confirm: %v", err)
 		}
 	}
 
@@ -971,6 +990,10 @@ func expandSystemCsfUpstream(d *schema.ResourceData, v interface{}, pre string) 
 	return v, nil
 }
 
+func expandSystemCsfUpstreamConfirm(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemCsfUpstreamPort(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -1164,6 +1187,15 @@ func getObjectSystemCsf(d *schema.ResourceData) (*map[string]interface{}, error)
 			return &obj, err
 		} else if t != nil {
 			obj["upstream"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("upstream_confirm"); ok || d.HasChange("upstream_confirm") {
+		t, err := expandSystemCsfUpstreamConfirm(d, v, "upstream_confirm")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["upstream-confirm"] = t
 		}
 	}
 
