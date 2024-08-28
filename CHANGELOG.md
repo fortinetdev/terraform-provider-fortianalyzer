@@ -1,5 +1,11 @@
 ## 1.5.0 (Unreleased)
 
+## 1.4.1 (August 27, 2024)
+
+IMPROVEMENTS:
+
+* Fixed checksum issue in v1.4.0;
+
 ## 1.4.0 (August 27, 2024)
 
 IMPROVEMENTS:
