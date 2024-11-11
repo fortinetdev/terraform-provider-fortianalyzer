@@ -202,6 +202,11 @@ func resourceSystemGlobal() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"global_ssl_protocol": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"gui_curl_timeout": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
@@ -224,6 +229,12 @@ func resourceSystemGlobal() *schema.Resource {
 			},
 			"jsonapi_log": &schema.Schema{
 				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
+			"httpd_ssl_protocol": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
 				Computed: true,
 			},
@@ -286,6 +297,11 @@ func resourceSystemGlobal() *schema.Resource {
 			},
 			"management_port": &schema.Schema{
 				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
+			"mapclient_ssl_protocol": &schema.Schema{
+				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
@@ -706,6 +722,10 @@ func flattenSystemGlobalFortiservicePortSga(v interface{}, d *schema.ResourceDat
 	return v
 }
 
+func flattenSystemGlobalGlobalSslProtocolSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemGlobalGuiCurlTimeoutSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -724,6 +744,10 @@ func flattenSystemGlobalHostnameSga(v interface{}, d *schema.ResourceData, pre s
 
 func flattenSystemGlobalJsonapiLogSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
+}
+
+func flattenSystemGlobalHttpdSslProtocolSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
 }
 
 func flattenSystemGlobalLanguageSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
@@ -775,6 +799,10 @@ func flattenSystemGlobalManagementIpSga(v interface{}, d *schema.ResourceData, p
 }
 
 func flattenSystemGlobalManagementPortSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemGlobalMapclientSslProtocolSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -1328,6 +1356,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 		}
 	}
 
+	if err = d.Set("global_ssl_protocol", flattenSystemGlobalGlobalSslProtocolSga(o["global-ssl-protocol"], d, "global_ssl_protocol")); err != nil {
+		if vv, ok := fortiAPIPatch(o["global-ssl-protocol"], "SystemGlobal-GlobalSslProtocol"); ok {
+			if err = d.Set("global_ssl_protocol", vv); err != nil {
+				return fmt.Errorf("Error reading global_ssl_protocol: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading global_ssl_protocol: %v", err)
+		}
+	}
+
 	if err = d.Set("gui_curl_timeout", flattenSystemGlobalGuiCurlTimeoutSga(o["gui-curl-timeout"], d, "gui_curl_timeout")); err != nil {
 		if vv, ok := fortiAPIPatch(o["gui-curl-timeout"], "SystemGlobal-GuiCurlTimeout"); ok {
 			if err = d.Set("gui_curl_timeout", vv); err != nil {
@@ -1375,6 +1413,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 			}
 		} else {
 			return fmt.Errorf("Error reading jsonapi_log: %v", err)
+		}
+	}
+
+	if err = d.Set("httpd_ssl_protocol", flattenSystemGlobalHttpdSslProtocolSga(o["httpd-ssl-protocol"], d, "httpd_ssl_protocol")); err != nil {
+		if vv, ok := fortiAPIPatch(o["httpd-ssl-protocol"], "SystemGlobal-HttpdSslProtocol"); ok {
+			if err = d.Set("httpd_ssl_protocol", vv); err != nil {
+				return fmt.Errorf("Error reading httpd_ssl_protocol: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading httpd_ssl_protocol: %v", err)
 		}
 	}
 
@@ -1505,6 +1553,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 			}
 		} else {
 			return fmt.Errorf("Error reading management_port: %v", err)
+		}
+	}
+
+	if err = d.Set("mapclient_ssl_protocol", flattenSystemGlobalMapclientSslProtocolSga(o["mapclient-ssl-protocol"], d, "mapclient_ssl_protocol")); err != nil {
+		if vv, ok := fortiAPIPatch(o["mapclient-ssl-protocol"], "SystemGlobal-MapclientSslProtocol"); ok {
+			if err = d.Set("mapclient_ssl_protocol", vv); err != nil {
+				return fmt.Errorf("Error reading mapclient_ssl_protocol: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading mapclient_ssl_protocol: %v", err)
 		}
 	}
 
@@ -2031,6 +2089,10 @@ func expandSystemGlobalFortiservicePortSga(d *schema.ResourceData, v interface{}
 	return v, nil
 }
 
+func expandSystemGlobalGlobalSslProtocolSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemGlobalGuiCurlTimeoutSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -2049,6 +2111,10 @@ func expandSystemGlobalHostnameSga(d *schema.ResourceData, v interface{}, pre st
 
 func expandSystemGlobalJsonapiLogSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
+}
+
+func expandSystemGlobalHttpdSslProtocolSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
 }
 
 func expandSystemGlobalLanguageSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
@@ -2100,6 +2166,10 @@ func expandSystemGlobalManagementIpSga(d *schema.ResourceData, v interface{}, pr
 }
 
 func expandSystemGlobalManagementPortSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemGlobalMapclientSslProtocolSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -2610,6 +2680,15 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
+	if v, ok := d.GetOk("global_ssl_protocol"); ok || d.HasChange("global_ssl_protocol") {
+		t, err := expandSystemGlobalGlobalSslProtocolSga(d, v, "global_ssl_protocol")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["global-ssl-protocol"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("gui_curl_timeout"); ok || d.HasChange("gui_curl_timeout") {
 		t, err := expandSystemGlobalGuiCurlTimeoutSga(d, v, "gui_curl_timeout")
 		if err != nil {
@@ -2652,6 +2731,15 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 			return &obj, err
 		} else if t != nil {
 			obj["jsonapi-log"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("httpd_ssl_protocol"); ok || d.HasChange("httpd_ssl_protocol") {
+		t, err := expandSystemGlobalHttpdSslProtocolSga(d, v, "httpd_ssl_protocol")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["httpd-ssl-protocol"] = t
 		}
 	}
 
@@ -2769,6 +2857,15 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 			return &obj, err
 		} else if t != nil {
 			obj["management-port"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("mapclient_ssl_protocol"); ok || d.HasChange("mapclient_ssl_protocol") {
+		t, err := expandSystemGlobalMapclientSslProtocolSga(d, v, "mapclient_ssl_protocol")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["mapclient-ssl-protocol"] = t
 		}
 	}
 

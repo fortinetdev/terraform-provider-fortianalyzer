@@ -108,12 +108,16 @@ The following arguments are supported:
 * `fgfm_ssl_protocol` - set the lowest SSL protocols for fgfmsd. sslv3 - set SSLv3 as the lowest version. tlsv1.0 - set TLSv1.0 as the lowest version. tlsv1.1 - set TLSv1.1 as the lowest version. tlsv1.2 - set TLSv1.2 as the lowest version (default). tlsv1.3 - set TLSv1.3 as the lowest version. Valid values: `sslv3`, `tlsv1.0`, `tlsv1.1`, `tlsv1.2`, `tlsv1.3`.
 
 * `fortiservice_port` - FortiService port (1 - 65535, default = 8013). Used by FortiClient endpoint compliance. Older versions of FortiClient used a different port.
+* `global_ssl_protocol` - set the lowest SSL protocol version for all SSL connections. sslv3 - set SSLv3 as the lowest version. tlsv1.0 - set TLSv1.0 as the lowest version. tlsv1.1 - set TLSv1.1 as the lowest version. tlsv1.2 - set TLSv1.2 as the lowest version (default). tlsv1.3 - set TLSv1.3 as the lowest version. Valid values: `sslv3`, `tlsv1.0`, `tlsv1.1`, `tlsv1.2`, `tlsv1.3`.
+
 * `gui_curl_timeout` - GUI curl timeout in seconds (5-900 default 30).
 * `gui_polling_interval` - GUI polling interval in seconds (1-288000 default 5).
 * `ha_member_auto_grouping` - Enable/disable automatically group HA members feature disable - Disable automatically grouping HA members feature. enable - Enable automatically grouping HA members only when group name is unique in your network. Valid values: `disable`, `enable`.
 
 * `hostname` - System hostname.
 * `jsonapi_log` - enable jsonapi log. disable - disable jsonapi log. request - logging jsonapi request. response - logging jsonapi response. all - logging both jsonapi request &amp; response. Valid values: `disable`, `request`, `response`, `all`.
+
+* `httpd_ssl_protocol` - set SSL protocols for apache daemon (httpd) sslv3 - Enable SSLv3. tlsv1.0 - Enable TLSv1.0. tlsv1.1 - Enable TLSv1.1. tlsv1.2 - Enable TLSv1.2. tlsv1.3 - Enable TLSv1.3. Valid values: `sslv3`, `tlsv1.0`, `tlsv1.1`, `tlsv1.2`, `tlsv1.3`.
 
 * `language` - System global language. english - English simch - Simplified Chinese japanese - Japanese korean - Korean spanish - Spanish trach - Traditional Chinese Valid values: `english`, `simch`, `japanese`, `korean`, `spanish`, `trach`.
 
@@ -133,6 +137,8 @@ The following arguments are supported:
 * `longitude` - fmg location longitude
 * `management_ip` - Management IP address of this FortiGate. Used to log into this FortiGate from another FortiGate in the Security Fabric.
 * `management_port` - Overriding port for management connection (Overrides admin port).
+* `mapclient_ssl_protocol` - set the lowest SSL protocol version for connection to mapserver. follow-global-ssl-protocol - Follow system.global.global-ssl-protocol setting (default). sslv3 - set SSLv3 as the lowest version. tlsv1.0 - set TLSv1.0 as the lowest version. tlsv1.1 - set TLSv1.1 as the lowest version. tlsv1.2 - set TLSv1.2 as the lowest version. tlsv1.3 - set TLSv1.3 as the lowest version. Valid values: `follow-global-ssl-protocol`, `sslv3`, `tlsv1.0`, `tlsv1.1`, `tlsv1.2`, `tlsv1.3`.
+
 * `max_aggregation_tasks` - Maximum number of concurrent tasks of a log aggregation session.
 * `max_log_forward` - Maximum number of log-forward and aggregation settings.
 * `max_running_reports` - Maximum number of reports generating at one time.

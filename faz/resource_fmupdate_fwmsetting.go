@@ -99,6 +99,10 @@ func resourceFmupdateFwmSetting() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"send_image_retry": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+			},
 			"upgrade_timeout": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
@@ -303,6 +307,10 @@ func flattenFmupdateFwmSettingRetryMaxFfb(v interface{}, d *schema.ResourceData,
 }
 
 func flattenFmupdateFwmSettingRevisionDiffFfb(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenFmupdateFwmSettingSendImageRetryFfb(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -588,6 +596,16 @@ func refreshObjectFmupdateFwmSetting(d *schema.ResourceData, o map[string]interf
 		}
 	}
 
+	if err = d.Set("send_image_retry", flattenFmupdateFwmSettingSendImageRetryFfb(o["send-image-retry"], d, "send_image_retry")); err != nil {
+		if vv, ok := fortiAPIPatch(o["send-image-retry"], "FmupdateFwmSetting-SendImageRetry"); ok {
+			if err = d.Set("send_image_retry", vv); err != nil {
+				return fmt.Errorf("Error reading send_image_retry: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading send_image_retry: %v", err)
+		}
+	}
+
 	if isImportTable() {
 		if err = d.Set("upgrade_timeout", flattenFmupdateFwmSettingUpgradeTimeoutFfb(o["upgrade-timeout"], d, "upgrade_timeout")); err != nil {
 			if vv, ok := fortiAPIPatch(o["upgrade-timeout"], "FmupdateFwmSetting-UpgradeTimeout"); ok {
@@ -674,6 +692,10 @@ func expandFmupdateFwmSettingRetryMaxFfb(d *schema.ResourceData, v interface{}, 
 }
 
 func expandFmupdateFwmSettingRevisionDiffFfb(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandFmupdateFwmSettingSendImageRetryFfb(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -929,6 +951,15 @@ func getObjectFmupdateFwmSetting(d *schema.ResourceData) (*map[string]interface{
 			return &obj, err
 		} else if t != nil {
 			obj["revision-diff"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("send_image_retry"); ok || d.HasChange("send_image_retry") {
+		t, err := expandFmupdateFwmSettingSendImageRetryFfb(d, v, "send_image_retry")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["send-image-retry"] = t
 		}
 	}
 

@@ -129,6 +129,11 @@ func resourceSystemCsf() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"ssl_protocol": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"saml_configuration_sync": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -391,6 +396,10 @@ func flattenSystemCsfGroupPassword(v interface{}, d *schema.ResourceData, pre st
 }
 
 func flattenSystemCsfLogUnification(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemCsfSslProtocol(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -688,6 +697,16 @@ func refreshObjectSystemCsf(d *schema.ResourceData, o map[string]interface{}) er
 		}
 	}
 
+	if err = d.Set("ssl_protocol", flattenSystemCsfSslProtocol(o["ssl-protocol"], d, "ssl_protocol")); err != nil {
+		if vv, ok := fortiAPIPatch(o["ssl-protocol"], "SystemCsf-SslProtocol"); ok {
+			if err = d.Set("ssl_protocol", vv); err != nil {
+				return fmt.Errorf("Error reading ssl_protocol: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading ssl_protocol: %v", err)
+		}
+	}
+
 	if err = d.Set("saml_configuration_sync", flattenSystemCsfSamlConfigurationSync(o["saml-configuration-sync"], d, "saml_configuration_sync")); err != nil {
 		if vv, ok := fortiAPIPatch(o["saml-configuration-sync"], "SystemCsf-SamlConfigurationSync"); ok {
 			if err = d.Set("saml_configuration_sync", vv); err != nil {
@@ -881,6 +900,10 @@ func expandSystemCsfGroupPassword(d *schema.ResourceData, v interface{}, pre str
 }
 
 func expandSystemCsfLogUnification(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemCsfSslProtocol(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -1151,6 +1174,15 @@ func getObjectSystemCsf(d *schema.ResourceData) (*map[string]interface{}, error)
 			return &obj, err
 		} else if t != nil {
 			obj["log-unification"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("ssl_protocol"); ok || d.HasChange("ssl_protocol") {
+		t, err := expandSystemCsfSslProtocol(d, v, "ssl_protocol")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["ssl-protocol"] = t
 		}
 	}
 
