@@ -64,6 +64,7 @@ The following arguments are supported:
 
 * `api_ip_binding` - Enable/disable source IP check for JSON API request. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
 
+* `apache_wsgi_processes` - Set apache wsgi processes(5-250 default 10).
 * `backup_compression` - Compression level. none - No compression. low - Low compression (fastest). normal - Normal compression. high - Best compression (slowest). Valid values: `none`, `low`, `normal`, `high`.
 
 * `backup_to_subfolders` - Enable/disable creation of subfolders on server for backup storage. disable - Disable creation of subfolders on server for backup storage. enable - Enable creation of subfolders on server for backup storage. Valid values: `disable`, `enable`.
@@ -107,10 +108,13 @@ The following arguments are supported:
 * `fgfm_local_cert` - set the fgfm local certificate.
 * `fgfm_ssl_protocol` - set the lowest SSL protocols for fgfmsd. sslv3 - set SSLv3 as the lowest version. tlsv1.0 - set TLSv1.0 as the lowest version. tlsv1.1 - set TLSv1.1 as the lowest version. tlsv1.2 - set TLSv1.2 as the lowest version (default). tlsv1.3 - set TLSv1.3 as the lowest version. Valid values: `sslv3`, `tlsv1.0`, `tlsv1.1`, `tlsv1.2`, `tlsv1.3`.
 
+* `fmg_fabric_port` - Fmg-Fabric-Port.
 * `fortiservice_port` - FortiService port (1 - 65535, default = 8013). Used by FortiClient endpoint compliance. Older versions of FortiClient used a different port.
 * `global_ssl_protocol` - set the lowest SSL protocol version for all SSL connections. sslv3 - set SSLv3 as the lowest version. tlsv1.0 - set TLSv1.0 as the lowest version. tlsv1.1 - set TLSv1.1 as the lowest version. tlsv1.2 - set TLSv1.2 as the lowest version (default). tlsv1.3 - set TLSv1.3 as the lowest version. Valid values: `sslv3`, `tlsv1.0`, `tlsv1.1`, `tlsv1.2`, `tlsv1.3`.
 
 * `gui_curl_timeout` - GUI curl timeout in seconds (5-900 default 30).
+* `gui_feature_visibility_mode` - Gui-Feature-Visibility-Mode. Valid values: `per-adom`, `per-admin`.
+
 * `gui_polling_interval` - GUI polling interval in seconds (1-288000 default 5).
 * `ha_member_auto_grouping` - Enable/disable automatically group HA members feature disable - Disable automatically grouping HA members feature. enable - Enable automatically grouping HA members only when group name is unique in your network. Valid values: `disable`, `enable`.
 
@@ -187,6 +191,7 @@ The following arguments are supported:
 
 * `ssl_static_key_ciphers` - Enable/disable SSL static key ciphers. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
 
+* `storage_age_limit` - Storage-Age-Limit.
 * `table_entry_blink` - Enable/disable table entry blink in GUI disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
 
 * `task_list_size` - Maximum number of completed tasks to keep.

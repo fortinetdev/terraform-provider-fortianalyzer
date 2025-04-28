@@ -15,6 +15,8 @@ UEBAsettings.
 The following arguments are supported:
 
 
+* `hostname_ep_unifier` - Hostname-Ep-Unifier. Valid values: `disable`, `enable`.
+
 * `ip_only_ep` - Disable/Enable IP-only endpoint identification. disable - Disable IP-only endpoint identification. enable - Enable IP-only endpoint identification. Valid values: `disable`, `enable`.
 
 * `ip_unique_scope` - set ip-unique-scope. adom - set ip-unique-scope to adom. effective only when ip-only-endpoint is enable vdom - set ip-unique-scope to vdom. effective only when ip-only-endpoint is enable Valid values: `adom`, `vdom`.

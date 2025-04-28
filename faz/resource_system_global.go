@@ -78,6 +78,11 @@ func resourceSystemGlobal() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"apache_wsgi_processes": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
 			"backup_compression": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -197,6 +202,11 @@ func resourceSystemGlobal() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"fmg_fabric_port": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
 			"fortiservice_port": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
@@ -209,6 +219,11 @@ func resourceSystemGlobal() *schema.Resource {
 			},
 			"gui_curl_timeout": &schema.Schema{
 				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
+			"gui_feature_visibility_mode": &schema.Schema{
+				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
@@ -464,6 +479,10 @@ func resourceSystemGlobal() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"storage_age_limit": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+			},
 			"table_entry_blink": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -622,6 +641,10 @@ func flattenSystemGlobalApiIpBindingSga(v interface{}, d *schema.ResourceData, p
 	return v
 }
 
+func flattenSystemGlobalApacheWsgiProcessesSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemGlobalBackupCompressionSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -718,6 +741,10 @@ func flattenSystemGlobalFgfmSslProtocolSga(v interface{}, d *schema.ResourceData
 	return v
 }
 
+func flattenSystemGlobalFmgFabricPortSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemGlobalFortiservicePortSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -727,6 +754,10 @@ func flattenSystemGlobalGlobalSslProtocolSga(v interface{}, d *schema.ResourceDa
 }
 
 func flattenSystemGlobalGuiCurlTimeoutSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemGlobalGuiFeatureVisibilityModeSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -971,6 +1002,10 @@ func flattenSystemGlobalSslStaticKeyCiphersSga(v interface{}, d *schema.Resource
 	return v
 }
 
+func flattenSystemGlobalStorageAgeLimitSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemGlobalTableEntryBlinkSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -1103,6 +1138,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 			}
 		} else {
 			return fmt.Errorf("Error reading api_ip_binding: %v", err)
+		}
+	}
+
+	if err = d.Set("apache_wsgi_processes", flattenSystemGlobalApacheWsgiProcessesSga(o["apache-wsgi-processes"], d, "apache_wsgi_processes")); err != nil {
+		if vv, ok := fortiAPIPatch(o["apache-wsgi-processes"], "SystemGlobal-ApacheWsgiProcesses"); ok {
+			if err = d.Set("apache_wsgi_processes", vv); err != nil {
+				return fmt.Errorf("Error reading apache_wsgi_processes: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading apache_wsgi_processes: %v", err)
 		}
 	}
 
@@ -1346,6 +1391,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 		}
 	}
 
+	if err = d.Set("fmg_fabric_port", flattenSystemGlobalFmgFabricPortSga(o["fmg-fabric-port"], d, "fmg_fabric_port")); err != nil {
+		if vv, ok := fortiAPIPatch(o["fmg-fabric-port"], "SystemGlobal-FmgFabricPort"); ok {
+			if err = d.Set("fmg_fabric_port", vv); err != nil {
+				return fmt.Errorf("Error reading fmg_fabric_port: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading fmg_fabric_port: %v", err)
+		}
+	}
+
 	if err = d.Set("fortiservice_port", flattenSystemGlobalFortiservicePortSga(o["fortiservice-port"], d, "fortiservice_port")); err != nil {
 		if vv, ok := fortiAPIPatch(o["fortiservice-port"], "SystemGlobal-FortiservicePort"); ok {
 			if err = d.Set("fortiservice_port", vv); err != nil {
@@ -1373,6 +1428,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 			}
 		} else {
 			return fmt.Errorf("Error reading gui_curl_timeout: %v", err)
+		}
+	}
+
+	if err = d.Set("gui_feature_visibility_mode", flattenSystemGlobalGuiFeatureVisibilityModeSga(o["gui-feature-visibility-mode"], d, "gui_feature_visibility_mode")); err != nil {
+		if vv, ok := fortiAPIPatch(o["gui-feature-visibility-mode"], "SystemGlobal-GuiFeatureVisibilityMode"); ok {
+			if err = d.Set("gui_feature_visibility_mode", vv); err != nil {
+				return fmt.Errorf("Error reading gui_feature_visibility_mode: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading gui_feature_visibility_mode: %v", err)
 		}
 	}
 
@@ -1860,6 +1925,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 		}
 	}
 
+	if err = d.Set("storage_age_limit", flattenSystemGlobalStorageAgeLimitSga(o["storage-age-limit"], d, "storage_age_limit")); err != nil {
+		if vv, ok := fortiAPIPatch(o["storage-age-limit"], "SystemGlobal-StorageAgeLimit"); ok {
+			if err = d.Set("storage_age_limit", vv); err != nil {
+				return fmt.Errorf("Error reading storage_age_limit: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading storage_age_limit: %v", err)
+		}
+	}
+
 	if err = d.Set("table_entry_blink", flattenSystemGlobalTableEntryBlinkSga(o["table-entry-blink"], d, "table_entry_blink")); err != nil {
 		if vv, ok := fortiAPIPatch(o["table-entry-blink"], "SystemGlobal-TableEntryBlink"); ok {
 			if err = d.Set("table_entry_blink", vv); err != nil {
@@ -1989,6 +2064,10 @@ func expandSystemGlobalApiIpBindingSga(d *schema.ResourceData, v interface{}, pr
 	return v, nil
 }
 
+func expandSystemGlobalApacheWsgiProcessesSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemGlobalBackupCompressionSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -2085,6 +2164,10 @@ func expandSystemGlobalFgfmSslProtocolSga(d *schema.ResourceData, v interface{},
 	return v, nil
 }
 
+func expandSystemGlobalFmgFabricPortSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemGlobalFortiservicePortSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -2094,6 +2177,10 @@ func expandSystemGlobalGlobalSslProtocolSga(d *schema.ResourceData, v interface{
 }
 
 func expandSystemGlobalGuiCurlTimeoutSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemGlobalGuiFeatureVisibilityModeSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -2330,6 +2417,10 @@ func expandSystemGlobalSslStaticKeyCiphersSga(d *schema.ResourceData, v interfac
 	return v, nil
 }
 
+func expandSystemGlobalStorageAgeLimitSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemGlobalTableEntryBlinkSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -2452,6 +2543,15 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 			return &obj, err
 		} else if t != nil {
 			obj["api-ip-binding"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("apache_wsgi_processes"); ok || d.HasChange("apache_wsgi_processes") {
+		t, err := expandSystemGlobalApacheWsgiProcessesSga(d, v, "apache_wsgi_processes")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["apache-wsgi-processes"] = t
 		}
 	}
 
@@ -2671,6 +2771,15 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
+	if v, ok := d.GetOk("fmg_fabric_port"); ok || d.HasChange("fmg_fabric_port") {
+		t, err := expandSystemGlobalFmgFabricPortSga(d, v, "fmg_fabric_port")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["fmg-fabric-port"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("fortiservice_port"); ok || d.HasChange("fortiservice_port") {
 		t, err := expandSystemGlobalFortiservicePortSga(d, v, "fortiservice_port")
 		if err != nil {
@@ -2695,6 +2804,15 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 			return &obj, err
 		} else if t != nil {
 			obj["gui-curl-timeout"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("gui_feature_visibility_mode"); ok || d.HasChange("gui_feature_visibility_mode") {
+		t, err := expandSystemGlobalGuiFeatureVisibilityModeSga(d, v, "gui_feature_visibility_mode")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["gui-feature-visibility-mode"] = t
 		}
 	}
 
@@ -3118,6 +3236,15 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 			return &obj, err
 		} else if t != nil {
 			obj["ssl-static-key-ciphers"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("storage_age_limit"); ok || d.HasChange("storage_age_limit") {
+		t, err := expandSystemGlobalStorageAgeLimitSga(d, v, "storage_age_limit")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["storage-age-limit"] = t
 		}
 	}
 

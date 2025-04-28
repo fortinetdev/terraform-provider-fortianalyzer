@@ -65,6 +65,9 @@ The following arguments are supported:
 * `idle_timeout_api` - Idle timeout for API sessions (1 - 28800 sec).
 * `idle_timeout_gui` - Idle timeout for GUI sessions (60 - 28800 sec).
 * `idle_timeout_sso` - Idle timeout for SSO sessions (60 - 28800 sec).
+* `object_threshold_limit` - Object-Threshold-Limit. Valid values: `disable`, `enable`.
+
+* `object_threshold_limit_value` - Object-Threshold-Limit-Value.
 * `objects_force_deletion` - Enable/disable used objects force deletion. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
 
 * `preferred_fgfm_intf` - Preferred interface for FGFM connection.

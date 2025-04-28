@@ -28,6 +28,8 @@ The following arguments are supported:
 
 * `not_scanned_apps` - Include/Exclude 'Not.Scanned' applications in FortiView. Set as 'exclude' if you want to filter out never scanned applications. exclude - Exclude 'Not.Scanned' applications in FortiView. include - Include 'Not.Scanned' applications in FortiView. Valid values: `exclude`, `include`.
 
+* `query_run_mode` - Query-Run-Mode. Valid values: `auto`, `boost`.
+
 * `resolve_ip` - Enable or disable resolving IP address to hostname in FortiView.  disable - Disable resolving IP address to hostname. enable - Enable resolving IP address to hostname. Valid values: `disable`, `enable`.
 
 

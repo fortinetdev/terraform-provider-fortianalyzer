@@ -54,10 +54,11 @@ func resourceSystemLogForward() *schema.Resource {
 				Computed: true,
 			},
 			"agg_password": &schema.Schema{
-				Type:     schema.TypeSet,
-				Elem:     &schema.Schema{Type: schema.TypeString},
-				Optional: true,
-				Computed: true,
+				Type:      schema.TypeSet,
+				Elem:      &schema.Schema{Type: schema.TypeString},
+				Optional:  true,
+				Sensitive: true,
+				Computed:  true,
 			},
 			"agg_schedule": &schema.Schema{
 				Type:     schema.TypeString,
@@ -148,6 +149,11 @@ func resourceSystemLogForward() *schema.Resource {
 				Computed: true,
 			},
 			"fwd_server_type": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
+			"fwd_syslog_enrich_cve": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
@@ -267,10 +273,11 @@ func resourceSystemLogForward() *schema.Resource {
 				Optional: true,
 			},
 			"log_masking_key": &schema.Schema{
-				Type:     schema.TypeSet,
-				Elem:     &schema.Schema{Type: schema.TypeString},
-				Optional: true,
-				Computed: true,
+				Type:      schema.TypeSet,
+				Elem:      &schema.Schema{Type: schema.TypeString},
+				Optional:  true,
+				Sensitive: true,
+				Computed:  true,
 			},
 			"log_masking_status": &schema.Schema{
 				Type:     schema.TypeString,
@@ -323,9 +330,10 @@ func resourceSystemLogForward() *schema.Resource {
 				Computed: true,
 			},
 			"signature": &schema.Schema{
-				Type:     schema.TypeInt,
-				Optional: true,
-				Computed: true,
+				Type:      schema.TypeInt,
+				Optional:  true,
+				Sensitive: true,
+				Computed:  true,
 			},
 			"sync_metadata": &schema.Schema{
 				Type:     schema.TypeSet,
@@ -572,6 +580,10 @@ func flattenSystemLogForwardFwdSecure(v interface{}, d *schema.ResourceData, pre
 }
 
 func flattenSystemLogForwardFwdServerType(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemLogForwardFwdSyslogEnrichCve(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -897,16 +909,6 @@ func refreshObjectSystemLogForward(d *schema.ResourceData, o map[string]interfac
 		}
 	}
 
-	if err = d.Set("agg_password", flattenSystemLogForwardAggPassword(o["agg-password"], d, "agg_password")); err != nil {
-		if vv, ok := fortiAPIPatch(o["agg-password"], "SystemLogForward-AggPassword"); ok {
-			if err = d.Set("agg_password", vv); err != nil {
-				return fmt.Errorf("Error reading agg_password: %v", err)
-			}
-		} else {
-			return fmt.Errorf("Error reading agg_password: %v", err)
-		}
-	}
-
 	if err = d.Set("agg_schedule", flattenSystemLogForwardAggSchedule(o["agg-schedule"], d, "agg_schedule")); err != nil {
 		if vv, ok := fortiAPIPatch(o["agg-schedule"], "SystemLogForward-AggSchedule"); ok {
 			if err = d.Set("agg_schedule", vv); err != nil {
@@ -1071,6 +1073,16 @@ func refreshObjectSystemLogForward(d *schema.ResourceData, o map[string]interfac
 		}
 	}
 
+	if err = d.Set("fwd_syslog_enrich_cve", flattenSystemLogForwardFwdSyslogEnrichCve(o["fwd-syslog-enrich-cve"], d, "fwd_syslog_enrich_cve")); err != nil {
+		if vv, ok := fortiAPIPatch(o["fwd-syslog-enrich-cve"], "SystemLogForward-FwdSyslogEnrichCve"); ok {
+			if err = d.Set("fwd_syslog_enrich_cve", vv); err != nil {
+				return fmt.Errorf("Error reading fwd_syslog_enrich_cve: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading fwd_syslog_enrich_cve: %v", err)
+		}
+	}
+
 	if err = d.Set("fwd_syslog_format", flattenSystemLogForwardFwdSyslogFormat(o["fwd-syslog-format"], d, "fwd_syslog_format")); err != nil {
 		if vv, ok := fortiAPIPatch(o["fwd-syslog-format"], "SystemLogForward-FwdSyslogFormat"); ok {
 			if err = d.Set("fwd_syslog_format", vv); err != nil {
@@ -1223,16 +1235,6 @@ func refreshObjectSystemLogForward(d *schema.ResourceData, o map[string]interfac
 		}
 	}
 
-	if err = d.Set("log_masking_key", flattenSystemLogForwardLogMaskingKey(o["log-masking-key"], d, "log_masking_key")); err != nil {
-		if vv, ok := fortiAPIPatch(o["log-masking-key"], "SystemLogForward-LogMaskingKey"); ok {
-			if err = d.Set("log_masking_key", vv); err != nil {
-				return fmt.Errorf("Error reading log_masking_key: %v", err)
-			}
-		} else {
-			return fmt.Errorf("Error reading log_masking_key: %v", err)
-		}
-	}
-
 	if err = d.Set("log_masking_status", flattenSystemLogForwardLogMaskingStatus(o["log-masking-status"], d, "log_masking_status")); err != nil {
 		if vv, ok := fortiAPIPatch(o["log-masking-status"], "SystemLogForward-LogMaskingStatus"); ok {
 			if err = d.Set("log_masking_status", vv); err != nil {
@@ -1342,16 +1344,6 @@ func refreshObjectSystemLogForward(d *schema.ResourceData, o map[string]interfac
 			return fmt.Errorf("Error reading server_port: %v", err)
 		}
 	}
-
-	// if err = d.Set("signature", flattenSystemLogForwardSignature(o["signature"], d, "signature")); err != nil {
-	// 	if vv, ok := fortiAPIPatch(o["signature"], "SystemLogForward-Signature"); ok {
-	// 		if err = d.Set("signature", vv); err != nil {
-	// 			return fmt.Errorf("Error reading signature: %v", err)
-	// 		}
-	// 	} else {
-	// 		return fmt.Errorf("Error reading signature: %v", err)
-	// 	}
-	// }
 
 	if err = d.Set("sync_metadata", flattenSystemLogForwardSyncMetadata(o["sync-metadata"], d, "sync_metadata")); err != nil {
 		if vv, ok := fortiAPIPatch(o["sync-metadata"], "SystemLogForward-SyncMetadata"); ok {
@@ -1503,6 +1495,10 @@ func expandSystemLogForwardFwdSecure(d *schema.ResourceData, v interface{}, pre 
 }
 
 func expandSystemLogForwardFwdServerType(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemLogForwardFwdSyslogEnrichCve(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -1942,6 +1938,15 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
+	if v, ok := d.GetOk("fwd_syslog_enrich_cve"); ok || d.HasChange("fwd_syslog_enrich_cve") {
+		t, err := expandSystemLogForwardFwdSyslogEnrichCve(d, v, "fwd_syslog_enrich_cve")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["fwd-syslog-enrich-cve"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("fwd_syslog_format"); ok || d.HasChange("fwd_syslog_format") {
 		t, err := expandSystemLogForwardFwdSyslogFormat(d, v, "fwd_syslog_format")
 		if err != nil {
@@ -2149,14 +2154,14 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 		}
 	}
 
-	// if v, ok := d.GetOk("signature"); ok || d.HasChange("signature") {
-	// 	t, err := expandSystemLogForwardSignature(d, v, "signature")
-	// 	if err != nil {
-	// 		return &obj, err
-	// 	} else if t != nil {
-	// 		obj["signature"] = t
-	// 	}
-	// }
+	if v, ok := d.GetOk("signature"); ok || d.HasChange("signature") {
+		t, err := expandSystemLogForwardSignature(d, v, "signature")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["signature"] = t
+		}
+	}
 
 	if v, ok := d.GetOk("sync_metadata"); ok || d.HasChange("sync_metadata") {
 		t, err := expandSystemLogForwardSyncMetadata(d, v, "sync_metadata")

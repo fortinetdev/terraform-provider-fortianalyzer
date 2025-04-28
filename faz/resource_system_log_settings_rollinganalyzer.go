@@ -82,10 +82,11 @@ func resourceSystemLogSettingsRollingAnalyzer() *schema.Resource {
 				Optional: true,
 			},
 			"password": &schema.Schema{
-				Type:     schema.TypeSet,
-				Elem:     &schema.Schema{Type: schema.TypeString},
-				Optional: true,
-				Computed: true,
+				Type:      schema.TypeSet,
+				Elem:      &schema.Schema{Type: schema.TypeString},
+				Optional:  true,
+				Sensitive: true,
+				Computed:  true,
 			},
 			"password2": &schema.Schema{
 				Type:      schema.TypeSet,
@@ -472,16 +473,6 @@ func refreshObjectSystemLogSettingsRollingAnalyzer(d *schema.ResourceData, o map
 			}
 		} else {
 			return fmt.Errorf("Error reading min: %v", err)
-		}
-	}
-
-	if err = d.Set("password", flattenSystemLogSettingsRollingAnalyzerPassword(o["password"], d, "password")); err != nil {
-		if vv, ok := fortiAPIPatch(o["password"], "SystemLogSettingsRollingAnalyzer-Password"); ok {
-			if err = d.Set("password", vv); err != nil {
-				return fmt.Errorf("Error reading password: %v", err)
-			}
-		} else {
-			return fmt.Errorf("Error reading password: %v", err)
 		}
 	}
 

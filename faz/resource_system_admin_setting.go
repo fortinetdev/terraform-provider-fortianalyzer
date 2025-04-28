@@ -117,6 +117,16 @@ func resourceSystemAdminSetting() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"object_threshold_limit": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
+			"object_threshold_limit_value": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
 			"objects_force_deletion": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -318,6 +328,14 @@ func flattenSystemAdminSettingIdleTimeoutGui(v interface{}, d *schema.ResourceDa
 }
 
 func flattenSystemAdminSettingIdleTimeoutSso(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemAdminSettingObjectThresholdLimit(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemAdminSettingObjectThresholdLimitValue(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -552,6 +570,26 @@ func refreshObjectSystemAdminSetting(d *schema.ResourceData, o map[string]interf
 		}
 	}
 
+	if err = d.Set("object_threshold_limit", flattenSystemAdminSettingObjectThresholdLimit(o["object-threshold-limit"], d, "object_threshold_limit")); err != nil {
+		if vv, ok := fortiAPIPatch(o["object-threshold-limit"], "SystemAdminSetting-ObjectThresholdLimit"); ok {
+			if err = d.Set("object_threshold_limit", vv); err != nil {
+				return fmt.Errorf("Error reading object_threshold_limit: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading object_threshold_limit: %v", err)
+		}
+	}
+
+	if err = d.Set("object_threshold_limit_value", flattenSystemAdminSettingObjectThresholdLimitValue(o["object-threshold-limit-value"], d, "object_threshold_limit_value")); err != nil {
+		if vv, ok := fortiAPIPatch(o["object-threshold-limit-value"], "SystemAdminSetting-ObjectThresholdLimitValue"); ok {
+			if err = d.Set("object_threshold_limit_value", vv); err != nil {
+				return fmt.Errorf("Error reading object_threshold_limit_value: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading object_threshold_limit_value: %v", err)
+		}
+	}
+
 	if err = d.Set("objects_force_deletion", flattenSystemAdminSettingObjectsForceDeletion(o["objects-force-deletion"], d, "objects_force_deletion")); err != nil {
 		if vv, ok := fortiAPIPatch(o["objects-force-deletion"], "SystemAdminSetting-ObjectsForceDeletion"); ok {
 			if err = d.Set("objects_force_deletion", vv); err != nil {
@@ -740,6 +778,14 @@ func expandSystemAdminSettingIdleTimeoutGui(d *schema.ResourceData, v interface{
 }
 
 func expandSystemAdminSettingIdleTimeoutSso(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemAdminSettingObjectThresholdLimit(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemAdminSettingObjectThresholdLimitValue(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -953,6 +999,24 @@ func getObjectSystemAdminSetting(d *schema.ResourceData) (*map[string]interface{
 			return &obj, err
 		} else if t != nil {
 			obj["idle_timeout_sso"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("object_threshold_limit"); ok || d.HasChange("object_threshold_limit") {
+		t, err := expandSystemAdminSettingObjectThresholdLimit(d, v, "object_threshold_limit")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["object-threshold-limit"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("object_threshold_limit_value"); ok || d.HasChange("object_threshold_limit_value") {
+		t, err := expandSystemAdminSettingObjectThresholdLimitValue(d, v, "object_threshold_limit_value")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["object-threshold-limit-value"] = t
 		}
 	}
 

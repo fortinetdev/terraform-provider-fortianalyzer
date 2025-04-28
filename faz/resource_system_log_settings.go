@@ -108,6 +108,11 @@ func resourceSystemLogSettings() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"legacy_auth_mode": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"log_file_archive_name": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -182,10 +187,11 @@ func resourceSystemLogSettings() *schema.Resource {
 							Optional: true,
 						},
 						"password": &schema.Schema{
-							Type:     schema.TypeSet,
-							Elem:     &schema.Schema{Type: schema.TypeString},
-							Optional: true,
-							Computed: true,
+							Type:      schema.TypeSet,
+							Elem:      &schema.Schema{Type: schema.TypeString},
+							Optional:  true,
+							Sensitive: true,
+							Computed:  true,
 						},
 						"password2": &schema.Schema{
 							Type:      schema.TypeSet,
@@ -731,6 +737,10 @@ func flattenSystemLogSettingsKeepDevLogsSlsa(v interface{}, d *schema.ResourceDa
 	return v
 }
 
+func flattenSystemLogSettingsLegacyAuthModeSlsa(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemLogSettingsLogFileArchiveNameSlsa(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -810,6 +820,10 @@ func flattenSystemLogSettingsRollingAnalyzerSlsa(v interface{}, d *schema.Resour
 	pre_append = pre + ".0." + "password"
 	if _, ok := i["password"]; ok {
 		result["password"] = flattenSystemLogSettingsRollingAnalyzerPasswordSlsa(i["password"], d, pre_append)
+		c := d.Get(pre_append).(*schema.Set)
+		if c.Len() > 0 {
+			result["password"] = c
+		}
 	}
 
 	pre_append = pre + ".0." + "password2"
@@ -1815,6 +1829,16 @@ func refreshObjectSystemLogSettings(d *schema.ResourceData, o map[string]interfa
 		}
 	}
 
+	if err = d.Set("legacy_auth_mode", flattenSystemLogSettingsLegacyAuthModeSlsa(o["legacy-auth-mode"], d, "legacy_auth_mode")); err != nil {
+		if vv, ok := fortiAPIPatch(o["legacy-auth-mode"], "SystemLogSettings-LegacyAuthMode"); ok {
+			if err = d.Set("legacy_auth_mode", vv); err != nil {
+				return fmt.Errorf("Error reading legacy_auth_mode: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading legacy_auth_mode: %v", err)
+		}
+	}
+
 	if err = d.Set("log_file_archive_name", flattenSystemLogSettingsLogFileArchiveNameSlsa(o["log-file-archive-name"], d, "log_file_archive_name")); err != nil {
 		if vv, ok := fortiAPIPatch(o["log-file-archive-name"], "SystemLogSettings-LogFileArchiveName"); ok {
 			if err = d.Set("log_file_archive_name", vv); err != nil {
@@ -2015,6 +2039,10 @@ func expandSystemLogSettingsImportMaxLogfilesSlsa(d *schema.ResourceData, v inte
 }
 
 func expandSystemLogSettingsKeepDevLogsSlsa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemLogSettingsLegacyAuthModeSlsa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -2986,6 +3014,15 @@ func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}
 			return &obj, err
 		} else if t != nil {
 			obj["keep-dev-logs"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("legacy_auth_mode"); ok || d.HasChange("legacy_auth_mode") {
+		t, err := expandSystemLogSettingsLegacyAuthModeSlsa(d, v, "legacy_auth_mode")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["legacy-auth-mode"] = t
 		}
 	}
 

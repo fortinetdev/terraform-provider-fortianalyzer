@@ -29,6 +29,11 @@ func resourceSystemLogUeba() *schema.Resource {
 		},
 
 		Schema: map[string]*schema.Schema{
+			"hostname_ep_unifier": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"ip_only_ep": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -111,6 +116,10 @@ func resourceSystemLogUebaRead(d *schema.ResourceData, m interface{}) error {
 	return nil
 }
 
+func flattenSystemLogUebaHostnameEpUnifier(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemLogUebaIpOnlyEp(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -121,6 +130,16 @@ func flattenSystemLogUebaIpUniqueScope(v interface{}, d *schema.ResourceData, pr
 
 func refreshObjectSystemLogUeba(d *schema.ResourceData, o map[string]interface{}) error {
 	var err error
+
+	if err = d.Set("hostname_ep_unifier", flattenSystemLogUebaHostnameEpUnifier(o["hostname-ep-unifier"], d, "hostname_ep_unifier")); err != nil {
+		if vv, ok := fortiAPIPatch(o["hostname-ep-unifier"], "SystemLogUeba-HostnameEpUnifier"); ok {
+			if err = d.Set("hostname_ep_unifier", vv); err != nil {
+				return fmt.Errorf("Error reading hostname_ep_unifier: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading hostname_ep_unifier: %v", err)
+		}
+	}
 
 	if err = d.Set("ip_only_ep", flattenSystemLogUebaIpOnlyEp(o["ip-only-ep"], d, "ip_only_ep")); err != nil {
 		if vv, ok := fortiAPIPatch(o["ip-only-ep"], "SystemLogUeba-IpOnlyEp"); ok {
@@ -151,6 +170,10 @@ func flattenSystemLogUebaFortiTestDebug(d *schema.ResourceData, fosdebugsn int, 
 	log.Printf("ER List: %v", e)
 }
 
+func expandSystemLogUebaHostnameEpUnifier(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemLogUebaIpOnlyEp(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -161,6 +184,15 @@ func expandSystemLogUebaIpUniqueScope(d *schema.ResourceData, v interface{}, pre
 
 func getObjectSystemLogUeba(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
+
+	if v, ok := d.GetOk("hostname_ep_unifier"); ok || d.HasChange("hostname_ep_unifier") {
+		t, err := expandSystemLogUebaHostnameEpUnifier(d, v, "hostname_ep_unifier")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["hostname-ep-unifier"] = t
+		}
+	}
 
 	if v, ok := d.GetOk("ip_only_ep"); ok || d.HasChange("ip_only_ep") {
 		t, err := expandSystemLogUebaIpOnlyEp(d, v, "ip_only_ep")

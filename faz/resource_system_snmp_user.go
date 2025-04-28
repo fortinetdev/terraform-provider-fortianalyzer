@@ -59,6 +59,11 @@ func resourceSystemSnmpUser() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"notify_port": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
 			"priv_proto": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -203,6 +208,10 @@ func flattenSystemSnmpUserNotifyHosts6(v interface{}, d *schema.ResourceData, pr
 	return v
 }
 
+func flattenSystemSnmpUserNotifyPort(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemSnmpUserPrivProto(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -276,6 +285,16 @@ func refreshObjectSystemSnmpUser(d *schema.ResourceData, o map[string]interface{
 		}
 	}
 
+	if err = d.Set("notify_port", flattenSystemSnmpUserNotifyPort(o["notify-port"], d, "notify_port")); err != nil {
+		if vv, ok := fortiAPIPatch(o["notify-port"], "SystemSnmpUser-NotifyPort"); ok {
+			if err = d.Set("notify_port", vv); err != nil {
+				return fmt.Errorf("Error reading notify_port: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading notify_port: %v", err)
+		}
+	}
+
 	if err = d.Set("priv_proto", flattenSystemSnmpUserPrivProto(o["priv-proto"], d, "priv_proto")); err != nil {
 		if vv, ok := fortiAPIPatch(o["priv-proto"], "SystemSnmpUser-PrivProto"); ok {
 			if err = d.Set("priv_proto", vv); err != nil {
@@ -346,6 +365,10 @@ func expandSystemSnmpUserNotifyHosts(d *schema.ResourceData, v interface{}, pre 
 }
 
 func expandSystemSnmpUserNotifyHosts6(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemSnmpUserNotifyPort(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -423,6 +446,15 @@ func getObjectSystemSnmpUser(d *schema.ResourceData) (*map[string]interface{}, e
 			return &obj, err
 		} else if t != nil {
 			obj["notify-hosts6"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("notify_port"); ok || d.HasChange("notify_port") {
+		t, err := expandSystemSnmpUserNotifyPort(d, v, "notify_port")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["notify-port"] = t
 		}
 	}
 

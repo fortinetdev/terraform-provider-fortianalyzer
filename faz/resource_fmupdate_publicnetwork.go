@@ -34,6 +34,11 @@ func resourceFmupdatePublicnetwork() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"update_server_location": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 		},
 	}
 }
@@ -110,6 +115,10 @@ func flattenFmupdatePublicnetworkStatus(v interface{}, d *schema.ResourceData, p
 	return v
 }
 
+func flattenFmupdatePublicnetworkUpdateServerLocation(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func refreshObjectFmupdatePublicnetwork(d *schema.ResourceData, o map[string]interface{}) error {
 	var err error
 
@@ -120,6 +129,16 @@ func refreshObjectFmupdatePublicnetwork(d *schema.ResourceData, o map[string]int
 			}
 		} else {
 			return fmt.Errorf("Error reading status: %v", err)
+		}
+	}
+
+	if err = d.Set("update_server_location", flattenFmupdatePublicnetworkUpdateServerLocation(o["update-server-location"], d, "update_server_location")); err != nil {
+		if vv, ok := fortiAPIPatch(o["update-server-location"], "FmupdatePublicnetwork-UpdateServerLocation"); ok {
+			if err = d.Set("update_server_location", vv); err != nil {
+				return fmt.Errorf("Error reading update_server_location: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading update_server_location: %v", err)
 		}
 	}
 
@@ -136,6 +155,10 @@ func expandFmupdatePublicnetworkStatus(d *schema.ResourceData, v interface{}, pr
 	return v, nil
 }
 
+func expandFmupdatePublicnetworkUpdateServerLocation(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func getObjectFmupdatePublicnetwork(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
@@ -145,6 +168,15 @@ func getObjectFmupdatePublicnetwork(d *schema.ResourceData) (*map[string]interfa
 			return &obj, err
 		} else if t != nil {
 			obj["status"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("update_server_location"); ok || d.HasChange("update_server_location") {
+		t, err := expandFmupdatePublicnetworkUpdateServerLocation(d, v, "update_server_location")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["update-server-location"] = t
 		}
 	}
 

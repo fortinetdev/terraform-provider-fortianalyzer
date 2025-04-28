@@ -224,16 +224,6 @@ func refreshObjectSystemCertificateLocal(d *schema.ResourceData, o map[string]in
 		}
 	}
 
-	if err = d.Set("private_key", flattenSystemCertificateLocalPrivateKey(o["private-key"], d, "private_key")); err != nil {
-		if vv, ok := fortiAPIPatch(o["private-key"], "SystemCertificateLocal-PrivateKey"); ok {
-			if err = d.Set("private_key", vv); err != nil {
-				return fmt.Errorf("Error reading private_key: %v", err)
-			}
-		} else {
-			return fmt.Errorf("Error reading private_key: %v", err)
-		}
-	}
-
 	return nil
 }
 

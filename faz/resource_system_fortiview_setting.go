@@ -39,6 +39,11 @@ func resourceSystemFortiviewSetting() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"query_run_mode": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"resolve_ip": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -124,6 +129,10 @@ func flattenSystemFortiviewSettingNotScannedApps(v interface{}, d *schema.Resour
 	return v
 }
 
+func flattenSystemFortiviewSettingQueryRunMode(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemFortiviewSettingResolveIp(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -148,6 +157,16 @@ func refreshObjectSystemFortiviewSetting(d *schema.ResourceData, o map[string]in
 			}
 		} else {
 			return fmt.Errorf("Error reading not_scanned_apps: %v", err)
+		}
+	}
+
+	if err = d.Set("query_run_mode", flattenSystemFortiviewSettingQueryRunMode(o["query-run-mode"], d, "query_run_mode")); err != nil {
+		if vv, ok := fortiAPIPatch(o["query-run-mode"], "SystemFortiviewSetting-QueryRunMode"); ok {
+			if err = d.Set("query_run_mode", vv); err != nil {
+				return fmt.Errorf("Error reading query_run_mode: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading query_run_mode: %v", err)
 		}
 	}
 
@@ -178,6 +197,10 @@ func expandSystemFortiviewSettingNotScannedApps(d *schema.ResourceData, v interf
 	return v, nil
 }
 
+func expandSystemFortiviewSettingQueryRunMode(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemFortiviewSettingResolveIp(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -200,6 +223,15 @@ func getObjectSystemFortiviewSetting(d *schema.ResourceData) (*map[string]interf
 			return &obj, err
 		} else if t != nil {
 			obj["not-scanned-apps"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("query_run_mode"); ok || d.HasChange("query_run_mode") {
+		t, err := expandSystemFortiviewSettingQueryRunMode(d, v, "query_run_mode")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["query-run-mode"] = t
 		}
 	}
 

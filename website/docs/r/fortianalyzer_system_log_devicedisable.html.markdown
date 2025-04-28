@@ -17,6 +17,7 @@ The following arguments are supported:
 
 * `ttl` - Time to Live
 * `device` - Device to be disabled logging
+* `expire` - Expire.
 * `fosid` - ID of device logging disable entry.
 
 

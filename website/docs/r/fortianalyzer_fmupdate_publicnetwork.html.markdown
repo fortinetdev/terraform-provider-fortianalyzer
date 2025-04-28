@@ -25,6 +25,8 @@ The following arguments are supported:
 
 * `status` - Enable/disable public network (default = enable). disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
 
+* `update_server_location` - Update-Server-Location. Valid values: `global`, `usa`, `eu`.
+
 
 
 ## Attribute Reference

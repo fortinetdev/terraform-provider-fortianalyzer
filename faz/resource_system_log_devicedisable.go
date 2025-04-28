@@ -37,6 +37,10 @@ func resourceSystemLogDeviceDisable() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"expire": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"fosid": &schema.Schema{
 				Type:     schema.TypeInt,
 				ForceNew: true,
@@ -144,6 +148,10 @@ func flattenSystemLogDeviceDisableDevice(v interface{}, d *schema.ResourceData, 
 	return v
 }
 
+func flattenSystemLogDeviceDisableExpire(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemLogDeviceDisableId(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -168,6 +176,16 @@ func refreshObjectSystemLogDeviceDisable(d *schema.ResourceData, o map[string]in
 			}
 		} else {
 			return fmt.Errorf("Error reading device: %v", err)
+		}
+	}
+
+	if err = d.Set("expire", flattenSystemLogDeviceDisableExpire(o["expire"], d, "expire")); err != nil {
+		if vv, ok := fortiAPIPatch(o["expire"], "SystemLogDeviceDisable-Expire"); ok {
+			if err = d.Set("expire", vv); err != nil {
+				return fmt.Errorf("Error reading expire: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading expire: %v", err)
 		}
 	}
 
@@ -198,6 +216,10 @@ func expandSystemLogDeviceDisableDevice(d *schema.ResourceData, v interface{}, p
 	return v, nil
 }
 
+func expandSystemLogDeviceDisableExpire(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemLogDeviceDisableId(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -220,6 +242,15 @@ func getObjectSystemLogDeviceDisable(d *schema.ResourceData) (*map[string]interf
 			return &obj, err
 		} else if t != nil {
 			obj["device"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("expire"); ok || d.HasChange("expire") {
+		t, err := expandSystemLogDeviceDisableExpire(d, v, "expire")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["expire"] = t
 		}
 	}
 
