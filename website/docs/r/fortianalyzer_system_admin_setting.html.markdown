@@ -86,6 +86,8 @@ The following arguments are supported:
 
 * `show_log_forwarding` - Show log forwarding tab in regular mode. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
 
+* `show_sdwan_manager` - Show-Sdwan-Manager. Valid values: `disable`, `enable`.
+
 * `unreg_dev_opt` - Action to take when unregistered device connects to FortiAnalyzer. add_no_service - Add unregistered devices but deny service requests. ignore - Ignore unregistered devices. add_allow_service - Add unregistered devices and allow service requests. Valid values: `add_no_service`, `ignore`, `add_allow_service`.
 
 * `webadmin_language` - Web admin language. auto_detect - Automatically detect language. english - English. simplified_chinese - Simplified Chinese. traditional_chinese - Traditional Chinese. japanese - Japanese. korean - Korean. spanish - Spanish. Valid values: `auto_detect`, `english`, `simplified_chinese`, `traditional_chinese`, `japanese`, `korean`, `spanish`.

@@ -34,6 +34,7 @@ The following arguments are supported:
 * `fch_custom_field1` - Name of custom log field to index.
 * `fct_custom_field1` - Name of custom log field to index.
 * `fdd_custom_field1` - Name of custom log field to index.
+* `ffw_custom_field1` - Ffw-Custom-Field1.
 * `fgt_custom_field1` - Name of custom log field to index.
 * `fmg_custom_field1` - Name of custom log field to index.
 * `fml_custom_field1` - Name of custom log field to index.
@@ -56,11 +57,17 @@ The following arguments are supported:
 * `log_file_archive_name` - Log file name format for archiving, such as backup, upload or download. basic - Basic format for log archive file name, e.g. FGT20C0000000001.tlog.1417797247.log. extended - Extended format for log archive file name, e.g. FGT20C0000000001.2014-12-05-08:34:58.tlog.1417797247.log. Valid values: `basic`, `extended`.
 
 * `log_interval_dev_no_logging` - Interval in minute of no log received from a device when considering the device down.
+* `log_process_fast_mode` - Enable/Disable log process fast mode. disable - Disable log process fast mode. enable - Enable log process fast mode. Valid values: `disable`, `enable`.
+
 * `log_upload_interval_dev_no_logging` - Interval in minute of no log uploaded from a device when considering the device down.
 * `rolling_analyzer` - Rolling-Analyzer. The structure of `rolling_analyzer` block is documented below.
 * `rolling_local` - Rolling-Local. The structure of `rolling_local` block is documented below.
 * `rolling_regular` - Rolling-Regular. The structure of `rolling_regular` block is documented below.
 * `sync_search_timeout` - Maximum number of seconds for running a log search session in synchronous mode.
+* `unencrypted_logging_tcp` - Unencrypted-Logging-Tcp. Valid values: `disable`, `enable`.
+
+* `unencrypted_logging_udp` - Unencrypted-Logging-Udp. Valid values: `disable`, `enable`.
+
 * `unencrypted_logging` - Enable/Disable receiving syslog through UDP(514) or TCP(514) un-encrypted. disable - Disable receiving syslog through UDP(514) or TCP(514) un-encrypted. enable - Enable receiving syslog through UDP(514) or TCP(514) un-encrypted. Valid values: `disable`, `enable`.
 
 

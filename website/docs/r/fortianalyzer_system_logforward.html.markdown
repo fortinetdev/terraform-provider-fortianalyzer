@@ -70,6 +70,8 @@ The following arguments are supported:
 
 * `fwd_server_type` - Forwarding all logs to syslog server or FortiAnalyzer. syslog - Forward logs to generic syslog server. fortianalyzer - Forward logs to FortiAnalyzer. cef - Forward logs to a CEF (Common Event Format) server. syslog-pack - Forward logs to a FortiAnalyzer which support packed syslog message. Valid values: `syslog`, `fortianalyzer`, `cef`, `syslog-pack`.
 
+* `fwd_syslog_decode_b64` - Fwd-Syslog-Decode-B64. Valid values: `disable`, `enable`.
+
 * `fwd_syslog_enrich_cve` - Fwd-Syslog-Enrich-Cve. Valid values: `disable`, `enable`.
 
 * `fwd_syslog_format` - Forwarding format for syslog. fgt - fgt syslog format rfc-5424 - rfc-5424 syslog format Valid values: `fgt`, `rfc-5424`.

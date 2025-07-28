@@ -27,6 +27,8 @@ The following arguments are supported:
 * `accept_aggregation` - Enable/disable accept log aggregation option. disable - Disable attribute function enable - Enable attribute function Valid values: `disable`, `enable`.
 
 * `aggregation_disk_quota` - Aggregated device disk quota (MB) on server.
+* `collector_auth` - Collector-Auth. Valid values: `disable`, `enable`.
+
 
 
 ## Attribute Reference

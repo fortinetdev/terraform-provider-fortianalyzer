@@ -177,6 +177,11 @@ func resourceSystemAdminSetting() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"show_sdwan_manager": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"unreg_dev_opt": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -376,6 +381,10 @@ func flattenSystemAdminSettingShowHostname(v interface{}, d *schema.ResourceData
 }
 
 func flattenSystemAdminSettingShowLogForwarding(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemAdminSettingShowSdwanManager(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -680,6 +689,16 @@ func refreshObjectSystemAdminSetting(d *schema.ResourceData, o map[string]interf
 		}
 	}
 
+	if err = d.Set("show_sdwan_manager", flattenSystemAdminSettingShowSdwanManager(o["show-sdwan-manager"], d, "show_sdwan_manager")); err != nil {
+		if vv, ok := fortiAPIPatch(o["show-sdwan-manager"], "SystemAdminSetting-ShowSdwanManager"); ok {
+			if err = d.Set("show_sdwan_manager", vv); err != nil {
+				return fmt.Errorf("Error reading show_sdwan_manager: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading show_sdwan_manager: %v", err)
+		}
+	}
+
 	if err = d.Set("unreg_dev_opt", flattenSystemAdminSettingUnregDevOpt(o["unreg_dev_opt"], d, "unreg_dev_opt")); err != nil {
 		if vv, ok := fortiAPIPatch(o["unreg_dev_opt"], "SystemAdminSetting-UnregDevOpt"); ok {
 			if err = d.Set("unreg_dev_opt", vv); err != nil {
@@ -826,6 +845,10 @@ func expandSystemAdminSettingShowHostname(d *schema.ResourceData, v interface{},
 }
 
 func expandSystemAdminSettingShowLogForwarding(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemAdminSettingShowSdwanManager(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -1107,6 +1130,15 @@ func getObjectSystemAdminSetting(d *schema.ResourceData) (*map[string]interface{
 			return &obj, err
 		} else if t != nil {
 			obj["show-log-forwarding"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("show_sdwan_manager"); ok || d.HasChange("show_sdwan_manager") {
+		t, err := expandSystemAdminSettingShowSdwanManager(d, v, "show_sdwan_manager")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["show-sdwan-manager"] = t
 		}
 	}
 

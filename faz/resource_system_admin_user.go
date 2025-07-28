@@ -327,6 +327,11 @@ func resourceSystemAdminUser() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"old_password": &schema.Schema{
+				Type:      schema.TypeString,
+				Optional:  true,
+				Sensitive: true,
+			},
 			"pager_number": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -1128,6 +1133,10 @@ func flattenSystemAdminUserMetaDataStatus(v interface{}, d *schema.ResourceData,
 }
 
 func flattenSystemAdminUserMobileNumber(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemAdminUserOldPassword(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -2589,6 +2598,10 @@ func expandSystemAdminUserMobileNumber(d *schema.ResourceData, v interface{}, pr
 	return v, nil
 }
 
+func expandSystemAdminUserOldPassword(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemAdminUserPagerNumber(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -3099,6 +3112,15 @@ func getObjectSystemAdminUser(d *schema.ResourceData) (*map[string]interface{}, 
 			return &obj, err
 		} else if t != nil {
 			obj["mobile-number"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("old_password"); ok || d.HasChange("old_password") {
+		t, err := expandSystemAdminUserOldPassword(d, v, "old_password")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["old-password"] = t
 		}
 	}
 

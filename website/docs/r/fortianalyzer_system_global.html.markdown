@@ -64,6 +64,8 @@ The following arguments are supported:
 
 * `api_ip_binding` - Enable/disable source IP check for JSON API request. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
 
+* `auth_dev_restapi_allowlist` - Auth-Dev-Restapi-Allowlist. Valid values: `disable`, `enable`.
+
 * `apache_wsgi_processes` - Set apache wsgi processes(5-250 default 10).
 * `backup_compression` - Compression level. none - No compression. low - Low compression (fastest). normal - Normal compression. high - Best compression (slowest). Valid values: `none`, `low`, `normal`, `high`.
 
@@ -113,7 +115,7 @@ The following arguments are supported:
 * `global_ssl_protocol` - set the lowest SSL protocol version for all SSL connections. sslv3 - set SSLv3 as the lowest version. tlsv1.0 - set TLSv1.0 as the lowest version. tlsv1.1 - set TLSv1.1 as the lowest version. tlsv1.2 - set TLSv1.2 as the lowest version (default). tlsv1.3 - set TLSv1.3 as the lowest version. Valid values: `sslv3`, `tlsv1.0`, `tlsv1.1`, `tlsv1.2`, `tlsv1.3`.
 
 * `gui_curl_timeout` - GUI curl timeout in seconds (5-900 default 30).
-* `gui_feature_visibility_mode` - Gui-Feature-Visibility-Mode. Valid values: `per-adom`, `per-admin`.
+* `gui_feature_visibility_mode` - Set GUI feature visibility mode (per-adom, per-admin). per-adom - Per-ADOM control in policy &amp; objects and provisioning templates. per-admin - Per-admin control in policy &amp; objects and provisioning templates. Valid values: `per-adom`, `per-admin`.
 
 * `gui_polling_interval` - GUI polling interval in seconds (1-288000 default 5).
 * `ha_member_auto_grouping` - Enable/disable automatically group HA members feature disable - Disable automatically grouping HA members feature. enable - Enable automatically grouping HA members only when group name is unique in your network. Valid values: `disable`, `enable`.
@@ -172,6 +174,8 @@ The following arguments are supported:
 * `private_data_encryption` - Enable/disable private data encryption using an AES 128-bit key. disable - Disable private data encryption using an AES 128-bit key. enable - Enable private data encryption using an AES 128-bit key. Valid values: `disable`, `enable`.
 
 * `remoteauthtimeout` - Remote authentication (RADIUS/LDAP) timeout (sec).
+* `rpc_log` - Enable/Disable incoming/outgoing rpc log. disable - Disable rpc log. enable - Enable rpc log (default) Valid values: `disable`, `enable`.
+
 * `search_all_adoms` - Enable/Disable Search all ADOMs for where-used query. disable - Disable search all ADOMs for where-used queries. enable - Enable search all ADOMs for where-used queries. Valid values: `disable`, `enable`.
 
 * `ssh_enc_algo` - Select one or more SSH ciphers. chacha20-poly1305@openssh.com -  aes128-ctr -  aes192-ctr -  aes256-ctr -  arcfour256 -  arcfour128 -  aes128-cbc -  3des-cbc -  blowfish-cbc -  cast128-cbc -  aes192-cbc -  aes256-cbc -  arcfour -  rijndael-cbc@lysator.liu.se -  aes128-gcm@openssh.com -  aes256-gcm@openssh.com -  Valid values: `chacha20-poly1305@openssh.com`, `aes128-ctr`, `aes192-ctr`, `aes256-ctr`, `arcfour256`, `arcfour128`, `aes128-cbc`, `3des-cbc`, `blowfish-cbc`, `cast128-cbc`, `aes192-cbc`, `aes256-cbc`, `arcfour`, `rijndael-cbc@lysator.liu.se`, `aes128-gcm@openssh.com`, `aes256-gcm@openssh.com`.

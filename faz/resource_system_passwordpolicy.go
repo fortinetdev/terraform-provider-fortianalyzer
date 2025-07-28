@@ -38,6 +38,11 @@ func resourceSystemPasswordPolicy() *schema.Resource {
 				Type:     schema.TypeInt,
 				Optional: true,
 			},
+			"login_lockout_upon_downgrade": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"minimum_length": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
@@ -137,6 +142,10 @@ func flattenSystemPasswordPolicyExpire(v interface{}, d *schema.ResourceData, pr
 	return v
 }
 
+func flattenSystemPasswordPolicyLoginLockoutUponDowngrade(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemPasswordPolicyMinimumLength(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -173,6 +182,16 @@ func refreshObjectSystemPasswordPolicy(d *schema.ResourceData, o map[string]inte
 			}
 		} else {
 			return fmt.Errorf("Error reading expire: %v", err)
+		}
+	}
+
+	if err = d.Set("login_lockout_upon_downgrade", flattenSystemPasswordPolicyLoginLockoutUponDowngrade(o["login-lockout-upon-downgrade"], d, "login_lockout_upon_downgrade")); err != nil {
+		if vv, ok := fortiAPIPatch(o["login-lockout-upon-downgrade"], "SystemPasswordPolicy-LoginLockoutUponDowngrade"); ok {
+			if err = d.Set("login_lockout_upon_downgrade", vv); err != nil {
+				return fmt.Errorf("Error reading login_lockout_upon_downgrade: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading login_lockout_upon_downgrade: %v", err)
 		}
 	}
 
@@ -233,6 +252,10 @@ func expandSystemPasswordPolicyExpire(d *schema.ResourceData, v interface{}, pre
 	return v, nil
 }
 
+func expandSystemPasswordPolicyLoginLockoutUponDowngrade(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemPasswordPolicyMinimumLength(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -267,6 +290,15 @@ func getObjectSystemPasswordPolicy(d *schema.ResourceData) (*map[string]interfac
 			return &obj, err
 		} else if t != nil {
 			obj["expire"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("login_lockout_upon_downgrade"); ok || d.HasChange("login_lockout_upon_downgrade") {
+		t, err := expandSystemPasswordPolicyLoginLockoutUponDowngrade(d, v, "login_lockout_upon_downgrade")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["login-lockout-upon-downgrade"] = t
 		}
 	}
 

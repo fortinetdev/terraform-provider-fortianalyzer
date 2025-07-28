@@ -30,6 +30,8 @@ The following arguments are supported:
 * `change_4_characters` - Enable/disable changing at least 4 characters for new password. disable - Disable changing at least 4 characters for new password. enable - Enable changing at least 4 characters for new password. Valid values: `disable`, `enable`.
 
 * `expire` - Number of days after which admin users' password will expire (0 - 3650, 0 = never expire).
+* `login_lockout_upon_downgrade` - Enable/disable administrative user login lockout upon downgrade (defaut = disable). If enabled, downgrading the FortiOS firmware to a lower version where safer passwords are unsupported will lock out administrative users. disable - Disable administrative user login lockout upon downgrade. enable - Enable administrative user login lockout upon downgrade. Valid values: `disable`, `enable`.
+
 * `minimum_length` - Minimum password length.
 * `must_contain` - Password character requirements. upper-case-letter - Require password to contain upper case letter. lower-case-letter - Require password to contain lower case letter. number - Require password to contain number. non-alphanumeric - Require password to contain non-alphanumeric characters. Valid values: `upper-case-letter`, `lower-case-letter`, `number`, `non-alphanumeric`.
 

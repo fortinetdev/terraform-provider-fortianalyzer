@@ -39,6 +39,11 @@ func resourceSystemLogForwardService() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"collector_auth": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 		},
 	}
 }
@@ -119,6 +124,10 @@ func flattenSystemLogForwardServiceAggregationDiskQuota(v interface{}, d *schema
 	return v
 }
 
+func flattenSystemLogForwardServiceCollectorAuth(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func refreshObjectSystemLogForwardService(d *schema.ResourceData, o map[string]interface{}) error {
 	var err error
 
@@ -142,6 +151,16 @@ func refreshObjectSystemLogForwardService(d *schema.ResourceData, o map[string]i
 		}
 	}
 
+	if err = d.Set("collector_auth", flattenSystemLogForwardServiceCollectorAuth(o["collector-auth"], d, "collector_auth")); err != nil {
+		if vv, ok := fortiAPIPatch(o["collector-auth"], "SystemLogForwardService-CollectorAuth"); ok {
+			if err = d.Set("collector_auth", vv); err != nil {
+				return fmt.Errorf("Error reading collector_auth: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading collector_auth: %v", err)
+		}
+	}
+
 	return nil
 }
 
@@ -156,6 +175,10 @@ func expandSystemLogForwardServiceAcceptAggregation(d *schema.ResourceData, v in
 }
 
 func expandSystemLogForwardServiceAggregationDiskQuota(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemLogForwardServiceCollectorAuth(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -177,6 +200,15 @@ func getObjectSystemLogForwardService(d *schema.ResourceData) (*map[string]inter
 			return &obj, err
 		} else if t != nil {
 			obj["aggregation-disk-quota"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("collector_auth"); ok || d.HasChange("collector_auth") {
+		t, err := expandSystemLogForwardServiceCollectorAuth(d, v, "collector_auth")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["collector-auth"] = t
 		}
 	}
 

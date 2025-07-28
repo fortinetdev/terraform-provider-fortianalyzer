@@ -78,6 +78,11 @@ func resourceSystemGlobal() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"auth_dev_restapi_allowlist": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"apache_wsgi_processes": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
@@ -408,6 +413,11 @@ func resourceSystemGlobal() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"rpc_log": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"search_all_adoms": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -638,6 +648,10 @@ func flattenSystemGlobalApacheModeSga(v interface{}, d *schema.ResourceData, pre
 }
 
 func flattenSystemGlobalApiIpBindingSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemGlobalAuthDevRestapiAllowlistSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -909,6 +923,10 @@ func flattenSystemGlobalRemoteauthtimeoutSga(v interface{}, d *schema.ResourceDa
 	return v
 }
 
+func flattenSystemGlobalRpcLogSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemGlobalSearchAllAdomsSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -1138,6 +1156,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 			}
 		} else {
 			return fmt.Errorf("Error reading api_ip_binding: %v", err)
+		}
+	}
+
+	if err = d.Set("auth_dev_restapi_allowlist", flattenSystemGlobalAuthDevRestapiAllowlistSga(o["auth-dev-restapi-allowlist"], d, "auth_dev_restapi_allowlist")); err != nil {
+		if vv, ok := fortiAPIPatch(o["auth-dev-restapi-allowlist"], "SystemGlobal-AuthDevRestapiAllowlist"); ok {
+			if err = d.Set("auth_dev_restapi_allowlist", vv); err != nil {
+				return fmt.Errorf("Error reading auth_dev_restapi_allowlist: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading auth_dev_restapi_allowlist: %v", err)
 		}
 	}
 
@@ -1811,6 +1839,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 		}
 	}
 
+	if err = d.Set("rpc_log", flattenSystemGlobalRpcLogSga(o["rpc-log"], d, "rpc_log")); err != nil {
+		if vv, ok := fortiAPIPatch(o["rpc-log"], "SystemGlobal-RpcLog"); ok {
+			if err = d.Set("rpc_log", vv); err != nil {
+				return fmt.Errorf("Error reading rpc_log: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading rpc_log: %v", err)
+		}
+	}
+
 	if err = d.Set("search_all_adoms", flattenSystemGlobalSearchAllAdomsSga(o["search-all-adoms"], d, "search_all_adoms")); err != nil {
 		if vv, ok := fortiAPIPatch(o["search-all-adoms"], "SystemGlobal-SearchAllAdoms"); ok {
 			if err = d.Set("search_all_adoms", vv); err != nil {
@@ -2061,6 +2099,10 @@ func expandSystemGlobalApacheModeSga(d *schema.ResourceData, v interface{}, pre 
 }
 
 func expandSystemGlobalApiIpBindingSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemGlobalAuthDevRestapiAllowlistSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -2332,6 +2374,10 @@ func expandSystemGlobalRemoteauthtimeoutSga(d *schema.ResourceData, v interface{
 	return v, nil
 }
 
+func expandSystemGlobalRpcLogSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemGlobalSearchAllAdomsSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -2543,6 +2589,15 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 			return &obj, err
 		} else if t != nil {
 			obj["api-ip-binding"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("auth_dev_restapi_allowlist"); ok || d.HasChange("auth_dev_restapi_allowlist") {
+		t, err := expandSystemGlobalAuthDevRestapiAllowlistSga(d, v, "auth_dev_restapi_allowlist")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["auth-dev-restapi-allowlist"] = t
 		}
 	}
 
@@ -3146,6 +3201,15 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 			return &obj, err
 		} else if t != nil {
 			obj["remoteauthtimeout"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("rpc_log"); ok || d.HasChange("rpc_log") {
+		t, err := expandSystemGlobalRpcLogSga(d, v, "rpc_log")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["rpc-log"] = t
 		}
 	}
 

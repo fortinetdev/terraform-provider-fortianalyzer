@@ -153,6 +153,11 @@ func resourceSystemLogForward() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"fwd_syslog_decode_b64": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"fwd_syslog_enrich_cve": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -580,6 +585,10 @@ func flattenSystemLogForwardFwdSecure(v interface{}, d *schema.ResourceData, pre
 }
 
 func flattenSystemLogForwardFwdServerType(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemLogForwardFwdSyslogDecodeB64(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -1073,6 +1082,16 @@ func refreshObjectSystemLogForward(d *schema.ResourceData, o map[string]interfac
 		}
 	}
 
+	if err = d.Set("fwd_syslog_decode_b64", flattenSystemLogForwardFwdSyslogDecodeB64(o["fwd-syslog-decode-b64"], d, "fwd_syslog_decode_b64")); err != nil {
+		if vv, ok := fortiAPIPatch(o["fwd-syslog-decode-b64"], "SystemLogForward-FwdSyslogDecodeB64"); ok {
+			if err = d.Set("fwd_syslog_decode_b64", vv); err != nil {
+				return fmt.Errorf("Error reading fwd_syslog_decode_b64: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading fwd_syslog_decode_b64: %v", err)
+		}
+	}
+
 	if err = d.Set("fwd_syslog_enrich_cve", flattenSystemLogForwardFwdSyslogEnrichCve(o["fwd-syslog-enrich-cve"], d, "fwd_syslog_enrich_cve")); err != nil {
 		if vv, ok := fortiAPIPatch(o["fwd-syslog-enrich-cve"], "SystemLogForward-FwdSyslogEnrichCve"); ok {
 			if err = d.Set("fwd_syslog_enrich_cve", vv); err != nil {
@@ -1495,6 +1514,10 @@ func expandSystemLogForwardFwdSecure(d *schema.ResourceData, v interface{}, pre 
 }
 
 func expandSystemLogForwardFwdServerType(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemLogForwardFwdSyslogDecodeB64(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -1935,6 +1958,15 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 			return &obj, err
 		} else if t != nil {
 			obj["fwd-server-type"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("fwd_syslog_decode_b64"); ok || d.HasChange("fwd_syslog_decode_b64") {
+		t, err := expandSystemLogForwardFwdSyslogDecodeB64(d, v, "fwd_syslog_decode_b64")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["fwd-syslog-decode-b64"] = t
 		}
 	}
 

@@ -49,6 +49,10 @@ func resourceSystemLogSettings() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"ffw_custom_field1": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"fgt_custom_field1": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -120,6 +124,11 @@ func resourceSystemLogSettings() *schema.Resource {
 			},
 			"log_interval_dev_no_logging": &schema.Schema{
 				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
+			"log_process_fast_mode": &schema.Schema{
+				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
@@ -588,6 +597,16 @@ func resourceSystemLogSettings() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"unencrypted_logging_tcp": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
+			"unencrypted_logging_udp": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"unencrypted_logging": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -685,6 +704,10 @@ func flattenSystemLogSettingsFddCustomField1Slsa(v interface{}, d *schema.Resour
 	return v
 }
 
+func flattenSystemLogSettingsFfwCustomField1Slsa(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemLogSettingsFgtCustomField1Slsa(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -746,6 +769,10 @@ func flattenSystemLogSettingsLogFileArchiveNameSlsa(v interface{}, d *schema.Res
 }
 
 func flattenSystemLogSettingsLogIntervalDevNoLoggingSlsa(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemLogSettingsLogProcessFastModeSlsa(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -1642,6 +1669,14 @@ func flattenSystemLogSettingsSyncSearchTimeoutSlsa(v interface{}, d *schema.Reso
 	return v
 }
 
+func flattenSystemLogSettingsUnencryptedLoggingTcpSlsa(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemLogSettingsUnencryptedLoggingUdpSlsa(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemLogSettingsUnencryptedLoggingSlsa(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -1696,6 +1731,16 @@ func refreshObjectSystemLogSettings(d *schema.ResourceData, o map[string]interfa
 			}
 		} else {
 			return fmt.Errorf("Error reading fdd_custom_field1: %v", err)
+		}
+	}
+
+	if err = d.Set("ffw_custom_field1", flattenSystemLogSettingsFfwCustomField1Slsa(o["FFW-custom-field1"], d, "ffw_custom_field1")); err != nil {
+		if vv, ok := fortiAPIPatch(o["FFW-custom-field1"], "SystemLogSettings-FfwCustomField1"); ok {
+			if err = d.Set("ffw_custom_field1", vv); err != nil {
+				return fmt.Errorf("Error reading ffw_custom_field1: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading ffw_custom_field1: %v", err)
 		}
 	}
 
@@ -1859,6 +1904,16 @@ func refreshObjectSystemLogSettings(d *schema.ResourceData, o map[string]interfa
 		}
 	}
 
+	if err = d.Set("log_process_fast_mode", flattenSystemLogSettingsLogProcessFastModeSlsa(o["log-process-fast-mode"], d, "log_process_fast_mode")); err != nil {
+		if vv, ok := fortiAPIPatch(o["log-process-fast-mode"], "SystemLogSettings-LogProcessFastMode"); ok {
+			if err = d.Set("log_process_fast_mode", vv); err != nil {
+				return fmt.Errorf("Error reading log_process_fast_mode: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading log_process_fast_mode: %v", err)
+		}
+	}
+
 	if err = d.Set("log_upload_interval_dev_no_logging", flattenSystemLogSettingsLogUploadIntervalDevNoLoggingSlsa(o["log-upload-interval-dev-no-logging"], d, "log_upload_interval_dev_no_logging")); err != nil {
 		if vv, ok := fortiAPIPatch(o["log-upload-interval-dev-no-logging"], "SystemLogSettings-LogUploadIntervalDevNoLogging"); ok {
 			if err = d.Set("log_upload_interval_dev_no_logging", vv); err != nil {
@@ -1951,6 +2006,26 @@ func refreshObjectSystemLogSettings(d *schema.ResourceData, o map[string]interfa
 		}
 	}
 
+	if err = d.Set("unencrypted_logging_tcp", flattenSystemLogSettingsUnencryptedLoggingTcpSlsa(o["unencrypted-logging-tcp"], d, "unencrypted_logging_tcp")); err != nil {
+		if vv, ok := fortiAPIPatch(o["unencrypted-logging-tcp"], "SystemLogSettings-UnencryptedLoggingTcp"); ok {
+			if err = d.Set("unencrypted_logging_tcp", vv); err != nil {
+				return fmt.Errorf("Error reading unencrypted_logging_tcp: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading unencrypted_logging_tcp: %v", err)
+		}
+	}
+
+	if err = d.Set("unencrypted_logging_udp", flattenSystemLogSettingsUnencryptedLoggingUdpSlsa(o["unencrypted-logging-udp"], d, "unencrypted_logging_udp")); err != nil {
+		if vv, ok := fortiAPIPatch(o["unencrypted-logging-udp"], "SystemLogSettings-UnencryptedLoggingUdp"); ok {
+			if err = d.Set("unencrypted_logging_udp", vv); err != nil {
+				return fmt.Errorf("Error reading unencrypted_logging_udp: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading unencrypted_logging_udp: %v", err)
+		}
+	}
+
 	if err = d.Set("unencrypted_logging", flattenSystemLogSettingsUnencryptedLoggingSlsa(o["unencrypted-logging"], d, "unencrypted_logging")); err != nil {
 		if vv, ok := fortiAPIPatch(o["unencrypted-logging"], "SystemLogSettings-UnencryptedLogging"); ok {
 			if err = d.Set("unencrypted_logging", vv); err != nil {
@@ -1987,6 +2062,10 @@ func expandSystemLogSettingsFctCustomField1Slsa(d *schema.ResourceData, v interf
 }
 
 func expandSystemLogSettingsFddCustomField1Slsa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemLogSettingsFfwCustomField1Slsa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -2051,6 +2130,10 @@ func expandSystemLogSettingsLogFileArchiveNameSlsa(d *schema.ResourceData, v int
 }
 
 func expandSystemLogSettingsLogIntervalDevNoLoggingSlsa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemLogSettingsLogProcessFastModeSlsa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -2848,6 +2931,14 @@ func expandSystemLogSettingsSyncSearchTimeoutSlsa(d *schema.ResourceData, v inte
 	return v, nil
 }
 
+func expandSystemLogSettingsUnencryptedLoggingTcpSlsa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemLogSettingsUnencryptedLoggingUdpSlsa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemLogSettingsUnencryptedLoggingSlsa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -2897,6 +2988,15 @@ func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}
 			return &obj, err
 		} else if t != nil {
 			obj["FDD-custom-field1"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("ffw_custom_field1"); ok || d.HasChange("ffw_custom_field1") {
+		t, err := expandSystemLogSettingsFfwCustomField1Slsa(d, v, "ffw_custom_field1")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["FFW-custom-field1"] = t
 		}
 	}
 
@@ -3044,6 +3144,15 @@ func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
+	if v, ok := d.GetOk("log_process_fast_mode"); ok || d.HasChange("log_process_fast_mode") {
+		t, err := expandSystemLogSettingsLogProcessFastModeSlsa(d, v, "log_process_fast_mode")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["log-process-fast-mode"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("log_upload_interval_dev_no_logging"); ok || d.HasChange("log_upload_interval_dev_no_logging") {
 		t, err := expandSystemLogSettingsLogUploadIntervalDevNoLoggingSlsa(d, v, "log_upload_interval_dev_no_logging")
 		if err != nil {
@@ -3086,6 +3195,24 @@ func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}
 			return &obj, err
 		} else if t != nil {
 			obj["sync-search-timeout"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("unencrypted_logging_tcp"); ok || d.HasChange("unencrypted_logging_tcp") {
+		t, err := expandSystemLogSettingsUnencryptedLoggingTcpSlsa(d, v, "unencrypted_logging_tcp")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["unencrypted-logging-tcp"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("unencrypted_logging_udp"); ok || d.HasChange("unencrypted_logging_udp") {
+		t, err := expandSystemLogSettingsUnencryptedLoggingUdpSlsa(d, v, "unencrypted_logging_udp")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["unencrypted-logging-udp"] = t
 		}
 	}
 

@@ -1,6 +1,6 @@
 module github.com/terraform-providers/terraform-provider-fortianalyzer
 
-go 1.21
+go 1.24.5
 
 require (
 	github.com/google/uuid v1.6.0

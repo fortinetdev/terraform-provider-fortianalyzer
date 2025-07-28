@@ -614,6 +614,49 @@ func (c *FortiSDKClient) ReadFmupdateFdsSettingServerOverride(globaladom, mkey s
 }
 
 
+// UpdateFmupdateFgdSetting API operation for FortiAnalyzer updates the specified Fgd Setting.
+// Returns the index value of the Fgd Setting and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the fmupdate - fgd-setting chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateFmupdateFgdSetting(params *map[string]interface{}, globaladom, mkey string, paralist []string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/fmupdate/fgd-setting"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+
+	output, err = createUpdate(c, globaladom, path, "set", params, false)
+	return
+}
+
+// DeleteFmupdateFgdSetting API operation for FortiAnalyzer deletes the specified Fgd Setting.
+// Returns error for service API and SDK errors.
+// See the fmupdate - fgd-setting chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteFmupdateFgdSetting(globaladom, mkey string, paralist []string) (err error) {
+
+	//No unset API for fmupdate - fgd-setting
+	return
+}
+
+// ReadFmupdateFgdSetting API operation for FortiAnalyzer gets the Fgd Setting
+// with the specified index value.
+// Returns the requested Fgd Setting value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the fmupdate - fgd-setting chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadFmupdateFgdSetting(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
+	path := "/cli/[*]/fmupdate/fgd-setting"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+
+	mapTmp, err = read(c, globaladom, path, "get", false)
+	return
+}
+
+
 // UpdateFmupdateFdsSettingUpdateSchedule API operation for FortiAnalyzer updates the specified Fds SettingUpdate Schedule.
 // Returns the index value of the Fds SettingUpdate Schedule and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -4379,6 +4422,72 @@ func (c *FortiSDKClient) DeleteSystemLogDeviceDisable(globaladom, mkey string, p
 // See the system - log device-disable chapter in the FortiAnalyzer Handbook - CLI Reference.
 func (c *FortiSDKClient) ReadSystemLogDeviceDisable(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
 	path := "/cli/[*]/system/log/device-disable"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, globaladom, path, "get", false)
+	return
+}
+
+// CreateSystemLogDeviceSelector API operation for FortiAnalyzer creates a new LogDevice Selector.
+// Returns the index value of the LogDevice Selector and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - log device-selector chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateSystemLogDeviceSelector(params *map[string]interface{}, globaladom string, paralist []string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/system/log/device-selector"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, globaladom, path, "add", params, false)
+	return
+}
+
+// UpdateSystemLogDeviceSelector API operation for FortiAnalyzer updates the specified LogDevice Selector.
+// Returns the index value of the LogDevice Selector and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - log device-selector chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateSystemLogDeviceSelector(params *map[string]interface{}, globaladom, mkey string, paralist []string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/system/log/device-selector"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, globaladom, path, "set", params, false)
+	return
+}
+
+// DeleteSystemLogDeviceSelector API operation for FortiAnalyzer deletes the specified LogDevice Selector.
+// Returns error for service API and SDK errors.
+// See the system - log device-selector chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteSystemLogDeviceSelector(globaladom, mkey string, paralist []string) (err error) {
+	path := "/cli/[*]/system/log/device-selector"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, globaladom, path, "delete", false)
+	return
+}
+
+// ReadSystemLogDeviceSelector API operation for FortiAnalyzer gets the LogDevice Selector
+// with the specified index value.
+// Returns the requested LogDevice Selector value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - log device-selector chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadSystemLogDeviceSelector(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
+	path := "/cli/[*]/system/log/device-selector"
 	path, err = replaceParaWithValue(path, paralist)
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)

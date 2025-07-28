@@ -15,7 +15,7 @@ UEBAsettings.
 The following arguments are supported:
 
 
-* `hostname_ep_unifier` - Hostname-Ep-Unifier. Valid values: `disable`, `enable`.
+* `hostname_ep_unifier` - Disable/Enable hostname as endpoint unifier. disable - NOT use hostname to unify endpoints. enable - Use hostname to unify endpoints. Valid values: `disable`, `enable`.
 
 * `ip_only_ep` - Disable/Enable IP-only endpoint identification. disable - Disable IP-only endpoint identification. enable - Enable IP-only endpoint identification. Valid values: `disable`, `enable`.
 
