@@ -34,6 +34,34 @@ func resourceSystemLocalInPolicy() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"description": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
+			"dport_block": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"dport_value": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+						},
+					},
+				},
+			},
+			"dst_block": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"dst_ip": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+						},
+					},
+				},
+			},
 			"dport": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
@@ -49,6 +77,18 @@ func resourceSystemLocalInPolicy() *schema.Resource {
 				ForceNew: true,
 				Optional: true,
 			},
+			"intf_block": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"intf_name": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+						},
+					},
+				},
+			},
 			"intf": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -58,11 +98,28 @@ func resourceSystemLocalInPolicy() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"src_block": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"src_ip": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+						},
+					},
+				},
+			},
 			"src": &schema.Schema{
 				Type:     schema.TypeList,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
 				Computed: true,
+			},
+			"dynamic_sort_subtable": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Default:  "false",
 			},
 		},
 	}
@@ -162,6 +219,84 @@ func flattenSystemLocalInPolicyAction(v interface{}, d *schema.ResourceData, pre
 	return v
 }
 
+func flattenSystemLocalInPolicyDescription(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemLocalInPolicyDportBlock(v interface{}, d *schema.ResourceData, pre string) []map[string]interface{} {
+	if v == nil {
+		return nil
+	}
+
+	l := v.([]interface{})
+	if len(l) == 0 || l[0] == nil {
+		return nil
+	}
+
+	result := make([]map[string]interface{}, 0, len(l))
+
+	con := 0
+	for _, r := range l {
+		tmp := make(map[string]interface{})
+		i := r.(map[string]interface{})
+
+		pre_append := "" // table
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "dport_value"
+		if _, ok := i["dport-value"]; ok {
+			v := flattenSystemLocalInPolicyDportBlockDportValue(i["dport-value"], d, pre_append)
+			tmp["dport_value"] = fortiAPISubPartPatch(v, "SystemLocalInPolicy-DportBlock-DportValue")
+		}
+
+		result = append(result, tmp)
+
+		con += 1
+	}
+
+	return result
+}
+
+func flattenSystemLocalInPolicyDportBlockDportValue(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemLocalInPolicyDstBlock(v interface{}, d *schema.ResourceData, pre string) []map[string]interface{} {
+	if v == nil {
+		return nil
+	}
+
+	l := v.([]interface{})
+	if len(l) == 0 || l[0] == nil {
+		return nil
+	}
+
+	result := make([]map[string]interface{}, 0, len(l))
+
+	con := 0
+	for _, r := range l {
+		tmp := make(map[string]interface{})
+		i := r.(map[string]interface{})
+
+		pre_append := "" // table
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "dst_ip"
+		if _, ok := i["dst-ip"]; ok {
+			v := flattenSystemLocalInPolicyDstBlockDstIp(i["dst-ip"], d, pre_append)
+			tmp["dst_ip"] = fortiAPISubPartPatch(v, "SystemLocalInPolicy-DstBlock-DstIp")
+		}
+
+		result = append(result, tmp)
+
+		con += 1
+	}
+
+	return result
+}
+
+func flattenSystemLocalInPolicyDstBlockDstIp(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemLocalInPolicyDport(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -174,11 +309,85 @@ func flattenSystemLocalInPolicyId(v interface{}, d *schema.ResourceData, pre str
 	return v
 }
 
+func flattenSystemLocalInPolicyIntfBlock(v interface{}, d *schema.ResourceData, pre string) []map[string]interface{} {
+	if v == nil {
+		return nil
+	}
+
+	l := v.([]interface{})
+	if len(l) == 0 || l[0] == nil {
+		return nil
+	}
+
+	result := make([]map[string]interface{}, 0, len(l))
+
+	con := 0
+	for _, r := range l {
+		tmp := make(map[string]interface{})
+		i := r.(map[string]interface{})
+
+		pre_append := "" // table
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "intf_name"
+		if _, ok := i["intf-name"]; ok {
+			v := flattenSystemLocalInPolicyIntfBlockIntfName(i["intf-name"], d, pre_append)
+			tmp["intf_name"] = fortiAPISubPartPatch(v, "SystemLocalInPolicy-IntfBlock-IntfName")
+		}
+
+		result = append(result, tmp)
+
+		con += 1
+	}
+
+	return result
+}
+
+func flattenSystemLocalInPolicyIntfBlockIntfName(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemLocalInPolicyIntf(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
 func flattenSystemLocalInPolicyProtocol(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemLocalInPolicySrcBlock(v interface{}, d *schema.ResourceData, pre string) []map[string]interface{} {
+	if v == nil {
+		return nil
+	}
+
+	l := v.([]interface{})
+	if len(l) == 0 || l[0] == nil {
+		return nil
+	}
+
+	result := make([]map[string]interface{}, 0, len(l))
+
+	con := 0
+	for _, r := range l {
+		tmp := make(map[string]interface{})
+		i := r.(map[string]interface{})
+
+		pre_append := "" // table
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "src_ip"
+		if _, ok := i["src-ip"]; ok {
+			v := flattenSystemLocalInPolicySrcBlockSrcIp(i["src-ip"], d, pre_append)
+			tmp["src_ip"] = fortiAPISubPartPatch(v, "SystemLocalInPolicy-SrcBlock-SrcIp")
+		}
+
+		result = append(result, tmp)
+
+		con += 1
+	}
+
+	return result
+}
+
+func flattenSystemLocalInPolicySrcBlockSrcIp(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -199,13 +408,77 @@ func refreshObjectSystemLocalInPolicy(d *schema.ResourceData, o map[string]inter
 		}
 	}
 
-	if err = d.Set("dport", flattenSystemLocalInPolicyDport(o["dport"], d, "dport")); err != nil {
-		if vv, ok := fortiAPIPatch(o["dport"], "SystemLocalInPolicy-Dport"); ok {
-			if err = d.Set("dport", vv); err != nil {
-				return fmt.Errorf("Error reading dport: %v", err)
+	if err = d.Set("description", flattenSystemLocalInPolicyDescription(o["description"], d, "description")); err != nil {
+		if vv, ok := fortiAPIPatch(o["description"], "SystemLocalInPolicy-Description"); ok {
+			if err = d.Set("description", vv); err != nil {
+				return fmt.Errorf("Error reading description: %v", err)
 			}
 		} else {
-			return fmt.Errorf("Error reading dport: %v", err)
+			return fmt.Errorf("Error reading description: %v", err)
+		}
+	}
+
+	if _, ok := o["dport"].([]interface{}); ok {
+		if isImportTable() {
+			if err = d.Set("dport_block", flattenSystemLocalInPolicyDportBlock(o["dport"], d, "dport_block")); err != nil {
+				if vv, ok := fortiAPIPatch(o["dport"], "SystemLocalInPolicy-DportBlock"); ok {
+					if err = d.Set("dport_block", vv); err != nil {
+						return fmt.Errorf("Error reading dport_block: %v", err)
+					}
+				} else {
+					return fmt.Errorf("Error reading dport_block: %v", err)
+				}
+			}
+		} else {
+			if _, ok := d.GetOk("dport_block"); ok {
+				if err = d.Set("dport_block", flattenSystemLocalInPolicyDportBlock(o["dport"], d, "dport_block")); err != nil {
+					if vv, ok := fortiAPIPatch(o["dport"], "SystemLocalInPolicy-DportBlock"); ok {
+						if err = d.Set("dport_block", vv); err != nil {
+							return fmt.Errorf("Error reading dport_block: %v", err)
+						}
+					} else {
+						return fmt.Errorf("Error reading dport_block: %v", err)
+					}
+				}
+			}
+		}
+	}
+
+	if _, ok := o["dst"].([]interface{}); ok {
+		if isImportTable() {
+			if err = d.Set("dst_block", flattenSystemLocalInPolicyDstBlock(o["dst"], d, "dst_block")); err != nil {
+				if vv, ok := fortiAPIPatch(o["dst"], "SystemLocalInPolicy-DstBlock"); ok {
+					if err = d.Set("dst_block", vv); err != nil {
+						return fmt.Errorf("Error reading dst_block: %v", err)
+					}
+				} else {
+					return fmt.Errorf("Error reading dst_block: %v", err)
+				}
+			}
+		} else {
+			if _, ok := d.GetOk("dst_block"); ok {
+				if err = d.Set("dst_block", flattenSystemLocalInPolicyDstBlock(o["dst"], d, "dst_block")); err != nil {
+					if vv, ok := fortiAPIPatch(o["dst"], "SystemLocalInPolicy-DstBlock"); ok {
+						if err = d.Set("dst_block", vv); err != nil {
+							return fmt.Errorf("Error reading dst_block: %v", err)
+						}
+					} else {
+						return fmt.Errorf("Error reading dst_block: %v", err)
+					}
+				}
+			}
+		}
+	}
+
+	if _, ok := o["dport"].(float64); ok {
+		if err = d.Set("dport", flattenSystemLocalInPolicyDport(o["dport"], d, "dport")); err != nil {
+			if vv, ok := fortiAPIPatch(o["dport"], "SystemLocalInPolicy-Dport"); ok {
+				if err = d.Set("dport", vv); err != nil {
+					return fmt.Errorf("Error reading dport: %v", err)
+				}
+			} else {
+				return fmt.Errorf("Error reading dport: %v", err)
+			}
 		}
 	}
 
@@ -229,13 +502,41 @@ func refreshObjectSystemLocalInPolicy(d *schema.ResourceData, o map[string]inter
 		}
 	}
 
-	if err = d.Set("intf", flattenSystemLocalInPolicyIntf(o["intf"], d, "intf")); err != nil {
-		if vv, ok := fortiAPIPatch(o["intf"], "SystemLocalInPolicy-Intf"); ok {
-			if err = d.Set("intf", vv); err != nil {
-				return fmt.Errorf("Error reading intf: %v", err)
+	if _, ok := o["intf"].([]interface{}); ok {
+		if isImportTable() {
+			if err = d.Set("intf_block", flattenSystemLocalInPolicyIntfBlock(o["intf"], d, "intf_block")); err != nil {
+				if vv, ok := fortiAPIPatch(o["intf"], "SystemLocalInPolicy-IntfBlock"); ok {
+					if err = d.Set("intf_block", vv); err != nil {
+						return fmt.Errorf("Error reading intf_block: %v", err)
+					}
+				} else {
+					return fmt.Errorf("Error reading intf_block: %v", err)
+				}
 			}
 		} else {
-			return fmt.Errorf("Error reading intf: %v", err)
+			if _, ok := d.GetOk("intf_block"); ok {
+				if err = d.Set("intf_block", flattenSystemLocalInPolicyIntfBlock(o["intf"], d, "intf_block")); err != nil {
+					if vv, ok := fortiAPIPatch(o["intf"], "SystemLocalInPolicy-IntfBlock"); ok {
+						if err = d.Set("intf_block", vv); err != nil {
+							return fmt.Errorf("Error reading intf_block: %v", err)
+						}
+					} else {
+						return fmt.Errorf("Error reading intf_block: %v", err)
+					}
+				}
+			}
+		}
+	}
+
+	if _, ok := o["intf"].(string); ok {
+		if err = d.Set("intf", flattenSystemLocalInPolicyIntf(o["intf"], d, "intf")); err != nil {
+			if vv, ok := fortiAPIPatch(o["intf"], "SystemLocalInPolicy-Intf"); ok {
+				if err = d.Set("intf", vv); err != nil {
+					return fmt.Errorf("Error reading intf: %v", err)
+				}
+			} else {
+				return fmt.Errorf("Error reading intf: %v", err)
+			}
 		}
 	}
 
@@ -246,6 +547,32 @@ func refreshObjectSystemLocalInPolicy(d *schema.ResourceData, o map[string]inter
 			}
 		} else {
 			return fmt.Errorf("Error reading protocol: %v", err)
+		}
+	}
+
+	if _, ok := o["src"].([]interface{}); ok {
+		if isImportTable() {
+			if err = d.Set("src_block", flattenSystemLocalInPolicySrcBlock(o["src"], d, "src_block")); err != nil {
+				if vv, ok := fortiAPIPatch(o["src"], "SystemLocalInPolicy-SrcBlock"); ok {
+					if err = d.Set("src_block", vv); err != nil {
+						return fmt.Errorf("Error reading src_block: %v", err)
+					}
+				} else {
+					return fmt.Errorf("Error reading src_block: %v", err)
+				}
+			}
+		} else {
+			if _, ok := d.GetOk("src_block"); ok {
+				if err = d.Set("src_block", flattenSystemLocalInPolicySrcBlock(o["src"], d, "src_block")); err != nil {
+					if vv, ok := fortiAPIPatch(o["src"], "SystemLocalInPolicy-SrcBlock"); ok {
+						if err = d.Set("src_block", vv); err != nil {
+							return fmt.Errorf("Error reading src_block: %v", err)
+						}
+					} else {
+						return fmt.Errorf("Error reading src_block: %v", err)
+					}
+				}
+			}
 		}
 	}
 
@@ -272,6 +599,72 @@ func expandSystemLocalInPolicyAction(d *schema.ResourceData, v interface{}, pre 
 	return v, nil
 }
 
+func expandSystemLocalInPolicyDescription(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemLocalInPolicyDportBlock(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	l := v.([]interface{})
+	if len(l) == 0 || l[0] == nil {
+		return nil, nil
+	}
+
+	result := make([]map[string]interface{}, 0, len(l))
+
+	con := 0
+	for _, r := range l {
+		tmp := make(map[string]interface{})
+		i := r.(map[string]interface{})
+		pre_append := "" // table
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "dport_value"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["dport-value"], _ = expandSystemLocalInPolicyDportBlockDportValue(d, i["dport_value"], pre_append)
+		}
+
+		result = append(result, tmp)
+
+		con += 1
+	}
+
+	return result, nil
+}
+
+func expandSystemLocalInPolicyDportBlockDportValue(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemLocalInPolicyDstBlock(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	l := v.([]interface{})
+	if len(l) == 0 || l[0] == nil {
+		return nil, nil
+	}
+
+	result := make([]map[string]interface{}, 0, len(l))
+
+	con := 0
+	for _, r := range l {
+		tmp := make(map[string]interface{})
+		i := r.(map[string]interface{})
+		pre_append := "" // table
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "dst_ip"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["dst-ip"], _ = expandSystemLocalInPolicyDstBlockDstIp(d, i["dst_ip"], pre_append)
+		}
+
+		result = append(result, tmp)
+
+		con += 1
+	}
+
+	return result, nil
+}
+
+func expandSystemLocalInPolicyDstBlockDstIp(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemLocalInPolicyDport(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -284,11 +677,73 @@ func expandSystemLocalInPolicyId(d *schema.ResourceData, v interface{}, pre stri
 	return v, nil
 }
 
+func expandSystemLocalInPolicyIntfBlock(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	l := v.([]interface{})
+	if len(l) == 0 || l[0] == nil {
+		return nil, nil
+	}
+
+	result := make([]map[string]interface{}, 0, len(l))
+
+	con := 0
+	for _, r := range l {
+		tmp := make(map[string]interface{})
+		i := r.(map[string]interface{})
+		pre_append := "" // table
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "intf_name"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["intf-name"], _ = expandSystemLocalInPolicyIntfBlockIntfName(d, i["intf_name"], pre_append)
+		}
+
+		result = append(result, tmp)
+
+		con += 1
+	}
+
+	return result, nil
+}
+
+func expandSystemLocalInPolicyIntfBlockIntfName(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemLocalInPolicyIntf(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
 func expandSystemLocalInPolicyProtocol(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemLocalInPolicySrcBlock(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	l := v.([]interface{})
+	if len(l) == 0 || l[0] == nil {
+		return nil, nil
+	}
+
+	result := make([]map[string]interface{}, 0, len(l))
+
+	con := 0
+	for _, r := range l {
+		tmp := make(map[string]interface{})
+		i := r.(map[string]interface{})
+		pre_append := "" // table
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "src_ip"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["src-ip"], _ = expandSystemLocalInPolicySrcBlockSrcIp(d, i["src_ip"], pre_append)
+		}
+
+		result = append(result, tmp)
+
+		con += 1
+	}
+
+	return result, nil
+}
+
+func expandSystemLocalInPolicySrcBlockSrcIp(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -305,6 +760,33 @@ func getObjectSystemLocalInPolicy(d *schema.ResourceData) (*map[string]interface
 			return &obj, err
 		} else if t != nil {
 			obj["action"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("description"); ok || d.HasChange("description") {
+		t, err := expandSystemLocalInPolicyDescription(d, v, "description")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["description"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("dport_block"); ok || d.HasChange("dport_block") {
+		t, err := expandSystemLocalInPolicyDportBlock(d, v, "dport_block")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["dport"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("dst_block"); ok || d.HasChange("dst_block") {
+		t, err := expandSystemLocalInPolicyDstBlock(d, v, "dst_block")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["dst"] = t
 		}
 	}
 
@@ -335,6 +817,15 @@ func getObjectSystemLocalInPolicy(d *schema.ResourceData) (*map[string]interface
 		}
 	}
 
+	if v, ok := d.GetOk("intf_block"); ok || d.HasChange("intf_block") {
+		t, err := expandSystemLocalInPolicyIntfBlock(d, v, "intf_block")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["intf"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("intf"); ok || d.HasChange("intf") {
 		t, err := expandSystemLocalInPolicyIntf(d, v, "intf")
 		if err != nil {
@@ -350,6 +841,15 @@ func getObjectSystemLocalInPolicy(d *schema.ResourceData) (*map[string]interface
 			return &obj, err
 		} else if t != nil {
 			obj["protocol"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("src_block"); ok || d.HasChange("src_block") {
+		t, err := expandSystemLocalInPolicySrcBlock(d, v, "src_block")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["src"] = t
 		}
 	}
 

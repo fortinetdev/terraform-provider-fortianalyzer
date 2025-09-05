@@ -64,6 +64,8 @@ The following arguments are supported:
 * `rolling_local` - Rolling-Local. The structure of `rolling_local` block is documented below.
 * `rolling_regular` - Rolling-Regular. The structure of `rolling_regular` block is documented below.
 * `sync_search_timeout` - Maximum number of seconds for running a log search session in synchronous mode.
+* `syslog_over_tls_port` - Syslog-Over-Tls-Port. Valid values: `514`, `6514`.
+
 * `unencrypted_logging_tcp` - Unencrypted-Logging-Tcp. Valid values: `disable`, `enable`.
 
 * `unencrypted_logging_udp` - Unencrypted-Logging-Udp. Valid values: `disable`, `enable`.

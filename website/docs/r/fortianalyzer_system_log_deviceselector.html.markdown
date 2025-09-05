@@ -31,7 +31,7 @@ The following arguments are supported:
 ## Attribute Reference
 
 In addition to all the above arguments, the following attributes are exported:
-* `id` - an identifier for the resource with format {{fosid}}.
+* `id` - an identifier for the resource.
 
 ## Import
 
@@ -39,7 +39,7 @@ System LogDeviceSelector can be imported using any of these accepted formats:
 ```
 
 $ export "FORTIANALYZER_IMPORT_TABLE"="true"
-$ terraform import fortianalyzer_system_log_deviceselector.labelname {{fosid}}
+$ terraform import fortianalyzer_system_log_deviceselector.labelname SystemLogDeviceSelector
 $ unset "FORTIANALYZER_IMPORT_TABLE"
 ```
 

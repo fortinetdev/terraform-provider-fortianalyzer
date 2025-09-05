@@ -290,6 +290,11 @@ func resourceSystemAdminProfile() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"script_run": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"super_user_profile": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -742,6 +747,10 @@ func flattenSystemAdminProfileScope(v interface{}, d *schema.ResourceData, pre s
 }
 
 func flattenSystemAdminProfileScriptAccess(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemAdminProfileScriptRun(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -1346,6 +1355,16 @@ func refreshObjectSystemAdminProfile(d *schema.ResourceData, o map[string]interf
 		}
 	}
 
+	if err = d.Set("script_run", flattenSystemAdminProfileScriptRun(o["script-run"], d, "script_run")); err != nil {
+		if vv, ok := fortiAPIPatch(o["script-run"], "SystemAdminProfile-ScriptRun"); ok {
+			if err = d.Set("script_run", vv); err != nil {
+				return fmt.Errorf("Error reading script_run: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading script_run: %v", err)
+		}
+	}
+
 	if err = d.Set("super_user_profile", flattenSystemAdminProfileSuperUserProfile(o["super-user-profile"], d, "super_user_profile")); err != nil {
 		if vv, ok := fortiAPIPatch(o["super-user-profile"], "SystemAdminProfile-SuperUserProfile"); ok {
 			if err = d.Set("super_user_profile", vv); err != nil {
@@ -1790,6 +1809,10 @@ func expandSystemAdminProfileScope(d *schema.ResourceData, v interface{}, pre st
 }
 
 func expandSystemAdminProfileScriptAccess(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemAdminProfileScriptRun(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -2329,6 +2352,15 @@ func getObjectSystemAdminProfile(d *schema.ResourceData) (*map[string]interface{
 			return &obj, err
 		} else if t != nil {
 			obj["script-access"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("script_run"); ok || d.HasChange("script_run") {
+		t, err := expandSystemAdminProfileScriptRun(d, v, "script_run")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["script-run"] = t
 		}
 	}
 

@@ -109,6 +109,8 @@ The following arguments are supported:
 
 * `script_access` - Script access. none - No permission. read - Read permission. read-write - Read-write permission. Valid values: `none`, `read`, `read-write`.
 
+* `script_run` - Script-Run. Valid values: `none`, `read`, `read-write`.
+
 * `super_user_profile` - Enable/disable super user profile disable - Disable super user profile enable - Enable super user profile Valid values: `disable`, `enable`.
 
 * `system_setting` - System setting. none - No permission. read - Read permission. read-write - Read-write permission. Valid values: `none`, `read`, `read-write`.

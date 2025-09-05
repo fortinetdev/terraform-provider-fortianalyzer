@@ -46,6 +46,11 @@ func resourceSystemAdminUser() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"autoreg_user": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"adom_exclude": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
@@ -655,6 +660,10 @@ func flattenSystemAdminUserAdomAdomName(v interface{}, d *schema.ResourceData, p
 }
 
 func flattenSystemAdminUserAdomAccess(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemAdminUserAutoregUser(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -1372,6 +1381,16 @@ func refreshObjectSystemAdminUser(d *schema.ResourceData, o map[string]interface
 			}
 		} else {
 			return fmt.Errorf("Error reading adom_access: %v", err)
+		}
+	}
+
+	if err = d.Set("autoreg_user", flattenSystemAdminUserAutoregUser(o["autoreg-user"], d, "autoreg_user")); err != nil {
+		if vv, ok := fortiAPIPatch(o["autoreg-user"], "SystemAdminUser-AutoregUser"); ok {
+			if err = d.Set("autoreg_user", vv); err != nil {
+				return fmt.Errorf("Error reading autoreg_user: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading autoreg_user: %v", err)
 		}
 	}
 
@@ -2165,6 +2184,10 @@ func expandSystemAdminUserAdomAccess(d *schema.ResourceData, v interface{}, pre 
 	return v, nil
 }
 
+func expandSystemAdminUserAutoregUser(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemAdminUserAdomExclude(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	l := v.([]interface{})
 	if len(l) == 0 || l[0] == nil {
@@ -2806,6 +2829,15 @@ func getObjectSystemAdminUser(d *schema.ResourceData) (*map[string]interface{}, 
 			return &obj, err
 		} else if t != nil {
 			obj["adom-access"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("autoreg_user"); ok || d.HasChange("autoreg_user") {
+		t, err := expandSystemAdminUserAutoregUser(d, v, "autoreg_user")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["autoreg-user"] = t
 		}
 	}
 

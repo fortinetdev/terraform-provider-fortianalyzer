@@ -597,6 +597,11 @@ func resourceSystemLogSettings() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"syslog_over_tls_port": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"unencrypted_logging_tcp": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -1669,6 +1674,10 @@ func flattenSystemLogSettingsSyncSearchTimeoutSlsa(v interface{}, d *schema.Reso
 	return v
 }
 
+func flattenSystemLogSettingsSyslogOverTlsPortSlsa(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemLogSettingsUnencryptedLoggingTcpSlsa(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -2003,6 +2012,16 @@ func refreshObjectSystemLogSettings(d *schema.ResourceData, o map[string]interfa
 			}
 		} else {
 			return fmt.Errorf("Error reading sync_search_timeout: %v", err)
+		}
+	}
+
+	if err = d.Set("syslog_over_tls_port", flattenSystemLogSettingsSyslogOverTlsPortSlsa(o["syslog-over-tls-port"], d, "syslog_over_tls_port")); err != nil {
+		if vv, ok := fortiAPIPatch(o["syslog-over-tls-port"], "SystemLogSettings-SyslogOverTlsPort"); ok {
+			if err = d.Set("syslog_over_tls_port", vv); err != nil {
+				return fmt.Errorf("Error reading syslog_over_tls_port: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading syslog_over_tls_port: %v", err)
 		}
 	}
 
@@ -2931,6 +2950,10 @@ func expandSystemLogSettingsSyncSearchTimeoutSlsa(d *schema.ResourceData, v inte
 	return v, nil
 }
 
+func expandSystemLogSettingsSyslogOverTlsPortSlsa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemLogSettingsUnencryptedLoggingTcpSlsa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -3195,6 +3218,15 @@ func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}
 			return &obj, err
 		} else if t != nil {
 			obj["sync-search-timeout"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("syslog_over_tls_port"); ok || d.HasChange("syslog_over_tls_port") {
+		t, err := expandSystemLogSettingsSyslogOverTlsPortSlsa(d, v, "syslog_over_tls_port")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["syslog-over-tls-port"] = t
 		}
 	}
 

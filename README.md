@@ -9,7 +9,7 @@
 ## Requirements
 
 - [Terraform](https://www.terraform.io/downloads.html) 0.12.x +
-- [Go](https://golang.org/doc/install) 1.21.x (to build the provider plugin)
+- [Go](https://golang.org/doc/install) Minimum version 1.24.1, or 1.23.7 if using the 1.23 branch (to build the provider plugin)
 - The provider can cover FortiAnalyzer version 7.0.
 
 ## Building the Provider

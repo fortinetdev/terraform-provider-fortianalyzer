@@ -36,6 +36,8 @@ The following arguments are supported:
 * `fazadom` - Adom. The structure of `fazadom` block is documented below.
 * `adom_access` - set all/specify/exclude adom access mode. all - All ADOMs access. specify - Specify ADOMs access. exclude - Exclude ADOMs access. Valid values: `all`, `specify`, `exclude`.
 
+* `autoreg_user` - Autoreg-User. Valid values: `disable`, `enable`.
+
 * `adom_exclude` - Adom-Exclude. The structure of `adom_exclude` block is documented below.
 * `avatar` - Image file for avatar (maximum 4K base64 encoded).
 * `ca` - PKI user certificate CA (CA name in local).

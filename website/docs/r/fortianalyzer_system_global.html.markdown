@@ -117,6 +117,7 @@ The following arguments are supported:
 * `gui_curl_timeout` - GUI curl timeout in seconds (5-900 default 30).
 * `gui_feature_visibility_mode` - Set GUI feature visibility mode (per-adom, per-admin). per-adom - Per-ADOM control in policy &amp; objects and provisioning templates. per-admin - Per-admin control in policy &amp; objects and provisioning templates. Valid values: `per-adom`, `per-admin`.
 
+* `gui_install_preview_concurrency` - Gui-Install-Preview-Concurrency.
 * `gui_polling_interval` - GUI polling interval in seconds (1-288000 default 5).
 * `ha_member_auto_grouping` - Enable/disable automatically group HA members feature disable - Disable automatically grouping HA members feature. enable - Enable automatically grouping HA members only when group name is unique in your network. Valid values: `disable`, `enable`.
 

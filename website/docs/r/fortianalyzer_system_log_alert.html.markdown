@@ -24,6 +24,8 @@ The following arguments are supported:
 
 
 * `max_alert_count` - Maximum number of alerts supported.
+* `min_severity_to_raise_incident_by_grouping` - Min-Severity-To-Raise-Incident-By-Grouping. Valid values: `none`, `critical`, `high`.
+
 
 
 ## Attribute Reference

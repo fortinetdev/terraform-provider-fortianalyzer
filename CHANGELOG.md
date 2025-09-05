@@ -1,4 +1,12 @@
-## 1.5.1 (Unreleased)
+## 1.5.2 (Unreleased)
+
+## 1.5.1 (Sep 4, 2025)
+
+IMPROVEMENTS:
+
+* Support FortiAnalyzer v7.6.4;
+* Upgrade SDK version;
+* Allow negative serial number if "insecure" is true;
 
 ## 1.5.0 (July 28, 2025)
 

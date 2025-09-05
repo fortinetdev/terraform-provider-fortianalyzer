@@ -72,7 +72,7 @@ func (r *Request) Send() error {
 		r.HTTPResponse = rsp
 		if errdo != nil {
 			if strings.Contains(errdo.Error(), "x509: ") {
-				err = fmt.Errorf("Error found: %v", errdo)
+				err = fmt.Errorf("Your self-signed certificate number is negative: %v", errdo)
 				break
 			}
 

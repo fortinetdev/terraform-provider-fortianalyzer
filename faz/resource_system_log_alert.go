@@ -34,6 +34,11 @@ func resourceSystemLogAlert() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"min_severity_to_raise_incident_by_grouping": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 		},
 	}
 }
@@ -110,6 +115,10 @@ func flattenSystemLogAlertMaxAlertCount(v interface{}, d *schema.ResourceData, p
 	return v
 }
 
+func flattenSystemLogAlertMinSeverityToRaiseIncidentByGrouping(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func refreshObjectSystemLogAlert(d *schema.ResourceData, o map[string]interface{}) error {
 	var err error
 
@@ -120,6 +129,16 @@ func refreshObjectSystemLogAlert(d *schema.ResourceData, o map[string]interface{
 			}
 		} else {
 			return fmt.Errorf("Error reading max_alert_count: %v", err)
+		}
+	}
+
+	if err = d.Set("min_severity_to_raise_incident_by_grouping", flattenSystemLogAlertMinSeverityToRaiseIncidentByGrouping(o["min-severity-to-raise-incident-by-grouping"], d, "min_severity_to_raise_incident_by_grouping")); err != nil {
+		if vv, ok := fortiAPIPatch(o["min-severity-to-raise-incident-by-grouping"], "SystemLogAlert-MinSeverityToRaiseIncidentByGrouping"); ok {
+			if err = d.Set("min_severity_to_raise_incident_by_grouping", vv); err != nil {
+				return fmt.Errorf("Error reading min_severity_to_raise_incident_by_grouping: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading min_severity_to_raise_incident_by_grouping: %v", err)
 		}
 	}
 
@@ -136,6 +155,10 @@ func expandSystemLogAlertMaxAlertCount(d *schema.ResourceData, v interface{}, pr
 	return v, nil
 }
 
+func expandSystemLogAlertMinSeverityToRaiseIncidentByGrouping(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func getObjectSystemLogAlert(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
@@ -145,6 +168,15 @@ func getObjectSystemLogAlert(d *schema.ResourceData) (*map[string]interface{}, e
 			return &obj, err
 		} else if t != nil {
 			obj["max-alert-count"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("min_severity_to_raise_incident_by_grouping"); ok || d.HasChange("min_severity_to_raise_incident_by_grouping") {
+		t, err := expandSystemLogAlertMinSeverityToRaiseIncidentByGrouping(d, v, "min_severity_to_raise_incident_by_grouping")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["min-severity-to-raise-incident-by-grouping"] = t
 		}
 	}
 

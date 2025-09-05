@@ -614,49 +614,6 @@ func (c *FortiSDKClient) ReadFmupdateFdsSettingServerOverride(globaladom, mkey s
 }
 
 
-// UpdateFmupdateFgdSetting API operation for FortiAnalyzer updates the specified Fgd Setting.
-// Returns the index value of the Fgd Setting and execution result when the request executes successfully.
-// Returns error for service API and SDK errors.
-// See the fmupdate - fgd-setting chapter in the FortiAnalyzer Handbook - CLI Reference.
-func (c *FortiSDKClient) UpdateFmupdateFgdSetting(params *map[string]interface{}, globaladom, mkey string, paralist []string) (output map[string]interface{}, err error) {
-	path := "/cli/[*]/fmupdate/fgd-setting"
-	path, err = replaceParaWithValue(path, paralist)
-	if err != nil {
-		return nil, fmt.Errorf("%v", err)
-	}
-
-
-	output, err = createUpdate(c, globaladom, path, "set", params, false)
-	return
-}
-
-// DeleteFmupdateFgdSetting API operation for FortiAnalyzer deletes the specified Fgd Setting.
-// Returns error for service API and SDK errors.
-// See the fmupdate - fgd-setting chapter in the FortiAnalyzer Handbook - CLI Reference.
-func (c *FortiSDKClient) DeleteFmupdateFgdSetting(globaladom, mkey string, paralist []string) (err error) {
-
-	//No unset API for fmupdate - fgd-setting
-	return
-}
-
-// ReadFmupdateFgdSetting API operation for FortiAnalyzer gets the Fgd Setting
-// with the specified index value.
-// Returns the requested Fgd Setting value when the request executes successfully.
-// Returns error for service API and SDK errors.
-// See the fmupdate - fgd-setting chapter in the FortiAnalyzer Handbook - CLI Reference.
-func (c *FortiSDKClient) ReadFmupdateFgdSetting(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
-	path := "/cli/[*]/fmupdate/fgd-setting"
-	path, err = replaceParaWithValue(path, paralist)
-	if err != nil {
-		return nil, fmt.Errorf("%v", err)
-	}
-
-
-	mapTmp, err = read(c, globaladom, path, "get", false)
-	return
-}
-
-
 // UpdateFmupdateFdsSettingUpdateSchedule API operation for FortiAnalyzer updates the specified Fds SettingUpdate Schedule.
 // Returns the index value of the Fds SettingUpdate Schedule and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -689,6 +646,49 @@ func (c *FortiSDKClient) DeleteFmupdateFdsSettingUpdateSchedule(globaladom, mkey
 // See the fmupdate - fds-setting update-schedule chapter in the FortiAnalyzer Handbook - CLI Reference.
 func (c *FortiSDKClient) ReadFmupdateFdsSettingUpdateSchedule(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
 	path := "/cli/[*]/fmupdate/fds-setting/update-schedule"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+
+	mapTmp, err = read(c, globaladom, path, "get", false)
+	return
+}
+
+
+// UpdateFmupdateFgdSetting API operation for FortiAnalyzer updates the specified Fgd Setting.
+// Returns the index value of the Fgd Setting and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the fmupdate - fgd-setting chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateFmupdateFgdSetting(params *map[string]interface{}, globaladom, mkey string, paralist []string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/fmupdate/fgd-setting"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+
+	output, err = createUpdate(c, globaladom, path, "set", params, false)
+	return
+}
+
+// DeleteFmupdateFgdSetting API operation for FortiAnalyzer deletes the specified Fgd Setting.
+// Returns error for service API and SDK errors.
+// See the fmupdate - fgd-setting chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteFmupdateFgdSetting(globaladom, mkey string, paralist []string) (err error) {
+
+	//No unset API for fmupdate - fgd-setting
+	return
+}
+
+// ReadFmupdateFgdSetting API operation for FortiAnalyzer gets the Fgd Setting
+// with the specified index value.
+// Returns the requested Fgd Setting value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the fmupdate - fgd-setting chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadFmupdateFgdSetting(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
+	path := "/cli/[*]/fmupdate/fgd-setting"
 	path, err = replaceParaWithValue(path, paralist)
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)

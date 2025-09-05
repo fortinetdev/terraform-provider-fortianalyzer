@@ -232,6 +232,11 @@ func resourceSystemGlobal() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"gui_install_preview_concurrency": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
 			"gui_polling_interval": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
@@ -772,6 +777,10 @@ func flattenSystemGlobalGuiCurlTimeoutSga(v interface{}, d *schema.ResourceData,
 }
 
 func flattenSystemGlobalGuiFeatureVisibilityModeSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemGlobalGuiInstallPreviewConcurrencySga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -1466,6 +1475,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 			}
 		} else {
 			return fmt.Errorf("Error reading gui_feature_visibility_mode: %v", err)
+		}
+	}
+
+	if err = d.Set("gui_install_preview_concurrency", flattenSystemGlobalGuiInstallPreviewConcurrencySga(o["gui-install-preview-concurrency"], d, "gui_install_preview_concurrency")); err != nil {
+		if vv, ok := fortiAPIPatch(o["gui-install-preview-concurrency"], "SystemGlobal-GuiInstallPreviewConcurrency"); ok {
+			if err = d.Set("gui_install_preview_concurrency", vv); err != nil {
+				return fmt.Errorf("Error reading gui_install_preview_concurrency: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading gui_install_preview_concurrency: %v", err)
 		}
 	}
 
@@ -2226,6 +2245,10 @@ func expandSystemGlobalGuiFeatureVisibilityModeSga(d *schema.ResourceData, v int
 	return v, nil
 }
 
+func expandSystemGlobalGuiInstallPreviewConcurrencySga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemGlobalGuiPollingIntervalSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -2868,6 +2891,15 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 			return &obj, err
 		} else if t != nil {
 			obj["gui-feature-visibility-mode"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("gui_install_preview_concurrency"); ok || d.HasChange("gui_install_preview_concurrency") {
+		t, err := expandSystemGlobalGuiInstallPreviewConcurrencySga(d, v, "gui_install_preview_concurrency")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["gui-install-preview-concurrency"] = t
 		}
 	}
 
