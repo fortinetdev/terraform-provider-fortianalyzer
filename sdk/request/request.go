@@ -55,6 +55,12 @@ func (r *Request) Send() error {
 	//Build FAZ
 	//build Sign/Login INfo
 	r.HTTPRequest.Header.Set("Content-Type", "application/json")
+	
+	// Add Authorization header for Bearer token authentication
+	if r.Config.Auth.Token != "" {
+		r.HTTPRequest.Header.Set("Authorization", "Bearer "+r.Config.Auth.Token)
+	}
+	
 	u := buildURL(r)
 
 	var err error
