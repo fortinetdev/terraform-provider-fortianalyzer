@@ -44,6 +44,11 @@ func resourceSystemAdminSetting() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"admin_scp": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"admin_server_cert": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -276,6 +281,10 @@ func flattenSystemAdminSettingAdminLoginMax(v interface{}, d *schema.ResourceDat
 	return v
 }
 
+func flattenSystemAdminSettingAdminScp(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemAdminSettingAdminServerCert(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -426,6 +435,16 @@ func refreshObjectSystemAdminSetting(d *schema.ResourceData, o map[string]interf
 			}
 		} else {
 			return fmt.Errorf("Error reading admin_login_max: %v", err)
+		}
+	}
+
+	if err = d.Set("admin_scp", flattenSystemAdminSettingAdminScp(o["admin-scp"], d, "admin_scp")); err != nil {
+		if vv, ok := fortiAPIPatch(o["admin-scp"], "SystemAdminSetting-AdminScp"); ok {
+			if err = d.Set("admin_scp", vv); err != nil {
+				return fmt.Errorf("Error reading admin_scp: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading admin_scp: %v", err)
 		}
 	}
 
@@ -740,6 +759,10 @@ func expandSystemAdminSettingAdminLoginMax(d *schema.ResourceData, v interface{}
 	return v, nil
 }
 
+func expandSystemAdminSettingAdminScp(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemAdminSettingAdminServerCert(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -887,6 +910,15 @@ func getObjectSystemAdminSetting(d *schema.ResourceData) (*map[string]interface{
 			return &obj, err
 		} else if t != nil {
 			obj["admin-login-max"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("admin_scp"); ok || d.HasChange("admin_scp") {
+		t, err := expandSystemAdminSettingAdminScp(d, v, "admin_scp")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["admin-scp"] = t
 		}
 	}
 

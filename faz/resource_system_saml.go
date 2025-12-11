@@ -112,6 +112,16 @@ func resourceSystemSaml() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"logout_request_signed": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
+			"logout_response_signed": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"role": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -403,6 +413,14 @@ func flattenSystemSamlIdpSingleSignOnUrlSSa(v interface{}, d *schema.ResourceDat
 }
 
 func flattenSystemSamlLoginAutoRedirectSSa(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemSamlLogoutRequestSignedSSa(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemSamlLogoutResponseSignedSSa(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -704,6 +722,26 @@ func refreshObjectSystemSaml(d *schema.ResourceData, o map[string]interface{}) e
 		}
 	}
 
+	if err = d.Set("logout_request_signed", flattenSystemSamlLogoutRequestSignedSSa(o["logout-request-signed"], d, "logout_request_signed")); err != nil {
+		if vv, ok := fortiAPIPatch(o["logout-request-signed"], "SystemSaml-LogoutRequestSigned"); ok {
+			if err = d.Set("logout_request_signed", vv); err != nil {
+				return fmt.Errorf("Error reading logout_request_signed: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading logout_request_signed: %v", err)
+		}
+	}
+
+	if err = d.Set("logout_response_signed", flattenSystemSamlLogoutResponseSignedSSa(o["logout-response-signed"], d, "logout_response_signed")); err != nil {
+		if vv, ok := fortiAPIPatch(o["logout-response-signed"], "SystemSaml-LogoutResponseSigned"); ok {
+			if err = d.Set("logout_response_signed", vv); err != nil {
+				return fmt.Errorf("Error reading logout_response_signed: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading logout_response_signed: %v", err)
+		}
+	}
+
 	if err = d.Set("role", flattenSystemSamlRoleSSa(o["role"], d, "role")); err != nil {
 		if vv, ok := fortiAPIPatch(o["role"], "SystemSaml-Role"); ok {
 			if err = d.Set("role", vv); err != nil {
@@ -914,6 +952,14 @@ func expandSystemSamlIdpSingleSignOnUrlSSa(d *schema.ResourceData, v interface{}
 }
 
 func expandSystemSamlLoginAutoRedirectSSa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemSamlLogoutRequestSignedSSa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemSamlLogoutResponseSignedSSa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -1174,6 +1220,24 @@ func getObjectSystemSaml(d *schema.ResourceData, bemptysontable bool) (*map[stri
 			return &obj, err
 		} else if t != nil {
 			obj["login-auto-redirect"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("logout_request_signed"); ok || d.HasChange("logout_request_signed") {
+		t, err := expandSystemSamlLogoutRequestSignedSSa(d, v, "logout_request_signed")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["logout-request-signed"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("logout_response_signed"); ok || d.HasChange("logout_response_signed") {
+		t, err := expandSystemSamlLogoutResponseSignedSSa(d, v, "logout_response_signed")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["logout-response-signed"] = t
 		}
 	}
 

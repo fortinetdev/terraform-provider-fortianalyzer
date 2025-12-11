@@ -1,4 +1,11 @@
-## 1.5.2 (Unreleased)
+## 1.5.3 (Unreleased)
+
+## 1.5.2 (Dec 10, 2025)
+
+IMPROVEMENTS:
+
+* Support FortiAnalyzer v7.0.15, v7.2.11, v7.4.8;
+* Fix an issue where the API token was not accepted by the latest FortiAnalyzer. (Thanks to @Shentoza for the contribution, #2);
 
 ## 1.5.1 (Sep 4, 2025)
 

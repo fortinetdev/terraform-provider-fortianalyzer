@@ -78,11 +78,28 @@ provider "fortianalyzer" {
 }
 ```
 
+### Token authentication
+
+You can authenticate using API tokens instead of username/password. This method is more secure and recommended for production environments.
+
+Usage with static token:
+
+```hcl
+provider "fortianalyzer" {
+  hostname = "192.168.52.178"
+  token    = "your-api-token-here"
+  insecure = "true"
+
+  scopetype = "adom"
+  adom      = "root"
+}
+```
+
 ### Environment variables
 
-You can provide your credentials via the `FORTIANALYZER_ACCESS_HOSTNAME`, `FORTIANALYZER_ACCESS_USERNAME`, `FORTIANALYZER_ACCESS_PASSWORD`, `FORTIANALYZER_INSECURE` and `FORTIANALYZER_CA_CABUNDLE` environment variables. Note that setting your FortiAnalyzer credentials using static credentials variables will override the environment variables.
+You can provide your credentials via environment variables. For username/password authentication, use `FORTIANALYZER_ACCESS_HOSTNAME`, `FORTIANALYZER_ACCESS_USERNAME`, `FORTIANALYZER_ACCESS_PASSWORD`, `FORTIANALYZER_INSECURE` and `FORTIANALYZER_CA_CABUNDLE`. For token authentication, use `FORTIANALYZER_ACCESS_TOKEN`. Note that setting your FortiAnalyzer credentials using static credentials variables will override the environment variables.
 
-Usage:
+Usage with username/password:
 
 ```shell
 $ export "FORTIANALYZER_ACCESS_HOSTNAME"="192.168.52.178"
@@ -90,6 +107,14 @@ $ export "FORTIANALYZER_ACCESS_USERNAME"="admin"
 $ export "FORTIANALYZER_ACCESS_PASSWORD"="admin"
 $ export "FORTIANALYZER_INSECURE"="false"
 $ export "FORTIANALYZER_CA_CABUNDLE"="/path/yourCA.crt"
+```
+
+Usage with token:
+
+```shell
+$ export "FORTIANALYZER_ACCESS_HOSTNAME"="192.168.52.178"
+$ export "FORTIANALYZER_ACCESS_TOKEN"="your-api-token-here"
+$ export "FORTIANALYZER_INSECURE"="true"
 ```
 
 Then configure the FortiAnalyzer Provider as following:
@@ -110,6 +135,8 @@ The following arguments are supported:
 * `username` - (Optional) Your username. It must be provided, but it can also be sourced from the `FORTIANALYZER_ACCESS_USERNAME` environment variable.
 
 * `password` - (Optional) Your password. It must be provided, but it can also be sourced from the `FORTIANALYZER_ACCESS_PASSWORD` environment variable.
+
+* `token` - (Optional) API token for authentication. When provided, username and password are not required. It can also be sourced from the `FORTIANALYZER_ACCESS_TOKEN` environment variable.
 
 * `insecure` - (Optional) Control whether the Provider to perform insecure SSL requests. If omitted, the `FORTIANALYZER_INSECURE` environment variable is used. If neither is set, default value is `false`.
 
