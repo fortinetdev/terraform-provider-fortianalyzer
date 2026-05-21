@@ -25,6 +25,8 @@ The following arguments are supported:
 
 * `avips` - Enable/disable the built-in FortiGuard to provide FortiGuard antivirus and IPS updates (default = enable). disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
 
+* `geoip` - Enable/disable the built-in FortiGuard to provide GEO-city query (default = enable). disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
+
 
 
 ## Attribute Reference

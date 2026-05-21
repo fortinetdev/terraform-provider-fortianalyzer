@@ -82,6 +82,55 @@ func resourceSystemLogSettings() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"client_cert_auth": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				MaxItems: 1,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"mode": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+							Computed: true,
+						},
+						"tls_port": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+							Computed: true,
+						},
+						"trusted_client": &schema.Schema{
+							Type:     schema.TypeList,
+							Optional: true,
+							Elem: &schema.Resource{
+								Schema: map[string]*schema.Schema{
+									"certificate": &schema.Schema{
+										Type:     schema.TypeSet,
+										Elem:     &schema.Schema{Type: schema.TypeString},
+										Optional: true,
+									},
+									"description": &schema.Schema{
+										Type:     schema.TypeString,
+										Optional: true,
+									},
+									"domain": &schema.Schema{
+										Type:     schema.TypeString,
+										Optional: true,
+									},
+									"id": &schema.Schema{
+										Type:     schema.TypeInt,
+										Optional: true,
+									},
+									"type": &schema.Schema{
+										Type:     schema.TypeString,
+										Optional: true,
+										Computed: true,
+									},
+								},
+							},
+						},
+					},
+				},
+			},
 			"device_auto_detect": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -738,6 +787,119 @@ func flattenSystemLogSettingsFwbCustomField1Slsa(v interface{}, d *schema.Resour
 }
 
 func flattenSystemLogSettingsBrowseMaxLogfilesSlsa(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemLogSettingsClientCertAuthSlsa(v interface{}, d *schema.ResourceData, pre string) []map[string]interface{} {
+	if v == nil {
+		return nil
+	}
+
+	i := v.(map[string]interface{})
+	result := make(map[string]interface{})
+
+	pre_append := "" // complex
+	pre_append = pre + ".0." + "mode"
+	if _, ok := i["mode"]; ok {
+		result["mode"] = flattenSystemLogSettingsClientCertAuthModeSlsa(i["mode"], d, pre_append)
+	}
+
+	pre_append = pre + ".0." + "tls_port"
+	if _, ok := i["tls-port"]; ok {
+		result["tls_port"] = flattenSystemLogSettingsClientCertAuthTlsPortSlsa(i["tls-port"], d, pre_append)
+	}
+
+	pre_append = pre + ".0." + "trusted_client"
+	if _, ok := i["trusted-client"]; ok {
+		result["trusted_client"] = flattenSystemLogSettingsClientCertAuthTrustedClientSlsa(i["trusted-client"], d, pre_append)
+	}
+
+	lastresult := []map[string]interface{}{result}
+	return lastresult
+}
+
+func flattenSystemLogSettingsClientCertAuthModeSlsa(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemLogSettingsClientCertAuthTlsPortSlsa(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemLogSettingsClientCertAuthTrustedClientSlsa(v interface{}, d *schema.ResourceData, pre string) []map[string]interface{} {
+	if v == nil {
+		return nil
+	}
+
+	l := v.([]interface{})
+	if len(l) == 0 || l[0] == nil {
+		return nil
+	}
+
+	result := make([]map[string]interface{}, 0, len(l))
+
+	con := 0
+	for _, r := range l {
+		tmp := make(map[string]interface{})
+		i := r.(map[string]interface{})
+
+		pre_append := "" // table
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "certificate"
+		if _, ok := i["certificate"]; ok {
+			v := flattenSystemLogSettingsClientCertAuthTrustedClientCertificateSlsa(i["certificate"], d, pre_append)
+			tmp["certificate"] = fortiAPISubPartPatch(v, "SystemLogSettingsClientCertAuth-TrustedClient-Certificate")
+		}
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "description"
+		if _, ok := i["description"]; ok {
+			v := flattenSystemLogSettingsClientCertAuthTrustedClientDescriptionSlsa(i["description"], d, pre_append)
+			tmp["description"] = fortiAPISubPartPatch(v, "SystemLogSettingsClientCertAuth-TrustedClient-Description")
+		}
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "domain"
+		if _, ok := i["domain"]; ok {
+			v := flattenSystemLogSettingsClientCertAuthTrustedClientDomainSlsa(i["domain"], d, pre_append)
+			tmp["domain"] = fortiAPISubPartPatch(v, "SystemLogSettingsClientCertAuth-TrustedClient-Domain")
+		}
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "id"
+		if _, ok := i["id"]; ok {
+			v := flattenSystemLogSettingsClientCertAuthTrustedClientIdSlsa(i["id"], d, pre_append)
+			tmp["id"] = fortiAPISubPartPatch(v, "SystemLogSettingsClientCertAuth-TrustedClient-Id")
+		}
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "type"
+		if _, ok := i["type"]; ok {
+			v := flattenSystemLogSettingsClientCertAuthTrustedClientTypeSlsa(i["type"], d, pre_append)
+			tmp["type"] = fortiAPISubPartPatch(v, "SystemLogSettingsClientCertAuth-TrustedClient-Type")
+		}
+
+		result = append(result, tmp)
+
+		con += 1
+	}
+
+	return result
+}
+
+func flattenSystemLogSettingsClientCertAuthTrustedClientCertificateSlsa(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
+}
+
+func flattenSystemLogSettingsClientCertAuthTrustedClientDescriptionSlsa(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemLogSettingsClientCertAuthTrustedClientDomainSlsa(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemLogSettingsClientCertAuthTrustedClientIdSlsa(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemLogSettingsClientCertAuthTrustedClientTypeSlsa(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -1823,6 +1985,30 @@ func refreshObjectSystemLogSettings(d *schema.ResourceData, o map[string]interfa
 		}
 	}
 
+	if isImportTable() {
+		if err = d.Set("client_cert_auth", flattenSystemLogSettingsClientCertAuthSlsa(o["client-cert-auth"], d, "client_cert_auth")); err != nil {
+			if vv, ok := fortiAPIPatch(o["client-cert-auth"], "SystemLogSettings-ClientCertAuth"); ok {
+				if err = d.Set("client_cert_auth", vv); err != nil {
+					return fmt.Errorf("Error reading client_cert_auth: %v", err)
+				}
+			} else {
+				return fmt.Errorf("Error reading client_cert_auth: %v", err)
+			}
+		}
+	} else {
+		if _, ok := d.GetOk("client_cert_auth"); ok {
+			if err = d.Set("client_cert_auth", flattenSystemLogSettingsClientCertAuthSlsa(o["client-cert-auth"], d, "client_cert_auth")); err != nil {
+				if vv, ok := fortiAPIPatch(o["client-cert-auth"], "SystemLogSettings-ClientCertAuth"); ok {
+					if err = d.Set("client_cert_auth", vv); err != nil {
+						return fmt.Errorf("Error reading client_cert_auth: %v", err)
+					}
+				} else {
+					return fmt.Errorf("Error reading client_cert_auth: %v", err)
+				}
+			}
+		}
+	}
+
 	if err = d.Set("device_auto_detect", flattenSystemLogSettingsDeviceAutoDetectSlsa(o["device-auto-detect"], d, "device_auto_detect")); err != nil {
 		if vv, ok := fortiAPIPatch(o["device-auto-detect"], "SystemLogSettings-DeviceAutoDetect"); ok {
 			if err = d.Set("device_auto_detect", vv); err != nil {
@@ -2113,6 +2299,111 @@ func expandSystemLogSettingsFwbCustomField1Slsa(d *schema.ResourceData, v interf
 }
 
 func expandSystemLogSettingsBrowseMaxLogfilesSlsa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemLogSettingsClientCertAuthSlsa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	l := v.([]interface{})
+	if len(l) == 0 || l[0] == nil {
+		return nil, nil
+	}
+
+	i := l[0].(map[string]interface{})
+	result := make(map[string]interface{})
+
+	pre_append := "" // complex
+	pre_append = pre + ".0." + "mode"
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+		result["mode"], _ = expandSystemLogSettingsClientCertAuthModeSlsa(d, i["mode"], pre_append)
+	}
+	pre_append = pre + ".0." + "tls_port"
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+		result["tls-port"], _ = expandSystemLogSettingsClientCertAuthTlsPortSlsa(d, i["tls_port"], pre_append)
+	}
+	pre_append = pre + ".0." + "trusted_client"
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+		result["trusted-client"], _ = expandSystemLogSettingsClientCertAuthTrustedClientSlsa(d, i["trusted_client"], pre_append)
+	} else {
+		result["trusted-client"] = make([]string, 0)
+	}
+
+	return result, nil
+}
+
+func expandSystemLogSettingsClientCertAuthModeSlsa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemLogSettingsClientCertAuthTlsPortSlsa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemLogSettingsClientCertAuthTrustedClientSlsa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	l := v.([]interface{})
+	if len(l) == 0 || l[0] == nil {
+		return nil, nil
+	}
+
+	result := make([]map[string]interface{}, 0, len(l))
+
+	con := 0
+	for _, r := range l {
+		tmp := make(map[string]interface{})
+		i := r.(map[string]interface{})
+		pre_append := "" // table
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "certificate"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["certificate"], _ = expandSystemLogSettingsClientCertAuthTrustedClientCertificateSlsa(d, i["certificate"], pre_append)
+		} else {
+			tmp["certificate"] = make([]string, 0)
+		}
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "description"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["description"], _ = expandSystemLogSettingsClientCertAuthTrustedClientDescriptionSlsa(d, i["description"], pre_append)
+		}
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "domain"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["domain"], _ = expandSystemLogSettingsClientCertAuthTrustedClientDomainSlsa(d, i["domain"], pre_append)
+		}
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "id"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["id"], _ = expandSystemLogSettingsClientCertAuthTrustedClientIdSlsa(d, i["id"], pre_append)
+		}
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "type"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["type"], _ = expandSystemLogSettingsClientCertAuthTrustedClientTypeSlsa(d, i["type"], pre_append)
+		}
+
+		result = append(result, tmp)
+
+		con += 1
+	}
+
+	return result, nil
+}
+
+func expandSystemLogSettingsClientCertAuthTrustedClientCertificateSlsa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
+}
+
+func expandSystemLogSettingsClientCertAuthTrustedClientDescriptionSlsa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemLogSettingsClientCertAuthTrustedClientDomainSlsa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemLogSettingsClientCertAuthTrustedClientIdSlsa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemLogSettingsClientCertAuthTrustedClientTypeSlsa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -3083,6 +3374,15 @@ func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}
 			return &obj, err
 		} else if t != nil {
 			obj["browse-max-logfiles"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("client_cert_auth"); ok || d.HasChange("client_cert_auth") {
+		t, err := expandSystemLogSettingsClientCertAuthSlsa(d, v, "client_cert_auth")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["client-cert-auth"] = t
 		}
 	}
 

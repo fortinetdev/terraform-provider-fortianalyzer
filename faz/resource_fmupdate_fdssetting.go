@@ -271,6 +271,11 @@ func resourceFmupdateFdsSetting() *schema.Resource {
 							Optional: true,
 							Computed: true,
 						},
+						"time_unitary": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+							Computed: true,
+						},
 						"time": &schema.Schema{
 							Type:     schema.TypeSet,
 							Elem:     &schema.Schema{Type: schema.TypeString},
@@ -701,6 +706,11 @@ func flattenFmupdateFdsSettingUpdateScheduleFfa(v interface{}, d *schema.Resourc
 		result["status"] = flattenFmupdateFdsSettingUpdateScheduleStatusFfa(i["status"], d, pre_append)
 	}
 
+	pre_append = pre + ".0." + "time_unitary"
+	if _, ok := i["time"]; ok {
+		result["time_unitary"] = flattenFmupdateFdsSettingUpdateScheduleTimeUnitaryFfa(i["time"], d, pre_append)
+	}
+
 	pre_append = pre + ".0." + "time"
 	if _, ok := i["time"]; ok {
 		result["time"] = flattenFmupdateFdsSettingUpdateScheduleTimeFfa(i["time"], d, pre_append)
@@ -719,6 +729,10 @@ func flattenFmupdateFdsSettingUpdateScheduleFrequencyFfa(v interface{}, d *schem
 }
 
 func flattenFmupdateFdsSettingUpdateScheduleStatusFfa(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenFmupdateFdsSettingUpdateScheduleTimeUnitaryFfa(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -1402,6 +1416,10 @@ func expandFmupdateFdsSettingUpdateScheduleFfa(d *schema.ResourceData, v interfa
 	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["status"], _ = expandFmupdateFdsSettingUpdateScheduleStatusFfa(d, i["status"], pre_append)
 	}
+	pre_append = pre + ".0." + "time_unitary"
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+		result["time"], _ = expandFmupdateFdsSettingUpdateScheduleTimeUnitaryFfa(d, i["time_unitary"], pre_append)
+	}
 	pre_append = pre + ".0." + "time"
 	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		result["time"], _ = expandFmupdateFdsSettingUpdateScheduleTimeFfa(d, i["time"], pre_append)
@@ -1421,6 +1439,10 @@ func expandFmupdateFdsSettingUpdateScheduleFrequencyFfa(d *schema.ResourceData, 
 }
 
 func expandFmupdateFdsSettingUpdateScheduleStatusFfa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandFmupdateFdsSettingUpdateScheduleTimeUnitaryFfa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 

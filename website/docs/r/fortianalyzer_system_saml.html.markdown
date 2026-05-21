@@ -35,6 +35,8 @@ The following arguments are supported:
 * `fabric_idp` - Fabric-Idp. The structure of `fabric_idp` block is documented below.
 * `forticloud_sso` - Enable/disable FortiCloud SSO (default = disable). disable - Disable Forticloud SSO. enable - Enabld Forticloud SSO. Valid values: `disable`, `enable`.
 
+* `ha_config_sync` - Enable/disable HA syncing of SAML config. disable - Disable HA syncing of SAML config. enable - Enable HA syncing of SAML config. Valid values: `disable`, `enable`.
+
 * `idp_cert` - IDP Certificate name.
 * `idp_entity_id` - IDP entity ID.
 * `idp_single_logout_url` - IDP single logout url.

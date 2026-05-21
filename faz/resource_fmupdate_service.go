@@ -34,6 +34,11 @@ func resourceFmupdateService() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"geoip": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 		},
 	}
 }
@@ -110,6 +115,10 @@ func flattenFmupdateServiceAvips(v interface{}, d *schema.ResourceData, pre stri
 	return v
 }
 
+func flattenFmupdateServiceGeoip(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func refreshObjectFmupdateService(d *schema.ResourceData, o map[string]interface{}) error {
 	var err error
 
@@ -120,6 +129,16 @@ func refreshObjectFmupdateService(d *schema.ResourceData, o map[string]interface
 			}
 		} else {
 			return fmt.Errorf("Error reading avips: %v", err)
+		}
+	}
+
+	if err = d.Set("geoip", flattenFmupdateServiceGeoip(o["geoip"], d, "geoip")); err != nil {
+		if vv, ok := fortiAPIPatch(o["geoip"], "FmupdateService-Geoip"); ok {
+			if err = d.Set("geoip", vv); err != nil {
+				return fmt.Errorf("Error reading geoip: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading geoip: %v", err)
 		}
 	}
 
@@ -136,6 +155,10 @@ func expandFmupdateServiceAvips(d *schema.ResourceData, v interface{}, pre strin
 	return v, nil
 }
 
+func expandFmupdateServiceGeoip(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func getObjectFmupdateService(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
@@ -145,6 +168,15 @@ func getObjectFmupdateService(d *schema.ResourceData) (*map[string]interface{}, 
 			return &obj, err
 		} else if t != nil {
 			obj["avips"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("geoip"); ok || d.HasChange("geoip") {
+		t, err := expandFmupdateServiceGeoip(d, v, "geoip")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["geoip"] = t
 		}
 	}
 

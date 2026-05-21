@@ -137,10 +137,22 @@ func resourceSystemCsfFabricConnectorRead(d *schema.ResourceData, m interface{})
 	return nil
 }
 
+func flattenSystemCsfFabricConnectorAccprofileScfc(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemCsfFabricConnectorConfigurationWriteAccessScfc(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemCsfFabricConnectorSerialScfc(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func refreshObjectSystemCsfFabricConnector(d *schema.ResourceData, o map[string]interface{}) error {
 	var err error
 
-	if err = d.Set("accprofile", flattenSystemCsfFabricConnectorAccprofile(o["accprofile"], d, "accprofile")); err != nil {
+	if err = d.Set("accprofile", flattenSystemCsfFabricConnectorAccprofileScfc(o["accprofile"], d, "accprofile")); err != nil {
 		if vv, ok := fortiAPIPatch(o["accprofile"], "SystemCsfFabricConnector-Accprofile"); ok {
 			if err = d.Set("accprofile", vv); err != nil {
 				return fmt.Errorf("Error reading accprofile: %v", err)
@@ -150,7 +162,7 @@ func refreshObjectSystemCsfFabricConnector(d *schema.ResourceData, o map[string]
 		}
 	}
 
-	if err = d.Set("configuration_write_access", flattenSystemCsfFabricConnectorConfigurationWriteAccess(o["configuration-write-access"], d, "configuration_write_access")); err != nil {
+	if err = d.Set("configuration_write_access", flattenSystemCsfFabricConnectorConfigurationWriteAccessScfc(o["configuration-write-access"], d, "configuration_write_access")); err != nil {
 		if vv, ok := fortiAPIPatch(o["configuration-write-access"], "SystemCsfFabricConnector-ConfigurationWriteAccess"); ok {
 			if err = d.Set("configuration_write_access", vv); err != nil {
 				return fmt.Errorf("Error reading configuration_write_access: %v", err)
@@ -160,7 +172,7 @@ func refreshObjectSystemCsfFabricConnector(d *schema.ResourceData, o map[string]
 		}
 	}
 
-	if err = d.Set("serial", flattenSystemCsfFabricConnectorSerial(o["serial"], d, "serial")); err != nil {
+	if err = d.Set("serial", flattenSystemCsfFabricConnectorSerialScfc(o["serial"], d, "serial")); err != nil {
 		if vv, ok := fortiAPIPatch(o["serial"], "SystemCsfFabricConnector-Serial"); ok {
 			if err = d.Set("serial", vv); err != nil {
 				return fmt.Errorf("Error reading serial: %v", err)
@@ -179,11 +191,23 @@ func flattenSystemCsfFabricConnectorFortiTestDebug(d *schema.ResourceData, fosde
 	log.Printf("ER List: %v", e)
 }
 
+func expandSystemCsfFabricConnectorAccprofileScfc(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemCsfFabricConnectorConfigurationWriteAccessScfc(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemCsfFabricConnectorSerialScfc(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func getObjectSystemCsfFabricConnector(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
 	if v, ok := d.GetOk("accprofile"); ok || d.HasChange("accprofile") {
-		t, err := expandSystemCsfFabricConnectorAccprofile(d, v, "accprofile")
+		t, err := expandSystemCsfFabricConnectorAccprofileScfc(d, v, "accprofile")
 		if err != nil {
 			return &obj, err
 		} else if t != nil {
@@ -192,7 +216,7 @@ func getObjectSystemCsfFabricConnector(d *schema.ResourceData) (*map[string]inte
 	}
 
 	if v, ok := d.GetOk("configuration_write_access"); ok || d.HasChange("configuration_write_access") {
-		t, err := expandSystemCsfFabricConnectorConfigurationWriteAccess(d, v, "configuration_write_access")
+		t, err := expandSystemCsfFabricConnectorConfigurationWriteAccessScfc(d, v, "configuration_write_access")
 		if err != nil {
 			return &obj, err
 		} else if t != nil {
@@ -201,7 +225,7 @@ func getObjectSystemCsfFabricConnector(d *schema.ResourceData) (*map[string]inte
 	}
 
 	if v, ok := d.GetOk("serial"); ok || d.HasChange("serial") {
-		t, err := expandSystemCsfFabricConnectorSerial(d, v, "serial")
+		t, err := expandSystemCsfFabricConnectorSerialScfc(d, v, "serial")
 		if err != nil {
 			return &obj, err
 		} else if t != nil {

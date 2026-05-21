@@ -39,6 +39,8 @@ The following arguments are supported:
 * `fmg` - Address of Fortimanager (IP or FQDN).
 * `mgmtid` - Management ID.
 * `serial_number` - Serial number.
+* `socaas_remote_access` - Socaas-Remote-Access. Valid values: `disable`, `enable`.
+
 * `type` - Type of management server. fortimanager - FortiManager. Valid values: `fortimanager`.
 
 

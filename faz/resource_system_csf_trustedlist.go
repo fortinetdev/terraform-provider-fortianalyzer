@@ -159,10 +159,42 @@ func resourceSystemCsfTrustedListRead(d *schema.ResourceData, m interface{}) err
 	return nil
 }
 
+func flattenSystemCsfTrustedListActionSctl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemCsfTrustedListAuthorizationTypeSctl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemCsfTrustedListCertificateSctl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemCsfTrustedListDownstreamAuthorizationSctl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemCsfTrustedListHaMembersSctl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemCsfTrustedListIndexSctl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemCsfTrustedListNameSctl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemCsfTrustedListSerialSctl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func refreshObjectSystemCsfTrustedList(d *schema.ResourceData, o map[string]interface{}) error {
 	var err error
 
-	if err = d.Set("action", flattenSystemCsfTrustedListAction(o["action"], d, "action")); err != nil {
+	if err = d.Set("action", flattenSystemCsfTrustedListActionSctl(o["action"], d, "action")); err != nil {
 		if vv, ok := fortiAPIPatch(o["action"], "SystemCsfTrustedList-Action"); ok {
 			if err = d.Set("action", vv); err != nil {
 				return fmt.Errorf("Error reading action: %v", err)
@@ -172,7 +204,7 @@ func refreshObjectSystemCsfTrustedList(d *schema.ResourceData, o map[string]inte
 		}
 	}
 
-	if err = d.Set("authorization_type", flattenSystemCsfTrustedListAuthorizationType(o["authorization-type"], d, "authorization_type")); err != nil {
+	if err = d.Set("authorization_type", flattenSystemCsfTrustedListAuthorizationTypeSctl(o["authorization-type"], d, "authorization_type")); err != nil {
 		if vv, ok := fortiAPIPatch(o["authorization-type"], "SystemCsfTrustedList-AuthorizationType"); ok {
 			if err = d.Set("authorization_type", vv); err != nil {
 				return fmt.Errorf("Error reading authorization_type: %v", err)
@@ -182,7 +214,7 @@ func refreshObjectSystemCsfTrustedList(d *schema.ResourceData, o map[string]inte
 		}
 	}
 
-	if err = d.Set("certificate", flattenSystemCsfTrustedListCertificate(o["certificate"], d, "certificate")); err != nil {
+	if err = d.Set("certificate", flattenSystemCsfTrustedListCertificateSctl(o["certificate"], d, "certificate")); err != nil {
 		if vv, ok := fortiAPIPatch(o["certificate"], "SystemCsfTrustedList-Certificate"); ok {
 			if err = d.Set("certificate", vv); err != nil {
 				return fmt.Errorf("Error reading certificate: %v", err)
@@ -192,7 +224,7 @@ func refreshObjectSystemCsfTrustedList(d *schema.ResourceData, o map[string]inte
 		}
 	}
 
-	if err = d.Set("downstream_authorization", flattenSystemCsfTrustedListDownstreamAuthorization(o["downstream-authorization"], d, "downstream_authorization")); err != nil {
+	if err = d.Set("downstream_authorization", flattenSystemCsfTrustedListDownstreamAuthorizationSctl(o["downstream-authorization"], d, "downstream_authorization")); err != nil {
 		if vv, ok := fortiAPIPatch(o["downstream-authorization"], "SystemCsfTrustedList-DownstreamAuthorization"); ok {
 			if err = d.Set("downstream_authorization", vv); err != nil {
 				return fmt.Errorf("Error reading downstream_authorization: %v", err)
@@ -202,7 +234,7 @@ func refreshObjectSystemCsfTrustedList(d *schema.ResourceData, o map[string]inte
 		}
 	}
 
-	if err = d.Set("ha_members", flattenSystemCsfTrustedListHaMembers(o["ha-members"], d, "ha_members")); err != nil {
+	if err = d.Set("ha_members", flattenSystemCsfTrustedListHaMembersSctl(o["ha-members"], d, "ha_members")); err != nil {
 		if vv, ok := fortiAPIPatch(o["ha-members"], "SystemCsfTrustedList-HaMembers"); ok {
 			if err = d.Set("ha_members", vv); err != nil {
 				return fmt.Errorf("Error reading ha_members: %v", err)
@@ -212,7 +244,7 @@ func refreshObjectSystemCsfTrustedList(d *schema.ResourceData, o map[string]inte
 		}
 	}
 
-	if err = d.Set("index", flattenSystemCsfTrustedListIndex(o["index"], d, "index")); err != nil {
+	if err = d.Set("index", flattenSystemCsfTrustedListIndexSctl(o["index"], d, "index")); err != nil {
 		if vv, ok := fortiAPIPatch(o["index"], "SystemCsfTrustedList-Index"); ok {
 			if err = d.Set("index", vv); err != nil {
 				return fmt.Errorf("Error reading index: %v", err)
@@ -222,7 +254,7 @@ func refreshObjectSystemCsfTrustedList(d *schema.ResourceData, o map[string]inte
 		}
 	}
 
-	if err = d.Set("name", flattenSystemCsfTrustedListName(o["name"], d, "name")); err != nil {
+	if err = d.Set("name", flattenSystemCsfTrustedListNameSctl(o["name"], d, "name")); err != nil {
 		if vv, ok := fortiAPIPatch(o["name"], "SystemCsfTrustedList-Name"); ok {
 			if err = d.Set("name", vv); err != nil {
 				return fmt.Errorf("Error reading name: %v", err)
@@ -232,7 +264,7 @@ func refreshObjectSystemCsfTrustedList(d *schema.ResourceData, o map[string]inte
 		}
 	}
 
-	if err = d.Set("serial", flattenSystemCsfTrustedListSerial(o["serial"], d, "serial")); err != nil {
+	if err = d.Set("serial", flattenSystemCsfTrustedListSerialSctl(o["serial"], d, "serial")); err != nil {
 		if vv, ok := fortiAPIPatch(o["serial"], "SystemCsfTrustedList-Serial"); ok {
 			if err = d.Set("serial", vv); err != nil {
 				return fmt.Errorf("Error reading serial: %v", err)
@@ -251,11 +283,43 @@ func flattenSystemCsfTrustedListFortiTestDebug(d *schema.ResourceData, fosdebugs
 	log.Printf("ER List: %v", e)
 }
 
+func expandSystemCsfTrustedListActionSctl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemCsfTrustedListAuthorizationTypeSctl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemCsfTrustedListCertificateSctl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemCsfTrustedListDownstreamAuthorizationSctl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemCsfTrustedListHaMembersSctl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemCsfTrustedListIndexSctl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemCsfTrustedListNameSctl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemCsfTrustedListSerialSctl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func getObjectSystemCsfTrustedList(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
 	if v, ok := d.GetOk("action"); ok || d.HasChange("action") {
-		t, err := expandSystemCsfTrustedListAction(d, v, "action")
+		t, err := expandSystemCsfTrustedListActionSctl(d, v, "action")
 		if err != nil {
 			return &obj, err
 		} else if t != nil {
@@ -264,7 +328,7 @@ func getObjectSystemCsfTrustedList(d *schema.ResourceData) (*map[string]interfac
 	}
 
 	if v, ok := d.GetOk("authorization_type"); ok || d.HasChange("authorization_type") {
-		t, err := expandSystemCsfTrustedListAuthorizationType(d, v, "authorization_type")
+		t, err := expandSystemCsfTrustedListAuthorizationTypeSctl(d, v, "authorization_type")
 		if err != nil {
 			return &obj, err
 		} else if t != nil {
@@ -273,7 +337,7 @@ func getObjectSystemCsfTrustedList(d *schema.ResourceData) (*map[string]interfac
 	}
 
 	if v, ok := d.GetOk("certificate"); ok || d.HasChange("certificate") {
-		t, err := expandSystemCsfTrustedListCertificate(d, v, "certificate")
+		t, err := expandSystemCsfTrustedListCertificateSctl(d, v, "certificate")
 		if err != nil {
 			return &obj, err
 		} else if t != nil {
@@ -282,7 +346,7 @@ func getObjectSystemCsfTrustedList(d *schema.ResourceData) (*map[string]interfac
 	}
 
 	if v, ok := d.GetOk("downstream_authorization"); ok || d.HasChange("downstream_authorization") {
-		t, err := expandSystemCsfTrustedListDownstreamAuthorization(d, v, "downstream_authorization")
+		t, err := expandSystemCsfTrustedListDownstreamAuthorizationSctl(d, v, "downstream_authorization")
 		if err != nil {
 			return &obj, err
 		} else if t != nil {
@@ -291,7 +355,7 @@ func getObjectSystemCsfTrustedList(d *schema.ResourceData) (*map[string]interfac
 	}
 
 	if v, ok := d.GetOk("ha_members"); ok || d.HasChange("ha_members") {
-		t, err := expandSystemCsfTrustedListHaMembers(d, v, "ha_members")
+		t, err := expandSystemCsfTrustedListHaMembersSctl(d, v, "ha_members")
 		if err != nil {
 			return &obj, err
 		} else if t != nil {
@@ -300,7 +364,7 @@ func getObjectSystemCsfTrustedList(d *schema.ResourceData) (*map[string]interfac
 	}
 
 	if v, ok := d.GetOk("index"); ok || d.HasChange("index") {
-		t, err := expandSystemCsfTrustedListIndex(d, v, "index")
+		t, err := expandSystemCsfTrustedListIndexSctl(d, v, "index")
 		if err != nil {
 			return &obj, err
 		} else if t != nil {
@@ -309,7 +373,7 @@ func getObjectSystemCsfTrustedList(d *schema.ResourceData) (*map[string]interfac
 	}
 
 	if v, ok := d.GetOk("name"); ok || d.HasChange("name") {
-		t, err := expandSystemCsfTrustedListName(d, v, "name")
+		t, err := expandSystemCsfTrustedListNameSctl(d, v, "name")
 		if err != nil {
 			return &obj, err
 		} else if t != nil {
@@ -318,7 +382,7 @@ func getObjectSystemCsfTrustedList(d *schema.ResourceData) (*map[string]interfac
 	}
 
 	if v, ok := d.GetOk("serial"); ok || d.HasChange("serial") {
-		t, err := expandSystemCsfTrustedListSerial(d, v, "serial")
+		t, err := expandSystemCsfTrustedListSerialSctl(d, v, "serial")
 		if err != nil {
 			return &obj, err
 		} else if t != nil {

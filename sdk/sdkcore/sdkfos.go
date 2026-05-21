@@ -4106,6 +4106,92 @@ func (c *FortiSDKClient) ReadSystemLocallogSyslogdSetting(globaladom, mkey strin
 	return
 }
 
+
+// UpdateSystemLocallogTacacsAccountingFilter API operation for FortiAnalyzer updates the specified LocallogTacacs+AccountingFilter.
+// Returns the index value of the LocallogTacacs+AccountingFilter and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - locallog tacacs+accounting filter chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateSystemLocallogTacacsAccountingFilter(params *map[string]interface{}, globaladom, mkey string, paralist []string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/system/locallog/tacacs+accounting/filter"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+
+	output, err = createUpdate(c, globaladom, path, "set", params, false)
+	return
+}
+
+// DeleteSystemLocallogTacacsAccountingFilter API operation for FortiAnalyzer deletes the specified LocallogTacacs+AccountingFilter.
+// Returns error for service API and SDK errors.
+// See the system - locallog tacacs+accounting filter chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteSystemLocallogTacacsAccountingFilter(globaladom, mkey string, paralist []string) (err error) {
+
+	//No unset API for system - locallog tacacs+accounting filter
+	return
+}
+
+// ReadSystemLocallogTacacsAccountingFilter API operation for FortiAnalyzer gets the LocallogTacacs+AccountingFilter
+// with the specified index value.
+// Returns the requested LocallogTacacs+AccountingFilter value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - locallog tacacs+accounting filter chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadSystemLocallogTacacsAccountingFilter(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
+	path := "/cli/[*]/system/locallog/tacacs+accounting/filter"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+
+	mapTmp, err = read(c, globaladom, path, "get", false)
+	return
+}
+
+
+// UpdateSystemLocallogTacacsAccountingSetting API operation for FortiAnalyzer updates the specified LocallogTacacs+AccountingSetting.
+// Returns the index value of the LocallogTacacs+AccountingSetting and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - locallog tacacs+accounting setting chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateSystemLocallogTacacsAccountingSetting(params *map[string]interface{}, globaladom, mkey string, paralist []string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/system/locallog/tacacs+accounting/setting"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+
+	output, err = createUpdate(c, globaladom, path, "set", params, false)
+	return
+}
+
+// DeleteSystemLocallogTacacsAccountingSetting API operation for FortiAnalyzer deletes the specified LocallogTacacs+AccountingSetting.
+// Returns error for service API and SDK errors.
+// See the system - locallog tacacs+accounting setting chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteSystemLocallogTacacsAccountingSetting(globaladom, mkey string, paralist []string) (err error) {
+
+	//No unset API for system - locallog tacacs+accounting setting
+	return
+}
+
+// ReadSystemLocallogTacacsAccountingSetting API operation for FortiAnalyzer gets the LocallogTacacs+AccountingSetting
+// with the specified index value.
+// Returns the requested LocallogTacacs+AccountingSetting value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - locallog tacacs+accounting setting chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadSystemLocallogTacacsAccountingSetting(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
+	path := "/cli/[*]/system/locallog/tacacs+accounting/setting"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+
+	mapTmp, err = read(c, globaladom, path, "get", false)
+	return
+}
+
 // CreateSystemLogFetchClientProfile API operation for FortiAnalyzer creates a new Log FetchClient Profile.
 // Returns the index value of the Log FetchClient Profile and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -4357,6 +4443,49 @@ func (c *FortiSDKClient) DeleteSystemLogAlert(globaladom, mkey string, paralist 
 // See the system - log alert chapter in the FortiAnalyzer Handbook - CLI Reference.
 func (c *FortiSDKClient) ReadSystemLogAlert(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
 	path := "/cli/[*]/system/log/alert"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+
+	mapTmp, err = read(c, globaladom, path, "get", false)
+	return
+}
+
+
+// UpdateSystemLogApiRatelimit API operation for FortiAnalyzer updates the specified LogApi Ratelimit.
+// Returns the index value of the LogApi Ratelimit and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - log api-ratelimit chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateSystemLogApiRatelimit(params *map[string]interface{}, globaladom, mkey string, paralist []string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/system/log/api-ratelimit"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+
+	output, err = createUpdate(c, globaladom, path, "set", params, false)
+	return
+}
+
+// DeleteSystemLogApiRatelimit API operation for FortiAnalyzer deletes the specified LogApi Ratelimit.
+// Returns error for service API and SDK errors.
+// See the system - log api-ratelimit chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteSystemLogApiRatelimit(globaladom, mkey string, paralist []string) (err error) {
+
+	//No unset API for system - log api-ratelimit
+	return
+}
+
+// ReadSystemLogApiRatelimit API operation for FortiAnalyzer gets the LogApi Ratelimit
+// with the specified index value.
+// Returns the requested LogApi Ratelimit value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - log api-ratelimit chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadSystemLogApiRatelimit(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
+	path := "/cli/[*]/system/log/api-ratelimit"
 	path, err = replaceParaWithValue(path, paralist)
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
@@ -4945,6 +5074,49 @@ func (c *FortiSDKClient) DeleteSystemLogSettings(globaladom, mkey string, parali
 // See the system - log settings chapter in the FortiAnalyzer Handbook - CLI Reference.
 func (c *FortiSDKClient) ReadSystemLogSettings(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
 	path := "/cli/[*]/system/log/settings"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+
+	mapTmp, err = read(c, globaladom, path, "get", false)
+	return
+}
+
+
+// UpdateSystemLogSettingsClientCertAuth API operation for FortiAnalyzer updates the specified LogSettingsClient Cert Auth.
+// Returns the index value of the LogSettingsClient Cert Auth and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - log settings client-cert-auth chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateSystemLogSettingsClientCertAuth(params *map[string]interface{}, globaladom, mkey string, paralist []string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/system/log/settings/client-cert-auth"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+
+	output, err = createUpdate(c, globaladom, path, "set", params, false)
+	return
+}
+
+// DeleteSystemLogSettingsClientCertAuth API operation for FortiAnalyzer deletes the specified LogSettingsClient Cert Auth.
+// Returns error for service API and SDK errors.
+// See the system - log settings client-cert-auth chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteSystemLogSettingsClientCertAuth(globaladom, mkey string, paralist []string) (err error) {
+
+	//No unset API for system - log settings client-cert-auth
+	return
+}
+
+// ReadSystemLogSettingsClientCertAuth API operation for FortiAnalyzer gets the LogSettingsClient Cert Auth
+// with the specified index value.
+// Returns the requested LogSettingsClient Cert Auth value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - log settings client-cert-auth chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadSystemLogSettingsClientCertAuth(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
+	path := "/cli/[*]/system/log/settings/client-cert-auth"
 	path, err = replaceParaWithValue(path, paralist)
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)

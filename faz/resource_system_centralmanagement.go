@@ -67,6 +67,11 @@ func resourceSystemCentralManagement() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"socaas_remote_access": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"type": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -176,6 +181,10 @@ func flattenSystemCentralManagementSerialNumber(v interface{}, d *schema.Resourc
 	return flattenStringList(v)
 }
 
+func flattenSystemCentralManagementSocaasRemoteAccess(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemCentralManagementType(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -263,6 +272,16 @@ func refreshObjectSystemCentralManagement(d *schema.ResourceData, o map[string]i
 		}
 	}
 
+	if err = d.Set("socaas_remote_access", flattenSystemCentralManagementSocaasRemoteAccess(o["socaas-remote-access"], d, "socaas_remote_access")); err != nil {
+		if vv, ok := fortiAPIPatch(o["socaas-remote-access"], "SystemCentralManagement-SocaasRemoteAccess"); ok {
+			if err = d.Set("socaas_remote_access", vv); err != nil {
+				return fmt.Errorf("Error reading socaas_remote_access: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading socaas_remote_access: %v", err)
+		}
+	}
+
 	if err = d.Set("type", flattenSystemCentralManagementType(o["type"], d, "type")); err != nil {
 		if vv, ok := fortiAPIPatch(o["type"], "SystemCentralManagement-Type"); ok {
 			if err = d.Set("type", vv); err != nil {
@@ -312,6 +331,10 @@ func expandSystemCentralManagementMgmtid(d *schema.ResourceData, v interface{}, 
 
 func expandSystemCentralManagementSerialNumber(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return expandStringList(v.(*schema.Set).List()), nil
+}
+
+func expandSystemCentralManagementSocaasRemoteAccess(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
 }
 
 func expandSystemCentralManagementType(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
@@ -390,6 +413,15 @@ func getObjectSystemCentralManagement(d *schema.ResourceData) (*map[string]inter
 			return &obj, err
 		} else if t != nil {
 			obj["serial-number"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("socaas_remote_access"); ok || d.HasChange("socaas_remote_access") {
+		t, err := expandSystemCentralManagementSocaasRemoteAccess(d, v, "socaas_remote_access")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["socaas-remote-access"] = t
 		}
 	}
 

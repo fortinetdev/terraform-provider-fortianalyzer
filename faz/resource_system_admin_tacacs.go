@@ -69,6 +69,10 @@ func resourceSystemAdminTacacs() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"src_ip": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"tertiary_key": &schema.Schema{
 				Type:      schema.TypeSet,
 				Elem:      &schema.Schema{Type: schema.TypeString},
@@ -205,6 +209,10 @@ func flattenSystemAdminTacacsServer(v interface{}, d *schema.ResourceData, pre s
 	return v
 }
 
+func flattenSystemAdminTacacsSrcIp(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemAdminTacacsTertiaryKey(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return flattenStringList(v)
 }
@@ -276,6 +284,16 @@ func refreshObjectSystemAdminTacacs(d *schema.ResourceData, o map[string]interfa
 		}
 	}
 
+	if err = d.Set("src_ip", flattenSystemAdminTacacsSrcIp(o["src-ip"], d, "src_ip")); err != nil {
+		if vv, ok := fortiAPIPatch(o["src-ip"], "SystemAdminTacacs-SrcIp"); ok {
+			if err = d.Set("src_ip", vv); err != nil {
+				return fmt.Errorf("Error reading src_ip: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading src_ip: %v", err)
+		}
+	}
+
 	if err = d.Set("tertiary_server", flattenSystemAdminTacacsTertiaryServer(o["tertiary-server"], d, "tertiary_server")); err != nil {
 		if vv, ok := fortiAPIPatch(o["tertiary-server"], "SystemAdminTacacs-TertiaryServer"); ok {
 			if err = d.Set("tertiary_server", vv); err != nil {
@@ -324,6 +342,10 @@ func expandSystemAdminTacacsSecondaryServer(d *schema.ResourceData, v interface{
 }
 
 func expandSystemAdminTacacsServer(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemAdminTacacsSrcIp(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -407,6 +429,15 @@ func getObjectSystemAdminTacacs(d *schema.ResourceData) (*map[string]interface{}
 			return &obj, err
 		} else if t != nil {
 			obj["server"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("src_ip"); ok || d.HasChange("src_ip") {
+		t, err := expandSystemAdminTacacsSrcIp(d, v, "src_ip")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["src-ip"] = t
 		}
 	}
 

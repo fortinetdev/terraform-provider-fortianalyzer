@@ -98,6 +98,11 @@ func resourceSystemGlobal() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"cli_auth": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"clone_name_option": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -129,6 +134,11 @@ func resourceSystemGlobal() *schema.Resource {
 				Computed: true,
 			},
 			"daylightsavetime": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
+			"debug_tool": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
@@ -428,6 +438,11 @@ func resourceSystemGlobal() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"skip_ip_check_in_session": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"ssh_enc_algo": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
@@ -672,6 +687,10 @@ func flattenSystemGlobalBackupToSubfoldersSga(v interface{}, d *schema.ResourceD
 	return v
 }
 
+func flattenSystemGlobalCliAuthSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemGlobalCloneNameOptionSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -697,6 +716,10 @@ func flattenSystemGlobalCreateRevisionSga(v interface{}, d *schema.ResourceData,
 }
 
 func flattenSystemGlobalDaylightsavetimeSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemGlobalDebugToolSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -937,6 +960,10 @@ func flattenSystemGlobalRpcLogSga(v interface{}, d *schema.ResourceData, pre str
 }
 
 func flattenSystemGlobalSearchAllAdomsSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemGlobalSkipIpCheckInSessionSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -1208,6 +1235,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 		}
 	}
 
+	if err = d.Set("cli_auth", flattenSystemGlobalCliAuthSga(o["cli-auth"], d, "cli_auth")); err != nil {
+		if vv, ok := fortiAPIPatch(o["cli-auth"], "SystemGlobal-CliAuth"); ok {
+			if err = d.Set("cli_auth", vv); err != nil {
+				return fmt.Errorf("Error reading cli_auth: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading cli_auth: %v", err)
+		}
+	}
+
 	if err = d.Set("clone_name_option", flattenSystemGlobalCloneNameOptionSga(o["clone-name-option"], d, "clone_name_option")); err != nil {
 		if vv, ok := fortiAPIPatch(o["clone-name-option"], "SystemGlobal-CloneNameOption"); ok {
 			if err = d.Set("clone_name_option", vv); err != nil {
@@ -1275,6 +1312,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 			}
 		} else {
 			return fmt.Errorf("Error reading daylightsavetime: %v", err)
+		}
+	}
+
+	if err = d.Set("debug_tool", flattenSystemGlobalDebugToolSga(o["debug-tool"], d, "debug_tool")); err != nil {
+		if vv, ok := fortiAPIPatch(o["debug-tool"], "SystemGlobal-DebugTool"); ok {
+			if err = d.Set("debug_tool", vv); err != nil {
+				return fmt.Errorf("Error reading debug_tool: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading debug_tool: %v", err)
 		}
 	}
 
@@ -1878,6 +1925,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 		}
 	}
 
+	if err = d.Set("skip_ip_check_in_session", flattenSystemGlobalSkipIpCheckInSessionSga(o["skip-ip-check-in-session"], d, "skip_ip_check_in_session")); err != nil {
+		if vv, ok := fortiAPIPatch(o["skip-ip-check-in-session"], "SystemGlobal-SkipIpCheckInSession"); ok {
+			if err = d.Set("skip_ip_check_in_session", vv); err != nil {
+				return fmt.Errorf("Error reading skip_ip_check_in_session: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading skip_ip_check_in_session: %v", err)
+		}
+	}
+
 	if err = d.Set("ssh_enc_algo", flattenSystemGlobalSshEncAlgoSga(o["ssh-enc-algo"], d, "ssh_enc_algo")); err != nil {
 		if vv, ok := fortiAPIPatch(o["ssh-enc-algo"], "SystemGlobal-SshEncAlgo"); ok {
 			if err = d.Set("ssh_enc_algo", vv); err != nil {
@@ -2137,6 +2194,10 @@ func expandSystemGlobalBackupToSubfoldersSga(d *schema.ResourceData, v interface
 	return v, nil
 }
 
+func expandSystemGlobalCliAuthSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemGlobalCloneNameOptionSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -2162,6 +2223,10 @@ func expandSystemGlobalCreateRevisionSga(d *schema.ResourceData, v interface{}, 
 }
 
 func expandSystemGlobalDaylightsavetimeSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemGlobalDebugToolSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -2402,6 +2467,10 @@ func expandSystemGlobalRpcLogSga(d *schema.ResourceData, v interface{}, pre stri
 }
 
 func expandSystemGlobalSearchAllAdomsSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemGlobalSkipIpCheckInSessionSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -2651,6 +2720,15 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
+	if v, ok := d.GetOk("cli_auth"); ok || d.HasChange("cli_auth") {
+		t, err := expandSystemGlobalCliAuthSga(d, v, "cli_auth")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["cli-auth"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("clone_name_option"); ok || d.HasChange("clone_name_option") {
 		t, err := expandSystemGlobalCloneNameOptionSga(d, v, "clone_name_option")
 		if err != nil {
@@ -2711,6 +2789,15 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 			return &obj, err
 		} else if t != nil {
 			obj["daylightsavetime"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("debug_tool"); ok || d.HasChange("debug_tool") {
+		t, err := expandSystemGlobalDebugToolSga(d, v, "debug_tool")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["debug-tool"] = t
 		}
 	}
 
@@ -3251,6 +3338,15 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 			return &obj, err
 		} else if t != nil {
 			obj["search-all-adoms"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("skip_ip_check_in_session"); ok || d.HasChange("skip_ip_check_in_session") {
+		t, err := expandSystemGlobalSkipIpCheckInSessionSga(d, v, "skip_ip_check_in_session")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["skip-ip-check-in-session"] = t
 		}
 	}
 

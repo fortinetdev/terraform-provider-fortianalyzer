@@ -71,6 +71,8 @@ The following arguments are supported:
 
 * `backup_to_subfolders` - Enable/disable creation of subfolders on server for backup storage. disable - Disable creation of subfolders on server for backup storage. enable - Enable creation of subfolders on server for backup storage. Valid values: `disable`, `enable`.
 
+* `cli_auth` - Cli-Auth. Valid values: `disable`, `enable`.
+
 * `clone_name_option` - set the clone object names option. default - Add a prefix of 'Clone of' to the clone name. keep - Keep the original name for user to edit. Valid values: `default`, `keep`.
 
 * `clt_cert_req` - Require client certificate for GUI login. disable - Disable setting. enable - Require client certificate for GUI login. optional - Optional client certificate for GUI login. Valid values: `disable`, `enable`, `optional`.
@@ -84,6 +86,8 @@ The following arguments are supported:
 * `create_revision` - Enable/disable create revision by default. disable - Disable create revision by default. enable - Enable create revision by default. Valid values: `disable`, `enable`.
 
 * `daylightsavetime` - Enable/disable daylight saving time. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
+
+* `debug_tool` - Debug-Tool. Valid values: `disable`, `enable`.
 
 * `default_logview_auto_completion` - Enable/disable log view filter auto-completion. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
 
@@ -178,6 +182,8 @@ The following arguments are supported:
 * `rpc_log` - Enable/Disable incoming/outgoing rpc log. disable - Disable rpc log. enable - Enable rpc log (default) Valid values: `disable`, `enable`.
 
 * `search_all_adoms` - Enable/Disable Search all ADOMs for where-used query. disable - Disable search all ADOMs for where-used queries. enable - Enable search all ADOMs for where-used queries. Valid values: `disable`, `enable`.
+
+* `skip_ip_check_in_session` - Enable/disable remote IP check for gui session. Recommend disabling this when the request&apos;s remote IP may change. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
 
 * `ssh_enc_algo` - Select one or more SSH ciphers. chacha20-poly1305@openssh.com -  aes128-ctr -  aes192-ctr -  aes256-ctr -  arcfour256 -  arcfour128 -  aes128-cbc -  3des-cbc -  blowfish-cbc -  cast128-cbc -  aes192-cbc -  aes256-cbc -  arcfour -  rijndael-cbc@lysator.liu.se -  aes128-gcm@openssh.com -  aes256-gcm@openssh.com -  Valid values: `chacha20-poly1305@openssh.com`, `aes128-ctr`, `aes192-ctr`, `aes256-ctr`, `arcfour256`, `arcfour128`, `aes128-cbc`, `3des-cbc`, `blowfish-cbc`, `cast128-cbc`, `aes192-cbc`, `aes256-cbc`, `arcfour`, `rijndael-cbc@lysator.liu.se`, `aes128-gcm@openssh.com`, `aes256-gcm@openssh.com`.
 

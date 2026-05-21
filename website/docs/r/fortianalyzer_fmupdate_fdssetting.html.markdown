@@ -127,6 +127,7 @@ The `update_schedule` block supports:
 
 * `status` - Enable/disable scheduled updates. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
 
+* `time_unitary` - Time interval between updates, or the hour and minute when the update occurs (hh: 0-23, mm: 0-59 or 60=random, default=01:00).
 * `time` - Time interval between updates, or the hour and minute when the update occurs (hh: 0 - 23, mm: 0 - 59 or 60 = random, default = 00:10).
 
 

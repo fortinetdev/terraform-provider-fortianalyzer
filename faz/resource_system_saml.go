@@ -91,6 +91,11 @@ func resourceSystemSaml() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"ha_config_sync": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"idp_cert": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -396,6 +401,10 @@ func flattenSystemSamlForticloudSsoSSa(v interface{}, d *schema.ResourceData, pr
 	return v
 }
 
+func flattenSystemSamlHaConfigSyncSSa(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemSamlIdpCertSSa(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -672,6 +681,16 @@ func refreshObjectSystemSaml(d *schema.ResourceData, o map[string]interface{}) e
 		}
 	}
 
+	if err = d.Set("ha_config_sync", flattenSystemSamlHaConfigSyncSSa(o["ha-config-sync"], d, "ha_config_sync")); err != nil {
+		if vv, ok := fortiAPIPatch(o["ha-config-sync"], "SystemSaml-HaConfigSync"); ok {
+			if err = d.Set("ha_config_sync", vv); err != nil {
+				return fmt.Errorf("Error reading ha_config_sync: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading ha_config_sync: %v", err)
+		}
+	}
+
 	if err = d.Set("idp_cert", flattenSystemSamlIdpCertSSa(o["idp-cert"], d, "idp_cert")); err != nil {
 		if vv, ok := fortiAPIPatch(o["idp-cert"], "SystemSaml-IdpCert"); ok {
 			if err = d.Set("idp_cert", vv); err != nil {
@@ -935,6 +954,10 @@ func expandSystemSamlForticloudSsoSSa(d *schema.ResourceData, v interface{}, pre
 	return v, nil
 }
 
+func expandSystemSamlHaConfigSyncSSa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemSamlIdpCertSSa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -1175,6 +1198,15 @@ func getObjectSystemSaml(d *schema.ResourceData, bemptysontable bool) (*map[stri
 			return &obj, err
 		} else if t != nil {
 			obj["forticloud-sso"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("ha_config_sync"); ok || d.HasChange("ha_config_sync") {
+		t, err := expandSystemSamlHaConfigSyncSSa(d, v, "ha_config_sync")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["ha-config-sync"] = t
 		}
 	}
 

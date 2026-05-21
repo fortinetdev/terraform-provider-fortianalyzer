@@ -44,6 +44,11 @@ func resourceFmupdateFdsSettingUpdateSchedule() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"time_unitary": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"time": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
@@ -134,6 +139,10 @@ func flattenFmupdateFdsSettingUpdateScheduleStatus(v interface{}, d *schema.Reso
 	return v
 }
 
+func flattenFmupdateFdsSettingUpdateScheduleTimeUnitary(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenFmupdateFdsSettingUpdateScheduleTime(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return flattenStringList(v)
 }
@@ -171,13 +180,27 @@ func refreshObjectFmupdateFdsSettingUpdateSchedule(d *schema.ResourceData, o map
 		}
 	}
 
-	if err = d.Set("time", flattenFmupdateFdsSettingUpdateScheduleTime(o["time"], d, "time")); err != nil {
-		if vv, ok := fortiAPIPatch(o["time"], "FmupdateFdsSettingUpdateSchedule-Time"); ok {
-			if err = d.Set("time", vv); err != nil {
+	if _, ok := o["time"].(string); ok {
+		if err = d.Set("time_unitary", flattenFmupdateFdsSettingUpdateScheduleTimeUnitary(o["time"], d, "time_unitary")); err != nil {
+			if vv, ok := fortiAPIPatch(o["time"], "FmupdateFdsSettingUpdateSchedule-TimeUnitary"); ok {
+				if err = d.Set("time_unitary", vv); err != nil {
+					return fmt.Errorf("Error reading time_unitary: %v", err)
+				}
+			} else {
+				return fmt.Errorf("Error reading time_unitary: %v", err)
+			}
+		}
+	}
+
+	if _, ok := o["time"].([]interface{}); ok {
+		if err = d.Set("time", flattenFmupdateFdsSettingUpdateScheduleTime(o["time"], d, "time")); err != nil {
+			if vv, ok := fortiAPIPatch(o["time"], "FmupdateFdsSettingUpdateSchedule-Time"); ok {
+				if err = d.Set("time", vv); err != nil {
+					return fmt.Errorf("Error reading time: %v", err)
+				}
+			} else {
 				return fmt.Errorf("Error reading time: %v", err)
 			}
-		} else {
-			return fmt.Errorf("Error reading time: %v", err)
 		}
 	}
 
@@ -199,6 +222,10 @@ func expandFmupdateFdsSettingUpdateScheduleFrequency(d *schema.ResourceData, v i
 }
 
 func expandFmupdateFdsSettingUpdateScheduleStatus(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandFmupdateFdsSettingUpdateScheduleTimeUnitary(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -233,6 +260,15 @@ func getObjectFmupdateFdsSettingUpdateSchedule(d *schema.ResourceData) (*map[str
 			return &obj, err
 		} else if t != nil {
 			obj["status"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("time_unitary"); ok || d.HasChange("time_unitary") {
+		t, err := expandFmupdateFdsSettingUpdateScheduleTimeUnitary(d, v, "time_unitary")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["time"] = t
 		}
 	}
 

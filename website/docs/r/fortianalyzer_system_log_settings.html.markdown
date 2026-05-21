@@ -42,6 +42,7 @@ The following arguments are supported:
 * `fsa_custom_field1` - Name of custom log field to index.
 * `fwb_custom_field1` - Name of custom log field to index.
 * `browse_max_logfiles` - Maximum number of log files for each log browse attempt for each Adom.
+* `client_cert_auth` - Client-Cert-Auth. The structure of `client_cert_auth` block is documented below.
 * `device_auto_detect` - Enable/Disable looking up device ID in syslog received with no encryption. disable - Disable looking up device ID in syslog received with no encryption. enable - Enable looking up device ID in syslog received with no encryption. Valid values: `disable`, `enable`.
 
 * `dns_resolve_dstip` - Enable/Disable resolving destination IP by DNS. disable - Disable resolving destination IP by DNS. enable - Enable resolving destination IP by DNS. Valid values: `disable`, `enable`.
@@ -71,6 +72,23 @@ The following arguments are supported:
 * `unencrypted_logging_udp` - Unencrypted-Logging-Udp. Valid values: `disable`, `enable`.
 
 * `unencrypted_logging` - Enable/Disable receiving syslog through UDP(514) or TCP(514) un-encrypted. disable - Disable receiving syslog through UDP(514) or TCP(514) un-encrypted. enable - Enable receiving syslog through UDP(514) or TCP(514) un-encrypted. Valid values: `disable`, `enable`.
+
+
+The `client_cert_auth` block supports:
+
+* `mode` - Mode. Valid values: `basic`, `strict`.
+
+* `tls_port` - Tls-Port. Valid values: `both`, `514`, `6514`.
+
+* `trusted_client` - Trusted-Client. The structure of `trusted_client` block is documented below.
+
+The `trusted_client` block supports:
+
+* `certificate` - Certificate.
+* `description` - Description.
+* `domain` - Domain.
+* `id` - Id.
+* `type` - Type. Valid values: `certificate`, `domain`.
 
 
 The `rolling_analyzer` block supports:
