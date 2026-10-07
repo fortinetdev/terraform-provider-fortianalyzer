@@ -29,6 +29,10 @@ func resourceSystemHa() *schema.Resource {
 		},
 
 		Schema: map[string]*schema.Schema{
+			"addr_public": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"cfg_sync_hb_interval": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
@@ -312,6 +316,10 @@ func resourceSystemHaRead(d *schema.ResourceData, m interface{}) error {
 		return fmt.Errorf("Error reading SystemHa resource from API: %v", err)
 	}
 	return nil
+}
+
+func flattenSystemHaAddrPublicSha(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
 }
 
 func flattenSystemHaCfgSyncHbIntervalSha(v interface{}, d *schema.ResourceData, pre string) interface{} {
@@ -654,6 +662,16 @@ func flattenSystemHaVipInterfaceSha(v interface{}, d *schema.ResourceData, pre s
 func refreshObjectSystemHa(d *schema.ResourceData, o map[string]interface{}) error {
 	var err error
 
+	if err = d.Set("addr_public", flattenSystemHaAddrPublicSha(o["addr-public"], d, "addr_public")); err != nil {
+		if vv, ok := fortiAPIPatch(o["addr-public"], "SystemHa-AddrPublic"); ok {
+			if err = d.Set("addr_public", vv); err != nil {
+				return fmt.Errorf("Error reading addr_public: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading addr_public: %v", err)
+		}
+	}
+
 	if err = d.Set("cfg_sync_hb_interval", flattenSystemHaCfgSyncHbIntervalSha(o["cfg-sync-hb-interval"], d, "cfg_sync_hb_interval")); err != nil {
 		if vv, ok := fortiAPIPatch(o["cfg-sync-hb-interval"], "SystemHa-CfgSyncHbInterval"); ok {
 			if err = d.Set("cfg_sync_hb_interval", vv); err != nil {
@@ -957,6 +975,10 @@ func flattenSystemHaFortiTestDebug(d *schema.ResourceData, fosdebugsn int, fosde
 	log.Printf(strconv.Itoa(fosdebugsn))
 	e := validation.IntBetween(fosdebugbeg, fosdebugend)
 	log.Printf("ER List: %v", e)
+}
+
+func expandSystemHaAddrPublicSha(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
 }
 
 func expandSystemHaCfgSyncHbIntervalSha(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
@@ -1267,6 +1289,15 @@ func expandSystemHaVipInterfaceSha(d *schema.ResourceData, v interface{}, pre st
 
 func getObjectSystemHa(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
+
+	if v, ok := d.GetOk("addr_public"); ok || d.HasChange("addr_public") {
+		t, err := expandSystemHaAddrPublicSha(d, v, "addr_public")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["addr-public"] = t
+		}
+	}
 
 	if v, ok := d.GetOk("cfg_sync_hb_interval"); ok || d.HasChange("cfg_sync_hb_interval") {
 		t, err := expandSystemHaCfgSyncHbIntervalSha(d, v, "cfg_sync_hb_interval")

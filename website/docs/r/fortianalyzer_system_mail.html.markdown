@@ -35,6 +35,10 @@ The following arguments are supported:
 * `from` - Username for MAIL FROM.
 * `fosid` - Mail Service ID.
 * `local_cert` - SMTP local certificate.
+* `oauth2_auth_scope` - Oauth2-Auth-Scope.
+* `oauth2_auth_server` - Oauth2-Auth-Server.
+* `oauth2_client_id` - Oauth2-Client-Id.
+* `oauth2_client_secret` - Oauth2-Client-Secret.
 * `passwd` - SMTP account password.
 * `port` - SMTP server port.
 * `secure_option` - Communication secure option. default - Try STARTTLS, proceed as plain text communication otherwise. none - Communication will be in plain text format. smtps - Communication will be protected by SMTPS. starttls - Communication will be protected by STARTTLS. Valid values: `default`, `none`, `smtps`, `starttls`.

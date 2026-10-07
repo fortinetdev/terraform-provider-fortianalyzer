@@ -9,6 +9,18 @@ description: |-
 # fortianalyzer_system_certificate_remote
 Remote certificate.
 
+## Example Usage
+
+```hcl
+# Supply your own PEM-encoded certificate at the referenced path.
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_system_certificate_remote" "test" {
+  cert    = [file("${path.module}/example-ca.pem")]
+  comment = "test"
+  name    = "example-remote-cert"
+}
+```
+
 ## Argument Reference
 
 

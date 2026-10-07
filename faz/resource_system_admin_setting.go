@@ -72,6 +72,21 @@ func resourceSystemAdminSetting() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"custom_session_label": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
+			"custom_session_label_mode": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
+			"ext_auth_trusthost_override": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"fgt_gui_proxy": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -310,6 +325,18 @@ func flattenSystemAdminSettingBannerMessage(v interface{}, d *schema.ResourceDat
 	return v
 }
 
+func flattenSystemAdminSettingCustomSessionLabel(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemAdminSettingCustomSessionLabelMode(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemAdminSettingExtAuthTrusthostOverride(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemAdminSettingFgtGuiProxy(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -504,6 +531,36 @@ func refreshObjectSystemAdminSetting(d *schema.ResourceData, o map[string]interf
 			}
 		} else {
 			return fmt.Errorf("Error reading banner_message: %v", err)
+		}
+	}
+
+	if err = d.Set("custom_session_label", flattenSystemAdminSettingCustomSessionLabel(o["custom-session-label"], d, "custom_session_label")); err != nil {
+		if vv, ok := fortiAPIPatch(o["custom-session-label"], "SystemAdminSetting-CustomSessionLabel"); ok {
+			if err = d.Set("custom_session_label", vv); err != nil {
+				return fmt.Errorf("Error reading custom_session_label: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading custom_session_label: %v", err)
+		}
+	}
+
+	if err = d.Set("custom_session_label_mode", flattenSystemAdminSettingCustomSessionLabelMode(o["custom-session-label-mode"], d, "custom_session_label_mode")); err != nil {
+		if vv, ok := fortiAPIPatch(o["custom-session-label-mode"], "SystemAdminSetting-CustomSessionLabelMode"); ok {
+			if err = d.Set("custom_session_label_mode", vv); err != nil {
+				return fmt.Errorf("Error reading custom_session_label_mode: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading custom_session_label_mode: %v", err)
+		}
+	}
+
+	if err = d.Set("ext_auth_trusthost_override", flattenSystemAdminSettingExtAuthTrusthostOverride(o["ext-auth-trusthost-override"], d, "ext_auth_trusthost_override")); err != nil {
+		if vv, ok := fortiAPIPatch(o["ext-auth-trusthost-override"], "SystemAdminSetting-ExtAuthTrusthostOverride"); ok {
+			if err = d.Set("ext_auth_trusthost_override", vv); err != nil {
+				return fmt.Errorf("Error reading ext_auth_trusthost_override: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading ext_auth_trusthost_override: %v", err)
 		}
 	}
 
@@ -802,6 +859,18 @@ func expandSystemAdminSettingBannerMessage(d *schema.ResourceData, v interface{}
 	return v, nil
 }
 
+func expandSystemAdminSettingCustomSessionLabel(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemAdminSettingCustomSessionLabelMode(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemAdminSettingExtAuthTrusthostOverride(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemAdminSettingFgtGuiProxy(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -987,6 +1056,33 @@ func getObjectSystemAdminSetting(d *schema.ResourceData) (*map[string]interface{
 			return &obj, err
 		} else if t != nil {
 			obj["banner-message"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("custom_session_label"); ok || d.HasChange("custom_session_label") {
+		t, err := expandSystemAdminSettingCustomSessionLabel(d, v, "custom_session_label")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["custom-session-label"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("custom_session_label_mode"); ok || d.HasChange("custom_session_label_mode") {
+		t, err := expandSystemAdminSettingCustomSessionLabelMode(d, v, "custom_session_label_mode")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["custom-session-label-mode"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("ext_auth_trusthost_override"); ok || d.HasChange("ext_auth_trusthost_override") {
+		t, err := expandSystemAdminSettingExtAuthTrusthostOverride(d, v, "ext_auth_trusthost_override")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["ext-auth-trusthost-override"] = t
 		}
 	}
 

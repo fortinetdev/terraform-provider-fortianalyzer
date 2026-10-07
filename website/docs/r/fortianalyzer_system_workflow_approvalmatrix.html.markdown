@@ -9,6 +9,15 @@ description: |-
 # fortianalyzer_system_workflow_approvalmatrix
 workflow approval matrix.
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_system_workflow_approvalmatrix" "trname" {
+  adom_name = "root"
+}
+```
+
 ## Argument Reference
 
 

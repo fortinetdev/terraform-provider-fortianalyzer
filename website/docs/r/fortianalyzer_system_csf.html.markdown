@@ -9,6 +9,16 @@ description: |-
 # fortianalyzer_system_csf
 Add this device to a Security Fabric or set up a new Security Fabric on this device.
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_system_csf" "trname" {
+  accept_auth_by_cert = "disable"
+  #upstream_confirm = "enable"
+}
+```
+
 ## Argument Reference
 
 
@@ -64,6 +74,9 @@ The `trusted_list` block supports:
 
 * `action` - Security fabric authorization action. accept - Accept authorization request. deny - Deny authorization request. Valid values: `accept`, `deny`.
 
+* `adom` - Adom. The structure of `adom` block is documented below.
+* `adom_access` - Adom-Access. Valid values: `all`, `specify`.
+
 * `authorization_type` - Authorization type. serial - Verify downstream by serial number. certificate - Verify downstream by certificate. Valid values: `serial`, `certificate`.
 
 * `certificate` - Certificate.
@@ -73,6 +86,10 @@ The `trusted_list` block supports:
 * `index` - Index of the downstream in tree.
 * `name` - Name.
 * `serial` - Serial.
+
+The `adom` block supports:
+
+* `adom_name` - Adom-Name.
 
 
 ## Attribute Reference

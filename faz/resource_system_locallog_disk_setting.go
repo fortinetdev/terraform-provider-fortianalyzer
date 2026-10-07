@@ -44,6 +44,15 @@ func resourceSystemLocallogDiskSetting() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"log_max_days": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+			},
+			"log_rate_limit": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
 			"max_log_file_num": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
@@ -224,6 +233,14 @@ func flattenSystemLocallogDiskSettingLogDiskQuota(v interface{}, d *schema.Resou
 	return v
 }
 
+func flattenSystemLocallogDiskSettingLogMaxDays(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemLocallogDiskSettingLogRateLimit(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemLocallogDiskSettingMaxLogFileNum(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -330,6 +347,26 @@ func refreshObjectSystemLocallogDiskSetting(d *schema.ResourceData, o map[string
 			}
 		} else {
 			return fmt.Errorf("Error reading log_disk_quota: %v", err)
+		}
+	}
+
+	if err = d.Set("log_max_days", flattenSystemLocallogDiskSettingLogMaxDays(o["log-max-days"], d, "log_max_days")); err != nil {
+		if vv, ok := fortiAPIPatch(o["log-max-days"], "SystemLocallogDiskSetting-LogMaxDays"); ok {
+			if err = d.Set("log_max_days", vv); err != nil {
+				return fmt.Errorf("Error reading log_max_days: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading log_max_days: %v", err)
+		}
+	}
+
+	if err = d.Set("log_rate_limit", flattenSystemLocallogDiskSettingLogRateLimit(o["log-rate-limit"], d, "log_rate_limit")); err != nil {
+		if vv, ok := fortiAPIPatch(o["log-rate-limit"], "SystemLocallogDiskSetting-LogRateLimit"); ok {
+			if err = d.Set("log_rate_limit", vv); err != nil {
+				return fmt.Errorf("Error reading log_rate_limit: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading log_rate_limit: %v", err)
 		}
 	}
 
@@ -534,6 +571,14 @@ func expandSystemLocallogDiskSettingLogDiskQuota(d *schema.ResourceData, v inter
 	return v, nil
 }
 
+func expandSystemLocallogDiskSettingLogMaxDays(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemLocallogDiskSettingLogRateLimit(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemLocallogDiskSettingMaxLogFileNum(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -637,6 +682,24 @@ func getObjectSystemLocallogDiskSetting(d *schema.ResourceData) (*map[string]int
 			return &obj, err
 		} else if t != nil {
 			obj["log-disk-quota"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("log_max_days"); ok || d.HasChange("log_max_days") {
+		t, err := expandSystemLocallogDiskSettingLogMaxDays(d, v, "log_max_days")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["log-max-days"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("log_rate_limit"); ok || d.HasChange("log_rate_limit") {
+		t, err := expandSystemLocallogDiskSettingLogRateLimit(d, v, "log_rate_limit")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["log-rate-limit"] = t
 		}
 	}
 

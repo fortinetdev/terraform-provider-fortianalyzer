@@ -52,7 +52,6 @@ func (c *FortiSDKClient) JsonGenericAPI(data string) (output string, err error) 
 
 	if err == nil {
 		output = string(body)
-		log.Printf("Successful\n")
 	}
 
 	return

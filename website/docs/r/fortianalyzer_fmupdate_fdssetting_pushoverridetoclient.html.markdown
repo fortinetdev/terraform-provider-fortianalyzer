@@ -9,6 +9,21 @@ description: |-
 # fortianalyzer_fmupdate_fdssetting_pushoverridetoclient
 Enable/disable push updates, and override the default IP address and port used by FortiGuard to send antivirus and IPS push messages for clients.
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_fmupdate_fdssetting_pushoverridetoclient" "test" {
+  # api error
+  announce_ip {
+    id   = 1
+    port = 80
+    ip   = "192.0.2.2"
+  }
+  status = "disable"
+}
+```
+
 ## Argument Reference
 
 

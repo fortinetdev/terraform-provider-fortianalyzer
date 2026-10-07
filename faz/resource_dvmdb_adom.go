@@ -173,6 +173,10 @@ func resourceDvmdbAdom() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"workflow_peradmin_install_others": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+			},
 			"workspace_mode": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
@@ -392,6 +396,10 @@ func flattenDvmdbAdomTz(v interface{}, d *schema.ResourceData, pre string) inter
 }
 
 func flattenDvmdbAdomUuid(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenDvmdbAdomWorkflowPeradminInstallOthers(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -716,6 +724,16 @@ func refreshObjectDvmdbAdom(d *schema.ResourceData, o map[string]interface{}) er
 		}
 	}
 
+	if err = d.Set("workflow_peradmin_install_others", flattenDvmdbAdomWorkflowPeradminInstallOthers(o["workflow_peradmin_install_others"], d, "workflow_peradmin_install_others")); err != nil {
+		if vv, ok := fortiAPIPatch(o["workflow_peradmin_install_others"], "DvmdbAdom-WorkflowPeradminInstallOthers"); ok {
+			if err = d.Set("workflow_peradmin_install_others", vv); err != nil {
+				return fmt.Errorf("Error reading workflow_peradmin_install_others: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading workflow_peradmin_install_others: %v", err)
+		}
+	}
+
 	if err = d.Set("workspace_mode", flattenDvmdbAdomWorkspaceMode(o["workspace_mode"], d, "workspace_mode")); err != nil {
 		if vv, ok := fortiAPIPatch(o["workspace_mode"], "DvmdbAdom-WorkspaceMode"); ok {
 			if err = d.Set("workspace_mode", vv); err != nil {
@@ -856,6 +874,10 @@ func expandDvmdbAdomTz(d *schema.ResourceData, v interface{}, pre string) (inter
 }
 
 func expandDvmdbAdomUuid(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandDvmdbAdomWorkflowPeradminInstallOthers(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -1142,6 +1164,15 @@ func getObjectDvmdbAdom(d *schema.ResourceData) (*map[string]interface{}, error)
 			return &obj, err
 		} else if t != nil {
 			obj["uuid"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("workflow_peradmin_install_others"); ok || d.HasChange("workflow_peradmin_install_others") {
+		t, err := expandDvmdbAdomWorkflowPeradminInstallOthers(d, v, "workflow_peradmin_install_others")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["workflow_peradmin_install_others"] = t
 		}
 	}
 

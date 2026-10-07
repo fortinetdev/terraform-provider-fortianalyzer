@@ -9,6 +9,17 @@ description: |-
 # fortianalyzer_system_ha_vip
 VIPs.
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_system_ha_vip" "trname" {
+  fosid         = 4
+  vip           = "192.0.2.5"
+  vip_interface = "port1"
+}
+```
+
 ## Argument Reference
 
 

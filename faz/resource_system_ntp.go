@@ -50,9 +50,19 @@ func resourceSystemNtp() *schema.Resource {
 							Sensitive: true,
 							Computed:  true,
 						},
+						"key_fmt": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+							Computed: true,
+						},
 						"key_id": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
+						},
+						"key_type": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+							Computed: true,
 						},
 						"maxpoll": &schema.Schema{
 							Type:     schema.TypeInt,
@@ -204,10 +214,22 @@ func flattenSystemNtpNtpserverSna(v interface{}, d *schema.ResourceData, pre str
 			}
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "key_fmt"
+		if _, ok := i["key-fmt"]; ok {
+			v := flattenSystemNtpNtpserverKeyFmtSna(i["key-fmt"], d, pre_append)
+			tmp["key_fmt"] = fortiAPISubPartPatch(v, "SystemNtp-Ntpserver-KeyFmt")
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "key_id"
 		if _, ok := i["key-id"]; ok {
 			v := flattenSystemNtpNtpserverKeyIdSna(i["key-id"], d, pre_append)
 			tmp["key_id"] = fortiAPISubPartPatch(v, "SystemNtp-Ntpserver-KeyId")
+		}
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "key_type"
+		if _, ok := i["key-type"]; ok {
+			v := flattenSystemNtpNtpserverKeyTypeSna(i["key-type"], d, pre_append)
+			tmp["key_type"] = fortiAPISubPartPatch(v, "SystemNtp-Ntpserver-KeyType")
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "maxpoll"
@@ -254,7 +276,15 @@ func flattenSystemNtpNtpserverKeySna(v interface{}, d *schema.ResourceData, pre 
 	return flattenStringList(v)
 }
 
+func flattenSystemNtpNtpserverKeyFmtSna(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemNtpNtpserverKeyIdSna(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemNtpNtpserverKeyTypeSna(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -369,9 +399,19 @@ func expandSystemNtpNtpserverSna(d *schema.ResourceData, v interface{}, pre stri
 			tmp["key"] = make([]string, 0)
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "key_fmt"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["key-fmt"], _ = expandSystemNtpNtpserverKeyFmtSna(d, i["key_fmt"], pre_append)
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "key_id"
 		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["key-id"], _ = expandSystemNtpNtpserverKeyIdSna(d, i["key_id"], pre_append)
+		}
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "key_type"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["key-type"], _ = expandSystemNtpNtpserverKeyTypeSna(d, i["key_type"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "maxpoll"
@@ -414,7 +454,15 @@ func expandSystemNtpNtpserverKeySna(d *schema.ResourceData, v interface{}, pre s
 	return expandStringList(v.(*schema.Set).List()), nil
 }
 
+func expandSystemNtpNtpserverKeyFmtSna(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemNtpNtpserverKeyIdSna(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemNtpNtpserverKeyTypeSna(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 

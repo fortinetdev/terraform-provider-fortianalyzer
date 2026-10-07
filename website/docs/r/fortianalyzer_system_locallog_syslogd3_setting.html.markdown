@@ -9,6 +9,23 @@ description: |-
 # fortianalyzer_system_locallog_syslogd3_setting
 Settings for remote syslog server.
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_system_locallog_syslogd3_setting" "test" {
+  # cert = "test"
+
+  csv      = "enable"
+  facility = "user"
+  # reliable = "enable"
+  severity = "debug"
+  status   = "enable"
+  # syslog_name = "Test"
+
+}
+```
+
 ## Argument Reference
 
 

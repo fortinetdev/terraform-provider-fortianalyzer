@@ -9,6 +9,26 @@ description: |-
 # fortianalyzer_system_socfabric_trustedlist
 Pre-authorized security fabric nodes
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_system_socfabric_trustedlist" "trname" {
+  fosid      = 3
+  serial     = "FAZVM00000000001"
+  depends_on = [fortianalyzer_system_socfabric.trname]
+}
+
+resource "fortianalyzer_system_socfabric" "trname" {
+  name = "socfabric"
+  # port       = 6443
+  # psk        = ["ExampleSecret123!"]
+  status     = "enable"
+  role       = "member"
+  supervisor = "192.0.2.9"
+}
+```
+
 ## Argument Reference
 
 

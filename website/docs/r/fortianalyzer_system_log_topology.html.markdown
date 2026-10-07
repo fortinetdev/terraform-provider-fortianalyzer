@@ -9,6 +9,16 @@ description: |-
 # fortianalyzer_system_log_topology
 Logging topology settings.
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_system_log_topology" "test" {
+  max_depth       = 31
+  max_depth_share = 20
+}
+```
+
 ## Argument Reference
 
 

@@ -9,6 +9,25 @@ description: |-
 # fortianalyzer_dvm_cmd_add_device
 Add a device to the Device Manager database.
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_dvm_cmd_add_device" "test" {
+  fazadom        = "root"
+  flags          = ["create_task"]
+  force_recreate = "enable"
+  device {
+    name     = "FGVM000000000001"
+    adm_pass = "ExamplePassword123!"
+    adm_usr  = "example-admin"
+    desc     = "test"
+    ip       = "192.0.2.1"
+    sn       = "FGVM000000000001"
+  }
+}
+```
+
 ## Argument Reference
 
 

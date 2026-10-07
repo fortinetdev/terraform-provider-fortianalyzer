@@ -9,6 +9,16 @@ description: |-
 # fortianalyzer_system_sql_tsindexfield
 List of SQL text search index fields.
 
+## Example Usage
+
+```hcl
+//import first: terraform import fortianalyzer_system_sql_tsindexfield.trname FGT-app-ctrl
+resource "fortianalyzer_system_sql_tsindexfield" "trname" {
+  category = "FGT-app-ctrl"
+  value    = "action,app,dstip,dstport,group,hostname,service,srcip,user"
+}
+```
+
 ## Argument Reference
 
 

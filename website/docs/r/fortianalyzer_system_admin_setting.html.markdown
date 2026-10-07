@@ -53,6 +53,12 @@ The following arguments are supported:
 * `auth_addr` - IP which is used by FGT to authorize FAZ.
 * `auth_port` - Port which is used by FGT to authorize FAZ.
 * `banner_message` - Banner message.
+* `custom_session_label` - Custom-Session-Label. Valid values: `disable`, `enable`.
+
+* `custom_session_label_mode` - Custom-Session-Label-Mode. Valid values: `changeable`, `unique-per-session`.
+
+* `ext_auth_trusthost_override` - Allow to use the trusthost in profile provided by the remote authentication server. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
+
 * `fgt_gui_proxy` - Enable/disable FortiGate GUI proxy. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
 
 * `fgt_gui_proxy_port` - FortiGate GUI proxy port.

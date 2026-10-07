@@ -13,7 +13,6 @@ import (
 ////////////////////////////////////////////////////////////////////////
 
 func createUpdate(c *FortiSDKClient, globaladom, path string, method string, params *map[string]interface{}, move bool) (output map[string]interface{}, err error) {
-	log.Printf("[INFO] Request infomation: %v, %v:    %v\n", globaladom, path, params)
 	session := ""
 	if c.Config.Auth.CleanSession {
 		session, err = c.loginSession()
@@ -42,7 +41,7 @@ func createUpdate(c *FortiSDKClient, globaladom, path string, method string, par
 		err = fmt.Errorf("cannot get response body %v", err)
 		return
 	}
-	// log.Printf("FAZ create/update response: %s", string(body))
+	log.Printf("[DEBUG] Response URL: %v (%s), JSON data: %s", computerPath(globaladom, path), method, string(body))
 
 	var result map[string]interface{}
 	json.Unmarshal([]byte(string(body)), &result)
@@ -84,7 +83,7 @@ func delete(c *FortiSDKClient, globaladom, path string, method string, move bool
 		err = fmt.Errorf("cannot get response body %v", err)
 		return
 	}
-	// log.Printf("FAZ delete response: %s", string(body))
+	log.Printf("[DEBUG] Response URL: %v (%s), JSON data: %s", computerPath(globaladom, path), method, string(body))
 
 	var result map[string]interface{}
 	json.Unmarshal([]byte(string(body)), &result)
@@ -123,7 +122,7 @@ func read(c *FortiSDKClient, globaladom, path string, method string, move bool) 
 		err = fmt.Errorf("cannot get response body %v", err)
 		return
 	}
-	log.Printf("[INFO] reading response: %s", string(body))
+	log.Printf("[DEBUG] Response URL: %v (%s), JSON data: %s", computerPath(globaladom, path), method, string(body))
 
 	var result map[string]interface{}
 	json.Unmarshal([]byte(string(body)), &result)
@@ -159,8 +158,6 @@ func encodeData(c *FortiSDKClient, globaladom, path, method, session string, par
 	paramItem := make(map[string]interface{})
 	paramItem["url"] = computerPath(globaladom, path) //"/cli/global/system/admin/setting"
 
-	log.Printf("[INFO] Request URL: %v\n", paramItem["url"])
-
 	if move == false {
 		paramItem["data"] = params
 	} else {
@@ -172,6 +169,21 @@ func encodeData(c *FortiSDKClient, globaladom, path, method, session string, par
 	v2 := make([]map[string]interface{}, 0)
 	v2 = append(v2, paramItem)
 	data["params"] = v2
+
+	logData := make(map[string]interface{}, len(data))
+	for k, v := range data {
+		if k == "session" {
+			logData[k] = "********"
+		} else {
+			logData[k] = v
+		}
+	}
+	jsonData, err := json.Marshal(logData)
+	if err != nil {
+		log.Printf("[DEBUG] Request URL: %v (%s), cannot encode JSON data: %v", paramItem["url"], method, err)
+	} else {
+		log.Printf("[DEBUG] Request URL: %v (%s), JSON data: %s", paramItem["url"], method, jsonData)
+	}
 	return data
 }
 

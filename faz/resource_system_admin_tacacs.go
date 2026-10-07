@@ -39,6 +39,14 @@ func resourceSystemAdminTacacs() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"ca_cert": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
+			"client_cert": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"key": &schema.Schema{
 				Type:      schema.TypeSet,
 				Elem:      &schema.Schema{Type: schema.TypeString},
@@ -52,6 +60,11 @@ func resourceSystemAdminTacacs() *schema.Resource {
 			},
 			"port": &schema.Schema{
 				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
+			"protocol": &schema.Schema{
+				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
@@ -185,6 +198,14 @@ func flattenSystemAdminTacacsAuthorization(v interface{}, d *schema.ResourceData
 	return v
 }
 
+func flattenSystemAdminTacacsCaCert(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemAdminTacacsClientCert(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemAdminTacacsKey(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return flattenStringList(v)
 }
@@ -194,6 +215,10 @@ func flattenSystemAdminTacacsName(v interface{}, d *schema.ResourceData, pre str
 }
 
 func flattenSystemAdminTacacsPort(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemAdminTacacsProtocol(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -244,6 +269,26 @@ func refreshObjectSystemAdminTacacs(d *schema.ResourceData, o map[string]interfa
 		}
 	}
 
+	if err = d.Set("ca_cert", flattenSystemAdminTacacsCaCert(o["ca-cert"], d, "ca_cert")); err != nil {
+		if vv, ok := fortiAPIPatch(o["ca-cert"], "SystemAdminTacacs-CaCert"); ok {
+			if err = d.Set("ca_cert", vv); err != nil {
+				return fmt.Errorf("Error reading ca_cert: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading ca_cert: %v", err)
+		}
+	}
+
+	if err = d.Set("client_cert", flattenSystemAdminTacacsClientCert(o["client-cert"], d, "client_cert")); err != nil {
+		if vv, ok := fortiAPIPatch(o["client-cert"], "SystemAdminTacacs-ClientCert"); ok {
+			if err = d.Set("client_cert", vv); err != nil {
+				return fmt.Errorf("Error reading client_cert: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading client_cert: %v", err)
+		}
+	}
+
 	if err = d.Set("name", flattenSystemAdminTacacsName(o["name"], d, "name")); err != nil {
 		if vv, ok := fortiAPIPatch(o["name"], "SystemAdminTacacs-Name"); ok {
 			if err = d.Set("name", vv); err != nil {
@@ -261,6 +306,16 @@ func refreshObjectSystemAdminTacacs(d *schema.ResourceData, o map[string]interfa
 			}
 		} else {
 			return fmt.Errorf("Error reading port: %v", err)
+		}
+	}
+
+	if err = d.Set("protocol", flattenSystemAdminTacacsProtocol(o["protocol"], d, "protocol")); err != nil {
+		if vv, ok := fortiAPIPatch(o["protocol"], "SystemAdminTacacs-Protocol"); ok {
+			if err = d.Set("protocol", vv); err != nil {
+				return fmt.Errorf("Error reading protocol: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading protocol: %v", err)
 		}
 	}
 
@@ -321,6 +376,14 @@ func expandSystemAdminTacacsAuthorization(d *schema.ResourceData, v interface{},
 	return v, nil
 }
 
+func expandSystemAdminTacacsCaCert(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemAdminTacacsClientCert(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemAdminTacacsKey(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return expandStringList(v.(*schema.Set).List()), nil
 }
@@ -330,6 +393,10 @@ func expandSystemAdminTacacsName(d *schema.ResourceData, v interface{}, pre stri
 }
 
 func expandSystemAdminTacacsPort(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemAdminTacacsProtocol(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -378,6 +445,24 @@ func getObjectSystemAdminTacacs(d *schema.ResourceData) (*map[string]interface{}
 		}
 	}
 
+	if v, ok := d.GetOk("ca_cert"); ok || d.HasChange("ca_cert") {
+		t, err := expandSystemAdminTacacsCaCert(d, v, "ca_cert")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["ca-cert"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("client_cert"); ok || d.HasChange("client_cert") {
+		t, err := expandSystemAdminTacacsClientCert(d, v, "client_cert")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["client-cert"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("key"); ok || d.HasChange("key") {
 		t, err := expandSystemAdminTacacsKey(d, v, "key")
 		if err != nil {
@@ -402,6 +487,15 @@ func getObjectSystemAdminTacacs(d *schema.ResourceData) (*map[string]interface{}
 			return &obj, err
 		} else if t != nil {
 			obj["port"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("protocol"); ok || d.HasChange("protocol") {
+		t, err := expandSystemAdminTacacsProtocol(d, v, "protocol")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["protocol"] = t
 		}
 	}
 

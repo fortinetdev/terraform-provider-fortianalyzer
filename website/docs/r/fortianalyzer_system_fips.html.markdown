@@ -12,10 +12,16 @@ Settings for FIPS-CC mode.
 ## Example Usage
 
 ```hcl
-resource "fortianalyzer_system_fips" "trname" {
+# FortiAnalyzer < 7.6.4
+resource "fortianalyzer_system_fips" "example" {
   entropy_token    = "enable"
   re_seed_interval = 1440
   status           = "disable"
+}
+
+# FortiAnalyzer >= 7.6.4
+resource "fortianalyzer_system_fips" "example" {
+  status           = "enable"
 }
 ```
 

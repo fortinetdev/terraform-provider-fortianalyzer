@@ -9,6 +9,28 @@ description: |-
 # fortianalyzer_system_log_settings_rollinglocal
 Log rolling policy for local logs.
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_system_log_settings_rollinglocal" "test" {
+  days        = ["sun", "mon", "tue"]
+  del_files   = "disable"
+  file_size   = 100
+  when        = "weekly"
+  gzip_format = "disable"
+  hour        = 2
+  # ip = "192.0.2.5"
+
+  # password = ["ExamplePassword123!"]
+
+  # port = 10
+
+  # username = "admin"
+
+}
+```
+
 ## Argument Reference
 
 

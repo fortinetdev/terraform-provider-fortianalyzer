@@ -9,6 +9,35 @@ description: |-
 # fortianalyzer_system_localinpolicy
 IPv4 local in policy configuration.
 
+## Example Usage
+
+```hcl
+# FortiAnalyzer < 7.6.4
+resource "fortianalyzer_system_localinpolicy" "trname" {
+  fosid = 99
+  intf  = "port2"
+  dst   = ["1.23.4.5", "255.255.255.0"]
+  src   = ["1.23.4.5", "255.255.255.0"]
+}
+
+# FortiAnalyzer >= 7.6.4
+resource "fortianalyzer_system_localinpolicy" "trname" {
+  fosid = 99
+
+  intf_block {
+    intf_name = "port2"
+  }
+
+  dst_block {
+    dst_ip = "1.23.4.5/24"
+  }
+
+  src_block {
+    src_ip = "1.23.4.5/24"
+  }
+}
+```
+
 ## Argument Reference
 
 

@@ -9,6 +9,17 @@ description: |-
 # fortianalyzer_system_ha_privatepeer
 Peer.
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_system_ha_privatepeer" "test" {
+  fosid         = 1
+  ip            = "192.0.2.5"
+  serial_number = "FAZVM00000000001"
+}
+```
+
 ## Argument Reference
 
 

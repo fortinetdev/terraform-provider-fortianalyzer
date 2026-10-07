@@ -43,7 +43,17 @@ func resourceSystemSaml() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"custom_sp_entity_id": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"default_profile": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
+			"digest_method": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
@@ -100,9 +110,19 @@ func resourceSystemSaml() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"idp_digest_method": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"idp_entity_id": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
+			},
+			"idp_signature_algorithm": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
 			},
 			"idp_single_logout_url": &schema.Schema{
 				Type:     schema.TypeString,
@@ -187,6 +207,11 @@ func resourceSystemSaml() *schema.Resource {
 						},
 					},
 				},
+			},
+			"signature_algorithm": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
 			},
 			"sls_url": &schema.Schema{
 				Type:     schema.TypeString,
@@ -302,7 +327,15 @@ func flattenSystemSamlCertSSa(v interface{}, d *schema.ResourceData, pre string)
 	return v
 }
 
+func flattenSystemSamlCustomSpEntityIdSSa(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemSamlDefaultProfileSSa(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemSamlDigestMethodSSa(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -409,7 +442,15 @@ func flattenSystemSamlIdpCertSSa(v interface{}, d *schema.ResourceData, pre stri
 	return v
 }
 
+func flattenSystemSamlIdpDigestMethodSSa(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemSamlIdpEntityIdSSa(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemSamlIdpSignatureAlgorithmSSa(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -578,6 +619,10 @@ func flattenSystemSamlServiceProvidersSpSingleSignOnUrlSSa(v interface{}, d *sch
 	return v
 }
 
+func flattenSystemSamlSignatureAlgorithmSSa(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemSamlSlsUrlSSa(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -627,6 +672,16 @@ func refreshObjectSystemSaml(d *schema.ResourceData, o map[string]interface{}) e
 		}
 	}
 
+	if err = d.Set("custom_sp_entity_id", flattenSystemSamlCustomSpEntityIdSSa(o["custom-sp-entity-id"], d, "custom_sp_entity_id")); err != nil {
+		if vv, ok := fortiAPIPatch(o["custom-sp-entity-id"], "SystemSaml-CustomSpEntityId"); ok {
+			if err = d.Set("custom_sp_entity_id", vv); err != nil {
+				return fmt.Errorf("Error reading custom_sp_entity_id: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading custom_sp_entity_id: %v", err)
+		}
+	}
+
 	if err = d.Set("default_profile", flattenSystemSamlDefaultProfileSSa(o["default-profile"], d, "default_profile")); err != nil {
 		if vv, ok := fortiAPIPatch(o["default-profile"], "SystemSaml-DefaultProfile"); ok {
 			if err = d.Set("default_profile", vv); err != nil {
@@ -634,6 +689,16 @@ func refreshObjectSystemSaml(d *schema.ResourceData, o map[string]interface{}) e
 			}
 		} else {
 			return fmt.Errorf("Error reading default_profile: %v", err)
+		}
+	}
+
+	if err = d.Set("digest_method", flattenSystemSamlDigestMethodSSa(o["digest-method"], d, "digest_method")); err != nil {
+		if vv, ok := fortiAPIPatch(o["digest-method"], "SystemSaml-DigestMethod"); ok {
+			if err = d.Set("digest_method", vv); err != nil {
+				return fmt.Errorf("Error reading digest_method: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading digest_method: %v", err)
 		}
 	}
 
@@ -701,6 +766,16 @@ func refreshObjectSystemSaml(d *schema.ResourceData, o map[string]interface{}) e
 		}
 	}
 
+	if err = d.Set("idp_digest_method", flattenSystemSamlIdpDigestMethodSSa(o["idp-digest-method"], d, "idp_digest_method")); err != nil {
+		if vv, ok := fortiAPIPatch(o["idp-digest-method"], "SystemSaml-IdpDigestMethod"); ok {
+			if err = d.Set("idp_digest_method", vv); err != nil {
+				return fmt.Errorf("Error reading idp_digest_method: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading idp_digest_method: %v", err)
+		}
+	}
+
 	if err = d.Set("idp_entity_id", flattenSystemSamlIdpEntityIdSSa(o["idp-entity-id"], d, "idp_entity_id")); err != nil {
 		if vv, ok := fortiAPIPatch(o["idp-entity-id"], "SystemSaml-IdpEntityId"); ok {
 			if err = d.Set("idp_entity_id", vv); err != nil {
@@ -708,6 +783,16 @@ func refreshObjectSystemSaml(d *schema.ResourceData, o map[string]interface{}) e
 			}
 		} else {
 			return fmt.Errorf("Error reading idp_entity_id: %v", err)
+		}
+	}
+
+	if err = d.Set("idp_signature_algorithm", flattenSystemSamlIdpSignatureAlgorithmSSa(o["idp-signature-algorithm"], d, "idp_signature_algorithm")); err != nil {
+		if vv, ok := fortiAPIPatch(o["idp-signature-algorithm"], "SystemSaml-IdpSignatureAlgorithm"); ok {
+			if err = d.Set("idp_signature_algorithm", vv); err != nil {
+				return fmt.Errorf("Error reading idp_signature_algorithm: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading idp_signature_algorithm: %v", err)
 		}
 	}
 
@@ -805,6 +890,16 @@ func refreshObjectSystemSaml(d *schema.ResourceData, o map[string]interface{}) e
 		}
 	}
 
+	if err = d.Set("signature_algorithm", flattenSystemSamlSignatureAlgorithmSSa(o["signature-algorithm"], d, "signature_algorithm")); err != nil {
+		if vv, ok := fortiAPIPatch(o["signature-algorithm"], "SystemSaml-SignatureAlgorithm"); ok {
+			if err = d.Set("signature_algorithm", vv); err != nil {
+				return fmt.Errorf("Error reading signature_algorithm: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading signature_algorithm: %v", err)
+		}
+	}
+
 	if err = d.Set("sls_url", flattenSystemSamlSlsUrlSSa(o["sls-url"], d, "sls_url")); err != nil {
 		if vv, ok := fortiAPIPatch(o["sls-url"], "SystemSaml-SlsUrl"); ok {
 			if err = d.Set("sls_url", vv); err != nil {
@@ -866,7 +961,15 @@ func expandSystemSamlCertSSa(d *schema.ResourceData, v interface{}, pre string) 
 	return v, nil
 }
 
+func expandSystemSamlCustomSpEntityIdSSa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemSamlDefaultProfileSSa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemSamlDigestMethodSSa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -962,7 +1065,15 @@ func expandSystemSamlIdpCertSSa(d *schema.ResourceData, v interface{}, pre strin
 	return v, nil
 }
 
+func expandSystemSamlIdpDigestMethodSSa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemSamlIdpEntityIdSSa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemSamlIdpSignatureAlgorithmSSa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -1115,6 +1226,10 @@ func expandSystemSamlServiceProvidersSpSingleSignOnUrlSSa(d *schema.ResourceData
 	return v, nil
 }
 
+func expandSystemSamlSignatureAlgorithmSSa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemSamlSlsUrlSSa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -1161,12 +1276,30 @@ func getObjectSystemSaml(d *schema.ResourceData, bemptysontable bool) (*map[stri
 		}
 	}
 
+	if v, ok := d.GetOk("custom_sp_entity_id"); ok || d.HasChange("custom_sp_entity_id") {
+		t, err := expandSystemSamlCustomSpEntityIdSSa(d, v, "custom_sp_entity_id")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["custom-sp-entity-id"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("default_profile"); ok || d.HasChange("default_profile") {
 		t, err := expandSystemSamlDefaultProfileSSa(d, v, "default_profile")
 		if err != nil {
 			return &obj, err
 		} else if t != nil {
 			obj["default-profile"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("digest_method"); ok || d.HasChange("digest_method") {
+		t, err := expandSystemSamlDigestMethodSSa(d, v, "digest_method")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["digest-method"] = t
 		}
 	}
 
@@ -1219,12 +1352,30 @@ func getObjectSystemSaml(d *schema.ResourceData, bemptysontable bool) (*map[stri
 		}
 	}
 
+	if v, ok := d.GetOk("idp_digest_method"); ok || d.HasChange("idp_digest_method") {
+		t, err := expandSystemSamlIdpDigestMethodSSa(d, v, "idp_digest_method")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["idp-digest-method"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("idp_entity_id"); ok || d.HasChange("idp_entity_id") {
 		t, err := expandSystemSamlIdpEntityIdSSa(d, v, "idp_entity_id")
 		if err != nil {
 			return &obj, err
 		} else if t != nil {
 			obj["idp-entity-id"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("idp_signature_algorithm"); ok || d.HasChange("idp_signature_algorithm") {
+		t, err := expandSystemSamlIdpSignatureAlgorithmSSa(d, v, "idp_signature_algorithm")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["idp-signature-algorithm"] = t
 		}
 	}
 
@@ -1301,6 +1452,15 @@ func getObjectSystemSaml(d *schema.ResourceData, bemptysontable bool) (*map[stri
 			} else if t != nil {
 				obj["service-providers"] = t
 			}
+		}
+	}
+
+	if v, ok := d.GetOk("signature_algorithm"); ok || d.HasChange("signature_algorithm") {
+		t, err := expandSystemSamlSignatureAlgorithmSSa(d, v, "signature_algorithm")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["signature-algorithm"] = t
 		}
 	}
 

@@ -9,6 +9,15 @@ description: |-
 # fortianalyzer_dvmdb_group
 Device group table.
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_dvmdb_group" "test" {
+  name = "example-group"
+}
+```
+
 ## Argument Reference
 
 

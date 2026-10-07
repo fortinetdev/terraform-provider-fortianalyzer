@@ -9,6 +9,51 @@ description: |-
 # fortianalyzer_system_locallog_fortianalyzer3_filter
 Filter for FortiAnalyzer3 logging.
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_system_locallog_fortianalyzer3_filter" "test" {
+  # aid        = "disable"
+  # devcfg     = "disable"
+  # devops     = "disable"
+  # diskquota  = "disable"
+  # dm         = "disable"
+  # docker     = "disable"
+  # dvm        = "disable"
+  ediscovery = "disable"
+  epmgr      = "disable"
+  event      = "disable"
+  # eventmgmt  = "disable"
+  # faz        = "disable"
+  # fazha      = "disable"
+  # fazsys     = "disable"
+  # fgd        = "disable"
+  # fgfm       = "disable"
+  # fips       = "disable"
+  # fmgws      = "disable"
+  # fmlmgr     = "disable"
+  # fmwmgr     = "disable"
+  # fortiview  = "disable"
+  # glbcfg     = "disable"
+  # ha         = "disable"
+  # hcache     = "disable"
+  # incident   = "disable"
+  # iolog      = "disable"
+  # logd       = "disable"
+  # logdb      = "disable"
+  # logdev     = "disable"
+  # logging    = "disable"
+  # report     = "disable"
+  # rev        = "disable"
+  # rtmon      = "disable"
+  # scfw       = "disable"
+  # scrmgr     = "disable"
+  # scvpn      = "disable"
+  system = "disable"
+}
+```
+
 ## Argument Reference
 
 
@@ -41,6 +86,8 @@ The following arguments are supported:
 
 * `faz` - Log Fortianalyzer messages. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
 
+* `fazfabric` - Fazfabric. Valid values: `disable`, `enable`.
+
 * `fazha` - Log Fortianalyzer HA messages. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
 
 * `fazsys` - Log Fortianalyzer system messages. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
@@ -57,6 +104,8 @@ The following arguments are supported:
 
 * `fmwmgr` - Log firmware manager message. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
 
+* `fortism` - Fortism. Valid values: `disable`, `enable`.
+
 * `fortiview` - Log Fortianalyzer FortiView messages. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
 
 * `glbcfg` - Log global database message. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
@@ -64,6 +113,8 @@ The following arguments are supported:
 * `ha` - Log HA message. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
 
 * `hcache` - Log Fortianalyzer hcache messages. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
+
+* `http` - Http. Valid values: `disable`, `enable`.
 
 * `incident` - Log Fortianalyzer incident messages. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
 

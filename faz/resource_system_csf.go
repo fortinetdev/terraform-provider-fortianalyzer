@@ -154,6 +154,23 @@ func resourceSystemCsf() *schema.Resource {
 							Optional: true,
 							Computed: true,
 						},
+						"adom": &schema.Schema{
+							Type:     schema.TypeList,
+							Optional: true,
+							Elem: &schema.Resource{
+								Schema: map[string]*schema.Schema{
+									"adom_name": &schema.Schema{
+										Type:     schema.TypeString,
+										Optional: true,
+									},
+								},
+							},
+						},
+						"adom_access": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+							Computed: true,
+						},
 						"authorization_type": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
@@ -436,6 +453,18 @@ func flattenSystemCsfTrustedList(v interface{}, d *schema.ResourceData, pre stri
 			tmp["action"] = fortiAPISubPartPatch(v, "SystemCsf-TrustedList-Action")
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "adom"
+		if _, ok := i["adom"]; ok {
+			v := flattenSystemCsfTrustedListAdom(i["adom"], d, pre_append)
+			tmp["adom"] = fortiAPISubPartPatch(v, "SystemCsf-TrustedList-Adom")
+		}
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "adom_access"
+		if _, ok := i["adom-access"]; ok {
+			v := flattenSystemCsfTrustedListAdomAccess(i["adom-access"], d, pre_append)
+			tmp["adom_access"] = fortiAPISubPartPatch(v, "SystemCsf-TrustedList-AdomAccess")
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "authorization_type"
 		if _, ok := i["authorization-type"]; ok {
 			v := flattenSystemCsfTrustedListAuthorizationType(i["authorization-type"], d, pre_append)
@@ -487,6 +516,47 @@ func flattenSystemCsfTrustedList(v interface{}, d *schema.ResourceData, pre stri
 }
 
 func flattenSystemCsfTrustedListAction(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemCsfTrustedListAdom(v interface{}, d *schema.ResourceData, pre string) []map[string]interface{} {
+	if v == nil {
+		return nil
+	}
+
+	l := v.([]interface{})
+	if len(l) == 0 || l[0] == nil {
+		return nil
+	}
+
+	result := make([]map[string]interface{}, 0, len(l))
+
+	con := 0
+	for _, r := range l {
+		tmp := make(map[string]interface{})
+		i := r.(map[string]interface{})
+
+		pre_append := "" // table
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "adom_name"
+		if _, ok := i["adom-name"]; ok {
+			v := flattenSystemCsfTrustedListAdomAdomName(i["adom-name"], d, pre_append)
+			tmp["adom_name"] = fortiAPISubPartPatch(v, "SystemCsfTrustedList-Adom-AdomName")
+		}
+
+		result = append(result, tmp)
+
+		con += 1
+	}
+
+	return result
+}
+
+func flattenSystemCsfTrustedListAdomAdomName(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemCsfTrustedListAdomAccess(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -934,6 +1004,18 @@ func expandSystemCsfTrustedList(d *schema.ResourceData, v interface{}, pre strin
 			tmp["action"], _ = expandSystemCsfTrustedListAction(d, i["action"], pre_append)
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "adom"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["adom"], _ = expandSystemCsfTrustedListAdom(d, i["adom"], pre_append)
+		} else {
+			tmp["adom"] = make([]string, 0)
+		}
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "adom_access"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["adom-access"], _ = expandSystemCsfTrustedListAdomAccess(d, i["adom_access"], pre_append)
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "authorization_type"
 		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["authorization-type"], _ = expandSystemCsfTrustedListAuthorizationType(d, i["authorization_type"], pre_append)
@@ -978,6 +1060,41 @@ func expandSystemCsfTrustedList(d *schema.ResourceData, v interface{}, pre strin
 }
 
 func expandSystemCsfTrustedListAction(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemCsfTrustedListAdom(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	l := v.([]interface{})
+	if len(l) == 0 || l[0] == nil {
+		return nil, nil
+	}
+
+	result := make([]map[string]interface{}, 0, len(l))
+
+	con := 0
+	for _, r := range l {
+		tmp := make(map[string]interface{})
+		i := r.(map[string]interface{})
+		pre_append := "" // table
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "adom_name"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["adom-name"], _ = expandSystemCsfTrustedListAdomAdomName(d, i["adom_name"], pre_append)
+		}
+
+		result = append(result, tmp)
+
+		con += 1
+	}
+
+	return result, nil
+}
+
+func expandSystemCsfTrustedListAdomAdomName(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemCsfTrustedListAdomAccess(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 

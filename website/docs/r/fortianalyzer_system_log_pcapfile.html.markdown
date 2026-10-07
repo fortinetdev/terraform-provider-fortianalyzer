@@ -9,6 +9,16 @@ description: |-
 # fortianalyzer_system_log_pcapfile
 Log pcap-file settings.
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_system_log_pcapfile" "trname" {
+  download_mode = "plain"
+
+}
+```
+
 ## Argument Reference
 
 

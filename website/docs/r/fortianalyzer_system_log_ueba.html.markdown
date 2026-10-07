@@ -9,6 +9,16 @@ description: |-
 # fortianalyzer_system_log_ueba
 UEBAsettings.
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_system_log_ueba" "test" {
+  ip_only_ep      = "enable"
+  ip_unique_scope = "adom"
+}
+```
+
 ## Argument Reference
 
 

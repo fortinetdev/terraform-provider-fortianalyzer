@@ -32,9 +32,13 @@ The following arguments are supported:
 
 * `authorization` - Enable/disable TACACS+ authorization. disable - Disable TACACS+ authorization. enable - Enable TACACS+ authorization (service = fortigate). Valid values: `disable`, `enable`.
 
+* `ca_cert` - CA of server certificate.
+* `client_cert` - Client certificate.
 * `key` - <password_str> key to access server.
 * `name` - TACACS+ server entry name.
 * `port` - Port number of TACACS+ server.
+* `protocol` - Transport protocol. tcp - TCP (default). tls - TLS over TCP. Valid values: `tcp`, `tls`.
+
 * `secondary_key` - <password_str> key to access secondary server.
 * `secondary_server` - {<name_str|ip_str>} secondary server domain name or IP.
 * `server` - {<name_str|ip_str>} server domain name or IP.

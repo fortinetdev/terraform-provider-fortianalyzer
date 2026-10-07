@@ -68,6 +68,16 @@ func resourceSystemGlobal() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"ai_mode": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
+			"apache_keepalive_timeout": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
 			"apache_mode": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -94,6 +104,11 @@ func resourceSystemGlobal() *schema.Resource {
 				Computed: true,
 			},
 			"backup_to_subfolders": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
+			"bkup_mode_shared_objs": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
@@ -247,6 +262,21 @@ func resourceSystemGlobal() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"gui_max_objects_per_row": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
+			"gui_object_protect": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
+			"gui_object_search": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"gui_polling_interval": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
@@ -258,6 +288,11 @@ func resourceSystemGlobal() *schema.Resource {
 				Computed: true,
 			},
 			"hostname": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
+			"http_extended_log": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
@@ -538,8 +573,28 @@ func resourceSystemGlobal() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"usb_port": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"usg": &schema.Schema{
 				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
+			"webwork_job_timeout": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
+			"webwork_max_processes": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
+			"vm_swappiness": &schema.Schema{
+				Type:     schema.TypeInt,
 				Optional: true,
 				Computed: true,
 			},
@@ -663,6 +718,14 @@ func flattenSystemGlobalAdomStatusSga(v interface{}, d *schema.ResourceData, pre
 	return v
 }
 
+func flattenSystemGlobalAiModeSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemGlobalApacheKeepaliveTimeoutSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemGlobalApacheModeSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -684,6 +747,10 @@ func flattenSystemGlobalBackupCompressionSga(v interface{}, d *schema.ResourceDa
 }
 
 func flattenSystemGlobalBackupToSubfoldersSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemGlobalBkupModeSharedObjsSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -807,6 +874,18 @@ func flattenSystemGlobalGuiInstallPreviewConcurrencySga(v interface{}, d *schema
 	return v
 }
 
+func flattenSystemGlobalGuiMaxObjectsPerRowSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemGlobalGuiObjectProtectSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemGlobalGuiObjectSearchSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemGlobalGuiPollingIntervalSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -816,6 +895,10 @@ func flattenSystemGlobalHaMemberAutoGroupingSga(v interface{}, d *schema.Resourc
 }
 
 func flattenSystemGlobalHostnameSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemGlobalHttpExtendedLogSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -1080,7 +1163,23 @@ func flattenSystemGlobalTunnelMtuSga(v interface{}, d *schema.ResourceData, pre 
 	return v
 }
 
+func flattenSystemGlobalUsbPortSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemGlobalUsgSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemGlobalWebworkJobTimeoutSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemGlobalWebworkMaxProcessesSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemGlobalVmSwappinessSga(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -1175,6 +1274,26 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 		}
 	}
 
+	if err = d.Set("ai_mode", flattenSystemGlobalAiModeSga(o["ai-mode"], d, "ai_mode")); err != nil {
+		if vv, ok := fortiAPIPatch(o["ai-mode"], "SystemGlobal-AiMode"); ok {
+			if err = d.Set("ai_mode", vv); err != nil {
+				return fmt.Errorf("Error reading ai_mode: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading ai_mode: %v", err)
+		}
+	}
+
+	if err = d.Set("apache_keepalive_timeout", flattenSystemGlobalApacheKeepaliveTimeoutSga(o["apache-keepalive-timeout"], d, "apache_keepalive_timeout")); err != nil {
+		if vv, ok := fortiAPIPatch(o["apache-keepalive-timeout"], "SystemGlobal-ApacheKeepaliveTimeout"); ok {
+			if err = d.Set("apache_keepalive_timeout", vv); err != nil {
+				return fmt.Errorf("Error reading apache_keepalive_timeout: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading apache_keepalive_timeout: %v", err)
+		}
+	}
+
 	if err = d.Set("apache_mode", flattenSystemGlobalApacheModeSga(o["apache-mode"], d, "apache_mode")); err != nil {
 		if vv, ok := fortiAPIPatch(o["apache-mode"], "SystemGlobal-ApacheMode"); ok {
 			if err = d.Set("apache_mode", vv); err != nil {
@@ -1232,6 +1351,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 			}
 		} else {
 			return fmt.Errorf("Error reading backup_to_subfolders: %v", err)
+		}
+	}
+
+	if err = d.Set("bkup_mode_shared_objs", flattenSystemGlobalBkupModeSharedObjsSga(o["bkup-mode-shared-objs"], d, "bkup_mode_shared_objs")); err != nil {
+		if vv, ok := fortiAPIPatch(o["bkup-mode-shared-objs"], "SystemGlobal-BkupModeSharedObjs"); ok {
+			if err = d.Set("bkup_mode_shared_objs", vv); err != nil {
+				return fmt.Errorf("Error reading bkup_mode_shared_objs: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading bkup_mode_shared_objs: %v", err)
 		}
 	}
 
@@ -1535,6 +1664,36 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 		}
 	}
 
+	if err = d.Set("gui_max_objects_per_row", flattenSystemGlobalGuiMaxObjectsPerRowSga(o["gui-max-objects-per-row"], d, "gui_max_objects_per_row")); err != nil {
+		if vv, ok := fortiAPIPatch(o["gui-max-objects-per-row"], "SystemGlobal-GuiMaxObjectsPerRow"); ok {
+			if err = d.Set("gui_max_objects_per_row", vv); err != nil {
+				return fmt.Errorf("Error reading gui_max_objects_per_row: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading gui_max_objects_per_row: %v", err)
+		}
+	}
+
+	if err = d.Set("gui_object_protect", flattenSystemGlobalGuiObjectProtectSga(o["gui-object-protect"], d, "gui_object_protect")); err != nil {
+		if vv, ok := fortiAPIPatch(o["gui-object-protect"], "SystemGlobal-GuiObjectProtect"); ok {
+			if err = d.Set("gui_object_protect", vv); err != nil {
+				return fmt.Errorf("Error reading gui_object_protect: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading gui_object_protect: %v", err)
+		}
+	}
+
+	if err = d.Set("gui_object_search", flattenSystemGlobalGuiObjectSearchSga(o["gui-object-search"], d, "gui_object_search")); err != nil {
+		if vv, ok := fortiAPIPatch(o["gui-object-search"], "SystemGlobal-GuiObjectSearch"); ok {
+			if err = d.Set("gui_object_search", vv); err != nil {
+				return fmt.Errorf("Error reading gui_object_search: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading gui_object_search: %v", err)
+		}
+	}
+
 	if err = d.Set("gui_polling_interval", flattenSystemGlobalGuiPollingIntervalSga(o["gui-polling-interval"], d, "gui_polling_interval")); err != nil {
 		if vv, ok := fortiAPIPatch(o["gui-polling-interval"], "SystemGlobal-GuiPollingInterval"); ok {
 			if err = d.Set("gui_polling_interval", vv); err != nil {
@@ -1562,6 +1721,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 			}
 		} else {
 			return fmt.Errorf("Error reading hostname: %v", err)
+		}
+	}
+
+	if err = d.Set("http_extended_log", flattenSystemGlobalHttpExtendedLogSga(o["http-extended-log"], d, "http_extended_log")); err != nil {
+		if vv, ok := fortiAPIPatch(o["http-extended-log"], "SystemGlobal-HttpExtendedLog"); ok {
+			if err = d.Set("http_extended_log", vv); err != nil {
+				return fmt.Errorf("Error reading http_extended_log: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading http_extended_log: %v", err)
 		}
 	}
 
@@ -2099,6 +2268,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 		}
 	}
 
+	if err = d.Set("usb_port", flattenSystemGlobalUsbPortSga(o["usb-port"], d, "usb_port")); err != nil {
+		if vv, ok := fortiAPIPatch(o["usb-port"], "SystemGlobal-UsbPort"); ok {
+			if err = d.Set("usb_port", vv); err != nil {
+				return fmt.Errorf("Error reading usb_port: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading usb_port: %v", err)
+		}
+	}
+
 	if err = d.Set("usg", flattenSystemGlobalUsgSga(o["usg"], d, "usg")); err != nil {
 		if vv, ok := fortiAPIPatch(o["usg"], "SystemGlobal-Usg"); ok {
 			if err = d.Set("usg", vv); err != nil {
@@ -2106,6 +2285,36 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 			}
 		} else {
 			return fmt.Errorf("Error reading usg: %v", err)
+		}
+	}
+
+	if err = d.Set("webwork_job_timeout", flattenSystemGlobalWebworkJobTimeoutSga(o["webwork-job-timeout"], d, "webwork_job_timeout")); err != nil {
+		if vv, ok := fortiAPIPatch(o["webwork-job-timeout"], "SystemGlobal-WebworkJobTimeout"); ok {
+			if err = d.Set("webwork_job_timeout", vv); err != nil {
+				return fmt.Errorf("Error reading webwork_job_timeout: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading webwork_job_timeout: %v", err)
+		}
+	}
+
+	if err = d.Set("webwork_max_processes", flattenSystemGlobalWebworkMaxProcessesSga(o["webwork-max-processes"], d, "webwork_max_processes")); err != nil {
+		if vv, ok := fortiAPIPatch(o["webwork-max-processes"], "SystemGlobal-WebworkMaxProcesses"); ok {
+			if err = d.Set("webwork_max_processes", vv); err != nil {
+				return fmt.Errorf("Error reading webwork_max_processes: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading webwork_max_processes: %v", err)
+		}
+	}
+
+	if err = d.Set("vm_swappiness", flattenSystemGlobalVmSwappinessSga(o["vm-swappiness"], d, "vm_swappiness")); err != nil {
+		if vv, ok := fortiAPIPatch(o["vm-swappiness"], "SystemGlobal-VmSwappiness"); ok {
+			if err = d.Set("vm_swappiness", vv); err != nil {
+				return fmt.Errorf("Error reading vm_swappiness: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading vm_swappiness: %v", err)
 		}
 	}
 
@@ -2170,6 +2379,14 @@ func expandSystemGlobalAdomStatusSga(d *schema.ResourceData, v interface{}, pre 
 	return v, nil
 }
 
+func expandSystemGlobalAiModeSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemGlobalApacheKeepaliveTimeoutSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemGlobalApacheModeSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -2191,6 +2408,10 @@ func expandSystemGlobalBackupCompressionSga(d *schema.ResourceData, v interface{
 }
 
 func expandSystemGlobalBackupToSubfoldersSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemGlobalBkupModeSharedObjsSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -2314,6 +2535,18 @@ func expandSystemGlobalGuiInstallPreviewConcurrencySga(d *schema.ResourceData, v
 	return v, nil
 }
 
+func expandSystemGlobalGuiMaxObjectsPerRowSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemGlobalGuiObjectProtectSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemGlobalGuiObjectSearchSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemGlobalGuiPollingIntervalSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -2323,6 +2556,10 @@ func expandSystemGlobalHaMemberAutoGroupingSga(d *schema.ResourceData, v interfa
 }
 
 func expandSystemGlobalHostnameSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemGlobalHttpExtendedLogSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -2579,7 +2816,23 @@ func expandSystemGlobalTunnelMtuSga(d *schema.ResourceData, v interface{}, pre s
 	return v, nil
 }
 
+func expandSystemGlobalUsbPortSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemGlobalUsgSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemGlobalWebworkJobTimeoutSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemGlobalWebworkMaxProcessesSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemGlobalVmSwappinessSga(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -2666,6 +2919,24 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
+	if v, ok := d.GetOk("ai_mode"); ok || d.HasChange("ai_mode") {
+		t, err := expandSystemGlobalAiModeSga(d, v, "ai_mode")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["ai-mode"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("apache_keepalive_timeout"); ok || d.HasChange("apache_keepalive_timeout") {
+		t, err := expandSystemGlobalApacheKeepaliveTimeoutSga(d, v, "apache_keepalive_timeout")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["apache-keepalive-timeout"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("apache_mode"); ok || d.HasChange("apache_mode") {
 		t, err := expandSystemGlobalApacheModeSga(d, v, "apache_mode")
 		if err != nil {
@@ -2717,6 +2988,15 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 			return &obj, err
 		} else if t != nil {
 			obj["backup-to-subfolders"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("bkup_mode_shared_objs"); ok || d.HasChange("bkup_mode_shared_objs") {
+		t, err := expandSystemGlobalBkupModeSharedObjsSga(d, v, "bkup_mode_shared_objs")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["bkup-mode-shared-objs"] = t
 		}
 	}
 
@@ -2990,6 +3270,33 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
+	if v, ok := d.GetOk("gui_max_objects_per_row"); ok || d.HasChange("gui_max_objects_per_row") {
+		t, err := expandSystemGlobalGuiMaxObjectsPerRowSga(d, v, "gui_max_objects_per_row")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["gui-max-objects-per-row"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("gui_object_protect"); ok || d.HasChange("gui_object_protect") {
+		t, err := expandSystemGlobalGuiObjectProtectSga(d, v, "gui_object_protect")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["gui-object-protect"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("gui_object_search"); ok || d.HasChange("gui_object_search") {
+		t, err := expandSystemGlobalGuiObjectSearchSga(d, v, "gui_object_search")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["gui-object-search"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("gui_polling_interval"); ok || d.HasChange("gui_polling_interval") {
 		t, err := expandSystemGlobalGuiPollingIntervalSga(d, v, "gui_polling_interval")
 		if err != nil {
@@ -3014,6 +3321,15 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 			return &obj, err
 		} else if t != nil {
 			obj["hostname"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("http_extended_log"); ok || d.HasChange("http_extended_log") {
+		t, err := expandSystemGlobalHttpExtendedLogSga(d, v, "http_extended_log")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["http-extended-log"] = t
 		}
 	}
 
@@ -3485,12 +3801,48 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
+	if v, ok := d.GetOk("usb_port"); ok || d.HasChange("usb_port") {
+		t, err := expandSystemGlobalUsbPortSga(d, v, "usb_port")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["usb-port"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("usg"); ok || d.HasChange("usg") {
 		t, err := expandSystemGlobalUsgSga(d, v, "usg")
 		if err != nil {
 			return &obj, err
 		} else if t != nil {
 			obj["usg"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("webwork_job_timeout"); ok || d.HasChange("webwork_job_timeout") {
+		t, err := expandSystemGlobalWebworkJobTimeoutSga(d, v, "webwork_job_timeout")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["webwork-job-timeout"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("webwork_max_processes"); ok || d.HasChange("webwork_max_processes") {
+		t, err := expandSystemGlobalWebworkMaxProcessesSga(d, v, "webwork_max_processes")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["webwork-max-processes"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("vm_swappiness"); ok || d.HasChange("vm_swappiness") {
+		t, err := expandSystemGlobalVmSwappinessSga(d, v, "vm_swappiness")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["vm-swappiness"] = t
 		}
 	}
 

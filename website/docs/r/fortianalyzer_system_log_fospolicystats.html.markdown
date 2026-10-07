@@ -9,6 +9,15 @@ description: |-
 # fortianalyzer_system_log_fospolicystats
 FortiOS policy statistics settings.
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_system_log_fospolicystats" "test" {
+  status = "disable"
+}
+```
+
 ## Argument Reference
 
 

@@ -9,6 +9,19 @@ description: |-
 # fortianalyzer_system_sql_customskipidx
 List of aditional SQL skip index fields.
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+# conflict with sql
+resource "fortianalyzer_system_sql_customskipidx" "test" {
+  device_type = "FortiManager"
+  fosid       = 2
+  index_field = "state"
+  log_type    = "event"
+}
+```
+
 ## Argument Reference
 
 

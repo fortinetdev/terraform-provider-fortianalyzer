@@ -5475,6 +5475,115 @@ func (c *FortiSDKClient) ReadSystemMetadataAdmins(globaladom, mkey string, paral
 }
 
 
+// UpdateSystemMlflow API operation for FortiAnalyzer updates the specified Mlflow.
+// Returns the index value of the Mlflow and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - mlflow chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateSystemMlflow(params *map[string]interface{}, globaladom, mkey string, paralist []string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/system/mlflow"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+
+	output, err = createUpdate(c, globaladom, path, "set", params, false)
+	return
+}
+
+// DeleteSystemMlflow API operation for FortiAnalyzer deletes the specified Mlflow.
+// Returns error for service API and SDK errors.
+// See the system - mlflow chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteSystemMlflow(globaladom, mkey string, paralist []string) (err error) {
+
+	//No unset API for system - mlflow
+	return
+}
+
+// ReadSystemMlflow API operation for FortiAnalyzer gets the Mlflow
+// with the specified index value.
+// Returns the requested Mlflow value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - mlflow chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadSystemMlflow(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
+	path := "/cli/[*]/system/mlflow"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+
+	mapTmp, err = read(c, globaladom, path, "get", false)
+	return
+}
+
+// CreateSystemMlflowModels API operation for FortiAnalyzer creates a new MlflowModels.
+// Returns the index value of the MlflowModels and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - mlflow models chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateSystemMlflowModels(params *map[string]interface{}, globaladom string, paralist []string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/system/mlflow/models"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, globaladom, path, "add", params, false)
+	return
+}
+
+// UpdateSystemMlflowModels API operation for FortiAnalyzer updates the specified MlflowModels.
+// Returns the index value of the MlflowModels and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - mlflow models chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateSystemMlflowModels(params *map[string]interface{}, globaladom, mkey string, paralist []string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/system/mlflow/models"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, globaladom, path, "set", params, false)
+	return
+}
+
+// DeleteSystemMlflowModels API operation for FortiAnalyzer deletes the specified MlflowModels.
+// Returns error for service API and SDK errors.
+// See the system - mlflow models chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteSystemMlflowModels(globaladom, mkey string, paralist []string) (err error) {
+	path := "/cli/[*]/system/mlflow/models"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, globaladom, path, "delete", false)
+	return
+}
+
+// ReadSystemMlflowModels API operation for FortiAnalyzer gets the MlflowModels
+// with the specified index value.
+// Returns the requested MlflowModels value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - mlflow models chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadSystemMlflowModels(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
+	path := "/cli/[*]/system/mlflow/models"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, globaladom, path, "get", false)
+	return
+}
+
+
 // UpdateSystemNtp API operation for FortiAnalyzer updates the specified Ntp.
 // Returns the index value of the Ntp and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -6195,6 +6304,49 @@ func (c *FortiSDKClient) ReadSystemSnmpCommunity(globaladom, mkey string, parali
 }
 
 
+// UpdateSystemSocCollectorLogQueue API operation for FortiAnalyzer updates the specified SocCollectorLog Queue.
+// Returns the index value of the SocCollectorLog Queue and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - soc collector log-queue chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateSystemSocCollectorLogQueue(params *map[string]interface{}, globaladom, mkey string, paralist []string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/system/soc/collector/log-queue"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+
+	output, err = createUpdate(c, globaladom, path, "set", params, false)
+	return
+}
+
+// DeleteSystemSocCollectorLogQueue API operation for FortiAnalyzer deletes the specified SocCollectorLog Queue.
+// Returns error for service API and SDK errors.
+// See the system - soc collector log-queue chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteSystemSocCollectorLogQueue(globaladom, mkey string, paralist []string) (err error) {
+
+	//No unset API for system - soc collector log-queue
+	return
+}
+
+// ReadSystemSocCollectorLogQueue API operation for FortiAnalyzer gets the SocCollectorLog Queue
+// with the specified index value.
+// Returns the requested SocCollectorLog Queue value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - soc collector log-queue chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadSystemSocCollectorLogQueue(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
+	path := "/cli/[*]/system/soc/collector/log-queue"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+
+	mapTmp, err = read(c, globaladom, path, "get", false)
+	return
+}
+
+
 // UpdateSystemSnmpSysinfo API operation for FortiAnalyzer updates the specified SnmpSysinfo.
 // Returns the index value of the SnmpSysinfo and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -6227,6 +6379,49 @@ func (c *FortiSDKClient) DeleteSystemSnmpSysinfo(globaladom, mkey string, parali
 // See the system - snmp sysinfo chapter in the FortiAnalyzer Handbook - CLI Reference.
 func (c *FortiSDKClient) ReadSystemSnmpSysinfo(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
 	path := "/cli/[*]/system/snmp/sysinfo"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+
+	mapTmp, err = read(c, globaladom, path, "get", false)
+	return
+}
+
+
+// UpdateSystemSocCollectorLogLevel API operation for FortiAnalyzer updates the specified SocCollectorLog Level.
+// Returns the index value of the SocCollectorLog Level and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - soc collector log-level chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateSystemSocCollectorLogLevel(params *map[string]interface{}, globaladom, mkey string, paralist []string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/system/soc/collector/log-level"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+
+	output, err = createUpdate(c, globaladom, path, "set", params, false)
+	return
+}
+
+// DeleteSystemSocCollectorLogLevel API operation for FortiAnalyzer deletes the specified SocCollectorLog Level.
+// Returns error for service API and SDK errors.
+// See the system - soc collector log-level chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteSystemSocCollectorLogLevel(globaladom, mkey string, paralist []string) (err error) {
+
+	//No unset API for system - soc collector log-level
+	return
+}
+
+// ReadSystemSocCollectorLogLevel API operation for FortiAnalyzer gets the SocCollectorLog Level
+// with the specified index value.
+// Returns the requested SocCollectorLog Level value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - soc collector log-level chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadSystemSocCollectorLogLevel(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
+	path := "/cli/[*]/system/soc/collector/log-level"
 	path, err = replaceParaWithValue(path, paralist)
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
@@ -6298,6 +6493,49 @@ func (c *FortiSDKClient) ReadSystemSnmpUser(globaladom, mkey string, paralist []
 	}
 
 	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, globaladom, path, "get", false)
+	return
+}
+
+
+// UpdateSystemSocCollector API operation for FortiAnalyzer updates the specified SocCollector.
+// Returns the index value of the SocCollector and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - soc collector chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateSystemSocCollector(params *map[string]interface{}, globaladom, mkey string, paralist []string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/system/soc/collector"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+
+	output, err = createUpdate(c, globaladom, path, "set", params, false)
+	return
+}
+
+// DeleteSystemSocCollector API operation for FortiAnalyzer deletes the specified SocCollector.
+// Returns error for service API and SDK errors.
+// See the system - soc collector chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteSystemSocCollector(globaladom, mkey string, paralist []string) (err error) {
+
+	//No unset API for system - soc collector
+	return
+}
+
+// ReadSystemSocCollector API operation for FortiAnalyzer gets the SocCollector
+// with the specified index value.
+// Returns the requested SocCollector value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - soc collector chapter in the FortiAnalyzer Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadSystemSocCollector(globaladom, mkey string, paralist []string) (mapTmp map[string]interface{}, err error) {
+	path := "/cli/[*]/system/soc/collector"
+	path, err = replaceParaWithValue(path, paralist)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
 
 	mapTmp, err = read(c, globaladom, path, "get", false)
 	return

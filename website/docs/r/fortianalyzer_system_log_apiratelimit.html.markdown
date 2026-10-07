@@ -9,6 +9,16 @@ description: |-
 # fortianalyzer_system_log_apiratelimit
 System LogApi-Ratelimit
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_system_log_apiratelimit" "test" {
+  read_limit  = 100
+  write_limit = 100
+}
+```
+
 ## Argument Reference
 
 

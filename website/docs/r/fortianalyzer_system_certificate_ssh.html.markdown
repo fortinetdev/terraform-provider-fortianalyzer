@@ -9,6 +9,18 @@ description: |-
 # fortianalyzer_system_certificate_ssh
 SSH certificates and keys.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_certificate_ssh" "example_name" {
+  name    = "your_name"
+  comment = "test"
+
+  certificate = [trimspace(file("${path.module}/others/faz_ssh_user.pub"))]
+  private_key = [file("${path.module}/others/faz_ssh_user.pem")]
+}
+```
+
 ## Argument Reference
 
 
@@ -18,6 +30,7 @@ The following arguments are supported:
 * `certificate` - SSH certificate.
 * `comment` - SSH certificate comment.
 * `name` - Name of SSH certificate.
+* `password` - Password.
 * `private_key` - SSH private-key
 
 

@@ -9,6 +9,15 @@ description: |-
 # fortianalyzer_system_certificate_oftp
 OFTP certificates and keys.
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_system_certificate_oftp" "test" {
+  comment = "test"
+}
+```
+
 ## Argument Reference
 
 

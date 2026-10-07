@@ -57,6 +57,10 @@ func resourceSystemLogSettings() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"fhm_custom_field1": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"fmg_custom_field1": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -763,6 +767,10 @@ func flattenSystemLogSettingsFfwCustomField1Slsa(v interface{}, d *schema.Resour
 }
 
 func flattenSystemLogSettingsFgtCustomField1Slsa(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemLogSettingsFhmCustomField1Slsa(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -1925,6 +1933,16 @@ func refreshObjectSystemLogSettings(d *schema.ResourceData, o map[string]interfa
 		}
 	}
 
+	if err = d.Set("fhm_custom_field1", flattenSystemLogSettingsFhmCustomField1Slsa(o["FHM-custom-field1"], d, "fhm_custom_field1")); err != nil {
+		if vv, ok := fortiAPIPatch(o["FHM-custom-field1"], "SystemLogSettings-FhmCustomField1"); ok {
+			if err = d.Set("fhm_custom_field1", vv); err != nil {
+				return fmt.Errorf("Error reading fhm_custom_field1: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading fhm_custom_field1: %v", err)
+		}
+	}
+
 	if err = d.Set("fmg_custom_field1", flattenSystemLogSettingsFmgCustomField1Slsa(o["FMG-custom-field1"], d, "fmg_custom_field1")); err != nil {
 		if vv, ok := fortiAPIPatch(o["FMG-custom-field1"], "SystemLogSettings-FmgCustomField1"); ok {
 			if err = d.Set("fmg_custom_field1", vv); err != nil {
@@ -2275,6 +2293,10 @@ func expandSystemLogSettingsFfwCustomField1Slsa(d *schema.ResourceData, v interf
 }
 
 func expandSystemLogSettingsFgtCustomField1Slsa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemLogSettingsFhmCustomField1Slsa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -3320,6 +3342,15 @@ func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}
 			return &obj, err
 		} else if t != nil {
 			obj["FGT-custom-field1"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("fhm_custom_field1"); ok || d.HasChange("fhm_custom_field1") {
+		t, err := expandSystemLogSettingsFhmCustomField1Slsa(d, v, "fhm_custom_field1")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["FHM-custom-field1"] = t
 		}
 	}
 

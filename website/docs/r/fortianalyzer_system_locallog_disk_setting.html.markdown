@@ -35,6 +35,8 @@ The following arguments are supported:
 
 * `log_disk_full_percentage` - Consider log disk as full at this usage percentage.
 * `log_disk_quota` - Quota for controlling local log size.
+* `log_max_days` - Log-Max-Days.
+* `log_rate_limit` - Log-Rate-Limit.
 * `max_log_file_num` - Maximum number of log files before rolling.
 * `max_log_file_size` - Maximum log file size before rolling.
 * `roll_day` - Days of week to roll logs. sunday - Sunday. monday - Monday. tuesday - Tuesday. wednesday - Wednesday. thursday - Thursday. friday - Friday. saturday - Saturday. Valid values: `sunday`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`.

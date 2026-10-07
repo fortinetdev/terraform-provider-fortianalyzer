@@ -9,6 +9,16 @@ description: |-
 # fortianalyzer_system_global_sslciphersuites
 Configure preferred SSL/TLS cipher suites
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_global_sslciphersuites" "test" {
+  cipher   = "TLS_AES_256_GCM_SHA384"
+  priority = 1
+  version  = "tls1.3"
+}
+```
+
 ## Argument Reference
 
 

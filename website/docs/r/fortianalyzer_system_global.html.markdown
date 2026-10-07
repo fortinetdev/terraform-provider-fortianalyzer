@@ -60,6 +60,9 @@ The following arguments are supported:
 
 * `adom_status` - ADOM status. disable - Disable ADOM mode. enable - Enable ADOM mode. Valid values: `disable`, `enable`.
 
+* `ai_mode` - Ai-Mode. Valid values: `disable`, `enable`.
+
+* `apache_keepalive_timeout` - Set apache keepalive timeout (1-300, default 15).
 * `apache_mode` - Set apache mode. event - Apache event mode. prefork - Apache prefork mode. Valid values: `event`, `prefork`.
 
 * `api_ip_binding` - Enable/disable source IP check for JSON API request. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
@@ -70,6 +73,8 @@ The following arguments are supported:
 * `backup_compression` - Compression level. none - No compression. low - Low compression (fastest). normal - Normal compression. high - Best compression (slowest). Valid values: `none`, `low`, `normal`, `high`.
 
 * `backup_to_subfolders` - Enable/disable creation of subfolders on server for backup storage. disable - Disable creation of subfolders on server for backup storage. enable - Enable creation of subfolders on server for backup storage. Valid values: `disable`, `enable`.
+
+* `bkup_mode_shared_objs` - Enable/disable shared objects in backup ADOMs. disable - Disable shared objects in backup ADOMs enable - Enable shared objects in backup ADOMs (default) Valid values: `disable`, `enable`.
 
 * `cli_auth` - Cli-Auth. Valid values: `disable`, `enable`.
 
@@ -122,10 +127,17 @@ The following arguments are supported:
 * `gui_feature_visibility_mode` - Set GUI feature visibility mode (per-adom, per-admin). per-adom - Per-ADOM control in policy &amp; objects and provisioning templates. per-admin - Per-admin control in policy &amp; objects and provisioning templates. Valid values: `per-adom`, `per-admin`.
 
 * `gui_install_preview_concurrency` - Set the maximum number of devices to be processed in a single GUI install preview request (1-100 default 20).
+* `gui_max_objects_per_row` - Gui-Max-Objects-Per-Row.
+* `gui_object_protect` - Gui-Object-Protect. Valid values: `disable`, `enable`.
+
+* `gui_object_search` - Gui-Object-Search. Valid values: `disable`, `enable`.
+
 * `gui_polling_interval` - GUI polling interval in seconds (1-288000 default 5).
 * `ha_member_auto_grouping` - Enable/disable automatically group HA members feature disable - Disable automatically grouping HA members feature. enable - Enable automatically grouping HA members only when group name is unique in your network. Valid values: `disable`, `enable`.
 
 * `hostname` - System hostname.
+* `http_extended_log` - Http-Extended-Log. Valid values: `disable`, `enable`.
+
 * `jsonapi_log` - enable jsonapi log. disable - disable jsonapi log. request - logging jsonapi request. response - logging jsonapi response. all - logging both jsonapi request &amp; response. Valid values: `disable`, `request`, `response`, `all`.
 
 * `httpd_ssl_protocol` - set SSL protocols for apache daemon (httpd) sslv3 - Enable SSLv3. tlsv1.0 - Enable TLSv1.0. tlsv1.1 - Enable TLSv1.1. tlsv1.2 - Enable TLSv1.2. tlsv1.3 - Enable TLSv1.3. Valid values: `sslv3`, `tlsv1.0`, `tlsv1.1`, `tlsv1.2`, `tlsv1.3`.
@@ -211,8 +223,13 @@ The following arguments are supported:
 * `timezone` - Time zone. 00 - (GMT-12:00) Eniwetak, Kwajalein. 01 - (GMT-11:00) Midway Island, Samoa. 02 - (GMT-10:00) Hawaii. 03 - (GMT-9:00) Alaska. 04 - (GMT-8:00) Pacific Time (US & Canada). 05 - (GMT-7:00) Arizona. 06 - (GMT-7:00) Mountain Time (US & Canada). 07 - (GMT-6:00) Central America. 08 - (GMT-6:00) Central Time (US & Canada). 09 - (GMT-6:00) Mexico City. 10 - (GMT-6:00) Saskatchewan. 11 - (GMT-5:00) Bogota, Lima, Quito. 12 - (GMT-5:00) Eastern Time (US & Canada). 13 - (GMT-5:00) Indiana (East). 14 - (GMT-4:00) Atlantic Time (Canada). 15 - (GMT-4:00) La Paz. 16 - (GMT-4:00) Santiago. 17 - (GMT-3:30) Newfoundland. 18 - (GMT-3:00) Brasilia. 19 - (GMT-3:00) Buenos Aires, Georgetown. 20 - (GMT-3:00) Nuuk (Greenland). 21 - (GMT-2:00) Mid-Atlantic (Deprecated). 22 - (GMT-1:00) Azores. 23 - (GMT-1:00) Cape Verde Is. 24 - (GMT) Monrovia. 25 - (GMT) London, Edinburgh. 26 - (GMT+1:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna. 27 - (GMT+1:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague. 28 - (GMT+1:00) Brussels, Copenhagen, Madrid, Paris. 29 - (GMT+1:00) Sarajevo, Skopje, Warsaw, Zagreb. 30 - (GMT+1:00) West Central Africa. 31 - (GMT+2:00) Athens, Sofia, Vilnius. 32 - (GMT+2:00) Bucharest. 33 - (GMT+2:00) Cairo. 34 - (GMT+2:00) Harare, Pretoria. 35 - (GMT+2:00) Helsinki, Riga,Tallinn. 36 - (GMT+2:00) Jerusalem. 37 - (GMT+3:00) Baghdad. 38 - (GMT+3:00) Kuwait, Riyadh. 39 - (GMT+3:00) St.Petersburg, Volgograd. 40 - (GMT+3:00) Nairobi. 41 - (GMT+3:30) Tehran. 42 - (GMT+4:00) Abu Dhabi, Muscat. 43 - (GMT+4:00) Baku. 44 - (GMT+4:30) Kabul. 45 - (GMT+5:00) Ekaterinburg. 46 - (GMT+5:00) Islamabad, Karachi, Tashkent. 47 - (GMT+5:30) Calcutta, Chennai, Mumbai, New Delhi. 48 - (GMT+5:45) Kathmandu. 49 - (GMT+6:00) Almaty, Novosibirsk. 50 - (GMT+6:00) Astana, Dhaka. 51 - (GMT+5:30) Sri Jayawardenepura. 52 - (GMT+6:30) Rangoon. 53 - (GMT+7:00) Bangkok, Hanoi, Jakarta. 54 - (GMT+7:00) Krasnoyarsk. 55 - (GMT+8:00) Beijing, ChongQing, HongKong, Urumqi. 56 - (GMT+8:00) Irkutsk, Ulaanbaatar. 57 - (GMT+8:00) Kuala Lumpur, Singapore. 58 - (GMT+8:00) Perth. 59 - (GMT+8:00) Taipei. 60 - (GMT+9:00) Osaka, Sapporo, Tokyo, Seoul. 61 - (GMT+9:00) Yakutsk. 62 - (GMT+9:30) Adelaide. 63 - (GMT+9:30) Darwin. 64 - (GMT+10:00) Brisbane. 65 - (GMT+10:00) Canberra, Melbourne, Sydney. 66 - (GMT+10:00) Guam, Port Moresby. 67 - (GMT+10:00) Hobart. 68 - (GMT+10:00) Vladivostok. 69 - (GMT+11:00) Magadan. 70 - (GMT+11:00) Solomon Is., New Caledonia. 71 - (GMT+12:00) Auckland, Wellington. 72 - (GMT+12:00) Fiji, Kamchatka, Marshall Is. 73 - (GMT+13:00) Nuku'alofa. 74 - (GMT-4:30) Caracas. 75 - (GMT+1:00) Namibia. 76 - (GMT-5:00) Brazil-Acre. 77 - (GMT-4:00) Brazil-West. 78 - (GMT-3:00) Brazil-East. 79 - (GMT-2:00) Brazil-DeNoronha. 80 - (GMT+14:00) Kiritimati. 81 - (GMT-7:00) Baja California Sur, Chihuahua. 82 - (GMT+12:45) Chatham Islands. 83 - (GMT+3:00) Minsk. 84 - (GMT+13:00) Samoa. 85 - (GMT+3:00) Istanbul. 86 - (GMT-4:00) Paraguay. 87 - (GMT) Casablanca. 88 - (GMT+3:00) Moscow. 89 - (GMT) Greenwich Mean Time. 90 - (GMT) Dublin. 91 - (GMT) Lisbon. Valid values: `00`, `01`, `02`, `03`, `04`, `05`, `06`, `07`, `08`, `09`, `10`, `11`, `12`, `13`, `14`, `15`, `16`, `17`, `18`, `19`, `20`, `21`, `22`, `23`, `24`, `25`, `26`, `27`, `28`, `29`, `30`, `31`, `32`, `33`, `34`, `35`, `36`, `37`, `38`, `39`, `40`, `41`, `42`, `43`, `44`, `45`, `46`, `47`, `48`, `49`, `50`, `51`, `52`, `53`, `54`, `55`, `56`, `57`, `58`, `59`, `60`, `61`, `62`, `63`, `64`, `65`, `66`, `67`, `68`, `69`, `70`, `71`, `72`, `73`, `74`, `75`, `76`, `77`, `78`, `79`, `80`, `81`, `82`, `83`, `84`, `85`, `86`, `87`, `88`, `89`, `90`, `91`.
 
 * `tunnel_mtu` - Maximum transportation unit(68 - 9000).
+* `usb_port` - Enable/disable USB ports. disable - Disable USB ports enable - Enable USB ports Valid values: `disable`, `enable`.
+
 * `usg` - Enable/disable Fortiguard server restriction. disable - Contact any Fortiguard server enable - Contact Fortiguard server in USA only Valid values: `disable`, `enable`.
 
+* `webwork_job_timeout` - Seconds before a webworker child is killed (10-3600).
+* `webwork_max_processes` - Maximum concurrent webworker child processes (1-500).
+* `vm_swappiness` - Vm-Swappiness.
 * `webservice_proto` - Web Service connection support SSL protocols. tlsv1.3 - Web Service connection using TLSv1.3 protocol. tlsv1.2 - Web Service connection using TLSv1.2 protocol. tlsv1.1 - Web Service connection using TLSv1.1 protocol. tlsv1.0 - Web Service connection using TLSv1.0 protocol. sslv3 - Web Service connection using SSLv3 protocol. sslv2 - Web Service connection using SSLv2 protocol. Valid values: `tlsv1.3`, `tlsv1.2`, `tlsv1.1`, `tlsv1.0`, `sslv3`, `sslv2`.
 
 * `workflow_max_sessions` - Maximum number of workflow sessions per ADOM (minimum 100).

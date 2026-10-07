@@ -9,6 +9,14 @@ description: |-
 # fortianalyzer_system_log_settings_clientcertauth
 System LogSettingsClient-Cert-Auth
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_log_settings_clientcertauth" "basic" {
+  mode = "basic"
+}
+```
+
 ## Argument Reference
 
 

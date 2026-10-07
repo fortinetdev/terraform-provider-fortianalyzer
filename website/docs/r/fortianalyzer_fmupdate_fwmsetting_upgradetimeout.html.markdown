@@ -9,6 +9,15 @@ description: |-
 # fortianalyzer_fmupdate_fwmsetting_upgradetimeout
 Configure the timeout value of image upgrade process.
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_fmupdate_fwmsetting_upgradetimeout" "trname" {
+  check_status_timeout = 605
+}
+```
+
 ## Argument Reference
 
 

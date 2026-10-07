@@ -69,7 +69,6 @@ func (r *Request) Send() error {
 		log.Fatal(err)
 		return err
 	}
-	// log.Printf("FAZ sending request: %v", r.Data)
 
 	retry := 0
 	for {

@@ -9,6 +9,18 @@ description: |-
 # fortianalyzer_system_guiact
 System settings through GUI.
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_system_guiact" "test" {
+  backup_all    = "enable"
+  backup_conf   = "enable"
+  eventlog_msg  = "test"
+  eventlog_path = "test"
+}
+```
+
 ## Argument Reference
 
 

@@ -83,6 +83,8 @@ The following arguments are supported:
 * `log_field_exclusion_status` - Enable or disable log field exclusion. disable - Disable log field exclusion. enable - Enable log field exclusion. Valid values: `disable`, `enable`.
 
 * `log_filter` - Log-Filter. The structure of `log_filter` block is documented below.
+* `log_filter_action` - Log-Filter-Action. Valid values: `include`, `exclude`.
+
 * `log_filter_logic` - Logic operator used to connect filters. and - Conjunctive filters. or - Disjunctive filters. Valid values: `and`, `or`.
 
 * `log_filter_status` - Enable or disable log filtering. disable - Disable log filtering. enable - Enable log filtering. Valid values: `disable`, `enable`.

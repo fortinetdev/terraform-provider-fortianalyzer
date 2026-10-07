@@ -9,6 +9,22 @@ description: |-
 # fortianalyzer_system_locallog_fortianalyzer3_setting
 Settings for locallog to fortianalyzer.
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_system_locallog_fortianalyzer3_setting" "test" {
+  peer_cert_cn      = "test"
+  reliable          = "enable"
+  secure_connection = "enable"
+  server            = "192.0.2.6"
+  severity          = "alert"
+  status            = "upload"
+  # api issue
+  upload_time = ["12:13"]
+}
+```
+
 ## Argument Reference
 
 
@@ -25,6 +41,7 @@ The following arguments are supported:
 
 * `status` - Log to FortiAnalyzer status. disable - Log to FortiAnalyzer disabled. realtime - Log to FortiAnalyzer in realtime. upload - Log to FortiAnalyzer at schedule time. Valid values: `disable`, `realtime`, `upload`.
 
+* `upload_time_unitary` - Upload-Time.
 * `upload_time` - Time to upload local log files (hh:mm).
 
 

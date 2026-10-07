@@ -57,6 +57,10 @@ func resourceSystemLocallogFortianalyzer3Setting() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"upload_time_unitary": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"upload_time": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
@@ -159,6 +163,10 @@ func flattenSystemLocallogFortianalyzer3SettingStatus(v interface{}, d *schema.R
 	return v
 }
 
+func flattenSystemLocallogFortianalyzer3SettingUploadTimeUnitary(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemLocallogFortianalyzer3SettingUploadTime(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return flattenStringList(v)
 }
@@ -226,13 +234,27 @@ func refreshObjectSystemLocallogFortianalyzer3Setting(d *schema.ResourceData, o 
 		}
 	}
 
-	if err = d.Set("upload_time", flattenSystemLocallogFortianalyzer3SettingUploadTime(o["upload-time"], d, "upload_time")); err != nil {
-		if vv, ok := fortiAPIPatch(o["upload-time"], "SystemLocallogFortianalyzer3Setting-UploadTime"); ok {
-			if err = d.Set("upload_time", vv); err != nil {
+	if _, ok := o["upload-time"].(string); ok {
+		if err = d.Set("upload_time_unitary", flattenSystemLocallogFortianalyzer3SettingUploadTimeUnitary(o["upload-time"], d, "upload_time_unitary")); err != nil {
+			if vv, ok := fortiAPIPatch(o["upload-time"], "SystemLocallogFortianalyzer3Setting-UploadTimeUnitary"); ok {
+				if err = d.Set("upload_time_unitary", vv); err != nil {
+					return fmt.Errorf("Error reading upload_time_unitary: %v", err)
+				}
+			} else {
+				return fmt.Errorf("Error reading upload_time_unitary: %v", err)
+			}
+		}
+	}
+
+	if _, ok := o["upload-time"].([]interface{}); ok {
+		if err = d.Set("upload_time", flattenSystemLocallogFortianalyzer3SettingUploadTime(o["upload-time"], d, "upload_time")); err != nil {
+			if vv, ok := fortiAPIPatch(o["upload-time"], "SystemLocallogFortianalyzer3Setting-UploadTime"); ok {
+				if err = d.Set("upload_time", vv); err != nil {
+					return fmt.Errorf("Error reading upload_time: %v", err)
+				}
+			} else {
 				return fmt.Errorf("Error reading upload_time: %v", err)
 			}
-		} else {
-			return fmt.Errorf("Error reading upload_time: %v", err)
 		}
 	}
 
@@ -266,6 +288,10 @@ func expandSystemLocallogFortianalyzer3SettingSeverity(d *schema.ResourceData, v
 }
 
 func expandSystemLocallogFortianalyzer3SettingStatus(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemLocallogFortianalyzer3SettingUploadTimeUnitary(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -327,6 +353,15 @@ func getObjectSystemLocallogFortianalyzer3Setting(d *schema.ResourceData) (*map[
 			return &obj, err
 		} else if t != nil {
 			obj["status"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("upload_time_unitary"); ok || d.HasChange("upload_time_unitary") {
+		t, err := expandSystemLocallogFortianalyzer3SettingUploadTimeUnitary(d, v, "upload_time_unitary")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["upload-time"] = t
 		}
 	}
 

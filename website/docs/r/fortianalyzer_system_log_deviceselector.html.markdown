@@ -9,6 +9,19 @@ description: |-
 # fortianalyzer_system_log_deviceselector
 Accept/reject devices matching specified filter types.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_log_deviceselector" "example" {
+  fosid      = 99
+  action     = "include"
+  type       = "srcip"
+  srcip      = "192.0.2.10"
+  srcip_mode = "UDP514"
+  comment    = "Include logs from the specified source IP"
+}
+```
+
 ## Argument Reference
 
 

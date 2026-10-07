@@ -43,6 +43,11 @@ func resourceSystemCertificateSsh() *schema.Resource {
 				ForceNew: true,
 				Optional: true,
 			},
+			"password": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
+			},
 			"private_key": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
@@ -154,6 +159,10 @@ func flattenSystemCertificateSshName(v interface{}, d *schema.ResourceData, pre 
 	return v
 }
 
+func flattenSystemCertificateSshPassword(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
+}
+
 func flattenSystemCertificateSshPrivateKey(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return flattenStringList(v)
 }
@@ -191,6 +200,16 @@ func refreshObjectSystemCertificateSsh(d *schema.ResourceData, o map[string]inte
 		}
 	}
 
+	if err = d.Set("password", flattenSystemCertificateSshPassword(o["password"], d, "password")); err != nil {
+		if vv, ok := fortiAPIPatch(o["password"], "SystemCertificateSsh-Password"); ok {
+			if err = d.Set("password", vv); err != nil {
+				return fmt.Errorf("Error reading password: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading password: %v", err)
+		}
+	}
+
 	if err = d.Set("private_key", flattenSystemCertificateSshPrivateKey(o["private-key"], d, "private_key")); err != nil {
 		if vv, ok := fortiAPIPatch(o["private-key"], "SystemCertificateSsh-PrivateKey"); ok {
 			if err = d.Set("private_key", vv); err != nil {
@@ -220,6 +239,10 @@ func expandSystemCertificateSshComment(d *schema.ResourceData, v interface{}, pr
 
 func expandSystemCertificateSshName(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
+}
+
+func expandSystemCertificateSshPassword(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
 }
 
 func expandSystemCertificateSshPrivateKey(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
@@ -253,6 +276,15 @@ func getObjectSystemCertificateSsh(d *schema.ResourceData) (*map[string]interfac
 			return &obj, err
 		} else if t != nil {
 			obj["name"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("password"); ok || d.HasChange("password") {
+		t, err := expandSystemCertificateSshPassword(d, v, "password")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["password"] = t
 		}
 	}
 

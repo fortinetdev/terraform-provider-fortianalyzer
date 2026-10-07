@@ -9,6 +9,23 @@ description: |-
 # fortianalyzer_system_log_ratelimit_ratelimits
 Per device or ADOM log rate limits.
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_system_log_ratelimit_ratelimits" "test" {
+  filter_type = "adom"
+  fosid       = 3
+  ratelimit   = 100
+  filter      = "root"
+  depends_on  = [fortianalyzer_system_log_ratelimit.trname]
+}
+
+resource "fortianalyzer_system_log_ratelimit" "trname" {
+  mode = "manual"
+}
+```
+
 ## Argument Reference
 
 

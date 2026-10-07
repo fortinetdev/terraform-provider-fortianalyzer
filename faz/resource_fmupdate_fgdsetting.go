@@ -74,6 +74,11 @@ func resourceFmupdateFgdSetting() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"delta_ratio": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
 			"eventlog_query": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -370,6 +375,10 @@ func flattenFmupdateFgdSettingAv2Log(v interface{}, d *schema.ResourceData, pre 
 }
 
 func flattenFmupdateFgdSettingAv2Preload(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenFmupdateFgdSettingDeltaRatio(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -691,6 +700,16 @@ func refreshObjectFmupdateFgdSetting(d *schema.ResourceData, o map[string]interf
 			}
 		} else {
 			return fmt.Errorf("Error reading av2_preload: %v", err)
+		}
+	}
+
+	if err = d.Set("delta_ratio", flattenFmupdateFgdSettingDeltaRatio(o["delta-ratio"], d, "delta_ratio")); err != nil {
+		if vv, ok := fortiAPIPatch(o["delta-ratio"], "FmupdateFgdSetting-DeltaRatio"); ok {
+			if err = d.Set("delta_ratio", vv); err != nil {
+				return fmt.Errorf("Error reading delta_ratio: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading delta_ratio: %v", err)
 		}
 	}
 
@@ -1073,6 +1092,10 @@ func expandFmupdateFgdSettingAv2Preload(d *schema.ResourceData, v interface{}, p
 	return v, nil
 }
 
+func expandFmupdateFgdSettingDeltaRatio(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandFmupdateFgdSettingEventlogQuery(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -1373,6 +1396,15 @@ func getObjectFmupdateFgdSetting(d *schema.ResourceData) (*map[string]interface{
 			return &obj, err
 		} else if t != nil {
 			obj["av2-preload"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("delta_ratio"); ok || d.HasChange("delta_ratio") {
+		t, err := expandFmupdateFgdSettingDeltaRatio(d, v, "delta_ratio")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["delta-ratio"] = t
 		}
 	}
 

@@ -9,6 +9,17 @@ description: |-
 # fortianalyzer_system_certificate_local
 Local keys and certificates.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_certificate_local" "trname" {
+  name        = "Fortinet_Local_example"
+  comment     = "test_new"
+  certificate = [file("${path.module}/others/test_certificate.crt")]
+  private_key = [file("${path.module}/others/test_certificate.key")]
+}
+```
+
 ## Argument Reference
 
 

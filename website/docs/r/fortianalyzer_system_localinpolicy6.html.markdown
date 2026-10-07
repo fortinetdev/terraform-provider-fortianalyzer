@@ -9,6 +9,44 @@ description: |-
 # fortianalyzer_system_localinpolicy6
 IPv6 local in policy configuration.
 
+## Example Usage
+
+```hcl
+# FortiAnalyzer < 7.6.4
+resource "fortianalyzer_system_localinpolicy6" "trname" {
+  fosid    = 3
+  intf     = "port2"
+  action   = "accept"
+  protocol = "tcp"
+  dport    = 443
+  src      = "2001:db8:100::10/128"
+  dst      = "2001:db8:100::20/128"
+}
+
+# FortiAnalyzer >= 7.6.4
+resource "fortianalyzer_system_localinpolicy6" "trname" {
+  fosid    = 3
+  action   = "accept"
+  protocol = "tcp"
+
+  intf_block {
+    intf_name = "port2"
+  }
+
+  dport_block {
+    dport_value = "443"
+  }
+
+  src_block {
+    src_ip = "2001:db8:100::10/128"
+  }
+
+  dst_block {
+    src_ip = "2001:db8:100::20/128"
+  }
+}
+```
+
 ## Argument Reference
 
 

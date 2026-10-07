@@ -2,7 +2,6 @@ package fortianalyzer
 
 import (
 	"fmt"
-	"log"
 	"math"
 	"net"
 	"os"
@@ -62,6 +61,11 @@ func flattenStringList(v interface{}) interface{} {
 		result := make([]string, 0, 1)
 		result = append(result, v1)
 		return result
+	}
+
+	// Treat numeric API values as empty lists.
+	if _, ok := v.(float64); ok {
+		return []string{}
 	}
 
 	l := v.([]interface{})
@@ -296,7 +300,6 @@ func fortiAPISubPartPatch(t interface{}, lgname string) interface{} {
 		return t
 	} else if v, ok := t.([]interface{}); ok {
 		if len(v) == 0 {
-			log.Printf("shengh6671 - %v", lgname)
 			return ""
 		}
 	}
@@ -313,7 +316,6 @@ func fortiAPIPatch(t interface{}, lgname string) (interface{}, bool) {
 		// 	return true
 	} else if v, ok := t.([]interface{}); ok {
 		if len(v) == 0 {
-			log.Printf("shengh6670 - %v", lgname)
 			return nil, true
 		} else if len(v) == 1 {
 			if vv, ok := v[0].(string); ok {

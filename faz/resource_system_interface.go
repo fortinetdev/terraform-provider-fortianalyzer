@@ -114,6 +114,16 @@ func resourceSystemInterface() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"lldp_reception": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
+			"lldp_transmission": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"lldp": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -385,6 +395,14 @@ func flattenSystemInterfaceLinkUpDelay(v interface{}, d *schema.ResourceData, pr
 	return v
 }
 
+func flattenSystemInterfaceLldpReception(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemInterfaceLldpTransmission(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemInterfaceLldp(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -614,6 +632,26 @@ func refreshObjectSystemInterface(d *schema.ResourceData, o map[string]interface
 			}
 		} else {
 			return fmt.Errorf("Error reading link_up_delay: %v", err)
+		}
+	}
+
+	if err = d.Set("lldp_reception", flattenSystemInterfaceLldpReception(o["lldp-reception"], d, "lldp_reception")); err != nil {
+		if vv, ok := fortiAPIPatch(o["lldp-reception"], "SystemInterface-LldpReception"); ok {
+			if err = d.Set("lldp_reception", vv); err != nil {
+				return fmt.Errorf("Error reading lldp_reception: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading lldp_reception: %v", err)
+		}
+	}
+
+	if err = d.Set("lldp_transmission", flattenSystemInterfaceLldpTransmission(o["lldp-transmission"], d, "lldp_transmission")); err != nil {
+		if vv, ok := fortiAPIPatch(o["lldp-transmission"], "SystemInterface-LldpTransmission"); ok {
+			if err = d.Set("lldp_transmission", vv); err != nil {
+				return fmt.Errorf("Error reading lldp_transmission: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading lldp_transmission: %v", err)
 		}
 	}
 
@@ -858,6 +896,14 @@ func expandSystemInterfaceLinkUpDelay(d *schema.ResourceData, v interface{}, pre
 	return v, nil
 }
 
+func expandSystemInterfaceLldpReception(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemInterfaceLldpTransmission(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemInterfaceLldp(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -1054,6 +1100,24 @@ func getObjectSystemInterface(d *schema.ResourceData) (*map[string]interface{}, 
 			return &obj, err
 		} else if t != nil {
 			obj["link-up-delay"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("lldp_reception"); ok || d.HasChange("lldp_reception") {
+		t, err := expandSystemInterfaceLldpReception(d, v, "lldp_reception")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["lldp-reception"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("lldp_transmission"); ok || d.HasChange("lldp_transmission") {
+		t, err := expandSystemInterfaceLldpTransmission(d, v, "lldp_transmission")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["lldp-transmission"] = t
 		}
 	}
 

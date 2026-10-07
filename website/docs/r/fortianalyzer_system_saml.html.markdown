@@ -30,7 +30,11 @@ The following arguments are supported:
 * `auth_request_signed` - Enable/Disable auth request signed. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
 
 * `cert` - Certificate name.
+* `custom_sp_entity_id` - Enable/disable custom SP entity ID (default = disable). disable - Disable custom SP entity ID. enable - Enable custom SP entity ID. Valid values: `disable`, `enable`.
+
 * `default_profile` - Default Profile Name.
+* `digest_method` - Digest-Method. Valid values: `sha256`, `sha512`.
+
 * `entity_id` - SP entity ID.
 * `fabric_idp` - Fabric-Idp. The structure of `fabric_idp` block is documented below.
 * `forticloud_sso` - Enable/disable FortiCloud SSO (default = disable). disable - Disable Forticloud SSO. enable - Enabld Forticloud SSO. Valid values: `disable`, `enable`.
@@ -38,7 +42,11 @@ The following arguments are supported:
 * `ha_config_sync` - Enable/disable HA syncing of SAML config. disable - Disable HA syncing of SAML config. enable - Enable HA syncing of SAML config. Valid values: `disable`, `enable`.
 
 * `idp_cert` - IDP Certificate name.
+* `idp_digest_method` - Idp-Digest-Method. Valid values: `sha256`, `sha512`.
+
 * `idp_entity_id` - IDP entity ID.
+* `idp_signature_algorithm` - Idp-Signature-Algorithm. Valid values: `rsa-sha256`, `rsa-sha512`.
+
 * `idp_single_logout_url` - IDP single logout url.
 * `idp_single_sign_on_url` - IDP single sign-on URL.
 * `login_auto_redirect` - Enable/Disable auto redirect to IDP login page. disable - Disable auto redirect to IDP Login Page. enable - Enable auto redirect to IDP Login Page. Valid values: `disable`, `enable`.
@@ -51,6 +59,8 @@ The following arguments are supported:
 
 * `server_address` - server address.
 * `service_providers` - Service-Providers. The structure of `service_providers` block is documented below.
+* `signature_algorithm` - Signature-Algorithm. Valid values: `rsa-sha256`, `rsa-sha512`.
+
 * `sls_url` - SP SLS(logout) URL.
 * `status` - Enable/disable SAML authentication (default = disable). disable - Disable SAML authentication. enable - Enabld SAML authentication. Valid values: `disable`, `enable`.
 

@@ -1,4 +1,26 @@
-## 1.6.1 (Unreleased)
+## 1.7.1 (Unreleased)
+
+
+## 1.7.0 (Oct 7, 2026)
+
+FEATURES:
+
+* **New Resource:** `fortianalyzer_system_mlflow`
+* **New Resource:** `fortianalyzer_system_mlflow_models`
+* **New Resource:** `fortianalyzer_system_soc_collector`
+* **New Resource:** `fortianalyzer_system_soc_collector_loglevel`
+* **New Resource:** `fortianalyzer_system_soc_collector_logqueue`
+
+
+IMPROVEMENTS:
+* Support FortiAnalyzer v7.6.7, v8.0.0, v8.0.1, Add 5 new resources;
+* Resource `fortianalyzer_system_route`: Support automatic assignment of `seq_num` when omitted;
+* Add example scripts for all resources;
+
+BUG FIXES:
+* Resource `fortianalyzer_dvmdb_adom`: Fix a potential provider crash on newer FortiAnalyzer versions;
+
+
 
 ## 1.6.0 (May 21, 2026)
 

@@ -52,6 +52,23 @@ func resourceSystemMail() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"oauth2_auth_scope": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
+			"oauth2_auth_server": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
+			"oauth2_client_id": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
+			"oauth2_client_secret": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
+			},
 			"passwd": &schema.Schema{
 				Type:      schema.TypeSet,
 				Elem:      &schema.Schema{Type: schema.TypeString},
@@ -195,6 +212,22 @@ func flattenSystemMailLocalCert(v interface{}, d *schema.ResourceData, pre strin
 	return v
 }
 
+func flattenSystemMailOauth2AuthScope(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemMailOauth2AuthServer(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemMailOauth2ClientId(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemMailOauth2ClientSecret(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
+}
+
 func flattenSystemMailPasswd(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return flattenStringList(v)
 }
@@ -269,6 +302,46 @@ func refreshObjectSystemMail(d *schema.ResourceData, o map[string]interface{}) e
 			}
 		} else {
 			return fmt.Errorf("Error reading local_cert: %v", err)
+		}
+	}
+
+	if err = d.Set("oauth2_auth_scope", flattenSystemMailOauth2AuthScope(o["oauth2-auth-scope"], d, "oauth2_auth_scope")); err != nil {
+		if vv, ok := fortiAPIPatch(o["oauth2-auth-scope"], "SystemMail-Oauth2AuthScope"); ok {
+			if err = d.Set("oauth2_auth_scope", vv); err != nil {
+				return fmt.Errorf("Error reading oauth2_auth_scope: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading oauth2_auth_scope: %v", err)
+		}
+	}
+
+	if err = d.Set("oauth2_auth_server", flattenSystemMailOauth2AuthServer(o["oauth2-auth-server"], d, "oauth2_auth_server")); err != nil {
+		if vv, ok := fortiAPIPatch(o["oauth2-auth-server"], "SystemMail-Oauth2AuthServer"); ok {
+			if err = d.Set("oauth2_auth_server", vv); err != nil {
+				return fmt.Errorf("Error reading oauth2_auth_server: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading oauth2_auth_server: %v", err)
+		}
+	}
+
+	if err = d.Set("oauth2_client_id", flattenSystemMailOauth2ClientId(o["oauth2-client-id"], d, "oauth2_client_id")); err != nil {
+		if vv, ok := fortiAPIPatch(o["oauth2-client-id"], "SystemMail-Oauth2ClientId"); ok {
+			if err = d.Set("oauth2_client_id", vv); err != nil {
+				return fmt.Errorf("Error reading oauth2_client_id: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading oauth2_client_id: %v", err)
+		}
+	}
+
+	if err = d.Set("oauth2_client_secret", flattenSystemMailOauth2ClientSecret(o["oauth2-client-secret"], d, "oauth2_client_secret")); err != nil {
+		if vv, ok := fortiAPIPatch(o["oauth2-client-secret"], "SystemMail-Oauth2ClientSecret"); ok {
+			if err = d.Set("oauth2_client_secret", vv); err != nil {
+				return fmt.Errorf("Error reading oauth2_client_secret: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading oauth2_client_secret: %v", err)
 		}
 	}
 
@@ -351,6 +424,22 @@ func expandSystemMailLocalCert(d *schema.ResourceData, v interface{}, pre string
 	return v, nil
 }
 
+func expandSystemMailOauth2AuthScope(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemMailOauth2AuthServer(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemMailOauth2ClientId(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemMailOauth2ClientSecret(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
+}
+
 func expandSystemMailPasswd(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return expandStringList(v.(*schema.Set).List()), nil
 }
@@ -420,6 +509,42 @@ func getObjectSystemMail(d *schema.ResourceData) (*map[string]interface{}, error
 			return &obj, err
 		} else if t != nil {
 			obj["local-cert"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("oauth2_auth_scope"); ok || d.HasChange("oauth2_auth_scope") {
+		t, err := expandSystemMailOauth2AuthScope(d, v, "oauth2_auth_scope")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["oauth2-auth-scope"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("oauth2_auth_server"); ok || d.HasChange("oauth2_auth_server") {
+		t, err := expandSystemMailOauth2AuthServer(d, v, "oauth2_auth_server")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["oauth2-auth-server"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("oauth2_client_id"); ok || d.HasChange("oauth2_client_id") {
+		t, err := expandSystemMailOauth2ClientId(d, v, "oauth2_client_id")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["oauth2-client-id"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("oauth2_client_secret"); ok || d.HasChange("oauth2_client_secret") {
+		t, err := expandSystemMailOauth2ClientSecret(d, v, "oauth2_client_secret")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["oauth2-client-secret"] = t
 		}
 	}
 

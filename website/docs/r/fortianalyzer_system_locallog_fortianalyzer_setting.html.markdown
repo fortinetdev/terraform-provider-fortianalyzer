@@ -36,6 +36,7 @@ The following arguments are supported:
 
 * `status` - Log to FortiAnalyzer status. disable - Log to FortiAnalyzer disabled. realtime - Log to FortiAnalyzer in realtime. upload - Log to FortiAnalyzer at schedule time. Valid values: `disable`, `realtime`, `upload`.
 
+* `upload_time_unitary` - Upload-Time.
 * `upload_time` - Time to upload local log files (hh:mm).
 
 

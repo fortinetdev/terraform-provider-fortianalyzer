@@ -46,9 +46,19 @@ func resourceSystemNtpNtpserver() *schema.Resource {
 				Sensitive: true,
 				Computed:  true,
 			},
+			"key_fmt": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"key_id": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
+			},
+			"key_type": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
 			},
 			"maxpoll": &schema.Schema{
 				Type:     schema.TypeInt,
@@ -175,7 +185,15 @@ func flattenSystemNtpNtpserverKey(v interface{}, d *schema.ResourceData, pre str
 	return flattenStringList(v)
 }
 
+func flattenSystemNtpNtpserverKeyFmt(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemNtpNtpserverKeyId(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemNtpNtpserverKeyType(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -218,6 +236,16 @@ func refreshObjectSystemNtpNtpserver(d *schema.ResourceData, o map[string]interf
 		}
 	}
 
+	if err = d.Set("key_fmt", flattenSystemNtpNtpserverKeyFmt(o["key-fmt"], d, "key_fmt")); err != nil {
+		if vv, ok := fortiAPIPatch(o["key-fmt"], "SystemNtpNtpserver-KeyFmt"); ok {
+			if err = d.Set("key_fmt", vv); err != nil {
+				return fmt.Errorf("Error reading key_fmt: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading key_fmt: %v", err)
+		}
+	}
+
 	if err = d.Set("key_id", flattenSystemNtpNtpserverKeyId(o["key-id"], d, "key_id")); err != nil {
 		if vv, ok := fortiAPIPatch(o["key-id"], "SystemNtpNtpserver-KeyId"); ok {
 			if err = d.Set("key_id", vv); err != nil {
@@ -225,6 +253,16 @@ func refreshObjectSystemNtpNtpserver(d *schema.ResourceData, o map[string]interf
 			}
 		} else {
 			return fmt.Errorf("Error reading key_id: %v", err)
+		}
+	}
+
+	if err = d.Set("key_type", flattenSystemNtpNtpserverKeyType(o["key-type"], d, "key_type")); err != nil {
+		if vv, ok := fortiAPIPatch(o["key-type"], "SystemNtpNtpserver-KeyType"); ok {
+			if err = d.Set("key_type", vv); err != nil {
+				return fmt.Errorf("Error reading key_type: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading key_type: %v", err)
 		}
 	}
 
@@ -289,7 +327,15 @@ func expandSystemNtpNtpserverKey(d *schema.ResourceData, v interface{}, pre stri
 	return expandStringList(v.(*schema.Set).List()), nil
 }
 
+func expandSystemNtpNtpserverKeyFmt(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemNtpNtpserverKeyId(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemNtpNtpserverKeyType(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -339,12 +385,30 @@ func getObjectSystemNtpNtpserver(d *schema.ResourceData) (*map[string]interface{
 		}
 	}
 
+	if v, ok := d.GetOk("key_fmt"); ok || d.HasChange("key_fmt") {
+		t, err := expandSystemNtpNtpserverKeyFmt(d, v, "key_fmt")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["key-fmt"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("key_id"); ok || d.HasChange("key_id") {
 		t, err := expandSystemNtpNtpserverKeyId(d, v, "key_id")
 		if err != nil {
 			return &obj, err
 		} else if t != nil {
 			obj["key-id"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("key_type"); ok || d.HasChange("key_type") {
+		t, err := expandSystemNtpNtpserverKeyType(d, v, "key_type")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["key-type"] = t
 		}
 	}
 

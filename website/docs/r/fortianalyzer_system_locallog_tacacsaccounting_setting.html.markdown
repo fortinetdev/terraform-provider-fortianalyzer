@@ -9,6 +9,24 @@ description: |-
 # fortianalyzer_system_locallog_tacacsaccounting_setting
 System LocallogTacacs+AccountingSetting
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_admin_tacacs" "accounting" {
+  name        = "tacacs_accounting"
+  server      = "192.0.2.10"
+  port        = 49
+  authen_type = "auto"
+  key         = ["your_key_value"]
+}
+
+resource "fortianalyzer_system_locallog_tacacsaccounting_setting" "test" {
+  status      = "enable"
+  tacacs_name = fortianalyzer_system_admin_tacacs.accounting.name
+  timeout     = 10
+}
+```
+
 ## Argument Reference
 
 

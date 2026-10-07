@@ -9,6 +9,15 @@ description: |-
 # fortianalyzer_fmupdate_serveroverridestatus
 Configure strict/loose server override.
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_fmupdate_serveroverridestatus" "test" {
+  mode = "loose"
+}
+```
+
 ## Argument Reference
 
 

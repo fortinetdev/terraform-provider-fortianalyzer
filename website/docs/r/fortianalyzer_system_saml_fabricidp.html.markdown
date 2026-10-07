@@ -9,6 +9,19 @@ description: |-
 # fortianalyzer_system_saml_fabricidp
 Authorized identity providers.
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_system_saml_fabricidp" "test" {
+  dev_id                 = 2
+  idp_cert               = "Fortinet_Local2"
+  idp_entity_id          = "http://192.0.2.7/saml-idp/example/metadata/"
+  idp_single_logout_url  = "https://192.0.2.7/saml-idp/example/logout/"
+  idp_single_sign_on_url = "https://192.0.2.7/saml-idp/example/login/"
+}
+```
+
 ## Argument Reference
 
 

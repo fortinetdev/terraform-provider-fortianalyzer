@@ -9,6 +9,19 @@ description: |-
 # fortianalyzer_system_certificate_ca
 CA certificate.
 
+## Example Usage
+
+```hcl
+# Supply your own PEM-encoded certificate at the referenced path.
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_system_certificate_ca" "trname" {
+
+  comment = "Default CA certificate"
+  name    = "testca"
+  ca      = [file("${path.module}/example-ca.pem")]
+}
+```
+
 ## Argument Reference
 
 

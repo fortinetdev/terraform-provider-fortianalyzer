@@ -9,6 +9,15 @@ description: |-
 # fortianalyzer_fmupdate_fgdsetting
 Fmupdate Fgd-Setting
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_fmupdate_fgdsetting" "fortianalyzer_fmupdate_fgdsetting" {
+  as_cache = 14
+}
+```
+
 ## Argument Reference
 
 
@@ -30,6 +39,7 @@ The following arguments are supported:
 
 * `av2_preload` - Av2-Preload. Valid values: `disable`, `enable`.
 
+* `delta_ratio` - Delta-Ratio.
 * `eventlog_query` - Eventlog-Query. Valid values: `disable`, `enable`.
 
 * `fgd_pull_interval` - Fgd-Pull-Interval.

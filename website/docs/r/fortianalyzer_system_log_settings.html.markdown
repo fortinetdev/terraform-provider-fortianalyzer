@@ -36,6 +36,7 @@ The following arguments are supported:
 * `fdd_custom_field1` - Name of custom log field to index.
 * `ffw_custom_field1` - Ffw-Custom-Field1.
 * `fgt_custom_field1` - Name of custom log field to index.
+* `fhm_custom_field1` - Name of custom log field to index.
 * `fmg_custom_field1` - Name of custom log field to index.
 * `fml_custom_field1` - Name of custom log field to index.
 * `fpx_custom_field1` - Name of custom log field to index.

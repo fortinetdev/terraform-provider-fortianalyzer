@@ -9,6 +9,20 @@ description: |-
 # fortianalyzer_system_sql_customindex
 List of SQL index fields.
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+# conflict with sql
+resource "fortianalyzer_system_sql_customindex" "test" {
+  case_sensitive = "enable"
+  device_type    = "FortiGate"
+  fosid          = 3
+  index_field    = "trandisp"
+  log_type       = "traffic"
+}
+```
+
 ## Argument Reference
 
 

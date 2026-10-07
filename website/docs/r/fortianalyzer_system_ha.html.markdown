@@ -23,6 +23,7 @@ resource "fortianalyzer_system_ha" "trname" {
 The following arguments are supported:
 
 
+* `addr_public` - Addr-Public.
 * `cfg_sync_hb_interval` - Config sync heartbeat interval (1 - 80).
 * `group_id` - HA group ID (1 - 255).
 * `group_name` - HA group name.

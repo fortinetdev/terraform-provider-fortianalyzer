@@ -94,6 +94,11 @@ func resourceSystemLocallogSyslogdFilter() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"fazfabric": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"fazha": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -134,6 +139,11 @@ func resourceSystemLocallogSyslogdFilter() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"fortism": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"fortiview": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -150,6 +160,11 @@ func resourceSystemLocallogSyslogdFilter() *schema.Resource {
 				Computed: true,
 			},
 			"hcache": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
+			"http": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
@@ -368,6 +383,10 @@ func flattenSystemLocallogSyslogdFilterFaz(v interface{}, d *schema.ResourceData
 	return v
 }
 
+func flattenSystemLocallogSyslogdFilterFazfabric(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemLocallogSyslogdFilterFazha(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -400,6 +419,10 @@ func flattenSystemLocallogSyslogdFilterFmwmgr(v interface{}, d *schema.ResourceD
 	return v
 }
 
+func flattenSystemLocallogSyslogdFilterFortism(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemLocallogSyslogdFilterFortiview(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -413,6 +436,10 @@ func flattenSystemLocallogSyslogdFilterHa(v interface{}, d *schema.ResourceData,
 }
 
 func flattenSystemLocallogSyslogdFilterHcache(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemLocallogSyslogdFilterHttp(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -621,6 +648,16 @@ func refreshObjectSystemLocallogSyslogdFilter(d *schema.ResourceData, o map[stri
 		}
 	}
 
+	if err = d.Set("fazfabric", flattenSystemLocallogSyslogdFilterFazfabric(o["fazfabric"], d, "fazfabric")); err != nil {
+		if vv, ok := fortiAPIPatch(o["fazfabric"], "SystemLocallogSyslogdFilter-Fazfabric"); ok {
+			if err = d.Set("fazfabric", vv); err != nil {
+				return fmt.Errorf("Error reading fazfabric: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading fazfabric: %v", err)
+		}
+	}
+
 	if err = d.Set("fazha", flattenSystemLocallogSyslogdFilterFazha(o["fazha"], d, "fazha")); err != nil {
 		if vv, ok := fortiAPIPatch(o["fazha"], "SystemLocallogSyslogdFilter-Fazha"); ok {
 			if err = d.Set("fazha", vv); err != nil {
@@ -701,6 +738,16 @@ func refreshObjectSystemLocallogSyslogdFilter(d *schema.ResourceData, o map[stri
 		}
 	}
 
+	if err = d.Set("fortism", flattenSystemLocallogSyslogdFilterFortism(o["fortism"], d, "fortism")); err != nil {
+		if vv, ok := fortiAPIPatch(o["fortism"], "SystemLocallogSyslogdFilter-Fortism"); ok {
+			if err = d.Set("fortism", vv); err != nil {
+				return fmt.Errorf("Error reading fortism: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading fortism: %v", err)
+		}
+	}
+
 	if err = d.Set("fortiview", flattenSystemLocallogSyslogdFilterFortiview(o["fortiview"], d, "fortiview")); err != nil {
 		if vv, ok := fortiAPIPatch(o["fortiview"], "SystemLocallogSyslogdFilter-Fortiview"); ok {
 			if err = d.Set("fortiview", vv); err != nil {
@@ -738,6 +785,16 @@ func refreshObjectSystemLocallogSyslogdFilter(d *schema.ResourceData, o map[stri
 			}
 		} else {
 			return fmt.Errorf("Error reading hcache: %v", err)
+		}
+	}
+
+	if err = d.Set("http", flattenSystemLocallogSyslogdFilterHttp(o["http"], d, "http")); err != nil {
+		if vv, ok := fortiAPIPatch(o["http"], "SystemLocallogSyslogdFilter-Http"); ok {
+			if err = d.Set("http", vv); err != nil {
+				return fmt.Errorf("Error reading http: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading http: %v", err)
 		}
 	}
 
@@ -982,6 +1039,10 @@ func expandSystemLocallogSyslogdFilterFaz(d *schema.ResourceData, v interface{},
 	return v, nil
 }
 
+func expandSystemLocallogSyslogdFilterFazfabric(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemLocallogSyslogdFilterFazha(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -1014,6 +1075,10 @@ func expandSystemLocallogSyslogdFilterFmwmgr(d *schema.ResourceData, v interface
 	return v, nil
 }
 
+func expandSystemLocallogSyslogdFilterFortism(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemLocallogSyslogdFilterFortiview(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -1027,6 +1092,10 @@ func expandSystemLocallogSyslogdFilterHa(d *schema.ResourceData, v interface{}, 
 }
 
 func expandSystemLocallogSyslogdFilterHcache(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemLocallogSyslogdFilterHttp(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -1222,6 +1291,15 @@ func getObjectSystemLocallogSyslogdFilter(d *schema.ResourceData) (*map[string]i
 		}
 	}
 
+	if v, ok := d.GetOk("fazfabric"); ok || d.HasChange("fazfabric") {
+		t, err := expandSystemLocallogSyslogdFilterFazfabric(d, v, "fazfabric")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["fazfabric"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("fazha"); ok || d.HasChange("fazha") {
 		t, err := expandSystemLocallogSyslogdFilterFazha(d, v, "fazha")
 		if err != nil {
@@ -1294,6 +1372,15 @@ func getObjectSystemLocallogSyslogdFilter(d *schema.ResourceData) (*map[string]i
 		}
 	}
 
+	if v, ok := d.GetOk("fortism"); ok || d.HasChange("fortism") {
+		t, err := expandSystemLocallogSyslogdFilterFortism(d, v, "fortism")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["fortism"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("fortiview"); ok || d.HasChange("fortiview") {
 		t, err := expandSystemLocallogSyslogdFilterFortiview(d, v, "fortiview")
 		if err != nil {
@@ -1327,6 +1414,15 @@ func getObjectSystemLocallogSyslogdFilter(d *schema.ResourceData) (*map[string]i
 			return &obj, err
 		} else if t != nil {
 			obj["hcache"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("http"); ok || d.HasChange("http") {
+		t, err := expandSystemLocallogSyslogdFilterHttp(d, v, "http")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["http"] = t
 		}
 	}
 

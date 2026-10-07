@@ -48,6 +48,7 @@ func resourceSystemRoute() *schema.Resource {
 				Type:     schema.TypeInt,
 				ForceNew: true,
 				Optional: true,
+				Computed: true,
 			},
 		},
 	}
@@ -64,10 +65,19 @@ func resourceSystemRouteCreate(d *schema.ResourceData, m interface{}) error {
 		return fmt.Errorf("Error creating SystemRoute resource while getting object: %v", err)
 	}
 
-	_, err = c.CreateSystemRoute(obj, adomv, nil)
+	v, err := c.CreateSystemRoute(obj, adomv, nil)
 
 	if err != nil {
 		return fmt.Errorf("Error creating SystemRoute resource: %v", err)
+	}
+
+	if v != nil && v["seq_num"] != nil {
+		if vidn, ok := v["seq_num"].(float64); ok {
+			d.SetId(strconv.Itoa(int(vidn)))
+			return resourceSystemRouteRead(d, m)
+		} else {
+			return fmt.Errorf("Error creating SystemRoute resource: %v", err)
+		}
 	}
 
 	d.SetId(strconv.Itoa(getIntKey(d, "seq_num")))

@@ -34,6 +34,11 @@ func resourceFmupdateFdsSetting() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"controller_contract_download": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"fds_clt_ssl_protocol": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -363,6 +368,10 @@ func resourceFmupdateFdsSettingRead(d *schema.ResourceData, m interface{}) error
 }
 
 func flattenFmupdateFdsSettingUserAgentFfa(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenFmupdateFdsSettingControllerContractDownloadFfa(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -757,6 +766,16 @@ func refreshObjectFmupdateFdsSetting(d *schema.ResourceData, o map[string]interf
 		}
 	}
 
+	if err = d.Set("controller_contract_download", flattenFmupdateFdsSettingControllerContractDownloadFfa(o["controller-contract-download"], d, "controller_contract_download")); err != nil {
+		if vv, ok := fortiAPIPatch(o["controller-contract-download"], "FmupdateFdsSetting-ControllerContractDownload"); ok {
+			if err = d.Set("controller_contract_download", vv); err != nil {
+				return fmt.Errorf("Error reading controller_contract_download: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading controller_contract_download: %v", err)
+		}
+	}
+
 	if err = d.Set("fds_clt_ssl_protocol", flattenFmupdateFdsSettingFdsCltSslProtocolFfa(o["fds-clt-ssl-protocol"], d, "fds_clt_ssl_protocol")); err != nil {
 		if vv, ok := fortiAPIPatch(o["fds-clt-ssl-protocol"], "FmupdateFdsSetting-FdsCltSslProtocol"); ok {
 			if err = d.Set("fds_clt_ssl_protocol", vv); err != nil {
@@ -1093,6 +1112,10 @@ func flattenFmupdateFdsSettingFortiTestDebug(d *schema.ResourceData, fosdebugsn 
 }
 
 func expandFmupdateFdsSettingUserAgentFfa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandFmupdateFdsSettingControllerContractDownloadFfa(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -1463,6 +1486,15 @@ func getObjectFmupdateFdsSetting(d *schema.ResourceData) (*map[string]interface{
 			return &obj, err
 		} else if t != nil {
 			obj["User-Agent"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("controller_contract_download"); ok || d.HasChange("controller_contract_download") {
+		t, err := expandFmupdateFdsSettingControllerContractDownloadFfa(d, v, "controller_contract_download")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["controller-contract-download"] = t
 		}
 	}
 

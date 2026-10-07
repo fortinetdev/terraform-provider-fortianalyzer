@@ -9,6 +9,17 @@ description: |-
 # fortianalyzer_dvmdb_adom
 ADOM table, most attributes are read-only and can only be changed internally.
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_dvmdb_adom" "test" {
+  name                    = "terraform"
+  os_ver                  = "7.0" # Target Major Version
+  mr                      = 6     # Target Minor Version
+  restricted_prds_unitary = "fos"
+}
+```
+
 ## Argument Reference
 
 
@@ -52,6 +63,7 @@ The following arguments are supported:
 * `state` - State.
 * `tz` - Tz.
 * `uuid` - Uuid.
+* `workflow_peradmin_install_others` - Workflow_Peradmin_Install_Others.
 * `workspace_mode` - Workspace_Mode.
 
 

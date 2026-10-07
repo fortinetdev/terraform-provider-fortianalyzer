@@ -9,6 +9,20 @@ description: |-
 # fortianalyzer_system_certificate_crl
 Certificate Revocation List.
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_system_certificate_crl" "test" {
+  comment = "test"
+  name    = "example-crl"
+  # crl = [""]
+
+  http_url        = "https://crl.example.com/example.crl"
+  update_interval = 10
+}
+```
+
 ## Argument Reference
 
 

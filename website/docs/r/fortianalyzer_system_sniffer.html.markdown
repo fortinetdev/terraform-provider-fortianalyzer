@@ -9,6 +9,17 @@ description: |-
 # fortianalyzer_system_sniffer
 Interface sniffer.
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_system_sniffer" "trname" {
+  host      = "192.0.2.5"
+  fosid     = 2
+  interface = "port3"
+}
+```
+
 ## Argument Reference
 
 

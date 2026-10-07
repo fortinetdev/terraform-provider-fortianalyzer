@@ -9,6 +9,18 @@ description: |-
 # fortianalyzer_system_webproxy
 Configure system web proxy.
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_system_webproxy" "trname" {
+  address  = "192.0.2.5"
+  mode     = "tunnel"
+  password = ["ExamplePassword123!"]
+  port     = 10
+}
+```
+
 ## Argument Reference
 
 

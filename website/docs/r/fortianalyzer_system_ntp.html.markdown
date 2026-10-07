@@ -9,6 +9,17 @@ description: |-
 # fortianalyzer_system_ntp
 NTP settings.
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_system_ntp" "test" {
+  status = "enable"
+  # sync_interval = 10
+
+}
+```
+
 ## Argument Reference
 
 
@@ -27,7 +38,11 @@ The `ntpserver` block supports:
 
 * `id` - Time server ID.
 * `key` - Key for authentication.
+* `key_fmt` - Key-Fmt. Valid values: `ascii`, `hex`.
+
 * `key_id` - Key ID for authentication.
+* `key_type` - Key-Type. Valid values: `md5`, `sha256`.
+
 * `maxpoll` - Maximum poll interval in seconds as power of 2 (e.g. 6 means 64 seconds).
 * `minpoll` - Minimum poll interval in seconds as power of 2 (e.g. 6 means 64 seconds).
 * `ntpv3` - Enable/disable NTPv3. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.

@@ -9,6 +9,19 @@ description: |-
 # fortianalyzer_system_saml_serviceproviders
 Authorized service providers.
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_system_saml_serviceproviders" "trname" {
+  name                  = "test3"
+  prefix                = "dsfasdf"
+  sp_entity_id          = "http://192.0.2.8/saml-sp/example/metadata/"
+  sp_single_logout_url  = "https://192.0.2.8/saml-sp/example/logout/"
+  sp_single_sign_on_url = "https://192.0.2.8/saml-sp/example/login/"
+}
+```
+
 ## Argument Reference
 
 

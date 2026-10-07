@@ -34,6 +34,23 @@ func resourceSystemCsfTrustedList() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"fazadom": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"adom_name": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+						},
+					},
+				},
+			},
+			"adom_access": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"authorization_type": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -64,6 +81,11 @@ func resourceSystemCsfTrustedList() *schema.Resource {
 			"serial": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
+			},
+			"dynamic_sort_subtable": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Default:  "false",
 			},
 		},
 	}
@@ -163,6 +185,47 @@ func flattenSystemCsfTrustedListActionSctl(v interface{}, d *schema.ResourceData
 	return v
 }
 
+func flattenSystemCsfTrustedListAdomSctl(v interface{}, d *schema.ResourceData, pre string) []map[string]interface{} {
+	if v == nil {
+		return nil
+	}
+
+	l := v.([]interface{})
+	if len(l) == 0 || l[0] == nil {
+		return nil
+	}
+
+	result := make([]map[string]interface{}, 0, len(l))
+
+	con := 0
+	for _, r := range l {
+		tmp := make(map[string]interface{})
+		i := r.(map[string]interface{})
+
+		pre_append := "" // table
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "adom_name"
+		if _, ok := i["adom-name"]; ok {
+			v := flattenSystemCsfTrustedListAdomAdomNameSctl(i["adom-name"], d, pre_append)
+			tmp["adom_name"] = fortiAPISubPartPatch(v, "SystemCsfTrustedList-Adom-AdomName")
+		}
+
+		result = append(result, tmp)
+
+		con += 1
+	}
+
+	return result
+}
+
+func flattenSystemCsfTrustedListAdomAdomNameSctl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemCsfTrustedListAdomAccessSctl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemCsfTrustedListAuthorizationTypeSctl(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -201,6 +264,40 @@ func refreshObjectSystemCsfTrustedList(d *schema.ResourceData, o map[string]inte
 			}
 		} else {
 			return fmt.Errorf("Error reading action: %v", err)
+		}
+	}
+
+	if isImportTable() {
+		if err = d.Set("fazadom", flattenSystemCsfTrustedListAdomSctl(o["adom"], d, "fazadom")); err != nil {
+			if vv, ok := fortiAPIPatch(o["adom"], "SystemCsfTrustedList-Adom"); ok {
+				if err = d.Set("fazadom", vv); err != nil {
+					return fmt.Errorf("Error reading fazadom: %v", err)
+				}
+			} else {
+				return fmt.Errorf("Error reading fazadom: %v", err)
+			}
+		}
+	} else {
+		if _, ok := d.GetOk("fazadom"); ok {
+			if err = d.Set("fazadom", flattenSystemCsfTrustedListAdomSctl(o["adom"], d, "fazadom")); err != nil {
+				if vv, ok := fortiAPIPatch(o["adom"], "SystemCsfTrustedList-Adom"); ok {
+					if err = d.Set("fazadom", vv); err != nil {
+						return fmt.Errorf("Error reading fazadom: %v", err)
+					}
+				} else {
+					return fmt.Errorf("Error reading fazadom: %v", err)
+				}
+			}
+		}
+	}
+
+	if err = d.Set("adom_access", flattenSystemCsfTrustedListAdomAccessSctl(o["adom-access"], d, "adom_access")); err != nil {
+		if vv, ok := fortiAPIPatch(o["adom-access"], "SystemCsfTrustedList-AdomAccess"); ok {
+			if err = d.Set("adom_access", vv); err != nil {
+				return fmt.Errorf("Error reading adom_access: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading adom_access: %v", err)
 		}
 	}
 
@@ -287,6 +384,41 @@ func expandSystemCsfTrustedListActionSctl(d *schema.ResourceData, v interface{},
 	return v, nil
 }
 
+func expandSystemCsfTrustedListAdomSctl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	l := v.([]interface{})
+	if len(l) == 0 || l[0] == nil {
+		return nil, nil
+	}
+
+	result := make([]map[string]interface{}, 0, len(l))
+
+	con := 0
+	for _, r := range l {
+		tmp := make(map[string]interface{})
+		i := r.(map[string]interface{})
+		pre_append := "" // table
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "adom_name"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["adom-name"], _ = expandSystemCsfTrustedListAdomAdomNameSctl(d, i["adom_name"], pre_append)
+		}
+
+		result = append(result, tmp)
+
+		con += 1
+	}
+
+	return result, nil
+}
+
+func expandSystemCsfTrustedListAdomAdomNameSctl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemCsfTrustedListAdomAccessSctl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemCsfTrustedListAuthorizationTypeSctl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -324,6 +456,24 @@ func getObjectSystemCsfTrustedList(d *schema.ResourceData) (*map[string]interfac
 			return &obj, err
 		} else if t != nil {
 			obj["action"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("fazadom"); ok || d.HasChange("fazadom") {
+		t, err := expandSystemCsfTrustedListAdomSctl(d, v, "fazadom")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["adom"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("adom_access"); ok || d.HasChange("adom_access") {
+		t, err := expandSystemCsfTrustedListAdomAccessSctl(d, v, "adom_access")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["adom-access"] = t
 		}
 	}
 

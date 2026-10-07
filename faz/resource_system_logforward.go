@@ -236,6 +236,11 @@ func resourceSystemLogForward() *schema.Resource {
 					},
 				},
 			},
+			"log_filter_action": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"log_filter_logic": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -746,6 +751,10 @@ func flattenSystemLogForwardLogFilterValue(v interface{}, d *schema.ResourceData
 	return v
 }
 
+func flattenSystemLogForwardLogFilterAction(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemLogForwardLogFilterLogic(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -1187,6 +1196,16 @@ func refreshObjectSystemLogForward(d *schema.ResourceData, o map[string]interfac
 					return fmt.Errorf("Error reading log_filter: %v", err)
 				}
 			}
+		}
+	}
+
+	if err = d.Set("log_filter_action", flattenSystemLogForwardLogFilterAction(o["log-filter-action"], d, "log_filter_action")); err != nil {
+		if vv, ok := fortiAPIPatch(o["log-filter-action"], "SystemLogForward-LogFilterAction"); ok {
+			if err = d.Set("log_filter_action", vv); err != nil {
+				return fmt.Errorf("Error reading log_filter_action: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading log_filter_action: %v", err)
 		}
 	}
 
@@ -1657,6 +1676,10 @@ func expandSystemLogForwardLogFilterValue(d *schema.ResourceData, v interface{},
 	return v, nil
 }
 
+func expandSystemLogForwardLogFilterAction(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemLogForwardLogFilterLogic(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -2030,6 +2053,15 @@ func getObjectSystemLogForward(d *schema.ResourceData) (*map[string]interface{},
 			return &obj, err
 		} else if t != nil {
 			obj["log-filter"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("log_filter_action"); ok || d.HasChange("log_filter_action") {
+		t, err := expandSystemLogForwardLogFilterAction(d, v, "log_filter_action")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["log-filter-action"] = t
 		}
 	}
 

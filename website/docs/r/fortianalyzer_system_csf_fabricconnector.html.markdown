@@ -9,6 +9,17 @@ description: |-
 # fortianalyzer_system_csf_fabricconnector
 Fabric connector configuration.
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_system_csf_fabricconnector" "trname" {
+  configuration_write_access = "enable"
+  serial                     = "FAZVM00000000001"
+
+}
+```
+
 ## Argument Reference
 
 

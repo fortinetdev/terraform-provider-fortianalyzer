@@ -9,6 +9,16 @@ description: |-
 # fortianalyzer_system_locallog_tacacsaccounting_filter
 System LocallogTacacs+AccountingFilter
 
+## Example Usage
+
+```hcl
+resource "fortianalyzer_system_locallog_tacacsaccounting_filter" "test" {
+  cli_cmd_audit       = "enable"
+  config_change_audit = "enable"
+  login_audit         = "enable"
+}
+```
+
 ## Argument Reference
 
 

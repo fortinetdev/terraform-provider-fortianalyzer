@@ -9,6 +9,18 @@ description: |-
 # fortianalyzer_system_log_devicedisable
 Disable client device logging.
 
+## Example Usage
+
+```hcl
+# Replace example credentials, serial numbers, and addresses with your own values.
+resource "fortianalyzer_system_log_devicedisable" "test" {
+  # ttl    = 20000
+  device = "test"
+  expire = "2025-06-24 15:07:39"
+  fosid  = 2
+}
+```
+
 ## Argument Reference
 
 

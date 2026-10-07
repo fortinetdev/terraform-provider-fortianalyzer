@@ -87,6 +87,7 @@ The following arguments are supported:
 * `policy_package` - Policy-Package. The structure of `policy_package` block is documented below.
 * `profileid` - Profile ID.
 * `radius_server` - RADIUS server name.
+* `remote_login_max` - Max login sessions per remote username (wildcard only).
 * `rpc_permit` - set none/read/read-write rpc-permission. read-write - Read-write permission. none - No permission. read - Read-only permission. Valid values: `read-write`, `none`, `read`.
 
 * `ssh_public_key1` - SSH public key 1.

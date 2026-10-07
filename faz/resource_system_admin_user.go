@@ -394,6 +394,11 @@ func resourceSystemAdminUser() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"remote_login_max": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
 			"rpc_permit": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -1251,6 +1256,10 @@ func flattenSystemAdminUserRadiusServer(v interface{}, d *schema.ResourceData, p
 	return v
 }
 
+func flattenSystemAdminUserRemoteLoginMax(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemAdminUserRpcPermit(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -1897,6 +1906,16 @@ func refreshObjectSystemAdminUser(d *schema.ResourceData, o map[string]interface
 			}
 		} else {
 			return fmt.Errorf("Error reading radius_server: %v", err)
+		}
+	}
+
+	if err = d.Set("remote_login_max", flattenSystemAdminUserRemoteLoginMax(o["remote-login-max"], d, "remote_login_max")); err != nil {
+		if vv, ok := fortiAPIPatch(o["remote-login-max"], "SystemAdminUser-RemoteLoginMax"); ok {
+			if err = d.Set("remote_login_max", vv); err != nil {
+				return fmt.Errorf("Error reading remote_login_max: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading remote_login_max: %v", err)
 		}
 	}
 
@@ -2715,6 +2734,10 @@ func expandSystemAdminUserRadiusServer(d *schema.ResourceData, v interface{}, pr
 	return v, nil
 }
 
+func expandSystemAdminUserRemoteLoginMax(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemAdminUserRpcPermit(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -3234,6 +3257,15 @@ func getObjectSystemAdminUser(d *schema.ResourceData) (*map[string]interface{}, 
 			return &obj, err
 		} else if t != nil {
 			obj["radius_server"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("remote_login_max"); ok || d.HasChange("remote_login_max") {
+		t, err := expandSystemAdminUserRemoteLoginMax(d, v, "remote_login_max")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["remote-login-max"] = t
 		}
 	}
 

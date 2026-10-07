@@ -45,6 +45,10 @@ The following arguments are supported:
 * `lacp_speed` - How often the interface sends LACP messages. slow - Send LACP message every 30 seconds. fast - Send LACP message every second. Valid values: `slow`, `fast`.
 
 * `link_up_delay` - Number of milliseconds to wait before considering a link is up.
+* `lldp_reception` - Lldp-Reception. Valid values: `disable`, `enable`.
+
+* `lldp_transmission` - Lldp-Transmission. Valid values: `disable`, `enable`.
+
 * `lldp` - Enable/disable LLDP (Link Layer Discovery Protocol). disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
 
 * `member` - Member. The structure of `member` block is documented below.

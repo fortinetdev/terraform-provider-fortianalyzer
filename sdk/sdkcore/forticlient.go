@@ -117,7 +117,6 @@ func (c *FortiSDKClient) loginSession() (session string, err error) {
 		return
 	}
 	body, err := ioutil.ReadAll(req.HTTPResponse.Body)
-	// log.Printf("FAZ reading login response: %s", string(body))
 	req.HTTPResponse.Body.Close()
 	if err != nil || body == nil {
 		err = fmt.Errorf("cannot get response body %v", err)
